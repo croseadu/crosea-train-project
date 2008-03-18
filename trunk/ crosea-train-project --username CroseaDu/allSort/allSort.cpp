@@ -1,7 +1,10 @@
 // allSort.cpp : Defines the entry point for the console application.
 //
-//	all sort algorithm for array,like insert sort,select sort,quick sort,shell sort,
-// heap sort
+//	all sort algorithm for array,like insert sort,select sort,quick sort,shell sort, heap sort
+//
+//	author:CroseaDu
+//
+//
 #include "stdafx.h"
 #include<stdio.h>
 #include<stdlib.h>
