@@ -14,7 +14,12 @@ typedef struct bitree{
 }BITREE,*LPBITREE;
 
 HRESULT buildTree(const char *,int *pIndex,LPBITREE * ppTreeNode);
-
+HRESULT preOrderTraverseTree(LPBITREE pRootNode);
+HRESULT preOrderTraverseTree(LPBITREE pRootNode);
+HRESULT preOrderTraverseTree(LPBITREE pRootNode);
+HRESULT preOrderTraverseTreeUseStack(LPBITREE pRootNode);
+HRESULT preOrderTraverseTreeUseStack(LPBITREE pRootNode);
+HRESULT preOrderTraverseTreeUseStack(LPBITREE pRootNode);
 
 int main(int argc, char* argv[])
 {
