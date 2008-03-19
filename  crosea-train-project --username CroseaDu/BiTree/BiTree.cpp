@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
 	scanf("%s",inputArray);
 
 	buildTree(inputArray, &index,&pTreeNode);
-
+	preOrderTraverseTree(pTreeNode);
 	return 0;
 }
 HRESULT buildTree(const char * inputArray,int *pIndex,LPBITREE * ppTreeNode)
