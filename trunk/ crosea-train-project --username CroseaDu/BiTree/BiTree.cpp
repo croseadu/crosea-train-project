@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-
+#include "my.h"
 #define S_OK 0
 #define S_FALSE 1
 #define HRESULT int
@@ -96,4 +96,15 @@ HRESULT postOrderTraverseTree(LPBITREE pRootNode)
 	return S_OK;
 }
 
+HRESULT preOrderTraverseTreeUseStack(LPBITREE pRootNode)
+{
 
+}
+HRESULT inOrderTraverseTreeUseStack(LPBITREE pRootNode)
+{
+
+}
+HRESULT postOrderTraverseTreeUseStack(LPBITREE pRootNode)
+{
+
+}
