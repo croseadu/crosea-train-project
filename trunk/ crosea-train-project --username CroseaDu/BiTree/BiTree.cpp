@@ -15,23 +15,32 @@ typedef struct bitree{
 
 HRESULT buildTree(const char *,int *pIndex,LPBITREE * ppTreeNode);
 HRESULT preOrderTraverseTree(LPBITREE pRootNode);
-HRESULT preOrderTraverseTree(LPBITREE pRootNode);
-HRESULT preOrderTraverseTree(LPBITREE pRootNode);
+HRESULT inOrderTraverseTree(LPBITREE pRootNode);
+HRESULT postOrderTraverseTree(LPBITREE pRootNode);
 HRESULT preOrderTraverseTreeUseStack(LPBITREE pRootNode);
-HRESULT preOrderTraverseTreeUseStack(LPBITREE pRootNode);
-HRESULT preOrderTraverseTreeUseStack(LPBITREE pRootNode);
+HRESULT inOrderTraverseTreeUseStack(LPBITREE pRootNode);
+HRESULT postOrderTraverseTreeUseStack(LPBITREE pRootNode);
 
 int main(int argc, char* argv[])
 {
-	char inputArray[100] = {0};
-	int index = 0;
+	char inputArray[100] = {0},c;
+	int index = 0,i = 0;
 	LPBITREE pTreeNode = NULL;
 
 	printf("input a tree in preorder string\n");
-	scanf("%s",inputArray);
-
+	c = getchar();
+	while(c!= '\n')
+	{
+		inputArray[i++] = c;
+		c =getchar();
+	}	
+	
 	buildTree(inputArray, &index,&pTreeNode);
 	preOrderTraverseTree(pTreeNode);
+	putchar('\n');
+	inOrderTraverseTree(pTreeNode);
+	putchar('\n');
+	postOrderTraverseTree(pTreeNode);
 	return 0;
 }
 HRESULT buildTree(const char * inputArray,int *pIndex,LPBITREE * ppTreeNode)
@@ -58,4 +67,33 @@ HRESULT buildTree(const char * inputArray,int *pIndex,LPBITREE * ppTreeNode)
 	return S_OK;
 	
 }
+HRESULT preOrderTraverseTree(LPBITREE pRootNode)
+{
+	if (!pRootNode)
+		return S_OK;
+	printf("%3c",pRootNode->data);
+	preOrderTraverseTree(pRootNode->pLeftChild);
+	preOrderTraverseTree(pRootNode->pRightChild);
+	return S_OK;
+}
+HRESULT inOrderTraverseTree(LPBITREE pRootNode)
+{
+	if (!pRootNode)
+		return S_OK;
+	inOrderTraverseTree(pRootNode->pLeftChild);
+	printf("%3c",pRootNode->data);
+	inOrderTraverseTree(pRootNode->pRightChild);
+	return S_OK;
+}
+HRESULT postOrderTraverseTree(LPBITREE pRootNode)
+{
+	if (!pRootNode)
+		return S_OK;
+
+	postOrderTraverseTree(pRootNode->pLeftChild);
+	postOrderTraverseTree(pRootNode->pRightChild);
+	printf("%3c",pRootNode->data);
+	return S_OK;
+}
+
 
