@@ -33,11 +33,11 @@ int main(int argc, char* argv[])
 	inOrderTraverseTree(pTreeNode);
 	putchar('\n');
 	postOrderTraverseTree(pTreeNode);
-
+	putchar('\n');
 	initDataStack(&pDataStack);
 	preOrderTraverseTreeUseStack(pTreeNode, pDataStack);
 	putchar('\n');
-
+	inOrderTraverseTreeUseStack(pTreeNode, pDataStack);
 	putchar('\n');
 	destroyDataStack(pDataStack);
 	return 0;
@@ -113,6 +113,24 @@ HRESULT preOrderTraverseTreeUseStack(LPBITREE pRootNode, LPDATASTACK pDataStack)
 }
 HRESULT inOrderTraverseTreeUseStack(LPBITREE pRootNode, LPDATASTACK pDataStack)
 {
+	LPBITREE pTempNode = NULL;
+	while(pRootNode || !isDataStackEmpty(pDataStack))
+	{
+		if (pRootNode)
+		{
+			pushDataStack(pDataStack, pRootNode);
+			pRootNode = pRootNode->pLeftChild;	
+		}
+		else
+		{
+			popDataStack(pDataStack, &pRootNode);
+			printf("%3c",pRootNode->data);
+			pRootNode = pRootNode->pRightChild;	
+		}
+	}
+	
+	
+	
 	return S_OK;
 }
 HRESULT postOrderTraverseTreeUseStack(LPBITREE pRootNode, LPDATASTACK pDataStack)
@@ -123,24 +141,18 @@ HRESULT postOrderTraverseTreeUseStack(LPBITREE pRootNode, LPDATASTACK pDataStack
 	{
 		if (pTempNode)
 		{
-			if (!pTempNode->pLeftChild && !pTempNode->pRightChild)
+			if (!pTempNode->pLeftChild && !pTempRightChild)
 			{
-				printf("%3c",pTempNode->data);		
-				pTempNode = NULL;
+				printf("%3c",pRootNode->data);			
 			}
-			else if (pTempNode->pLeftChild && pTempNode->pRightChild)
+			else if (!pTempNode->pRightChild)
 			{
-				pushDataStack(pDataStack,pTempNode->pRightChild);
-				pTempNode = pTempNode->pLeftChild;
+	
 			}
-			else if (pTempNode->pLeftChild)
-				TempNode = pTempNode->pLeftChild;
 			else
-				TempNode = pTempNode->pRightChild;
-		}
-		else
-		{
+			{
 			
+			}
 		}
 
 	}
