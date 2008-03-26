@@ -6,20 +6,20 @@
 --------------------Configuration: BiTree - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "D:\DOCUME~1\duyuehai\LOCALS~1\Temp\RSP55.tmp" with contents
+Creating temporary file "D:\DOCUME~1\duyuehai\LOCALS~1\Temp\RSP3E.tmp" with contents
 [
 /nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/BiTree.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
 "G:\codebase\BiTree\BiTree.cpp"
 ]
-Creating command line "cl.exe @D:\DOCUME~1\duyuehai\LOCALS~1\Temp\RSP55.tmp" 
-Creating temporary file "D:\DOCUME~1\duyuehai\LOCALS~1\Temp\RSP56.tmp" with contents
+Creating command line "cl.exe @D:\DOCUME~1\duyuehai\LOCALS~1\Temp\RSP3E.tmp" 
+Creating temporary file "D:\DOCUME~1\duyuehai\LOCALS~1\Temp\RSP3F.tmp" with contents
 [
 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/BiTree.pdb" /debug /machine:I386 /out:"Debug/BiTree.exe" /pdbtype:sept 
 .\Debug\BiTree.obj
 .\Debug\stack.obj
 .\Debug\StdAfx.obj
 ]
-Creating command line "link.exe @D:\DOCUME~1\duyuehai\LOCALS~1\Temp\RSP56.tmp"
+Creating command line "link.exe @D:\DOCUME~1\duyuehai\LOCALS~1\Temp\RSP3F.tmp"
 <h3>Output Window</h3>
 Compiling...
 BiTree.cpp

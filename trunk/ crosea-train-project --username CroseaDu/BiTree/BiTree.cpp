@@ -38,7 +38,9 @@ int main(int argc, char* argv[])
 	preOrderTraverseTreeUseStack(pTreeNode, pDataStack);
 	putchar('\n');
 	inOrderTraverseTreeUseStack(pTreeNode, pDataStack);
-	putchar('\n');
+	printf("\nPostOrder\n");
+
+	postOrderTraverseTreeUseStack(pTreeNode,pDataStack);
 	destroyDataStack(pDataStack);
 	return 0;
 }
@@ -135,26 +137,58 @@ HRESULT inOrderTraverseTreeUseStack(LPBITREE pRootNode, LPDATASTACK pDataStack)
 }
 HRESULT postOrderTraverseTreeUseStack(LPBITREE pRootNode, LPDATASTACK pDataStack)
 {
-	LPBITREE pTempNode = NULL;
-	pTempNode = pRootNode;
-	while(pTempNode || !isDataStackEmpty(pDataStack))
+	LPPOST_NODE_INFO pTempNodeInfo = NULL;
+	LPBITREE pTempNode;
+	pTempNodeInfo = (LPPOST_NODE_INFO)malloc(sizeof(POST_NODE_INFO));
+	pTempNodeInfo->pNode = pRootNode;
+	pTempNodeInfo->bIsLeftVisited = pRootNode->pLeftChild == NULL;
+	pTempNodeInfo->bIsRightVisited = pRootNode->pRightChild == NULL;
+
+
+	while(pTempNodeInfo || !isDataStackEmpty(pDataStack))
 	{
-		if (pTempNode)
+		if (pTempNodeInfo)
 		{
-			if (!pTempNode->pLeftChild && !pTempRightChild)
+			if (pTempNodeInfo->bIsLeftVisited && pTempNodeInfo->bIsRightVisited)
 			{
-				printf("%3c",pRootNode->data);			
+				printf("%3c",pTempNodeInfo->pNode->data);
 			}
-			else if (!pTempNode->pRightChild)
+			else if (pTempNodeInfo->bIsLeftVisited)
 			{
-	
+				pushDataStack(pDataStack, (LPBITREE)pTempNodeInfo);	
+				pTempNodeInfo = (LPPOST_NODE_INFO)malloc(sizeof(POST_NODE_INFO));
+				pTempNodeInfo->pNode = pTempNodeInfo->pNode->pRightChild;
+				pTempNodeInfo->bIsLeftVisited = pTempNodeInfo->pNode->pLeftChild == NULL;
+				pTempNodeInfo->bIsRightVisited = pTempNodeInfo->pNode->pRightChild == NULL;
+			}
+			else if (!pTempNodeInfo->bIsRightVisited)
+			{
+				pushDataStack(pDataStack, (LPBITREE)pTempNodeInfo);	
+				pTempNodeInfo = (LPPOST_NODE_INFO)malloc(sizeof(POST_NODE_INFO));
+				pTempNodeInfo->pNode = pTempNodeInfo->pNode->pRightChild;
+				pTempNodeInfo->bIsLeftVisited = pTempNodeInfo->pNode->pLeftChild == NULL;
+				pTempNodeInfo->bIsRightVisited = pTempNodeInfo->pNode->pRightChild == NULL;
 			}
 			else
 			{
-			
+				pushDataStack(pDataStack, (LPBITREE)pTempNodeInfo);	
+				pTempNodeInfo = (LPPOST_NODE_INFO)malloc(sizeof(POST_NODE_INFO));
+				pTempNodeInfo->pNode = pTempNodeInfo->pNode->pRightChild;
+				pTempNodeInfo->bIsLeftVisited = pTempNodeInfo->pNode->pLeftChild == NULL;
+				pTempNodeInfo->bIsRightVisited = pTempNodeInfo->pNode->pRightChild == NULL;
+				pushDataStack(pDataStack, (LPBITREE)pTempNodeInfo);	
+				pTempNodeInfo = (LPPOST_NODE_INFO)malloc(sizeof(POST_NODE_INFO));
+				pTempNodeInfo->pNode = pTempNodeInfo->pNode->pRightChild;
+				pTempNodeInfo->bIsLeftVisited = pTempNodeInfo->pNode->pLeftChild == NULL;
+				pTempNodeInfo->bIsRightVisited = pTempNodeInfo->pNode->pRightChild == NULL;
 			}
 		}
-
+		else
+		{
+			
+			popDataStack(pDataStack,&pTempNode);
+			pTempNodeInfo = (LPPOST_NODE_INFO)pTempNode;
+		}
 	}
 	
 	return S_OK;
