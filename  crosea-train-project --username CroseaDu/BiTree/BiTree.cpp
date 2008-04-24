@@ -12,6 +12,8 @@ HRESULT preOrderTraverseTreeUseStack(LPBITREE pRootNode, LPDATASTACK pDataStack)
 HRESULT inOrderTraverseTreeUseStack(LPBITREE pRootNode, LPDATASTACK pDataStack);
 HRESULT postOrderTraverseTreeUseStack(LPBITREE pRootNode, LPDATASTACK pDataStack);
 
+
+
 int main(int argc, char* argv[])
 {
 	char inputArray[100] = {0},c;
