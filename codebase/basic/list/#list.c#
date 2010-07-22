@@ -7,8 +7,7 @@ int main()
 	STATUS status;
 	int data;
 	int curIndex, maxElements;
-	char *inputBuffer, c;
-	SINGLE_LIST *pListHead;
+	char *inputBuffer;
 
 	inputBuffer = (char *)malloc(sizeof(char) * INIT_BUFFER_SIZE);
 	if (NULL == inputBuffer)
@@ -38,25 +37,25 @@ int main()
 	}
 	inputBuffer[curIndex] = '\0';
 	
-	initList(&pListHead);	
+	initList(&list);	
 
 	curIndex = 0;
-	while ((status = getNextNumber(inputBuffer, &curIndex, &data)) == OK)
+	while ((status = getNextNumber(inputBuffer, &curIndex, &data)) == Ok)
 	{
-		insertToListTail(pListHead,data);
+		insertToList(data, list);
 	}
-	free(inputBuffer);
 
 	if (status == ERROR)
 	{
 		Print("error in input \n");
+		free(inputBuffer);
 		exit(-1);
 	}
 	
 	Print("Input List is :");
-	printList(pListHead);	
+	printList(list);	
 
-
+	free(inputBuffer);
 	
 	return 0;
 }

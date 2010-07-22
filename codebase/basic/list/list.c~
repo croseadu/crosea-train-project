@@ -41,7 +41,7 @@ int main()
 	initList(&pListHead);	
 
 	curIndex = 0;
-	while ((status = getNextNumber(inputBuffer, &curIndex, &data)) == OK)
+	while ((status = getNextNumber(inputBuffer, &curIndex, &data)) == Ok)
 	{
 		insertToListTail(pListHead,data);
 	}
