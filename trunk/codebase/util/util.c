@@ -1,5 +1,6 @@
 
-
+#include "../include/my.h"
+#include "../include/util.h"
 
 
 
@@ -25,9 +26,13 @@ STATUS getNextNumber(const char *inputBuffer, int *pCurIndex, int *pData)
 				index++;
 				break;
 			case '\n':
-			case '\0';
+			case '\0':
+				*pCurIndex = index;
 				if (bGetData)
+				{
+					*pData = data;
 					return OK;
+				}
 				else
 					return END;
 			case '0':
@@ -50,10 +55,12 @@ STATUS getNextNumber(const char *inputBuffer, int *pCurIndex, int *pData)
 				{
 					data *= 10;
 					data += inputBuffer[index++] - '0';	
-				}while(isdigit(inputBuffer[index));
+				}while(isdigit(inputBuffer[index]));
+
 				bGetData = TRUE;
 				break;
 			default:
+				*pCurIndex = index;
 				return ERROR;
 			
 		}

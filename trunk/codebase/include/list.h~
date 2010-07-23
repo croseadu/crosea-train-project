@@ -1,1 +1,13 @@
-typedef
+typedef struct _SingleList
+{
+	int data;
+	struct _SingleList *pNextNode;
+}SINGLE_LIST, *LP_SINGLE_LIST;
+
+
+STATUS initList(LP_SINGLE_LIST *);
+void destoryList(LP_SINGLE_LIST);
+STATUS insertToListHead(LP_SINGLE_LIST, int);
+STATUS insertToListTail(LP_SINGLE_LIST, int);
+void printList(const SINGLE_LIST *);
+

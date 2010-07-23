@@ -13,7 +13,7 @@
 #define FALSE 0
 
 
-#ifdef DEBUG || _DEBUG
+#ifdef DEBUG
 	#define Print(arg) printf arg
 #else
 	#define Print(arg)
