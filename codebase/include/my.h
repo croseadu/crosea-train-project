@@ -20,6 +20,6 @@
 #endif 
 
 typedef int STATUS;
-
+typedef int BOOL;
 
 

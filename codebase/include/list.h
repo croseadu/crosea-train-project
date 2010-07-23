@@ -6,8 +6,8 @@ typedef struct _SingleList
 
 
 STATUS initList(LP_SINGLE_LIST *);
-STATUS destoryList(LP_SINGLE_LIST);
+void destoryList(LP_SINGLE_LIST);
 STATUS insertToListHead(LP_SINGLE_LIST, int);
 STATUS insertToListTail(LP_SINGLE_LIST, int);
-STATUS printList(const SINGLE_LIST *);
+void printList(const LP_SINGLE_LIST);
 
