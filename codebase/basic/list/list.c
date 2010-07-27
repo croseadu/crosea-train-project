@@ -57,6 +57,10 @@ int main()
 	printList(pListHead);	
 
 
+	bubbleSortList(pListHead);
+	Print(("After Sort:\n"));
+	printList(pListHead);	
+
 	destoryList(pListHead);
 	return 0;
 }
@@ -117,6 +121,63 @@ void destoryList(LP_SINGLE_LIST pListHead)
 		pIterNode = pNextNode;
 	}
 	
+}
+void bubbleSortList(LP_SINGLE_LIST pListHead)
+{
+	int temp;	
+	BOOL bChanged;
+	LP_SINGLE_LIST pIterEnd = NULL, pIterNode = NULL;
+	LP_SINGLE_LIST pStartNode = pListHead->pNextNode;	
+	
+	while (pStartNode->pNextNode != pIterEnd)
+	{
+		pIterNode = pStartNode;
+		bChanged = FALSE;
+		while (pIterNode->pNextNode != pIterEnd)
+		{
+			if (pIterNode->data > pIterNode->pNextNode->data)
+			{
+				temp = pIterNode->data;
+				pIterNode->data = pIterNode->pNextNode->data;
+				pIterNode->pNextNode->data = temp;
+				bChanged = TRUE;
+			}
+			pIterNode = pIterNode->pNextNode;
+		}
+		if (bChanged == TRUE)
+			break;
+		pIterEnd = pIterNode;
+	}
+}
+
+void insertSortList(LP_SINGLE_LIST pListHead)
+{
+
+	LP_SINGLE_LIST pStartNode = pListHead->pNextNode;
+	LP_SINGLE_LIST pIterNode = pStartNode->pNextNode;
+	LP_SINGLE_LIST pInsertNodePrev, pIterNodePrev, pNextNode;
+
+	while (pIterNode != NULL)
+	{
+		pInsertNodePrev = pListHead;
+		while (pInsertNodePrev->pNextNode != pIterNode)
+		{
+			if (pInsertNodePrev->pNextNode->data > pIterNode->data)
+				break;
+			pInsertNodePrev = pInsertNodePrev->pNextNode;
+		}			
+		
+		pNextNode = pIterNode->pNextNode;
+		if (pInsertNodePrev->pNextNode != pIterNode)
+		{
+			pIterNodePrev->pNextNode = pIterNode->pNextNode;
+			pIterNode->pNextNode = pInsertNodePrev->pNextNode;
+			pInsertNodePrev->pNextNode = pIterNode;			
+		}
+		
+		pIterNodePrev = pIterNodePrev->pNextNode;
+		pIterNode = pNextNode;
+	}
 }
 
 
