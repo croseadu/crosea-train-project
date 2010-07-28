@@ -53,11 +53,11 @@ int main()
 		exit(-1);
 	}
 	
-	Print(("Input List is :"));
+	Print(("Input List is :\n"));
 	printList(pListHead);	
 
 
-	bubbleSortList(pListHead);
+	insertSortList(pListHead);
 	Print(("After Sort:\n"));
 	printList(pListHead);	
 
@@ -152,32 +152,88 @@ void bubbleSortList(LP_SINGLE_LIST pListHead)
 
 void insertSortList(LP_SINGLE_LIST pListHead)
 {
+	LP_SINGLE_LIST pInsertNode, pLastNode, pIterNode, pInsertNextNode;
 
-	LP_SINGLE_LIST pStartNode = pListHead->pNextNode;
-	LP_SINGLE_LIST pIterNode = pStartNode->pNextNode;
-	LP_SINGLE_LIST pInsertNodePrev, pIterNodePrev, pNextNode;
-
-	while (pIterNode != NULL)
+	if (NULL == pListHead->pNextNode || NULL == pListHead->pNextNode->pNextNode)
 	{
-		pInsertNodePrev = pListHead;
-		while (pInsertNodePrev->pNextNode != pIterNode)
-		{
-			if (pInsertNodePrev->pNextNode->data > pIterNode->data)
-				break;
-			pInsertNodePrev = pInsertNodePrev->pNextNode;
-		}			
-		
-		pNextNode = pIterNode->pNextNode;
-		if (pInsertNodePrev->pNextNode != pIterNode)
-		{
-			pIterNodePrev->pNextNode = pIterNode->pNextNode;
-			pIterNode->pNextNode = pInsertNodePrev->pNextNode;
-			pInsertNodePrev->pNextNode = pIterNode;			
-		}
-		
-		pIterNodePrev = pIterNodePrev->pNextNode;
-		pIterNode = pNextNode;
+		return;
 	}
+
+	pInsertNode = pListHead->pNextNode->pNextNode;
+
+	pListHead->pNextNode->pNextNode = NULL;
+	pLastNode = pListHead->pNextNode;
+
+	while (pInsertNode)
+	{
+		pInsertNextNode = pInsertNode->pNextNode;
+		pInsertNode->pNextNode = NULL;
+
+		if (pLastNode->data > pInsertNode->data)
+		{
+			pIterNode = pListHead;		
+			while (pIterNode->pNextNode->data > pInsertNode->data)
+				pIterNode = pIterNode->pNextNode;
+			
+			pInsertNode->pNextNode = pIterNode->pNextNode;
+			pIterNode->pNextNode = pInsertNode;	
+		}
+		else
+		{
+			pLastNode->pNextNode = pInsertNode;
+			pLastNode = pInsertNode;
+		}
+		pInsertNode = pInsertNextNode;
+	}
+
+}
+
+LP_SINGLE_LIST selectMinimal(const LP_SINGLE_LIST pListHead)
+{
+	LP_SINGLE_LIST 	pPrevNode = NULL;
+	LP_SINGLE_LIST 	pIterNode = pListHead;
+	int		temp = pIterNode->data;	
+	
+	while (pIterNode->pNextNode)
+	{
+		if (pIterNode->pNextNode->data < temp)
+		{
+			temp = pIterNode->pNextNode->data;
+			pPrevNode = pIterNode;
+		}
+		pIterNode = pIterNode->pNextNode;
+	}
+
+	return pPrevNode;
+}
+
+void selectSortList(LP_SINGLE_LIST pListHead)
+{
+	LP_SINGLE_LIST pSelectList = pListHead->pNextNode;
+	LP_SINGLE_LIST pInsertPos, pSelectNodePrev;
+	
+	if (NULL == pSelectList || NULL == pSelectList->pNextNode)
+		return;
+
+	pInsertPos = pListHead;
+	
+	while (pSelectList)
+	{
+		pSelectNodePrev = selectMinimal(pSelectList);
+		
+		if (pSelectNodePrev == NULL)
+		{
+			pInsertPos->pNextNode = pSelectList;
+			pSelectList = pSelectList->pNextNode;
+		}
+		else
+		{
+			pInsertPos->pNextNode = pSelectNodePrev->pNextNode;	
+			pSelectNodePrev->pNextNode = pSelectNodePrev->pNextNode->pNextNode;
+		}
+		pInsertPos = pInsertPos->pNextNode;
+	}
+	pInsertPos->pNextNode = NULL;
 }
 
 
