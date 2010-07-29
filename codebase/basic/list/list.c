@@ -172,7 +172,7 @@ void insertSortList(LP_SINGLE_LIST pListHead)
 		if (pLastNode->data > pInsertNode->data)
 		{
 			pIterNode = pListHead;		
-			while (pIterNode->pNextNode->data > pInsertNode->data)
+			while (pIterNode->pNextNode->data <= pInsertNode->data)
 				pIterNode = pIterNode->pNextNode;
 			
 			pInsertNode->pNextNode = pIterNode->pNextNode;
@@ -236,6 +236,26 @@ void selectSortList(LP_SINGLE_LIST pListHead)
 	pInsertPos->pNextNode = NULL;
 }
 
+
+LP_SINGLE_LIST quickSort(LP_SINGLE_LIST pStartNode, LP_SINGLE_LIST pEndNode)
+{
+	LP_SINGLE_LIST pPartionNode;
+	LP_SINGLE_LIST pHead;
+	
+	if (pStartNode == NULL || pStartNode->pNextNode == pEndNode)
+		return pStartNode;
+	
+	pPartionNode = pivot(pStartNode, pEndNode);
+	pHead = quickSort(pStartNode->pNextNode, pEndNode);
+	pStartNode->pNextNode = pHead;
+
+	return quickSort(pPartionNode, pStartNode);
+}
+
+void quickSortList(LP_SINGLE_LIST pListHead)
+{	
+	pListHead->pNextNode = quickSort(pListHead->pNextNode, NULL);	
+}
 
 
 
