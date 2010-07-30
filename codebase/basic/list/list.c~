@@ -236,11 +236,15 @@ void selectSortList(LP_SINGLE_LIST pListHead)
 	pInsertPos->pNextNode = NULL;
 }
 
+
 LP_SINGLE_LIST quickSort(LP_SINGLE_LIST pStartNode, LP_SINGLE_LIST pEndNode)
 {
 	LP_SINGLE_LIST pPartionNode;
 	LP_SINGLE_LIST pHead;
-
+	
+	if (pStartNode == NULL || pStartNode->pNextNode == pEndNode)
+		return pStartNode;
+	
 	pPartionNode = pivot(pStartNode, pEndNode);
 	pHead = quickSort(pStartNode->pNextNode, pEndNode);
 	pStartNode->pNextNode = pHead;
