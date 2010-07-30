@@ -236,6 +236,20 @@ void selectSortList(LP_SINGLE_LIST pListHead)
 	pInsertPos->pNextNode = NULL;
 }
 
+LP_SINGLE_LIST pivot(LP_SINGLE_LIST pStartNode, LP_SINGLE_LIST pEndNode)
+{
+	LP_SINGLE_LIST pFirstNode, pLastNode;
+	LP_SINGLE_LIST pInsertNode, pNextInsertNode;
+
+	pFirstNode = pStartNode;
+	pLastNode = pStartNode;
+	pInsertNode = pStartNode->pNextNode;
+	
+
+	
+	
+	
+}
 
 LP_SINGLE_LIST quickSort(LP_SINGLE_LIST pStartNode, LP_SINGLE_LIST pEndNode)
 {
