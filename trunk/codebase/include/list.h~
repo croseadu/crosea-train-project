@@ -13,5 +13,6 @@ void bubbleSortList(LP_SINGLE_LIST);
 void insertSortList(LP_SINGLE_LIST);
 void selectSortList(LP_SINGLE_LIST);
 void quickSortList(LP_SINGLE_LIST);
+void revertList(LP_SINGLE_LIST);
 void printList(const LP_SINGLE_LIST);
 
