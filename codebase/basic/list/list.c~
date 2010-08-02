@@ -56,8 +56,12 @@ int main()
 	Print(("Input List is :\n"));
 	printList(pListHead);	
 
+	reverseList(pListHead);
+	Print((After reverse, List is :\n));
+	printList(pListHead);
 
-	insertSortList(pListHead);
+
+	quickSortList(pListHead);
 	Print(("After Sort:\n"));
 	printList(pListHead);	
 
@@ -236,13 +240,55 @@ void selectSortList(LP_SINGLE_LIST pListHead)
 	pInsertPos->pNextNode = NULL;
 }
 
+LP_SINGLE_LIST pivot(LP_SINGLE_LIST pStartNode, LP_SINGLE_LIST pEndNode)
+{
+	LP_SINGLE_LIST pFirstNode, pLastNode;
+	LP_SINGLE_LIST pInsertNode, pNextInsertNode;
+
+	Print(("\npivot start %d, end %d", (pStartNode != NULL)?pStartNode->data:-1, (pEndNode != NULL)?pEndNode->data:-1));
+
+	if (pStartNode == pEndNode || pStartNode->pNextNode == pEndNode)
+		return pStartNode;
+
+	pFirstNode = pStartNode;
+	pLastNode = pStartNode;
+	pInsertNode = pStartNode->pNextNode;
+	
+
+
+	while (pInsertNode != pEndNode)
+	{
+		pNextInsertNode = pInsertNode->pNextNode;
+		
+		if (pInsertNode->data < pStartNode->data)
+		{
+			pInsertNode->pNextNode = pFirstNode;
+			pFirstNode = pInsertNode;
+		}
+		else
+		{
+			pLastNode->pNextNode = pInsertNode;
+			pLastNode = pInsertNode;
+		}
+
+		pInsertNode = pNextInsertNode;
+
+	}
+	
+	pLastNode->pNextNode = pEndNode;
+	return pFirstNode;	
+	
+}
 
 LP_SINGLE_LIST quickSort(LP_SINGLE_LIST pStartNode, LP_SINGLE_LIST pEndNode)
 {
 	LP_SINGLE_LIST pPartionNode;
 	LP_SINGLE_LIST pHead;
+
+	Print(("\nquickSort start %d, end %d", (pStartNode != NULL)?pStartNode->data:-1, (pEndNode != NULL)?pEndNode->data:-1));
 	
-	if (pStartNode == NULL || pStartNode->pNextNode == pEndNode)
+	if (pStartNode == pEndNode ||
+	    pStartNode->pNextNode == pEndNode)
 		return pStartNode;
 	
 	pPartionNode = pivot(pStartNode, pEndNode);
@@ -255,6 +301,22 @@ LP_SINGLE_LIST quickSort(LP_SINGLE_LIST pStartNode, LP_SINGLE_LIST pEndNode)
 void quickSortList(LP_SINGLE_LIST pListHead)
 {	
 	pListHead->pNextNode = quickSort(pListHead->pNextNode, NULL);	
+}
+
+void reverseList(LP_SINGLE_LIST pListHead)
+{
+	LP_SINGLE_LIST pIterNode = pListHead->pNextNode;
+	LP_SINGLE_LIST pNextNode;
+
+	pListHead->pNextNode = NULL;
+
+	while (pIterNode)
+	{
+		pNextNode = pIterNode->pNextNode;
+		pIterNode->pNextNode = pListHead->pNextNode;
+		pListHead->pNextNode = pIterNode;
+		pIterNode = pNextNode;
+	}
 }
 
 
