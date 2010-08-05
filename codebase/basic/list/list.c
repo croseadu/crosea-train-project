@@ -43,6 +43,7 @@ int main()
 	curIndex = 0;
 	while ((status = getNextNumber(inputBuffer, &curIndex, &data)) == OK)
 	{
+		Print(("NextNumber is %d\n", data));
 		insertToListTail(pListHead,data);
 	}
 	free(inputBuffer);
