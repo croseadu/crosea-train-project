@@ -84,6 +84,7 @@ STATUS getNextOperOrOpnd(const char *inputBuffer, int *pCurIndex, TOKEN *pToken)
 			case '\t':
 				index++;
 				break;
+			case '\n':
 			case '\0':
 				return END;
 			case '+':
@@ -92,6 +93,7 @@ STATUS getNextOperOrOpnd(const char *inputBuffer, int *pCurIndex, TOKEN *pToken)
 			case '/':
 			case '(':
 			case ')':
+			case '#':
 				pToken->tokenType = OPERATOR;
 				pToken->tokenValue.operator = inputBuffer[index++];
 				*pCurIndex = index;
@@ -102,6 +104,7 @@ STATUS getNextOperOrOpnd(const char *inputBuffer, int *pCurIndex, TOKEN *pToken)
 
 				pToken->tokenType = OPEREND;
 				pToken->tokenValue.operand = 0;
+				index++;
 				*pCurIndex = index;		
 				return OK;
 			case '1':
