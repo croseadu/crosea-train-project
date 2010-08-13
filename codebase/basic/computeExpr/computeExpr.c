@@ -15,7 +15,7 @@
 // (
 // )
 // #
-int priorityTable[7][7]
+int priorityTable[7][7] =
 {
 {1,1,-1,-1,-1,1,1},
 {1,1,-1,-1,-1,1,1},
@@ -23,11 +23,11 @@ int priorityTable[7][7]
 {1,1,1,1,-1,1,1},
 {-1,-1,-1,-1,-1,0,2},
 {2,2,2,2,2,2,2},
-{-1,-1,-1,-1,-1-}
-}
+{-1,-1,-1,-1,-1,2,0}
+};
 
 int compute(const char operator, int op0, int op1);
-
+int priorityCompare(const char, const char);
 int main()
 {
 	char c, *inputBuffer;
@@ -45,6 +45,7 @@ int main()
 	}	
 	maxElements = INIT_BUFFER_SIZE;
 
+	printf("Input the expression\n");
 	c = getchar();
 	curIndex = 0;
 	while (c != '\n')
@@ -67,7 +68,7 @@ int main()
 	inputBuffer[curIndex] = '\0';
 
 	result = createStack(&pOperatorStack, sizeof(char));
-	if (result != ok)
+	if (result != OK)
 	{
 		Print(("Out of Memory when create Stack\n"));
 		free(inputBuffer);
@@ -75,7 +76,7 @@ int main()
 	}
 
 	result = createStack(&pOperandStack, sizeof(int));
-	if (result != ok)
+	if (result != OK)
 	{
 		Print(("Out of Memory when create Stack\n"));
 		free(inputBuffer);
@@ -88,19 +89,20 @@ int main()
 	
 	curIndex = 0;
 	getNextOperOrOpnd(inputBuffer, &curIndex, &curToken);
-	while(!isStackEmpty(pOperator))
+	while(!isStackEmpty(pOperatorStack))
 	{
 		if (curToken.tokenType == OPEREND)
 		{
-			push(pOperandStack, &curToken.operand);
+			push(pOperandStack, &curToken.tokenValue.operand);
+			getNextOperOrOpnd(inputBuffer, &curIndex, &curToken);
 		}
 		else
 		{
 			getTop(pOperatorStack, &curOperator);
-			switch(priorityCompare(curOperator, curToken.operator))
+			switch(priorityCompare(curOperator, curToken.tokenValue.operator))
 			{
 			case LESS:
-				push(pOperatorStack, &curToken.operator);
+				push(pOperatorStack, &curToken.tokenValue.operator);
 				getNextOperOrOpnd(inputBuffer, &curIndex, &curToken);
 				break;
 			case GREAT:
@@ -112,13 +114,13 @@ int main()
 						Print(("Error when compute expr\n"));
 						exit(-1);
 					}
-					pop(pOperandStack, &data1);
+					pop(pOperandStack, &data2);
 					if (isStackEmpty(pOperandStack))
 					{
 						Print(("Error when compute expr\n"));
 						exit(-1);
 					}
-					pop(pOperandStack, &data2);
+					pop(pOperandStack, &data1);
 					
 					data = compute(curOperator, data1, data2);
 					push(pOperandStack, &data);
@@ -140,16 +142,16 @@ int main()
 		}
 	}
 
-	getTop(pOperand, &data);
 	if (isStackEmpty(pOperandStack))
 	{
 		Print(("Error when compute expr\n"));
 		exit(-1);
 	}
+	getTop(pOperandStack, &data);
 
-	Print(("\nFinal Result = %d\n", data));
+	printf("\nFinal Result = %d\n", data);
 	
-	free(inputBuffer)
+	free(inputBuffer);
 	destoryStack(pOperatorStack);
 	destoryStack(pOperandStack);
 
@@ -177,5 +179,37 @@ int compute(const char operator, int op0, int op1)
 	}
 }
 
+unsigned int getOperatorIndex(const char op)
+{
+	switch(op)
+	{
+	case '+':
+		return 0;
+	case '-':
+		return 1;
+	case '*':
+		return 2;
+	case '/':
+		return 3;
+	case '(':
+		return 4;
+	case ')':
+		return 5;
+	case '#':
+		return 6;
+	default:
+		return 7;
+	
+	}
+}
 
+int priorityCompare(const char op0, const char op1)
+{
+	int index1, index2;
+	index1 = getOperatorIndex(op0);
+	index2 = getOperatorIndex(op1);
 
+	if (index1 > 6 || index2 > 6)
+		return 2;
+	return priorityTable[index1][index2];
+}
