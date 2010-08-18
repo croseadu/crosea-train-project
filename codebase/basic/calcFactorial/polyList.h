@@ -4,6 +4,7 @@ typedef struct _DoubleList
 	int factor;
 	unsigned int nIndex;
 	struct _DoubleList *pNextNode;
+	struct _DoubleList *pPrevNode;
 }DOUBLE_LIST, *LP_DOUBLE_LIST;
 
 
