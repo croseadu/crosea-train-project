@@ -6,6 +6,7 @@ int main()
 {
 	STATUS status;
 	DOUBLE_LIST *pResultList, *pMulList;
+	LP_DOUBLE_LIST pInsertNode;
 	int n;
 	int k;
 
@@ -15,25 +16,22 @@ int main()
 	if (n <= 0)
 	{
 		Print(("Input data is less than 1\n"));
-		
+		exit(-1);
 	}
 
 	initList(&pResultList);	
-
-	if (1)
-	{		
-		LP_DOUBLE_LIST pInsertNode = (LP_DOUBLE_LIST)malloc(sizeof(DOUBLE_LIST));
-		if (NULL == pInsertNode)
-		{
-			Print(("OutOfMemory when copyList"));
-			return -2;
-		}
-		pInsertNode->factor = 1;
-		pInsertNode->nIndex = 0;
-		pResultList->pNextNode = pInsertNode;
-		pInsertNode->pNextNode = pResultList;
+		
+	pInsertNode = (LP_DOUBLE_LIST)malloc(sizeof(DOUBLE_LIST));
+	if (NULL == pInsertNode)
+	{
+		Print(("OutOfMemory when copyList\n"));
+		return -2;
 	}
-	//insertToPolyList(pResultList, 1, 0);
+	pInsertNode->factor = 1;
+	pInsertNode->nIndex = 0;
+	pResultList->pNextNode = pInsertNode;
+	pInsertNode->pNextNode = pResultList;
+
 	k = 2;
 	initList(&pMulList);
 	while(k <= n)
@@ -41,7 +39,7 @@ int main()
 
 		if (setMulList(pMulList, k) != 0)
 		{
-			Print(("OutOfMemory when set mulList ,here k is %d", k));
+			Print(("OutOfMemory when set mulList ,here k is %d\n", k));
 			exit(-1);
 		}	
 		mulSelfList(pResultList, pMulList);
@@ -50,7 +48,7 @@ int main()
 		k++;
 	}
 
-	printf("\nx = 10, %d! = ", n);
+	printf("\n %d! = ", n);
 	printPolyList(pResultList);	
 
 	destoryList(pResultList);
@@ -69,24 +67,29 @@ STATUS initList(LP_DOUBLE_LIST *ppListHead)
 	
 	(*ppListHead)->nIndex = -1;
 	(*ppListHead)->pNextNode = *ppListHead;
+	(*ppListHead)->pPrevNode = *ppListHead;
 	return OK;
 }	
 
 void printPolyList(const LP_DOUBLE_LIST pListHead)
 {
-	LP_DOUBLE_LIST pIterNode = pListHead->pNextNode;
+	LP_DOUBLE_LIST pIterNode = pListHead->pPrevNode;
 	int curIndex = -1;
 
 	while(pIterNode != pListHead)
 	{
-		if (curIndex > 0 && curIndex + 1 != pIterNode->nIndex)
+		if (curIndex > 0 && curIndex - 1 > pIterNode->nIndex)
 		{
-			while (++curIndex < pIterNode->nIndex)
+			while (--curIndex > pIterNode->nIndex)
 				putchar('0');
 		}
 		curIndex = pIterNode->nIndex;
 		putchar(('0'+pIterNode->factor));
-		pIterNode = pIterNode->pNextNode;
+		pIterNode = pIterNode->pPrevNode;
+	}
+	while(curIndex--)
+	{
+		putchar('0');
 	}
 }
 
@@ -133,6 +136,7 @@ STATUS setMulList(LP_DOUBLE_LIST pListHead, unsigned int k)
 
 		pInsertNode->factor = temp;
 		pInsertNode->nIndex = index;
+		pInsertNode->pPrevNode = pInsertPos;
 		pInsertPos->pNextNode = pInsertNode;
 		pInsertPos = pInsertNode;		
 		index++;
@@ -140,6 +144,7 @@ STATUS setMulList(LP_DOUBLE_LIST pListHead, unsigned int k)
 	}
 
 	pInsertNode->pNextNode = pListHead;
+	pListHead->pPrevNode = pInsertNode;
 	return OK;
 }
 STATUS copyList(LP_DOUBLE_LIST pDst, LP_DOUBLE_LIST pSrc)
@@ -153,32 +158,83 @@ STATUS copyList(LP_DOUBLE_LIST pDst, LP_DOUBLE_LIST pSrc)
 		pInsertNode = (LP_DOUBLE_LIST)malloc(sizeof(DOUBLE_LIST));
 		if (NULL == pInsertNode)
 		{
-			Print(("OutOfMemory when copyList"));
+			Print(("OutOfMemory when copyList\n"));
 			return -2;
 		}
 		pInsertNode->factor = pIterNode->factor;
 		pInsertNode->nIndex = pIterNode->nIndex;
+		pInsertNode->pPrevNode = pInsertNodePrev;
 		pInsertNodePrev->pNextNode = pInsertNode;
 		pInsertNodePrev = pInsertNode;
 		pIterNode = pIterNode->pNextNode;
 	}
 	pInsertNodePrev->pNextNode = pDst;
+	pDst->pPrevNode = pInsertNodePrev;
 	return OK;
 
 }
 void mulOneNode(LP_DOUBLE_LIST pDst, LP_DOUBLE_LIST pSrc, LP_DOUBLE_LIST pNode)
 {
-	LP_DOUBLE_LIST pIterNode;
+	LP_DOUBLE_LIST pIterNode, pInsertNode, pInsertPos;
+	BOOL bHaveAcc = FALSE;
+	int accIndex = 0, accFactor = 0;
 	
-	copyList(pDst, pSrc);
-
 	if (pNode->factor)
 	{
-		pIterNode = pDst->pNextNode;
-		while (pIterNode != pDst)
+		pIterNode = pSrc->pNextNode;
+		while (pIterNode != pSrc)
 		{
-			pIterNode->factor *= pNode->factor;
-			pIterNode->nIndex += pNode->nIndex;
+
+			pInsertNode = (LP_DOUBLE_LIST)malloc(sizeof(DOUBLE_LIST));
+			if (NULL == pInsertNode)
+			{
+				Print(("OutOfMemory when mulOneNode\n"));
+				return -2;
+			}
+
+			pInsertNode->factor = pIterNode->factor*pNode->factor;
+			pInsertNode->nIndex = pIterNode->nIndex*pNode->nIndex;
+			
+			if (bHaveAcc)
+			{
+				LP_DOUBLE_LIST pInsertAccNode;
+				bHaveAcc = FALSE;
+				
+				if (accIndex == pInsertNode->nIndex)
+				{
+					pInsertNode->factor += accFactor;
+				}
+				else
+				{
+					pInsertAccNode = (LP_DOUBLE_LIST)malloc(sizeof(DOUBLE_LIST));
+					if (NULL == pInsertAccNode)
+					{
+						Print(("OutOfMemory when mulOneNode\n"));
+						return -2;
+					}
+					
+					pInsertAccNode->factor = accFactor;
+					pInsertAccNode->nIndex = accIndex;
+					insertNodeAfter(pInsertPos, pInsertAccNode);
+					pInsertPos = pInsertAccNode;
+				}
+			}	
+
+			if (pInsertNode->factor >= 10)
+			{
+				bHaveAcc = TRUE;
+				accIndex = pInsertNode->nIndex + 1;
+				accFactor = pInsertNode->factor/10;
+				pInsertNode->factor %= 10;
+			}		
+
+			if (pInsertNode->factor == 0)
+			{
+				free(pInsertNode);
+			}
+			insertNodeAfter(pInsertPos, pInsertNode);
+			pInsertPos = pInsertNode;
+
 			pIterNode = pIterNode->pNextNode;
 		}
 	}
@@ -201,6 +257,33 @@ STATUS addToList(LP_DOUBLE_LIST pResultList, LP_DOUBLE_LIST pAddSrcList)
 		if (pInsertPos->pNextNode != pResultList && pInsertPos->pNextNode->nIndex == pIterNode->nIndex)
 		{
 			pInsertPos->pNextNode->factor += pIterNode->factor;
+			if (pInsertPos->pNextNode->factor >= 10)
+			{
+				if (pInsertPos->pNextNode->pNextNode != pResultList &&
+				    pInsertPos->pNextNode->pNextNode->nIndex == pIterNode->nIndex + 1)
+				{
+					pInsertPos->pNextNode->pNextNode->factor += 1;
+				}
+				else
+				{
+					LP_DOUBLE_LIST pInsertAccNode = (LP_DOUBLE_LIST)malloc(sizeof(DOUBLE_LIST));
+					if (NULL == pInsertAccNode)
+					{
+						Print(("OutOfMemory in addToList\n"));
+						return -2;
+					}
+					pInsertAccNode->factor = 1;
+					pInsertAccNode->nIndex = pIterNode->nIndex+1;
+					insertNodeAfter(pInsertPos->pNextNode, pInsertAccNode);
+				}
+				pInsertPos->pNextNode->factor %= 10;
+
+				if (pInsertPos->pNextNode->factor == 0)
+				{
+					deleteNode(pInsertPos->pNextNode);	
+				}
+			}
+				
 			pInsertPos = pInsertPos->pNextNode;
 		}
 		else
@@ -213,9 +296,9 @@ STATUS addToList(LP_DOUBLE_LIST pResultList, LP_DOUBLE_LIST pAddSrcList)
 			}
 			pInsertNode->factor = pIterNode->factor;
 			pInsertNode->nIndex = pIterNode->nIndex;
-
-			pInsertNode->pNextNode = pInsertPos->pNextNode;
-			pInsertPos->pNextNode = pInsertNode;
+			insertNodeAfter(pInsertPos, pInsertNode);
+			pInsertPos = pInsertNode;
+			
 			pInsertPos = pInsertNode;
 		}
 
@@ -239,6 +322,7 @@ STATUS mulSelfList(LP_DOUBLE_LIST pResultList,LP_DOUBLE_LIST pMulSrcList)
 	{
 		mulOneNode(pTempResultList, pOriList, pIterNode);
 		addToList(pResultList, pTempResultList);
+		cleanList(pTempResultList);
 		pIterNode = pIterNode->pNextNode;
 	}
 
