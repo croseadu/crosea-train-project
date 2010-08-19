@@ -11,7 +11,7 @@ int main()
 	int k;
 
 	printf("Input a data which you want to calculate factorial\n");
-	scanf("%d", &n);
+	n = 10;//scanf("%d", &n);
 
 	if (n <= 0)
 	{
@@ -50,6 +50,7 @@ int main()
 
 	printf("\n %d! = ", n);
 	printPolyList(pResultList);	
+	putchar('\n');
 
 	destoryList(pResultList);
 	destoryList(pMulList);
@@ -87,7 +88,7 @@ void printPolyList(const LP_DOUBLE_LIST pListHead)
 		putchar(('0'+pIterNode->factor));
 		pIterNode = pIterNode->pPrevNode;
 	}
-	while(curIndex--)
+	while(curIndex > 0 && curIndex--)
 	{
 		putchar('0');
 	}
@@ -117,6 +118,31 @@ void destoryList(LP_DOUBLE_LIST pListHead)
 	free(pListHead);
 }
 
+void insertNodeAfter(LP_DOUBLE_LIST pInsertPos, LP_DOUBLE_LIST pInsertNode)
+{
+	pInsertNode->pNextNode = pInsertPos->pNextNode;
+	pInsertNode->pPrevNode = pInsertPos;
+	pInsertNode->pNextNode->pPrevNode = pInsertNode;
+	pInsertPos->pNextNode = pInsertNode;
+
+}
+void deleteNode(LP_DOUBLE_LIST pDeleteNode)
+{
+	LP_DOUBLE_LIST pPrevNode, pNextNode;
+
+	if (pDeleteNode->pNextNode == pDeleteNode)
+	{
+		Print(("Error when delete a node\n"));
+		exit(-1);
+	}
+
+	pPrevNode = pDeleteNode->pPrevNode;
+	pNextNode = pDeleteNode->pNextNode;
+	
+	free(pDeleteNode);
+	pPrevNode->pNextNode = pNextNode;
+	pNextNode->pPrevNode = pPrevNode;	
+}
 STATUS setMulList(LP_DOUBLE_LIST pListHead, unsigned int k)
 {
 	unsigned int temp, index = 0;
@@ -124,7 +150,7 @@ STATUS setMulList(LP_DOUBLE_LIST pListHead, unsigned int k)
 	LP_DOUBLE_LIST pInsertNode = NULL;
 	LP_DOUBLE_LIST pInsertPos = pListHead;
 	
-	while(k%10)
+	while(k)
 	{
 		temp = k%10;
 		pInsertNode = (LP_DOUBLE_LIST)malloc(sizeof(DOUBLE_LIST));
@@ -173,12 +199,13 @@ STATUS copyList(LP_DOUBLE_LIST pDst, LP_DOUBLE_LIST pSrc)
 	return OK;
 
 }
-void mulOneNode(LP_DOUBLE_LIST pDst, LP_DOUBLE_LIST pSrc, LP_DOUBLE_LIST pNode)
+STATUS mulOneNode(LP_DOUBLE_LIST pDst, LP_DOUBLE_LIST pSrc, LP_DOUBLE_LIST pNode)
 {
 	LP_DOUBLE_LIST pIterNode, pInsertNode, pInsertPos;
 	BOOL bHaveAcc = FALSE;
 	int accIndex = 0, accFactor = 0;
 	
+	pInsertPos = pDst;
 	if (pNode->factor)
 	{
 		pIterNode = pSrc->pNextNode;
@@ -193,7 +220,7 @@ void mulOneNode(LP_DOUBLE_LIST pDst, LP_DOUBLE_LIST pSrc, LP_DOUBLE_LIST pNode)
 			}
 
 			pInsertNode->factor = pIterNode->factor*pNode->factor;
-			pInsertNode->nIndex = pIterNode->nIndex*pNode->nIndex;
+			pInsertNode->nIndex = pIterNode->nIndex+pNode->nIndex;
 			
 			if (bHaveAcc)
 			{
@@ -232,12 +259,35 @@ void mulOneNode(LP_DOUBLE_LIST pDst, LP_DOUBLE_LIST pSrc, LP_DOUBLE_LIST pNode)
 			{
 				free(pInsertNode);
 			}
-			insertNodeAfter(pInsertPos, pInsertNode);
-			pInsertPos = pInsertNode;
+			else
+			{
+				insertNodeAfter(pInsertPos, pInsertNode);
+				pInsertPos = pInsertNode;
+			}
 
 			pIterNode = pIterNode->pNextNode;
 		}
+		
+		if (bHaveAcc)
+		{
+			LP_DOUBLE_LIST pInsertAccNode;
+			bHaveAcc = FALSE;
+				
+			pInsertAccNode = (LP_DOUBLE_LIST)malloc(sizeof(DOUBLE_LIST));
+			if (NULL == pInsertAccNode)
+			{
+				Print(("OutOfMemory when mulOneNode\n"));
+				return -2;
+			}
+					
+			pInsertAccNode->factor = accFactor;
+			pInsertAccNode->nIndex = accIndex;
+			insertNodeAfter(pInsertPos, pInsertAccNode);
+			pInsertPos = pInsertAccNode;
+		}
 	}
+
+	return OK;
 }
 
 STATUS addToList(LP_DOUBLE_LIST pResultList, LP_DOUBLE_LIST pAddSrcList)
