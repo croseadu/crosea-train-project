@@ -77,10 +77,104 @@ int main()
 
 void printArray(int array, int maxIndex)
 {
+	int i = 1, k = 0;
+	for (; i < maxIndex; i++)
+	{
+		printf("%5d%s", array[i],((++k)%5)?"":" ");
+	}
+	putchar('\n');
+}
 
-	for ()
+void bubbleSort(int *array, int arrayIndex)
+{
+	BOOL bChanged;
 
+	for (i = arrayIndex - 1; i > 1; i--)
+	{
+		bChanged = FALSE;
+		for (j = 1; j < i - 1; j++)
+		{
+			if (array[j] > array[j+1])
+			{
+				int temp;
+				temp = array[j];
+				array[j] = array[j+1];
+				array[j+1] = temp;
+				bChanged = TRUE;
+			}
+		}
+
+		if (bChanged == FALSE)
+			break;
+	}
+	
 
 }
+
+void insertSort(int *array, int arrayIndex)
+{
+	int i;
+	int temp;
+		
+	for (i = 2; i < arrayIndex; i++)
+	{
+		if (array[i] < array[i - 1])
+		{
+			temp = array[i];
+			array[0] = temp;
+
+			for (j = i - 1; array[j] <= temp; j--)
+			{
+				array[j+1] = array[j];
+			}
+			array[j+1] = temp;
+		}	
+	}
+}
+
+int selectMin(int array, int from, int end)
+{
+	int minIndex = from, iterIndex = from+1;
+	int minValue = array[from];
+
+	do
+	{
+		if (array[iterIndex] < minValue)
+		{
+			minIndex = iterIndex;
+			minValue = array[iterIndex];
+		}
+
+	}while (iterIndex++ < end);
+	
+	return minIndex;
+}
+
+void selectSort(int *array, int arrayIndex)
+{
+	int i = 1, k;
+	
+	for (; i < arrayIndex - 1; i++)
+	{
+		k = selectMin(array, i, arrayIndex - 1);
+
+		if (k != i)
+		{
+			int temp;
+			temp = array[i];
+			array[i] = array[k];
+			array[k] = temp;
+		}
+
+	}
+}
+
+
+
+
+
+
+
+
 
 
