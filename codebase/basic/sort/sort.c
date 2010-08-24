@@ -2,12 +2,18 @@
 #include "../../include/util.h"
 
 
+void printArray(int *array, int maxIndex);
+void bubbleSort(int *array, int arrayIndex);
+void insertSort(int *array, int arrayIndex);
+void selectSort(int *array, int arrayIndex);
+void quickSort(int *array, int arrayIndex);
 
 int main()
 {
 	int maxElements, curIndex, data;
 	int *array = NULL, arrayIndex, sizeOfArray;
 	char *inputBuffer, c;
+	STATUS status;
 
 	inputBuffer = (char *)malloc(sizeof(char) * INIT_BUFFER_SIZE);
 	if (NULL == inputBuffer)
@@ -53,7 +59,7 @@ int main()
 		if (arrayIndex >= sizeOfArray)
 		{
 			sizeOfArray += INCRE_BUFFER_SIZE;
-			array = (char *)realloc(array, sizeof(int) * sizeOfArray);
+			array = (int *)realloc(array, sizeof(int) * sizeOfArray);
 			if (array == NULL)
 			{
 				Print(("Out of Memory when enlarge array buffer"));
@@ -64,10 +70,13 @@ int main()
 	}
 	free(inputBuffer);
 
-	printf("Input Array is:")
+	printf("Input Array is:");
 	printArray(array, arrayIndex);
 	
-	bubbleSort(array, arrayIndex);
+	//bubbleSort(array, arrayIndex);
+        //insertSort(array, arrayIndex);
+	//selectSort(array, arrayIndex);
+	quickSort(array, arrayIndex);
 	printf("After Sort, Array is:");
 	printArray(array, arrayIndex);
 
@@ -75,7 +84,7 @@ int main()
 	return 0;
 }
 
-void printArray(int array, int maxIndex)
+void printArray(int *array, int maxIndex)
 {
 	int i = 1, k = 0;
 	for (; i < maxIndex; i++)
@@ -88,11 +97,12 @@ void printArray(int array, int maxIndex)
 void bubbleSort(int *array, int arrayIndex)
 {
 	BOOL bChanged;
+	int i, j;
 
 	for (i = arrayIndex - 1; i > 1; i--)
 	{
 		bChanged = FALSE;
-		for (j = 1; j < i - 1; j++)
+		for (j = 1; j < i; j++)
 		{
 			if (array[j] > array[j+1])
 			{
@@ -113,7 +123,7 @@ void bubbleSort(int *array, int arrayIndex)
 
 void insertSort(int *array, int arrayIndex)
 {
-	int i;
+	int i,j;
 	int temp;
 		
 	for (i = 2; i < arrayIndex; i++)
@@ -123,7 +133,7 @@ void insertSort(int *array, int arrayIndex)
 			temp = array[i];
 			array[0] = temp;
 
-			for (j = i - 1; array[j] <= temp; j--)
+			for (j = i - 1; array[j] > temp; j--)
 			{
 				array[j+1] = array[j];
 			}
@@ -132,7 +142,7 @@ void insertSort(int *array, int arrayIndex)
 	}
 }
 
-int selectMin(int array, int from, int end)
+int selectMin(int *array, int from, int end)
 {
 	int minIndex = from, iterIndex = from+1;
 	int minValue = array[from];
@@ -169,6 +179,41 @@ void selectSort(int *array, int arrayIndex)
 	}
 }
 
+int partition(int *array, int start, int end)
+{
+	int temp = array[start];
+	int from = start, to = end - 1;
+
+	while(from < to)
+	{
+		while (from < to && array[to] >= temp)
+			to--;
+		array[from] = array[to];
+		while (from < to && array[from] <= temp)
+			from++;
+		array[to] = array[from];
+	}
+
+	array[from] = temp;
+	return from;
+}
+void quick(int *array, int start, int end)
+{
+	int pivot;
+	
+	if (start+1 >= end)
+		return;
+
+
+	pivot = partition(array, start, end);
+	quick(array, start, pivot - 1);
+	quick(array, pivot+1, end);
+}
+void quickSort(int *array, int arrayIndex)
+{
+	quick(array, 1, arrayIndex);
+
+}
 
 
 
