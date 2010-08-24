@@ -7,6 +7,8 @@ void bubbleSort(int *array, int arrayIndex);
 void insertSort(int *array, int arrayIndex);
 void selectSort(int *array, int arrayIndex);
 void quickSort(int *array, int arrayIndex);
+void shellSort(int *array, int arrayIndex);
+void mergeSort(int *array, int arrayIndex);
 
 int main()
 {
@@ -74,9 +76,11 @@ int main()
 	printArray(array, arrayIndex);
 	
 	//bubbleSort(array, arrayIndex);
-        //insertSort(array, arrayIndex);
+    //insertSort(array, arrayIndex);
 	//selectSort(array, arrayIndex);
-	quickSort(array, arrayIndex);
+	//quickSort(array, arrayIndex);
+	//shellSort(array, arrayIndex);
+	mergeSort(array, arrayIndex);
 	printf("After Sort, Array is:");
 	printArray(array, arrayIndex);
 
@@ -206,7 +210,7 @@ void quick(int *array, int start, int end)
 
 
 	pivot = partition(array, start, end);
-	quick(array, start, pivot - 1);
+	quick(array, start, pivot);
 	quick(array, pivot+1, end);
 }
 void quickSort(int *array, int arrayIndex)
@@ -215,9 +219,90 @@ void quickSort(int *array, int arrayIndex)
 
 }
 
+void shellSort(int *array, int arrayIndex)
+{
 
+	static int delta[3]= {5,3,1};
+	int i,j,k,temp;
 
+	for (k = 0; k < 3; k++)
+	{
+	
+		for (i = 1+delta[k]; i < arrayIndex; i++)
+		{
+			if (array[i] < array[i - delta[k]])
+			{
+				temp = array[i];
 
+				for (j = i - delta[k]; j > 0 && array[j] > temp; j-= delta[k])
+					array[j+delta[k]] = array[j];
+
+				array[j+delta[k]] = temp;
+			}
+		
+		}
+		
+	}
+
+}
+
+void merge(int *src, int *dst, int start, int end)
+{
+	int middle = (start + end)/2;
+
+	int src0Index = start, src1Index = middle+1, dstIndex = start;
+	while (src0Index <=middle && src1Index <= end)
+	{
+		if (src[src0Index] < src[src1Index])
+		{
+			dst[dstIndex++] = src[src0Index++];
+		}
+		else
+		{
+			dst[dstIndex++] = src[src1Index++];
+		}
+	}
+
+	while(src0Index <= middle)
+	{
+		dst[dstIndex++] = src[src0Index++];
+	}
+
+	while(src1Index <= end)
+	{
+		dst[dstIndex++] = src[src1Index++];
+	}
+}
+void _mergeSort(int *src, int * dst, int start, int end)
+{
+	int middle;
+	int *buffer;
+	if (start >= end)
+	{
+		dst[start] = src[start];
+		return;
+	}
+	buffer = (int *)malloc((end+1)*sizeof(int));
+	if (NULL == buffer)
+	{
+		Print(("Out of memory when allocate temp buffer in mergeSort\n"));
+		exit(-1);
+	}
+	middle = (start + end)/2;
+	_mergeSort(src, buffer, start, middle);
+	_mergeSort(src, buffer,middle+1, end);
+	merge(buffer, dst, start, end);
+}
+
+void mergeSort(int *array, int arrayIndex)
+{
+	_mergeSort(array, array, 1, arrayIndex - 1);
+}
+
+void heapSort(int *array, int arrayIndex)
+{
+
+}
 
 
 
