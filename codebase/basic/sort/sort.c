@@ -9,6 +9,7 @@ void selectSort(int *array, int arrayIndex);
 void quickSort(int *array, int arrayIndex);
 void shellSort(int *array, int arrayIndex);
 void mergeSort(int *array, int arrayIndex);
+void heapSort(int *array, int arrayIndex);
 
 int main()
 {
@@ -76,11 +77,12 @@ int main()
 	printArray(array, arrayIndex);
 	
 	//bubbleSort(array, arrayIndex);
-    //insertSort(array, arrayIndex);
+    	//insertSort(array, arrayIndex);
 	//selectSort(array, arrayIndex);
 	//quickSort(array, arrayIndex);
 	//shellSort(array, arrayIndex);
-	mergeSort(array, arrayIndex);
+	//mergeSort(array, arrayIndex);
+	heapSort(array, arrayIndex);
 	printf("After Sort, Array is:");
 	printArray(array, arrayIndex);
 
@@ -299,8 +301,44 @@ void mergeSort(int *array, int arrayIndex)
 	_mergeSort(array, array, 1, arrayIndex - 1);
 }
 
+
+void heapAdjust(int *array, int start, int end)
+{
+	int i = start, j = 2*i, temp;
+	temp = array[i];
+	Print(("heap Adjust, %d\n", start));
+	for(;2*i <= end;)
+	{
+		j = 2 * i;
+		if (j+1 <= end && array[j+1] > array[j])
+			j++;
+		if (array[j] <= temp)
+			break;
+		array[i] = array[j];
+		i = j;
+	}
+
+	array[i] = temp;
+	
+	
+}
 void heapSort(int *array, int arrayIndex)
 {
+	int end = arrayIndex - 1, i, temp;
+
+	for (i = end/2; i > 0; i--)
+	{
+		heapAdjust(array, i, end);
+	}
+
+	for (i = end; i > 1; i--)
+	{
+		Print(("Select, %d\n", i));
+		temp = array[i];
+		array[i] = array[1];
+		array[1] = temp;
+		heapAdjust(array, 1 , i - 1);
+	}
 
 }
 
