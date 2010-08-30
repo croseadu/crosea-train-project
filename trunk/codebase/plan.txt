@@ -1,11 +1,11 @@
 2010/07/19-2010/09/19
 1:basic train
-	list			#[sequence, link-list]Create, Destory, traverse, insert, delete, sort, list merge, add muliple,guangyibiao
-	stack			#Create, Destory, push, pop, exchange data format, compute expression, bracket match
+	list			#[sequence, link-list]Create, Destory, traverse, insert, delete, sort, list merge, add muliple,guangyibiao [done]
+	stack			#Create, Destory, push, pop, exchange data format, compute expression, bracket match [done]
 	queue			#circular queue
 	tree			#Create, Traverse tree(recursive, use stack), binary-Tree, sorted tree, balance tree, sign tree
 	graph			#Depth traverse, width traverse
-	sort			#all Sort algorithm
+	sort			#all Sort algorithm	[done]
 
 
 2:
