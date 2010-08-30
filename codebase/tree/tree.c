@@ -1,6 +1,7 @@
 #include "../include/my.h"
 #include "../include/util.h"
 #include "../include/stack.h"
+#include "../include/queue.h"
 
 typedef struct _TREE_NODE
 {
@@ -32,7 +33,7 @@ void inOrderTraverse(LP_TREE_NODE pTreeNode, void (*pFn)(LP_TREE_NODE));
 
 void preOrderUseStack(LP_TREE_NODE pTreeNode, void (*pFn)(LP_TREE_NODE), LP_STACK pStack);
 void inOrderUseStack(LP_TREE_NODE pTreeNode, void (*pFn)(LP_TREE_NODE), LP_STACK pStack);
-
+void hierarchyTraverse(LP_TREE_NODE pRootNode,void (*pFn)(LP_TREE_NODE), LP_QUEUE pQueue);
 void buildTree(LP_TREE_NODE *ppTreeNode, char *inputBuffer, int *pIndex)
 {
 	LP_TREE_NODE pTempNode = NULL;
@@ -63,6 +64,7 @@ int main()
 {
 	LP_TREE_NODE pRootNode = NULL;
 	LP_STACK pStack = NULL;
+	LP_QUEUE pQueue = NULL;
 	int curIndex, maxElements;
 	char *inputBuffer, c;
 
@@ -114,6 +116,13 @@ int main()
 	destoryStack(pStack);
 	/******************************************/
 
+	/******************************************/
+	createQueue(&pQueue, sizeof(LP_TREE_NODE), curIndex);
+
+	printf("\nhierarchyTraverse :");
+	hierarchyTraverse(pRootNode, visit, pQueue);
+	destoryQueue(pQueue);
+	/******************************************/
 
 	// destory Tree
 	postOrderTraverse(pRootNode, destory);
@@ -190,7 +199,6 @@ void inOrderUseStack(LP_TREE_NODE pRootNode, void (*pFn)(LP_TREE_NODE), LP_STACK
 
 void postOrderUseStack(LP_TREE_NODE pRootNode, void (*pFn)(LP_TREE_NODE), LP_STACK pStack)
 {
-	LP_TREE_NODE pTreeNode;
 	LP_TREE_NODE pIterNode = NULL;
 
 	push(pStack, &pRootNode);
@@ -198,4 +206,23 @@ void postOrderUseStack(LP_TREE_NODE pRootNode, void (*pFn)(LP_TREE_NODE), LP_STA
 	{
 	}
 }
+
+void hierarchyTraverse(LP_TREE_NODE pRootNode,void (*pFn)(LP_TREE_NODE), LP_QUEUE pQueue)
+{
+	LP_TREE_NODE pIterNode;
+
+	insertToTail(pQueue,(char *) &pRootNode);
+
+	while(!isQueueEmpty(pQueue))
+	{
+		getFromHead(pQueue, &pIterNode);
+		pFn(pIterNode);
+		if (pIterNode->pLeftChild)
+			insertToTail(pQueue, (char *)&pIterNode->pLeftChild);
+		if (pIterNode->pRightChild)
+			insertToTail(pQueue, (char *)&pIterNode->pRightChild);
+	}
+}
+
+
 
