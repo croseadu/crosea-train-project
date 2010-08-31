@@ -20,40 +20,36 @@ typedef struct _EDGE
 
 int main()
 {
-	int fp;
+	FILE *fp;
 	char buf[1024];
 	char from, to;
 	int readCount;
 	int curIndex;
 	int offset = 0;
 
-	fp = open("temp", O_RDONLY);
+	if ((fp = fopen("temp", "rt")) == NULL)
+	{
+		Print(("Failed when open file\n"));
+		exit(-1);
+	}
 
 	if (fp < 0)
 		return -1;
-	while (1)
+	while (!feof(fp))
 	{
-		readCount = read(fp, buf+offset, 1023);
+		if(NULL == fgets(buf+offset, 100, fp))
+			break;
+		printf("\nInput is %s\n", buf);
 
-		if (readCount <= 0)
-			break;;
-	
-		buf[readCount] = '\n';
-		printf("\nInput is %s", buf);
-
-		curIndex = 0;
+		
 		while (buf[curIndex] == '\t' 
 			   || buf[curIndex] == ' ' 
-			   || curIndex < readCount)
+			   || buf[curIndex] != 0)
 			   curIndex++;
-
-
-		if (curIndex+4 >= readCount)
-		{
-			memcpy(buf, buf+curIndex, readCount - curIndex);
-			offset = readCount - curIndex;
+	
+		if (buf[curIndex] == 0)
 			continue;
-		}
+
 
 		if (buf[curIndex] != '('
 			|| !isalpha(buf[curIndex+1])
@@ -67,7 +63,7 @@ int main()
 
 	}
 
-	close(fp);
+	fclose(fp);
 
 	return 0;
 
