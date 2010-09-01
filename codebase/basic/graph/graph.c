@@ -27,11 +27,14 @@ enum RESULT
 {
 	R_END = 0,
 	R_ERROR = 1,
-	R_NONCOMPLETED = 2,
+	R_NOTCOMPLETED = 2,
+	R_SUCCESS = 3,
 };
 LP_NODE createNode(LP_NODE *ppStartNode, char data);
 LP_EDGE createEdge(LP_EDGE *ppStartEdge, NODE *pFrom, NODE *pTo);
 void printGraph(LP_NODE pStartNode);
+NODE * findNode(LP_NODE pStartNode, char data);
+enum RESULT getNextEdge(char *buf, int *pCurIndex, char *from, char *to);
 
 int main()
 {
@@ -42,11 +45,11 @@ int main()
 	int curIndex;
 	int offset = 0;
 
-	LP_NODE pStartNode = NULL, pFromNode, pToNode;
-	LP_EDGE pStartEdge = NULL, pNewEdge;
+	LP_NODE pStartNode = NULL, pFromNode, pToNode, pIterNode;
+	LP_EDGE pStartEdge = NULL, pNewEdge, pIterEdge;
 	enum RESULT status;
 
-	if ((fp = fopen("temp", "rt")) == NULL)
+	if ((fp = fopen("F:\\temp.txt", "rt+")) == NULL)
 	{
 		Print(("Failed when open file\n"));
 		exit(-1);
@@ -63,10 +66,9 @@ int main()
 			break;
 		printf("\nInput is %s\n", buf);
 
-		
+		curIndex = 0;
 		while (buf[curIndex] == '\t' 
-			   || buf[curIndex] == ' ' 
-			   || buf[curIndex] != 0)
+			   || buf[curIndex] == ' ')
 			   curIndex++;
 	
 		if (buf[curIndex] == 0)
@@ -77,13 +79,13 @@ int main()
 			continue;
 
 		}
-		while(status = getNextEdge(buf, &curIndex, &from, & to))
+		while((status = getNextEdge(buf, &curIndex, &from, & to)) == R_SUCCESS)
 		{
-			if (!isNodeExist(pStartNode, from))
+			if (NULL == (pFromNode = findNode(pStartNode, from)))
 			{
 				pFromNode = createNode(&pStartNode, from);
 			}
-			if (!isNodeExist(pStartNode, to))
+			if (NULL ==(pToNode =findNode(pStartNode, to)))
 			{
 				pToNode = createNode(&pStartNode, to);
 			}
@@ -93,7 +95,19 @@ int main()
 				Print(("Out of memory when create new node\n"));
 			}
 
-			pNewEdge = createEdge(&pStartEdge, pFromNode, pToNode);
+			pIterEdge = pFromNode->pFirstEdgeOut;
+			while(pIterEdge)
+			{
+				if (pIterEdge->pTo == pToNode)
+					break;
+				pIterEdge = pIterEdge->pNextSameFrom;
+			}
+			
+			if(pIterEdge)
+				pNewEdge = pIterEdge;
+			else
+				pNewEdge = createEdge(&pStartEdge, pFromNode, pToNode);
+
 			if (!pNewEdge)
 			{
 				Print(("Out of memory when create new edge\n"));	
@@ -123,6 +137,18 @@ int main()
 	printf("Graph is:\n");
 	printGraph(pStartNode);
 
+	while(pStartNode)
+	{
+		pFromNode = pStartNode->pNextNode;
+		free(pStartNode);
+		pStartNode = pFromNode;
+	}
+	while(pStartEdge)
+	{
+		pNewEdge = pStartEdge->pNextEdge;
+		free(pStartEdge);
+		pStartEdge = pNewEdge;
+	}
 	return 0;
 
 
@@ -165,7 +191,7 @@ LP_EDGE createEdge(LP_EDGE *ppStartEdge, NODE *pFrom, NODE *pTo)
 {
 	LP_EDGE pIterEdge, pNewEdge;
 
-	pNewEdge = (NODE *)malloc(sizeof(EDGE));
+	pNewEdge = (EDGE *)malloc(sizeof(EDGE));
 	if (NULL == pNewEdge)
 	{
 		Print(("Out of memory in createEdge\n"));
@@ -180,6 +206,8 @@ LP_EDGE createEdge(LP_EDGE *ppStartEdge, NODE *pFrom, NODE *pTo)
 
 	pNewEdge->pNextSameTo = pTo->pFirstEdgeIn;
 	pTo->pFirstEdgeIn = pNewEdge;
+
+	pNewEdge->pNextEdge = NULL;
 
 	if (*ppStartEdge)
 	{
@@ -205,12 +233,22 @@ void printGraph(LP_NODE pStartNode)
 
 	while (pIterNode)
 	{
-		printf("\nNode [%c],{", pIterNode->data);
+		printf("\nNode [%c]->{", pIterNode->data);
 		pIterEdge = pIterNode->pFirstEdgeOut;		
-		while(pIterEdge)
+		
+		if (pIterEdge)
 		{
-			printf("%c%c", pIterEdge->pTo->data, pIterEdge->pNextEdge?',':'\0');
-			pIterEdge = pIterEdge->pNextEdge;
+			while(pIterEdge)
+			{
+				putchar(pIterEdge->pTo->data);
+				pIterEdge = pIterEdge->pNextSameFrom;
+				if (pIterEdge)
+					putchar(',');
+			}	
+		}
+		else
+		{
+			printf("NULL");
 		}
 
 		putchar('}');		
@@ -219,10 +257,75 @@ void printGraph(LP_NODE pStartNode)
 	}
 }
 
+NODE * findNode(LP_NODE pStartNode, char data)
+{
+	LP_NODE pIterNode = pStartNode;
+	while(pIterNode)
+	{
+		if (pIterNode->data == data)
+			break;
+
+		pIterNode = pIterNode->pNextNode;
+	}
+	
+	return pIterNode;
+}
 
 
+enum RESULT getNextEdge(char *buf, int *pCurIndex, char *from, char *to)
+{
+	int index = *pCurIndex;
+
+	while(buf[index] == ' ' 
+		  || buf[index] == '\t')
+		index++;
+
+	if (buf[index] == '\0')
+		return R_END;
+
+	if(buf[index] == '(')
+		index++;
+	else if (buf[index] == '\0')
+		return R_NOTCOMPLETED;
+	else
+		return ERROR;
 
 
+	if(isalpha(buf[index] ))
+		index++;
+	else if (buf[index] == '\0')
+		return R_NOTCOMPLETED;
+	else
+		return ERROR;
+
+	if(buf[index] == ',')
+		index++;
+	else if (buf[index] == '\0')
+		return R_NOTCOMPLETED;
+	else
+		return ERROR;
+
+	if(isalpha(buf[index]))
+		index++;
+	else if (buf[index] == '\0')
+		return R_NOTCOMPLETED;
+	else
+		return ERROR;
+
+	
+	if(buf[index] == ')')
+		index++;
+	else if (buf[index] == '\0')
+		return R_NOTCOMPLETED;
+	else
+		return ERROR;
+
+	*to = buf[index-2];
+	*from = buf[index-4];
+	*pCurIndex = index;
+
+	return R_SUCCESS; 
+} 
 
 
 
