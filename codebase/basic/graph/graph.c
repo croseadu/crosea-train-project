@@ -1,5 +1,7 @@
 #include "../../include/my.h"
 #include "../../include/util.h"
+#include "../../include/queue.h"
+
 
 struct _EDGE;
 typedef struct _NODE
@@ -10,6 +12,7 @@ typedef struct _NODE
 
 	/************link all node**************/
 	struct _NODE *pNextNode;
+	BOOL bVisited;
 }NODE, *LP_NODE;
 
 typedef struct _EDGE
@@ -30,6 +33,9 @@ enum RESULT
 	R_NOTCOMPLETED = 2,
 	R_SUCCESS = 3,
 };
+
+
+void visit(LP_NODE pVisitNode, int *pIndex);
 LP_NODE createNode(LP_NODE *ppStartNode, char data);
 LP_EDGE createEdge(LP_EDGE *ppStartEdge, NODE *pFrom, NODE *pTo);
 void printGraph(LP_NODE pStartNode);
@@ -49,7 +55,7 @@ int main()
 	LP_EDGE pStartEdge = NULL, pNewEdge, pIterEdge;
 	enum RESULT status;
 
-	if ((fp = fopen("F:\\temp.txt", "rt+")) == NULL)
+	if ((fp = fopen("temp.txt", "rt+")) == NULL)
 	{
 		Print(("Failed when open file\n"));
 		exit(-1);
@@ -136,6 +142,11 @@ int main()
 
 	printf("Graph is:\n");
 	printGraph(pStartNode);
+
+
+	createQueue(&pQueue, sizeof(LP_NODE), 50);
+
+	destoryQueue(pQueue);
 
 	while(pStartNode)
 	{
@@ -326,6 +337,39 @@ enum RESULT getNextEdge(char *buf, int *pCurIndex, char *from, char *to)
 
 	return R_SUCCESS; 
 } 
+
+void visit(LP_NODE pVisitNode, int *pIndex)
+{
+	printf("[%2d]%5c", *pIndex, pVisitNode->data);
+	(*pIndex)++;	
+}
+
+void widthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE), int *pCurIndex, LP_QUEUE pQueue)
+{
+	LP_NODE pIterNode;	
+	LP_EDGE pIterEdge;
+
+	insertToTail(pQueue, &pStartNode);
+
+	while (!isQueueEmpty(pQueue))
+	{
+		getFromHead(pQueue, &pIterNode);
+		pIterNode->bVisited = TRUE;
+
+		fn(pIterNode, pCurIndex);
+			
+		pIterEdge = pIterNode->pFirstEdgeOut;
+		while (pIterEdge)
+		{
+			if (pIterEdge->pTo->bVisited == FALSE)
+			{
+				insertToTail(pQueue, &pIterEdge->pTo);
+			}
+			pIterEdge = pIterEdge->pNextSameFrom;
+		}
+	}	
+}
+
 
 
 
