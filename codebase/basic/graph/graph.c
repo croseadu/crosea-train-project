@@ -41,6 +41,7 @@ LP_EDGE createEdge(LP_EDGE *ppStartEdge, NODE *pFrom, NODE *pTo);
 void printGraph(LP_NODE pStartNode);
 NODE * findNode(LP_NODE pStartNode, char data);
 enum RESULT getNextEdge(char *buf, int *pCurIndex, char *from, char *to);
+void widthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE), int *pCurIndex, LP_QUEUE pQueue);
 
 int main()
 {
@@ -48,14 +49,15 @@ int main()
 	char buf[1024];
 	char from, to;
 	int readCount;
-	int curIndex;
+	int curIndex, numOfNodes;
 	int offset = 0;
-
+	
+	LP_QUEUE pQueue = NULL;
 	LP_NODE pStartNode = NULL, pFromNode, pToNode, pIterNode;
 	LP_EDGE pStartEdge = NULL, pNewEdge, pIterEdge;
 	enum RESULT status;
 
-	if ((fp = fopen("temp.txt", "rt+")) == NULL)
+	if ((fp = fopen("f:\\temp.txt", "rt+")) == NULL)
 	{
 		Print(("Failed when open file\n"));
 		exit(-1);
@@ -143,9 +145,18 @@ int main()
 	printf("Graph is:\n");
 	printGraph(pStartNode);
 
+	numOfNodes = 0;
+	pIterNode = pStartNode;
+	while(pIterNode)
+	{
+		numOfNodes++;
+		pIterNode = pIterNode->pNextNode;
+	}
 
-	createQueue(&pQueue, sizeof(LP_NODE), 50);
-
+	createQueue(&pQueue, sizeof(LP_NODE), numOfNodes+1);
+	curIndex = 0;
+	printf("\nwidthTraverse : ");
+	widthTraverse(pStartNode, visit, &curIndex, pQueue);
 	destoryQueue(pQueue);
 
 	while(pStartNode)
@@ -299,7 +310,7 @@ enum RESULT getNextEdge(char *buf, int *pCurIndex, char *from, char *to)
 	else if (buf[index] == '\0')
 		return R_NOTCOMPLETED;
 	else
-		return ERROR;
+		return R_ERROR;
 
 
 	if(isalpha(buf[index] ))
@@ -307,21 +318,21 @@ enum RESULT getNextEdge(char *buf, int *pCurIndex, char *from, char *to)
 	else if (buf[index] == '\0')
 		return R_NOTCOMPLETED;
 	else
-		return ERROR;
+		return R_ERROR;
 
 	if(buf[index] == ',')
 		index++;
 	else if (buf[index] == '\0')
 		return R_NOTCOMPLETED;
 	else
-		return ERROR;
+		return R_ERROR;
 
 	if(isalpha(buf[index]))
 		index++;
 	else if (buf[index] == '\0')
 		return R_NOTCOMPLETED;
 	else
-		return ERROR;
+		return R_ERROR;
 
 	
 	if(buf[index] == ')')
@@ -329,7 +340,7 @@ enum RESULT getNextEdge(char *buf, int *pCurIndex, char *from, char *to)
 	else if (buf[index] == '\0')
 		return R_NOTCOMPLETED;
 	else
-		return ERROR;
+		return R_ERROR;
 
 	*to = buf[index-2];
 	*from = buf[index-4];
@@ -340,7 +351,7 @@ enum RESULT getNextEdge(char *buf, int *pCurIndex, char *from, char *to)
 
 void visit(LP_NODE pVisitNode, int *pIndex)
 {
-	printf("[%2d]%5c", *pIndex, pVisitNode->data);
+	printf("%3c[%2d]",  pVisitNode->data,*pIndex);
 	(*pIndex)++;	
 }
 
@@ -350,12 +361,11 @@ void widthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE), int *pCurIndex, LP_Q
 	LP_EDGE pIterEdge;
 
 	insertToTail(pQueue, &pStartNode);
+	pStartNode->bVisited = TRUE;
 
 	while (!isQueueEmpty(pQueue))
 	{
 		getFromHead(pQueue, &pIterNode);
-		pIterNode->bVisited = TRUE;
-
 		fn(pIterNode, pCurIndex);
 			
 		pIterEdge = pIterNode->pFirstEdgeOut;
@@ -364,10 +374,12 @@ void widthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE), int *pCurIndex, LP_Q
 			if (pIterEdge->pTo->bVisited == FALSE)
 			{
 				insertToTail(pQueue, &pIterEdge->pTo);
+				pIterEdge->pTo->bVisited  = TRUE;
 			}
 			pIterEdge = pIterEdge->pNextSameFrom;
 		}
-	}	
+	}
+	putchar('\n');
 }
 
 
