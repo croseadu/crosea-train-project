@@ -1,7 +1,7 @@
 #include "../../include/my.h"
 #include "../../include/util.h"
 #include "../../include/queue.h"
-
+#include "../../include/stack.h"
 
 struct _EDGE;
 typedef struct _NODE
@@ -41,7 +41,8 @@ LP_EDGE createEdge(LP_EDGE *ppStartEdge, NODE *pFrom, NODE *pTo);
 void printGraph(LP_NODE pStartNode);
 NODE * findNode(LP_NODE pStartNode, char data);
 enum RESULT getNextEdge(char *buf, int *pCurIndex, char *from, char *to);
-void widthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE), int *pCurIndex, LP_QUEUE pQueue);
+void widthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurIndex, LP_QUEUE pQueue);
+void depthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurIndex, LP_STACK pStack);
 
 int main()
 {
@@ -53,11 +54,12 @@ int main()
 	int offset = 0;
 	
 	LP_QUEUE pQueue = NULL;
+	LP_STACK pStack = NULL;
 	LP_NODE pStartNode = NULL, pFromNode, pToNode, pIterNode;
 	LP_EDGE pStartEdge = NULL, pNewEdge, pIterEdge;
 	enum RESULT status;
 
-	if ((fp = fopen("f:\\temp.txt", "rt+")) == NULL)
+	if ((fp = fopen("temp.txt", "rt+")) == NULL)
 	{
 		Print(("Failed when open file\n"));
 		exit(-1);
@@ -150,6 +152,7 @@ int main()
 	while(pIterNode)
 	{
 		numOfNodes++;
+		pIterNode->bVisited = FALSE;
 		pIterNode = pIterNode->pNextNode;
 	}
 
@@ -158,6 +161,18 @@ int main()
 	printf("\nwidthTraverse : ");
 	widthTraverse(pStartNode, visit, &curIndex, pQueue);
 	destoryQueue(pQueue);
+
+	pIterNode = pStartNode;
+	while(pIterNode)
+	{
+		pIterNode->bVisited = FALSE;
+		pIterNode = pIterNode->pNextNode;
+	}
+	createStack(&pStack, sizeof(LP_NODE));
+	curIndex = 0;
+	printf("\ndepthTraverse :");
+	depthTraverse(pStartNode, visit, &curIndex, pStack);
+	destoryStack(pStack);
 
 	while(pStartNode)
 	{
@@ -355,7 +370,7 @@ void visit(LP_NODE pVisitNode, int *pIndex)
 	(*pIndex)++;	
 }
 
-void widthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE), int *pCurIndex, LP_QUEUE pQueue)
+void widthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurIndex, LP_QUEUE pQueue)
 {
 	LP_NODE pIterNode;	
 	LP_EDGE pIterEdge;
@@ -382,6 +397,20 @@ void widthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE), int *pCurIndex, LP_Q
 	putchar('\n');
 }
 
+void depthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurIndex, LP_STACK pStack)
+{
+	LP_NODE pIterNode;
+	LP_EDGE pIterEdge;
+
+	push(pStack, &pStartNode);
+	pStartNode->bVisited = TRUE;
+
+	while (!isStackEmpty(pStack))
+	{
+		
+	}
+
+}
 
 
 
