@@ -401,16 +401,46 @@ void depthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurInde
 {
 	LP_NODE pIterNode;
 	LP_EDGE pIterEdge;
+	LP_STACK pEdgeStack = NULL;
+	int index = 0;
+
+	createStack(&pEdgeStack, sizeof(LP_EDGE));
 
 	push(pStack, &pStartNode);
 	pStartNode->bVisited = TRUE;
 
 	while (!isStackEmpty(pStack))
 	{
-		
+		pop(pStack, &pIterNode);
+		fn(pIterNode, &index);
+
+		pIterEdge = pIterNode->pFirstEdgeOut;
+		while (pIterEdge)
+		{
+			push(pEdgeStack, &pIterEdge);
+			pIterEdge = pIterEdge->pNextSameFrom;
+		} 		
+		while (!isStackEmpty(pEdgeStack))
+		{
+			pop(pEdgeStack, &pIterEdge);
+			if (pIterEdge->pTo->bVisited == FALSE)
+			{
+				push(pStack, &pIterEdge->pTo);
+			}
+		}
 	}
 
+	destoryStack(pEdgeStack);
 }
+
+void topologySortGraph(LP_NODE pStartNode)
+{
+
+}
+
+
+
+
 
 
 
