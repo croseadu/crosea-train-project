@@ -1,11 +1,20 @@
 2010/07/19-2010/09/19
 1:basic train
-	list			#[sequence, link-list]Create, Destory, traverse, insert, delete, sort, list merge, add muliple,guangyibiao [done]
-	stack			#Create, Destory, push, pop, exchange data format, compute expression, bracket match [done]
-	queue			#circular queue
-	tree			#Create, Traverse tree(recursive, use stack), binary-Tree, sorted tree, balance tree, sign tree, humanTree
-	graph			#Depth traverse, width traverse£¬ scc, topo-reroder, key-path, minimal-Tree
-	sort			#all Sort algorithm	[done]
-
-
+	list			#[sequence, link-list]Create, Destory, traverse, insert, delete, sort, list merge, add muliple [done]
+	stack			#Create, Destory, push, pop, exchange data format, compute expression, bracket match [partial done]
+	queue			#circular queue [done]
+	tree			#Create, Traverse tree(recursive, use stack), binary-Tree, sign tree, humanTree [partial done]
+	graph			#Depth traverse, width traverse£¬ scc, topo-reordder, critical-path, shortest-path(two) minimal-Tree(two)
+	sort			#all Sort algorithm	[done]...radix?
+	string    #kmp
+	search    #sorted tree, balance tree, 
+  GList     #multi-var poly
+	HashTable #
+  
 2:
+	maze
+	compiler-frontEnd
+	point-to
+	
+3: Fundunmentals of Computer Algorithm 
+4: Introduction to algorithm
