@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <math.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 
 #define OK 0
