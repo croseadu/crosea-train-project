@@ -1,5 +1,5 @@
-2010/07/19-2010/09/19
-1:basic train
+2010/07/19-2010/09/28
+1:basic 
 	list			#[sequence, link-list]Create, Destory, traverse, insert, delete, sort, list merge, add muliple [done]
 	stack			#Create, Destory, push, pop, exchange data format, compute expression, bracket match [partial done]
 	queue			#circular queue [done]
@@ -13,6 +13,7 @@
   
 2:
 	maze
+	eight-queen
 	compiler-frontEnd
 	point-to
 	

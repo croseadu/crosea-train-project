@@ -435,6 +435,13 @@ void depthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurInde
 
 void topologySortGraph(LP_NODE pStartNode)
 {
+	typedef struct _DEGREE
+	{
+		LP_NODE pGraphNode;
+		int degree;	
+	}GRAPH_DEGREE, *LP_GRAPH_DEGREE;
+	
+	
 
 }
 
