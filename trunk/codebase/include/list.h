@@ -18,4 +18,6 @@ STATUS insertToTail(LP_DOUBLE_LINK_LIST, void *);
 STATUS insertToHead(LP_DOUBLE_LINK_LIST, void *);
 STATUS insertBeforeNode(LP_DOUBLE_LINK_LIST, LP_LIST_NODE , void *);
 STATUS insertAfterNode(LP_DOUBLE_LINK_LIST, LP_LIST_NODE , void *);
+void visitList(LP_DOUBLE_LINK_LIST pList, void (*fn)(void *pData));
+BOOL bIsNodeExist(LP_DOUBLE_LINK_LIST pListHead, void *pData);
 

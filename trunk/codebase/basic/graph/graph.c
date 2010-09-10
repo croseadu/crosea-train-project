@@ -2,6 +2,7 @@
 #include "../../include/util.h"
 #include "../../include/queue.h"
 #include "../../include/stack.h"
+#include "../../include/list.h"
 
 struct _EDGE;
 typedef struct _NODE
@@ -375,26 +376,34 @@ void widthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurInde
 	LP_NODE pIterNode;	
 	LP_EDGE pIterEdge;
 
-	insertToTail(pQueue, &pStartNode);
-	pStartNode->bVisited = TRUE;
-
-	while (!isQueueEmpty(pQueue))
+	pIterNode = pStartNode;
+	while (pIterNode)
 	{
-		getFromHead(pQueue, &pIterNode);
-		fn(pIterNode, pCurIndex);
-			
-		pIterEdge = pIterNode->pFirstEdgeOut;
-		while (pIterEdge)
+		if (pIterNode->bVisited == FALSE)
 		{
-			if (pIterEdge->pTo->bVisited == FALSE)
+			insertToTail(pQueue, &pIterNode);
+			pIterNode->bVisited = TRUE;
+
+			while (!isQueueEmpty(pQueue))
 			{
-				insertToTail(pQueue, &pIterEdge->pTo);
-				pIterEdge->pTo->bVisited  = TRUE;
+				getFromHead(pQueue, &pIterNode);
+				fn(pIterNode, pCurIndex);
+			
+				pIterEdge = pIterNode->pFirstEdgeOut;
+				while (pIterEdge)
+				{
+					if (pIterEdge->pTo->bVisited == FALSE)
+					{
+						insertToTail(pQueue, &pIterEdge->pTo);
+						pIterEdge->pTo->bVisited  = TRUE;
+					}
+					pIterEdge = pIterEdge->pNextSameFrom;
+				}
 			}
-			pIterEdge = pIterEdge->pNextSameFrom;
 		}
+		pIterNode = pIterNode->pNextNode;
 	}
-	putchar('\n');
+
 }
 
 void depthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurIndex, LP_STACK pStack)
@@ -405,29 +414,38 @@ void depthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurInde
 	int index = 0;
 
 	createStack(&pEdgeStack, sizeof(LP_EDGE));
-
-	push(pStack, &pStartNode);
-	pStartNode->bVisited = TRUE;
-
-	while (!isStackEmpty(pStack))
+	
+	pIterNode = pStartNode;
+	while (pIterNode)
 	{
-		pop(pStack, &pIterNode);
-		fn(pIterNode, &index);
+		if (pIterNode->bVisited == FALSE)
+		{	
+	
+			push(pStack, &pIterNode);
+			pIterNode->bVisited = TRUE;
 
-		pIterEdge = pIterNode->pFirstEdgeOut;
-		while (pIterEdge)
-		{
-			push(pEdgeStack, &pIterEdge);
-			pIterEdge = pIterEdge->pNextSameFrom;
-		} 		
-		while (!isStackEmpty(pEdgeStack))
-		{
-			pop(pEdgeStack, &pIterEdge);
-			if (pIterEdge->pTo->bVisited == FALSE)
+			while (!isStackEmpty(pStack))
 			{
-				push(pStack, &pIterEdge->pTo);
+				pop(pStack, &pIterNode);
+				fn(pIterNode, &index);
+	
+				pIterEdge = pIterNode->pFirstEdgeOut;
+				while (pIterEdge)
+				{
+					push(pEdgeStack, &pIterEdge);
+					pIterEdge = pIterEdge->pNextSameFrom;
+				} 		
+				while (!isStackEmpty(pEdgeStack))
+				{
+					pop(pEdgeStack, &pIterEdge);
+					if (pIterEdge->pTo->bVisited == FALSE)
+					{
+						push(pStack, &pIterEdge->pTo);
+					}
+				}
 			}
 		}
+		pIterNode = pIterNode->pNextNode;
 	}
 
 	destoryStack(pEdgeStack);
@@ -435,13 +453,43 @@ void depthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurInde
 
 void topologySortGraph(LP_NODE pStartNode)
 {
-	typedef struct _DEGREE
+
+typedef struct _DEGREE
+{
+	LP_NODE pGraphNode;
+	int degree;	
+}DEGREE, *LP_DEGREE;
+
+	LP_EDGE pIterEdge;	
+	LP_NODE pIterNode;
+	LP_DOUBLE_LINK_LIST pDegreeList;
+	DEGREE	degreeNode;
+	int degrees;
+
+	initList(&pDegreeList, sizeof(DEGREE));
+
+	pIterNode = pStartNode;
+	while (pIterNode)
 	{
-		LP_NODE pGraphNode;
-		int degree;	
-	}GRAPH_DEGREE, *LP_GRAPH_DEGREE;
+		degrees = 0;
+		pIterEdge = pIterNode->pFirstEdgeIn;
+		while (pIterEdge)
+		{
+			degrees++;
+			pIterEdge = pIterEdge->pNextSameTo;			
+		}
+		
+		degreeNode.pGraphNode = pIterNode;
+		degreeNode.degree = degrees;
+		insertToTail(pDegreeList, &degreeNode);
+
+		pIterNode = pIterNode->pNextNode;
+	}
+
+	visitList(pDegreeList, findZeroDegreeNode);
+
 	
-	
+	destoryList(pDegreeList);
 
 }
 
