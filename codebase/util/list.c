@@ -116,3 +116,20 @@ void deleteNode(LP_LIST_NODE pDeleteNode)
 	free(pDeleteNode);
 }
 
+BOOL bIsNodeExist(LP_DOUBLE_LINK_LIST pListHead, void *pData)
+{
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
