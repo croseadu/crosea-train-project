@@ -44,6 +44,10 @@ NODE * findNode(LP_NODE pStartNode, char data);
 enum RESULT getNextEdge(char *buf, int *pCurIndex, char *from, char *to);
 void widthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurIndex, LP_QUEUE pQueue);
 void depthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurIndex, LP_STACK pStack);
+void findZeroDegreeNode(void *pData);
+
+
+LP_STACK pNodeStack;
 
 int main()
 {
@@ -451,6 +455,16 @@ void depthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurInde
 	destoryStack(pEdgeStack);
 }
 
+void findZeroDegreeNode(void *pData)
+{
+	DEGREE *pDegreeNode;
+
+	pDegreeNode = (DEGREE *)pData;
+	
+	if (!pDegreeNode.degree)
+		push(pNodeStack, &pDegreeNode.pGrachNode);
+}
+
 void topologySortGraph(LP_NODE pStartNode)
 {
 
@@ -466,6 +480,7 @@ typedef struct _DEGREE
 	DEGREE	degreeNode;
 	int degrees;
 
+	createStack(&pNodeStack, sizeof(LP_NODE));
 	initList(&pDegreeList, sizeof(DEGREE));
 
 	pIterNode = pStartNode;
@@ -488,8 +503,13 @@ typedef struct _DEGREE
 
 	visitList(pDegreeList, findZeroDegreeNode);
 
+	while (!isStackEmpty(pNodeStack))
+	{
+		
+	}
 	
 	destoryList(pDegreeList);
+	destoryStack(pNodeStack);
 
 }
 
