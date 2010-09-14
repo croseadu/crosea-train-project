@@ -35,6 +35,11 @@ enum RESULT
 	R_SUCCESS = 3,
 };
 
+typedef struct _DEGREE
+{
+	LP_NODE pGraphNode;
+	int degree;	
+}DEGREE, *LP_DEGREE;
 
 void visit(LP_NODE pVisitNode, int *pIndex);
 LP_NODE createNode(LP_NODE *ppStartNode, char data);
@@ -44,10 +49,7 @@ NODE * findNode(LP_NODE pStartNode, char data);
 enum RESULT getNextEdge(char *buf, int *pCurIndex, char *from, char *to);
 void widthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurIndex, LP_QUEUE pQueue);
 void depthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurIndex, LP_STACK pStack);
-void findZeroDegreeNode(void *pData);
-
-
-LP_STACK pNodeStack;
+void findZeroDegreeNode(void *pData, void *pArg);
 
 int main()
 {
@@ -455,30 +457,33 @@ void depthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurInde
 	destoryStack(pEdgeStack);
 }
 
-void findZeroDegreeNode(void *pData)
+void findZeroDegreeNode(void *pData, void *pArg)
 {
 	DEGREE *pDegreeNode;
+	LP_STACK pNodeStack;
 
 	pDegreeNode = (DEGREE *)pData;
-	
-	if (!pDegreeNode.degree)
-		push(pNodeStack, &pDegreeNode.pGrachNode);
+	pNodeStack = (LP_STACK)pArg;
+
+	if (!pDegreeNode->degree)
+		push(pNodeStack, &pDegreeNode->pGraphNode);
 }
 
+BOOL cmp(void *pData, void *pKey)
+{
+	return (memcmp(pData, pKey, sizeof(LP_NODE)) == 0);	
+
+}
 void topologySortGraph(LP_NODE pStartNode)
 {
-
-typedef struct _DEGREE
-{
-	LP_NODE pGraphNode;
-	int degree;	
-}DEGREE, *LP_DEGREE;
-
 	LP_EDGE pIterEdge;	
 	LP_NODE pIterNode;
 	LP_DOUBLE_LINK_LIST pDegreeList;
-	DEGREE	degreeNode;
+	LP_LIST_NODE pListNode;
+	DEGREE	degreeNode, *pDegreeNode;
+	LP_STACK pNodeStack;
 	int degrees;
+	int index = 0;
 
 	createStack(&pNodeStack, sizeof(LP_NODE));
 	initList(&pDegreeList, sizeof(DEGREE));
@@ -496,16 +501,29 @@ typedef struct _DEGREE
 		
 		degreeNode.pGraphNode = pIterNode;
 		degreeNode.degree = degrees;
-		insertToTail(pDegreeList, &degreeNode);
+		insertToListTail(pDegreeList, &degreeNode);
 
 		pIterNode = pIterNode->pNextNode;
 	}
 
-	visitList(pDegreeList, findZeroDegreeNode);
+	visitList(pDegreeList, findZeroDegreeNode, pNodeStack);
 
 	while (!isStackEmpty(pNodeStack))
 	{
-		
+		pop(pNodeStack, &pIterNode);
+		printf("[%d]%c", index, pIterNode->data);
+		index++;		
+
+		pIterEdge = pIterNode->pFirstEdgeOut;
+		while (pIterEdge)
+		{
+			pDegreeNode = findNodeInList(pDegreeList, pIterEdge->pTo, cmp);
+			pDegreeNode->degree--;
+			if (!pDegreeNode->degree)
+				push(pNodeStack, &pIterEdge->pTo);
+
+			pIterEdge = pIterEdge->pNextSameFrom;
+		}			
 	}
 	
 	destoryList(pDegreeList);
