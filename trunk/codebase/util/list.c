@@ -26,14 +26,14 @@ STATUS initList(LP_DOUBLE_LINK_LIST *ppList, unsigned int elementSize)
 	return OK;
 }	
 
-void visitList(LP_DOUBLE_LINK_LIST pList, void (*fn)(void *pData))
+void visitList(LP_DOUBLE_LINK_LIST pList, void (*fn)(void *pData, void *pArg), void *pArg)
 {
 	LP_LIST_NODE pIterNode;
 	
 	pIterNode = pList->pStartNode;
 	while (pIterNode)
 	{
-		fn((void *)pIterNode->pData);
+		fn((void *)pIterNode->pData, pArg);
 		
 		pIterNode = pIterNode->pNextNode;	
 	}
@@ -43,8 +43,8 @@ void visitList(LP_DOUBLE_LINK_LIST pList, void (*fn)(void *pData))
 
 void destoryList(LP_DOUBLE_LINK_LIST pListHead)
 {
-	LP_NODE pIterNode = pListHead->pStartNode->pNextNode;
-	LP_NODE pNextNode;
+	LP_LIST_NODE pIterNode = pListHead->pStartNode->pNextNode;
+	LP_LIST_NODE pNextNode;
 	
 	while (pIterNode != pListHead->pStartNode)
 	{
@@ -56,18 +56,18 @@ void destoryList(LP_DOUBLE_LINK_LIST pListHead)
 	free(pListHead);
 }
 
-STATUS insertAfterNode(LP_DOUBLE_LINK_LIST pListHead,LP_LP_LIST_NODE pInsertPos, void *pData)
+STATUS insertAfterNode(LP_DOUBLE_LINK_LIST pListHead,LP_LIST_NODE pInsertPos, void *pData)
 {
-	LP_NODE pInsertNode;
+	LP_LIST_NODE pInsertNode;
 	
-	pInsertNode = (LP_LIST_NODE)malloc(sizeof(LIST_NODE)+elementSize-1);
+	pInsertNode = (LP_LIST_NODE)malloc(sizeof(LIST_NODE)+pListHead->elementSize-1);
 	if (NULL == pInsertNode)
 	{
 		Print(("Out Of Memory when insert node to list\n")) ;
 		return ERROR;
 	}
 	
-	memcpy(pInsertNode->pData, pdata, pListHead->elementSize);
+	memcpy(pInsertNode->pData, pData, pListHead->elementSize);
 	
 	pInsertNode->pNextNode = pInsertPos->pNextNode;
 	pInsertNode->pPrevNode = pInsertPos;
@@ -79,16 +79,16 @@ STATUS insertAfterNode(LP_DOUBLE_LINK_LIST pListHead,LP_LP_LIST_NODE pInsertPos,
 }
 STATUS insertBeforeNode(LP_DOUBLE_LINK_LIST pListHead,LP_LIST_NODE pInsertPos, void *pData)
 {
-	LP_NODE pInsertNode;
+	LP_LIST_NODE pInsertNode;
 	
-	pInsertNode = (LP_LIST_NODE)malloc(sizeof(LIST_NODE)+elementSize-1);
+	pInsertNode = (LP_LIST_NODE)malloc(sizeof(LIST_NODE)+pListHead->elementSize-1);
 	if (NULL == pInsertNode)
 	{
 		Print(("Out Of Memory when insert node to list\n")) ;
 		return ERROR;
 	}
 	
-	memcpy(pInsertNode->pData, pdata, pListHead->elementSize);
+	memcpy(pInsertNode->pData, pData, pListHead->elementSize);
 	
 	pInsertNode->pNextNode = pInsertPos;
 	pInsertNode->pPrevNode = pInsertPos->pPrevNode;
@@ -99,12 +99,12 @@ STATUS insertBeforeNode(LP_DOUBLE_LINK_LIST pListHead,LP_LIST_NODE pInsertPos, v
 	return OK;
 }
 
-STATUS insertToHead(LP_DOUBLE_LINK_LIST pListHead, void *pData)
+STATUS insertToListHead(LP_DOUBLE_LINK_LIST pListHead, void *pData)
 {
 	return insertAfterNode(pListHead, pListHead->pStartNode, pData);	
 }
 
-STATUS insertToTail(LP_DOUBLE_LINK_LIST pListHead, void *pData)
+STATUS insertToListTail(LP_DOUBLE_LINK_LIST pListHead, void *pData)
 {
 	return insertAfterNode(pListHead, pListHead->pStartNode->pPrevNode, pData);	
 }
@@ -116,12 +116,19 @@ void deleteNode(LP_LIST_NODE pDeleteNode)
 	free(pDeleteNode);
 }
 
-BOOL bIsNodeExist(LP_DOUBLE_LINK_LIST pListHead, void *pData)
+LP_LIST_NODE findNodeInList(LP_DOUBLE_LINK_LIST pList, void *pKeyData, BOOL (*cmp)(void *, void *))
 {
-
-
-
-
+	LP_LIST_NODE pIterNode;
+	
+	pIterNode = pList->pStartNode;
+	while (pIterNode)
+	{
+		if (cmp(pIterNode->pData, pKeyData))
+			return pIterNode;
+		
+		pIterNode = pIterNode->pNextNode;	
+	}
+	return NULL;
 }
 
 
