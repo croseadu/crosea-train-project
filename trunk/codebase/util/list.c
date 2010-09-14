@@ -30,8 +30,8 @@ void visitList(LP_DOUBLE_LINK_LIST pList, void (*fn)(void *pData, void *pArg), v
 {
 	LP_LIST_NODE pIterNode;
 	
-	pIterNode = pList->pStartNode;
-	while (pIterNode)
+	pIterNode = pList->pStartNode->pNextNode;
+	while (pIterNode != pList->pStartNode)
 	{
 		fn((void *)pIterNode->pData, pArg);
 		
@@ -72,8 +72,8 @@ STATUS insertAfterNode(LP_DOUBLE_LINK_LIST pListHead,LP_LIST_NODE pInsertPos, vo
 	pInsertNode->pNextNode = pInsertPos->pNextNode;
 	pInsertNode->pPrevNode = pInsertPos;
 	
-	pInsertPos->pPrevNode->pNextNode = pInsertNode;
-	pInsertNode->pNextNode->pPrevNode = pInsertNode;
+	pInsertPos->pNextNode->pPrevNode = pInsertNode;
+	pInsertPos->pNextNode = pInsertNode;
 
 	return OK;
 }
@@ -120,8 +120,8 @@ LP_LIST_NODE findNodeInList(LP_DOUBLE_LINK_LIST pList, void *pKeyData, BOOL (*cm
 {
 	LP_LIST_NODE pIterNode;
 	
-	pIterNode = pList->pStartNode;
-	while (pIterNode)
+	pIterNode = pList->pStartNode->pNextNode;
+	while (pIterNode != pList->pStartNode)
 	{
 		if (cmp(pIterNode->pData, pKeyData))
 			return pIterNode;

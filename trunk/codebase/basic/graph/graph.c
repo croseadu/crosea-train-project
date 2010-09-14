@@ -50,7 +50,7 @@ enum RESULT getNextEdge(char *buf, int *pCurIndex, char *from, char *to);
 void widthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurIndex, LP_QUEUE pQueue);
 void depthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurIndex, LP_STACK pStack);
 void findZeroDegreeNode(void *pData, void *pArg);
-
+void topologySortGraph(LP_NODE pStartNode);
 int main()
 {
 	FILE *fp;
@@ -66,7 +66,7 @@ int main()
 	LP_EDGE pStartEdge = NULL, pNewEdge, pIterEdge;
 	enum RESULT status;
 
-	if ((fp = fopen("temp.txt", "rt+")) == NULL)
+	if ((fp = fopen("f:\\temp.txt", "rt+")) == NULL)
 	{
 		Print(("Failed when open file\n"));
 		exit(-1);
@@ -181,6 +181,10 @@ int main()
 	depthTraverse(pStartNode, visit, &curIndex, pStack);
 	destoryStack(pStack);
 
+
+	printf("\nTopo Order :");
+	topologySortGraph(pStartNode);
+
 	while(pStartNode)
 	{
 		pFromNode = pStartNode->pNextNode;
@@ -193,6 +197,9 @@ int main()
 		free(pStartEdge);
 		pStartEdge = pNewEdge;
 	}
+
+
+	
 	return 0;
 
 
@@ -447,6 +454,7 @@ void depthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurInde
 					if (pIterEdge->pTo->bVisited == FALSE)
 					{
 						push(pStack, &pIterEdge->pTo);
+						pIterEdge->pTo->bVisited = TRUE;
 					}
 				}
 			}
@@ -468,10 +476,22 @@ void findZeroDegreeNode(void *pData, void *pArg)
 	if (!pDegreeNode->degree)
 		push(pNodeStack, &pDegreeNode->pGraphNode);
 }
+void dumpDegree(void *pData, void *pArg)
+{
+	DEGREE *pDegreeNode;
+	pDegreeNode = (DEGREE *)pData;
+
+	printf("[%c,d%d]",pDegreeNode->pGraphNode->data, pDegreeNode->degree);
+}
 
 BOOL cmp(void *pData, void *pKey)
 {
-	return (memcmp(pData, pKey, sizeof(LP_NODE)) == 0);	
+	DEGREE	*pDegreeNode;
+	LP_NODE pNode = (NODE *)pKey;
+
+	pDegreeNode = (DEGREE *)pData;
+	//printf("\nCmp %c %c", pDegreeNode->pGraphNode->data, pNode->data);
+	return (pDegreeNode->pGraphNode == pNode);	
 
 }
 void topologySortGraph(LP_NODE pStartNode)
@@ -483,7 +503,7 @@ void topologySortGraph(LP_NODE pStartNode)
 	DEGREE	degreeNode, *pDegreeNode;
 	LP_STACK pNodeStack;
 	int degrees;
-	int index = 0;
+	int index = 0, numOfNode = 0;
 
 	createStack(&pNodeStack, sizeof(LP_NODE));
 	initList(&pDegreeList, sizeof(DEGREE));
@@ -492,6 +512,7 @@ void topologySortGraph(LP_NODE pStartNode)
 	while (pIterNode)
 	{
 		degrees = 0;
+		numOfNode++;
 		pIterEdge = pIterNode->pFirstEdgeIn;
 		while (pIterEdge)
 		{
@@ -507,7 +528,7 @@ void topologySortGraph(LP_NODE pStartNode)
 	}
 
 	visitList(pDegreeList, findZeroDegreeNode, pNodeStack);
-
+	//visitList(pDegreeList, dumpDegree, NULL);
 	while (!isStackEmpty(pNodeStack))
 	{
 		pop(pNodeStack, &pIterNode);
@@ -525,6 +546,9 @@ void topologySortGraph(LP_NODE pStartNode)
 			pIterEdge = pIterEdge->pNextSameFrom;
 		}			
 	}
+
+	if (index < numOfNode)
+		printf("\nCylce in Graph\n");
 	
 	destoryList(pDegreeList);
 	destoryStack(pNodeStack);
