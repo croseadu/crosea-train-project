@@ -116,7 +116,7 @@ void deleteNode(LP_LIST_NODE pDeleteNode)
 	free(pDeleteNode);
 }
 
-LP_LIST_NODE findNodeInList(LP_DOUBLE_LINK_LIST pList, void *pKeyData, BOOL (*cmp)(void *, void *))
+void *findNodeInList(LP_DOUBLE_LINK_LIST pList, void *pKeyData, BOOL (*cmp)(void *, void *))
 {
 	LP_LIST_NODE pIterNode;
 	
@@ -124,7 +124,7 @@ LP_LIST_NODE findNodeInList(LP_DOUBLE_LINK_LIST pList, void *pKeyData, BOOL (*cm
 	while (pIterNode != pList->pStartNode)
 	{
 		if (cmp(pIterNode->pData, pKeyData))
-			return pIterNode;
+			return pIterNode->pData;
 		
 		pIterNode = pIterNode->pNextNode;	
 	}

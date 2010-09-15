@@ -18,5 +18,5 @@ STATUS insertToListHead(LP_DOUBLE_LINK_LIST, void *);
 STATUS insertBeforeNode(LP_DOUBLE_LINK_LIST, LP_LIST_NODE , void *);
 STATUS insertAfterNode(LP_DOUBLE_LINK_LIST, LP_LIST_NODE , void *);
 void visitList(LP_DOUBLE_LINK_LIST pList, void (*fn)(void *pData, void *pArg), void *pArg);
-LP_LIST_NODE findNodeInList(LP_DOUBLE_LINK_LIST pList, void *pKeyData, BOOL (*cmp)(void *, void *));
+void * findNodeInList(LP_DOUBLE_LINK_LIST pList, void *pKeyData, BOOL (*cmp)(void *, void *));
 
