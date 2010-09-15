@@ -14,18 +14,18 @@ typedef struct _NODE
 	/************link all node**************/
 	struct _NODE *pNextNode;
 	BOOL bVisited;
-}NODE, *LP_NODE;
+}VERTEX_NODE,*LP_VERTEX_NODE;
 
 typedef struct _EDGE
 {
-	NODE *pFrom;
-	NODE *pTo;
+	LP_VERTEX_NODE pFrom;
+	LP_VERTEX_NODE pTo;
 	struct _EDGE *pNextSameFrom;
 	struct _EDGE *pNextSameTo;
 
 	/************link all edge**************/
 	struct _EDGE *pNextEdge;
-}EDGE, *LP_EDGE;
+}EDGE, *LP_VERTEX_EDGE;
 
 enum RESULT
 {
@@ -37,20 +37,20 @@ enum RESULT
 
 typedef struct _DEGREE
 {
-	LP_NODE pGraphNode;
+	LP_VERTEX_NODE pGraphNode;
 	int degree;	
 }DEGREE, *LP_DEGREE;
 
-void visit(LP_NODE pVisitNode, int *pIndex);
-LP_NODE createNode(LP_NODE *ppStartNode, char data);
-LP_EDGE createEdge(LP_EDGE *ppStartEdge, NODE *pFrom, NODE *pTo);
-void printGraph(LP_NODE pStartNode);
-NODE * findNode(LP_NODE pStartNode, char data);
+void visit(LP_VERTEX_NODE pVisitNode, int *pIndex);
+LP_VERTEX_NODE createNode(LP_VERTEX_NODE *ppStartNode, char data);
+LP_VERTEX_EDGE createEdge(LP_VERTEX_EDGE *ppStartEdge, LP_VERTEX_NODE pFrom, LP_VERTEX_NODE pTo);
+void printGraph(LP_VERTEX_NODE pStartNode);
+LP_VERTEX_NODE findNode(LP_VERTEX_NODE pStartNode, char data);
 enum RESULT getNextEdge(char *buf, int *pCurIndex, char *from, char *to);
-void widthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurIndex, LP_QUEUE pQueue);
-void depthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurIndex, LP_STACK pStack);
+void widthTraverse(LP_VERTEX_NODE pStartNode, void (*fn)(LP_VERTEX_NODE, int *), int *pCurIndex, LP_QUEUE pQueue);
+void depthTraverse(LP_VERTEX_NODE pStartNode, void (*fn)(LP_VERTEX_NODE, int *), int *pCurIndex, LP_STACK pStack);
 void findZeroDegreeNode(void *pData, void *pArg);
-void topologySortGraph(LP_NODE pStartNode);
+BOOL topologySortGraph(LP_VERTEX_NODE pStartNode);
 int main()
 {
 	FILE *fp;
@@ -62,11 +62,11 @@ int main()
 	
 	LP_QUEUE pQueue = NULL;
 	LP_STACK pStack = NULL;
-	LP_NODE pStartNode = NULL, pFromNode, pToNode, pIterNode;
-	LP_EDGE pStartEdge = NULL, pNewEdge, pIterEdge;
+	LP_VERTEX_NODE pStartNode = NULL, pFromNode, pToNode, pIterNode;
+	LP_VERTEX_EDGE pStartEdge = NULL, pNewEdge, pIterEdge;
 	enum RESULT status;
 
-	if ((fp = fopen("f:\\temp.txt", "rt+")) == NULL)
+	if ((fp = fopen("temp.txt", "rt+")) == NULL)
 	{
 		Print(("Failed when open file\n"));
 		exit(-1);
@@ -163,7 +163,7 @@ int main()
 		pIterNode = pIterNode->pNextNode;
 	}
 
-	createQueue(&pQueue, sizeof(LP_NODE), numOfNodes+1);
+	createQueue(&pQueue, sizeof(LP_VERTEX_NODE), numOfNodes+1);
 	curIndex = 0;
 	printf("\nwidthTraverse : ");
 	widthTraverse(pStartNode, visit, &curIndex, pQueue);
@@ -175,7 +175,7 @@ int main()
 		pIterNode->bVisited = FALSE;
 		pIterNode = pIterNode->pNextNode;
 	}
-	createStack(&pStack, sizeof(LP_NODE));
+	createStack(&pStack, sizeof(LP_VERTEX_NODE));
 	curIndex = 0;
 	printf("\ndepthTraverse :");
 	depthTraverse(pStartNode, visit, &curIndex, pStack);
@@ -206,19 +206,19 @@ int main()
 
 }
 
-LP_NODE createNode(LP_NODE *ppStartNode, char data)
+LP_VERTEX_NODE createNode(LP_VERTEX_NODE *ppStartNode, char data)
 {
-	LP_NODE pIterNode;
-	LP_NODE pNewNode;
+	LP_VERTEX_NODE pIterNode;
+	LP_VERTEX_NODE pNewNode;
 	
-	pNewNode = (NODE *)malloc(sizeof(NODE));
+	pNewNode = (LP_VERTEX_NODE)malloc(sizeof(VERTEX_NODE));
 	if (NULL == pNewNode)
 	{
 		Print(("Out of memory in createNode\n"));
 		return NULL;
 	}
 
-	memset(pNewNode, 0, sizeof(NODE));
+	memset(pNewNode, 0, sizeof(VERTEX_NODE));
 	pNewNode->data = data;
 
 	if (*ppStartNode)
@@ -238,9 +238,9 @@ LP_NODE createNode(LP_NODE *ppStartNode, char data)
 
 }
 
-LP_EDGE createEdge(LP_EDGE *ppStartEdge, NODE *pFrom, NODE *pTo)
+LP_VERTEX_EDGE createEdge(LP_VERTEX_EDGE *ppStartEdge, LP_VERTEX_NODE pFrom, LP_VERTEX_NODE pTo)
 {
-	LP_EDGE pIterEdge, pNewEdge;
+	LP_VERTEX_EDGE pIterEdge, pNewEdge;
 
 	pNewEdge = (EDGE *)malloc(sizeof(EDGE));
 	if (NULL == pNewEdge)
@@ -277,10 +277,10 @@ LP_EDGE createEdge(LP_EDGE *ppStartEdge, NODE *pFrom, NODE *pTo)
 }
 
 
-void printGraph(LP_NODE pStartNode)
+void printGraph(LP_VERTEX_NODE pStartNode)
 {
-	LP_NODE pIterNode = pStartNode;
-	LP_EDGE pIterEdge;
+	LP_VERTEX_NODE pIterNode = pStartNode;
+	LP_VERTEX_EDGE pIterEdge;
 
 	while (pIterNode)
 	{
@@ -308,9 +308,9 @@ void printGraph(LP_NODE pStartNode)
 	}
 }
 
-NODE * findNode(LP_NODE pStartNode, char data)
+LP_VERTEX_NODE findNode(LP_VERTEX_NODE pStartNode, char data)
 {
-	LP_NODE pIterNode = pStartNode;
+	LP_VERTEX_NODE pIterNode = pStartNode;
 	while(pIterNode)
 	{
 		if (pIterNode->data == data)
@@ -378,16 +378,16 @@ enum RESULT getNextEdge(char *buf, int *pCurIndex, char *from, char *to)
 	return R_SUCCESS; 
 } 
 
-void visit(LP_NODE pVisitNode, int *pIndex)
+void visit(LP_VERTEX_NODE pVisitNode, int *pIndex)
 {
 	printf("%3c[%2d]",  pVisitNode->data,*pIndex);
 	(*pIndex)++;	
 }
 
-void widthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurIndex, LP_QUEUE pQueue)
+void widthTraverse(LP_VERTEX_NODE pStartNode, void (*fn)(LP_VERTEX_NODE, int *), int *pCurIndex, LP_QUEUE pQueue)
 {
-	LP_NODE pIterNode;	
-	LP_EDGE pIterEdge;
+	LP_VERTEX_NODE pIterNode;	
+	LP_VERTEX_EDGE pIterEdge;
 
 	pIterNode = pStartNode;
 	while (pIterNode)
@@ -419,14 +419,14 @@ void widthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurInde
 
 }
 
-void depthTraverse(LP_NODE pStartNode, void (*fn)(LP_NODE, int *), int *pCurIndex, LP_STACK pStack)
+void depthTraverse(LP_VERTEX_NODE pStartNode, void (*fn)(LP_VERTEX_NODE, int *), int *pCurIndex, LP_STACK pStack)
 {
-	LP_NODE pIterNode;
-	LP_EDGE pIterEdge;
+	LP_VERTEX_NODE pIterNode;
+	LP_VERTEX_EDGE pIterEdge;
 	LP_STACK pEdgeStack = NULL;
 	int index = 0;
 
-	createStack(&pEdgeStack, sizeof(LP_EDGE));
+	createStack(&pEdgeStack, sizeof(LP_VERTEX_EDGE));
 	
 	pIterNode = pStartNode;
 	while (pIterNode)
@@ -481,23 +481,23 @@ void dumpDegree(void *pData, void *pArg)
 	DEGREE *pDegreeNode;
 	pDegreeNode = (DEGREE *)pData;
 
-	printf("[%c,d%d]",pDegreeNode->pGraphNode->data, pDegreeNode->degree);
+	printf("[%c,(D=%d)]",pDegreeNode->pGraphNode->data, pDegreeNode->degree);
 }
 
 BOOL cmp(void *pData, void *pKey)
 {
 	DEGREE	*pDegreeNode;
-	LP_NODE pNode = (NODE *)pKey;
+	LP_VERTEX_NODE pNode = (LP_VERTEX_NODE)pKey;
 
 	pDegreeNode = (DEGREE *)pData;
 	//printf("\nCmp %c %c", pDegreeNode->pGraphNode->data, pNode->data);
 	return (pDegreeNode->pGraphNode == pNode);	
 
 }
-void topologySortGraph(LP_NODE pStartNode)
+BOOL topologySortGraph(LP_VERTEX_NODE pStartNode)
 {
-	LP_EDGE pIterEdge;	
-	LP_NODE pIterNode;
+	LP_VERTEX_EDGE pIterEdge;	
+	LP_VERTEX_NODE pIterNode;
 	LP_DOUBLE_LINK_LIST pDegreeList;
 	LP_LIST_NODE pListNode;
 	DEGREE	degreeNode, *pDegreeNode;
@@ -505,7 +505,7 @@ void topologySortGraph(LP_NODE pStartNode)
 	int degrees;
 	int index = 0, numOfNode = 0;
 
-	createStack(&pNodeStack, sizeof(LP_NODE));
+	createStack(&pNodeStack, sizeof(LP_VERTEX_NODE));
 	initList(&pDegreeList, sizeof(DEGREE));
 
 	pIterNode = pStartNode;
@@ -528,17 +528,19 @@ void topologySortGraph(LP_NODE pStartNode)
 	}
 
 	visitList(pDegreeList, findZeroDegreeNode, pNodeStack);
-	//visitList(pDegreeList, dumpDegree, NULL);
+	visitList(pDegreeList, dumpDegree, NULL);
+	putchar('\n');
+
 	while (!isStackEmpty(pNodeStack))
 	{
 		pop(pNodeStack, &pIterNode);
-		printf("[%d]%c", index, pIterNode->data);
+		printf("[%c(%d)]", pIterNode->data, index);
 		index++;		
 
 		pIterEdge = pIterNode->pFirstEdgeOut;
 		while (pIterEdge)
 		{
-			pDegreeNode = findNodeInList(pDegreeList, pIterEdge->pTo, cmp);
+			pDegreeNode = (DEGREE *)findNodeInList(pDegreeList, pIterEdge->pTo, cmp);
 			pDegreeNode->degree--;
 			if (!pDegreeNode->degree)
 				push(pNodeStack, &pIterEdge->pTo);
@@ -547,17 +549,32 @@ void topologySortGraph(LP_NODE pStartNode)
 		}			
 	}
 
-	if (index < numOfNode)
-		printf("\nCylce in Graph\n");
-	
 	destoryList(pDegreeList);
 	destoryStack(pNodeStack);
 
+	if (index < numOfNode)
+	{
+		printf("\nCylce in Graph\n");
+		return FALSE;
+	}
+	else
+	{
+		return TRUE;
+	}
 }
 
 
+void criticalPath(LP_VERTEX_NODE pStartNode)
+{
 
 
+}
+
+void shortestPath(LP_VERTEX_NODE pStartNode)
+{
+
+
+}
 
 
 
