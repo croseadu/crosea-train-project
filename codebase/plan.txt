@@ -6,10 +6,10 @@
 	tree			#Create, Traverse tree(recursive, use stack), binary-Tree, sign tree, humanTree [partial done]
 	graph			#Depth traverse, width traverse£¬ scc, topo-reordder, critical-path, shortest-path(two) minimal-Tree(two)
 	sort			#all Sort algorithm	[done]...radix?
-	string    #kmp
-	search    #sorted tree, balance tree, 
-  GList     #multi-var poly
-	HashTable #
+	string    		#kmp
+	search    		#sorted tree, balance tree, 
+  	GList     		#multi-var poly
+	HashTable 		#
   
 2:
 	maze
