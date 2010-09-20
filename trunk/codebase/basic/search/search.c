@@ -90,7 +90,8 @@ void sortArray(int array[], int maxIndex)
 
 }
 
-int findInArray(int array[], int data, int maxIndex)
+
+int directSearch(int array[], int data, int maxIndex)
 {
 	int i = maxIndex - 1;	
 	array[0] = data;
@@ -99,5 +100,27 @@ int findInArray(int array[], int data, int maxIndex)
 	return i;
 }
 
+int zheBanSearch(int array[], int data, int maxIndex)
+{
+	int start = 1, end = maxIndex - 1;
 
+	if (array[start] > data || array[end] < data)
+		return 0;
 
+	while (start < end)
+	{
+		if ()
+	}
+
+}
+
+int findInArray(int array[], int data, int maxIndex)
+{
+	return directSearch(array, data, maxIndex);
+	// return zheBanSearch();
+}
+
+void buildBinaryOrderTree()
+{
+
+}
