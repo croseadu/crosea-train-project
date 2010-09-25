@@ -1,15 +1,10 @@
 #include "../../include/my.h"
 #include "../../include/util.h"
 
-
-
-
-
-void sortArray(int array[], int maxIndex);
-int findInArray(int array[], int data, int maxIndex);
-
-
-
+void sortArray(int [], int);
+int findInArray(int [], int , int);
+void printArray(int [], int);
+int binarySearch(int [], int , int);
 
 int main()
 {
@@ -51,7 +46,7 @@ int main()
 	
 
 	sortArray(array, arrayIndex);
-	
+	printArray(array, arrayIndex);
 	printf("\nInput the data you want to search :");
 	scanf("%d", &findData);
 	index = findInArray(array, findData, arrayIndex);
@@ -70,6 +65,18 @@ int main()
 	free(array);
 
 	return 0;
+}
+
+void printArray(int array[], int maxIndex)
+{
+	int k = 0;
+	int i = 1;
+	for (;i < maxIndex; i++)
+	{
+		printf("%-5d%s", array[i], (++k%5)?"":"\n");
+	}
+	if (k%5)
+		putchar('\n');
 }
 
 void sortArray(int array[], int maxIndex)
@@ -100,27 +107,66 @@ int directSearch(int array[], int data, int maxIndex)
 	return i;
 }
 
-int zheBanSearch(int array[], int data, int maxIndex)
+int binarySearch(int array[], int data, int maxIndex)
 {
-	int start = 1, end = maxIndex - 1;
+	int start = 1, end = maxIndex;
+	int middle;
 
 	if (array[start] > data || array[end] < data)
 		return 0;
 
-	while (start < end)
+	while (start <= end)
 	{
-		if ()
+		middle = (start + end)/2;
+		if (array[middle] == data)
+			return middle;
+		if (array[middle] > data)
+			end = middle - 1;
+		else
+			start = middle + 1;
 	}
+	return 0;
 
 }
 
 int findInArray(int array[], int data, int maxIndex)
 {
-	return directSearch(array, data, maxIndex);
-	// return zheBanSearch();
+	//return directSearch(array, data, maxIndex);
+	return binarySearch(array ,data, maxIndex - 1);
 }
 
-void buildBinaryOrderTree()
+STATUS buildTreeNode(LP_TREE_NODE *ppTreeNode, void *pData, unsigned int elementSize)
 {
+	*ppTreeNode = (LP_TREE_NODE)malloc(sizeof(TREE_NODE));
+	if (NULL == *ppTreeNode)
+	{
+
+	}
+}
+void insertToBinaryTree(LP_TREE_NODE pRootNode, void *pData, unsigned int elementSize)
+{
+	
 
 }
+
+void buildBinaryOrderTree(int array[], int maxIndex, LP_TREE_NODE *ppTreeNode)
+{
+	LP_TREE_NODE pRootNode = NULL;		
+	int i;
+
+	for (i = 1; i < maxIndex; i++)
+	{
+		if (pRootNode == NULL)
+		{
+			buildTreeNode(&pRootNode,  &array[i], sizeof(array[i]));
+		}
+		else
+		{		
+			insertToBinaryTree(pRootNode, &array[i], sizeof(array[i]));
+		}
+	}
+	*ppTreeNode = pRootNode;
+}
+
+
+
