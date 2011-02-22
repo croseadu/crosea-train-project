@@ -197,8 +197,196 @@ void listTraverse(LP_SINGLE_LIST_NODE pListHead, VISIT_FUNC visit)
 		pIterNode = pIterNode->pNext;
 	}
 }
+void insertSortList(LP_SINGLE_LIST_NODE pListHead, COMPARE_FUNC pFunc)
+{
+  LP_SINGLE_LIST_NODE pLastNode, pIterNode, pInsertPosPrev, pTempNode;
+  
+  if (NULL == pListHead->pNext || NULL == pListHead->pNext->pNext)
+    return;
+
+  pIterNode = pListHead->pNext->pNext;
+  pListHead->pNext->pNext = NULL;
+  pLastNode = pListHead->pNext;
+
+  while (pIterNode)
+    {
+      if (pFunc(pIterNode->pData, pLastNode->pData) < 0)
+	{
+          pInsertPosPrev = pListHead;
+          while(pFunc(pInsertPosPrev->pNext->pData, pIterNode->pData) < 0)
+	    {
+	      pInsertPosPrev = pInsertPosPrev->pNext;
+	    }
+	  pTempNode = pIterNode->pNext;
+
+	  pIterNode->pNext = pInsertPosPrev->pNext;
+	  pInsertPosPrev->pNext = pIterNode;
+	  pIterNode = pTempNode;
+	}
+      else
+	{
+	  pLastNode->pNext = pIterNode;
+          pIterNode = pIterNode->pNext;
+          pLastNode = pLastNode->pNext;
+          pLastNode->pNext = NULL;
+	}
+    }
+ 
 
 
+}
+
+void bubbleSortList(LP_SINGLE_LIST_NODE pListHead, COMPARE_FUNC pFunc)
+{
+  LP_SINGLE_LIST_NODE pLastNodeNext = NULL;
+  LP_SINGLE_LIST_NODE pFirstNode = pListHead->pNext;
+  LP_SINGLE_LIST_NODE pTempNode1, pTempNode2, pIterNodePrev;
+  //int i, j;
+
+  //i = 0;
+  while(pListHead->pNext->pNext != pLastNodeNext)
+    {
+      //printf("\nOut Loop iterations: %d\n", i);
+      //i++;
+
+      pIterNodePrev = pListHead;
+
+      //j = 0;
+      while (pIterNodePrev->pNext->pNext != pLastNodeNext)
+	{
+	  //printf("\ninner: %d", j);
+	  // j++;
+	  if (pFunc(pIterNodePrev->pNext->pData, pIterNodePrev->pNext->pNext->pData) > 0)
+	    {
+	     
+	      pTempNode1 = pIterNodePrev->pNext;
+	      pTempNode2 = pTempNode1->pNext;
+	      pTempNode1->pNext = pTempNode2->pNext;
+	      pTempNode2->pNext = pTempNode1;
+	      pIterNodePrev->pNext = pTempNode2;
+	      // printf("[swap %d %d]", *(int *)pTempNode1->pData, *(int *)pTempNode2->pData);
+
+	    }
+	  pIterNodePrev = pIterNodePrev->pNext;
+	}
+      pLastNodeNext = pIterNodePrev->pNext;
+    }
+}
+
+static LP_SINGLE_LIST_NODE selectMinimalNode(LP_SINGLE_LIST_NODE pStartNode, COMPARE_FUNC pFunc)
+{
+  LP_SINGLE_LIST_NODE pSelectNode = pStartNode;
+  LP_SINGLE_LIST_NODE pIterNode = pStartNode->pNext;
+
+  while (pIterNode != NULL)
+    {
+      if (pFunc(pIterNode->pData, pSelectNode->pData) < 0)
+	pSelectNode = pIterNode;
+      pIterNode = pIterNode->pNext;
+    }
+  return pSelectNode;
+}
 
 
+void selectSortList(LP_SINGLE_LIST_NODE pListHead, COMPARE_FUNC pFunc)
+{
+  LP_SINGLE_LIST_NODE pIterNode, pLastNode, pSelectNode;
 
+  pIterNode = pListHead->pNext;
+  pLastNode = pListHead;
+  
+  printf("\n Start Select Sort List\n");
+  while (pIterNode != NULL)
+    {
+      pSelectNode = selectMinimalNode(pIterNode, pFunc);
+      
+      if (pSelectNode == pIterNode)
+	pIterNode = pIterNode->pNext;
+      else
+	{
+	  LP_SINGLE_LIST_NODE pDeletePrev = pIterNode;
+	  while(pDeletePrev->pNext != pSelectNode)
+	    pDeletePrev = pDeletePrev->pNext;
+	  pDeletePrev->pNext = pSelectNode->pNext;
+	}
+
+      pLastNode->pNext = pSelectNode;
+      pLastNode = pSelectNode;
+    }
+
+  pLastNode->pNext = NULL;
+}
+
+static LP_SINGLE_LIST_NODE partion(LP_SINGLE_LIST_NODE pStartNode, LP_SINGLE_LIST_NODE pEndNode, COMPARE_FUNC pFunc)
+{
+  LP_SINGLE_LIST_NODE pFirstNode, pLastNode, pIterNode, pTempNode;
+
+  // printf("[P]");
+  pFirstNode = pStartNode;
+  pLastNode = pStartNode;
+  pIterNode = pStartNode->pNext;
+  pStartNode->pNext = NULL;
+
+  while (pIterNode != pEndNode)
+    {
+      pTempNode = pIterNode->pNext;
+      if (pFunc(pIterNode->pData, pStartNode->pData) < 0)
+	{
+	  pIterNode->pNext = pFirstNode;
+	  pFirstNode = pIterNode;
+	}
+      else
+	{
+	  pLastNode->pNext = pIterNode;
+	  pLastNode = pIterNode;
+	}
+      pIterNode = pTempNode;
+    }
+  pLastNode->pNext = pEndNode;
+  return pFirstNode;
+}
+
+static LP_SINGLE_LIST_NODE quickSort(LP_SINGLE_LIST_NODE pStartNode, LP_SINGLE_LIST_NODE pEndNode, COMPARE_FUNC pFunc)
+{
+  LP_SINGLE_LIST_NODE pFirstNode, pSecondFirstNode;
+
+  //printf("[Q]");
+  if (pStartNode == pEndNode || pStartNode->pNext == pEndNode)
+    return pStartNode;
+  
+  pFirstNode = partion(pStartNode, pEndNode, pFunc);
+  pFirstNode = quickSort(pFirstNode, pStartNode, pFunc);
+  pSecondFirstNode = quickSort(pStartNode->pNext, pEndNode, pFunc);
+
+  pStartNode->pNext = pSecondFirstNode;
+  return pFirstNode;
+}
+
+void quickSortList(LP_SINGLE_LIST_NODE pListHead, COMPARE_FUNC pFunc)
+{
+  LP_SINGLE_LIST_NODE pFirstNode;
+  
+  printf("\nStart Quick Sort List:\n");
+
+  pFirstNode = quickSort(pListHead->pNext, NULL, pFunc);
+  pListHead->pNext = pFirstNode;
+
+}
+
+void reverseList(LP_SINGLE_LIST_NODE pListHead)
+{
+  LP_SINGLE_LIST_NODE pIterNode, pTempNode;
+
+  printf("\nStart Reverse List\n");
+  pIterNode = pListHead->pNext;
+  pListHead->pNext = NULL;
+
+  while (pIterNode != NULL)
+    {
+      pTempNode = pIterNode->pNext;
+      pIterNode->pNext = pListHead->pNext;
+      pListHead->pNext = pIterNode;
+      pIterNode = pTempNode;
+    }
+
+}

@@ -11,6 +11,21 @@ void modAndPrintValue(void *pData)
 	printf("%5d", (*(int *)pData)%5);
 }
 
+S_RESULT compareKey(void * pFirst, void * pLast)
+{
+  int first, second;
+
+  first = *(int *)pFirst;
+  second = *(int *)pLast;
+  
+  if (first == second)
+    return R_EQ;
+  else if (first < second)
+    return R_LT;
+  else
+    return R_GT;
+}
+
 int main()
 {
 	int data;
@@ -51,8 +66,15 @@ int main()
 	fclose(pInputFile);
 
 	putchar('\n');
-	listTraverse(pListHead, modAndPrintValue);
+	listTraverse(pListHead, printValue);
 	putchar('\n');
+
+	quickSortList(pListHead, compareKey);
+	printf("\nAfter Sort:");
+	listTraverse(pListHead, printValue);
+	
+	reverseList(pListHead);
+	listTraverse(pListHead, printValue);
 
 	destroySingleList(pListHead);
 	

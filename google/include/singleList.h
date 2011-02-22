@@ -2,7 +2,7 @@
 #define _SINGLE_LIST_H
 #include "common.h"
 
-typedef BOOL (*COMPARE_FUNC)(void *pFirst, void *pSecond);
+typedef S_RESULT (*COMPARE_FUNC)(void *pFirst, void *pSecond);
 typedef void (*VISIT_FUNC)(void *pData);
 
 typedef struct _SINGLE_LIST
@@ -23,6 +23,10 @@ BOOL findItemInList(const LP_SINGLE_LIST_NODE pListHead, void *pKeyData, void *p
 void deleteItemFromList(LP_SINGLE_LIST_NODE pListHead, void *pKeyData, COMPARE_FUNC pFunc);
 
 void listTraverse(LP_SINGLE_LIST_NODE pListHead, VISIT_FUNC visit);
+void insertSortList(LP_SINGLE_LIST_NODE pListHead, COMPARE_FUNC pFunc);
+void bubbleSortList(LP_SINGLE_LIST_NODE pListHead, COMPARE_FUNC pFunc);
+void quickSortList(LP_SINGLE_LIST_NODE pListHead, COMPARE_FUNC pFunc);
+void selectSortList(LP_SINGLE_LIST_NODE pListHead, COMPARE_FUNC pFunc);
 #endif
 
 
