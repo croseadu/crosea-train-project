@@ -22,5 +22,6 @@
 
 typedef int BOOL;
 typedef int STATUS;
+typedef int S_RESULT;
 
 
