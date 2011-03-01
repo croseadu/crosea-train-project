@@ -2,8 +2,6 @@
 #define _SINGLE_LIST_H
 #include "common.h"
 
-typedef S_RESULT (*COMPARE_FUNC)(void *pFirst, void *pSecond);
-typedef void (*VISIT_FUNC)(void *pData);
 
 typedef struct _SINGLE_LIST
 {

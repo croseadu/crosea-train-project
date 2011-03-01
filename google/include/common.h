@@ -26,4 +26,7 @@ typedef int BOOL;
 typedef int STATUS;
 typedef int S_RESULT;
 
+typedef S_RESULT (*COMPARE_FUNC)(void *pFirst, void *pSecond);
+typedef void (*VISIT_FUNC)(void *pData);
+
 #endif
