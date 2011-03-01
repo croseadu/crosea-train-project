@@ -1,7 +1,8 @@
 
 #include "../include/biTree.h"
+#include "../include/stack.h"
 
-static STATUS createTreeRecursive(LP_BI_TREE_NODE *ppNode, char *pData, unsigned int *pCurIndex)
+static STATUS createTreeRecursiveV1(LP_BI_TREE_NODE *ppNode, char *pData, unsigned int *pCurIndex)
 {
   LP_BI_TREE_NODE pNode;
   STATUS status;
@@ -29,10 +30,10 @@ static STATUS createTreeRecursive(LP_BI_TREE_NODE *ppNode, char *pData, unsigned
   *pNode->pData = pData[*pCurIndex];
   (*pCurIndex)++;
   
-  status = createTreeRecursive(&pNode->pLeftChild, pData, pCurIndex);
+  status = createTreeRecursiveV1(&pNode->pLeftChild, pData, pCurIndex);
   if (status != OK)
     return status;
-  status = createTreeRecursive(&pNode->pRightChild, pData, pCurIndex);
+  status = createTreeRecursiveV1(&pNode->pRightChild, pData, pCurIndex);
   if (status != OK)
     return status;
 
@@ -84,7 +85,7 @@ STATUS createTreeV1(LP_BI_TREE_NODE *ppRoot)
   pInputData[index] = ' ';
 
   index = 0;
-  if (createTreeRecursive(&pRoot, pInputData ,&index) != OK)
+  if (createTreeRecursiveV1(&pRoot, pInputData ,&index) != OK)
     {
       free(pInputData);
       printf("Create Tree Recursive Fail\n");
@@ -92,12 +93,100 @@ STATUS createTreeV1(LP_BI_TREE_NODE *ppRoot)
     }
 
   *ppRoot = pRoot;
+  fclose(fp);
   return OK;
 }
+
+static STATUS createTreeRecursiveV2(LP_BI_TREE_NODE *ppRoot, const char *pPreData, const char * pInData, unsigned int size)
+{
+  LP_BI_TREE_NODE pRoot = NULL;
+  char root;
+  int index;
+  STATUS status;
+
+  if (size == 0)
+    {
+      *ppRoot = NULL;
+      return OK;
+    }
+
+  root = pPreData[0];
+  index = 0;
+  while (index < size && pInData[index] != root)
+    index++;
+
+  if (index >= size)
+    {
+      printf("Error in Input, line %d", __LINE__);
+      return ERROR;
+    }
+  pRoot = (LP_BI_TREE_NODE)malloc(sizeof(BI_TREE_NODE));
+  if (NULL == pRoot)
+    {
+      printf("Out Of Memory in Line %d, Function %s", __LINE__, __FUNCTION__);
+      return OVERFLOW;
+    }
+  pRoot->pData = (char *)malloc(sizeof(char));
+  if (NULL == pRoot->pData)
+    {
+      printf("Out Of Memory in Line %d, Function %s", __LINE__, __FUNCTION__);
+      return OVERFLOW;
+    }
+    
+  *(char *)pRoot->pData = root;
   
+  status = createTreeRecursiveV2(&pRoot->pLeftChild, pPreData+1, pInData, index);
+  if (status != OK)
+    return status;
+  
+  status = createTreeRecursiveV2(&pRoot->pRightChild, pPreData+index+1, pInData+index+1, size-index-1);
+  if (status != OK)
+    return status;
+  
+  *ppRoot = pRoot;
+  return OK;
+}  
+
 STATUS createTreeV2(LP_BI_TREE_NODE *ppRoot)
 {
+  LP_BI_TREE_NODE pRoot = NULL;
+  FILE *fp;
+  char *pPreOrderData = NULL;
+  char *pInOrderData = NULL;
 
+#define MAX_SIZE 4096
+  pPreOrderData = (char *)malloc(sizeof(char) * MAX_SIZE);
+  pInOrderData = (char *)malloc(sizeof(char) * MAX_SIZE);
+
+  if (NULL == pPreOrderData || NULL == pInOrderData)
+    return OVERFLOW;
+  memset (pPreOrderData, 0, MAX_SIZE * sizeof(char));
+  memset (pInOrderData, 0, MAX_SIZE * sizeof(char)); 
+
+  if ((fp = fopen("inputData.txt", "r")) == NULL)
+    {
+      printf("Cannot Open File InputData.txt\n");
+      return ERROR;
+    }
+
+  fscanf(fp, "%s", pPreOrderData);
+  if (feof(fp))
+    return ERROR;
+  fscanf(fp, "%s", pInOrderData);
+  
+  if (pPreOrderData[0] == 0 || pInOrderData[0] == 0)
+    return ERROR;
+  
+  if (strlen(pPreOrderData) != strlen(pInOrderData))
+    return ERROR;
+
+  createTreeRecursiveV2(&pRoot, pPreOrderData, pInOrderData, strlen(pPreOrderData));  
+
+  *ppRoot = pRoot;
+  fclose(fp);
+  free(pPreOrderData);
+  free(pInOrderData);
+  return OK;
 }
 
 
@@ -130,12 +219,86 @@ void postOrderTraverse(LP_BI_TREE_NODE pTree, VISIT_FUNC visit)
 
 void preOrderTraverStack(LP_BI_TREE_NODE pTree, VISIT_FUNC visit)
 {
+  LP_STACK pStack = NULL;
+  STATUS status;
+  LP_BI_TREE_NODE pNode;
+
+
+  status = createStack(&pStack, sizeof(LP_BI_TREE_NODE));
+  if (status != OK)
+    {
+      printf("Create Stack Failed\n");
+      return;
+    }
+
+  push(pStack, &pTree);
+  while(!isStackEmpty(pStack))
+    {
+      pop(pStack, &pNode);
+      visit(pNode->pData);
+      if (pNode->pLeftChild)
+	push (pStack, &pNode->pLeftChild);
+      if (pNode->pRightChild)
+	push (pStack, &pNode->pRightChild);
+    }
+
+
+  destroyStack(pStack);
 }
 void inOrderTraverseStack1(LP_BI_TREE_NODE pTree, VISIT_FUNC visit)
 {
+  LP_STACK pStack = NULL;
+  STATUS status;
+  LP_BI_TREE_NODE pNode;
+
+
+  status = createStack(&pStack, sizeof(LP_BI_TREE_NODE));
+  if (status != OK)
+    {
+      printf("Create Stack Failed\n");
+      return;
+    }
+
+  pNode = pTree;
+  while (pNode || !isStackEmpty(pStack))
+    {
+      if (pNode)
+	{
+	  while(pNode)
+	    {
+	      push (pStack, &pNode);
+	      pNode = pNode->pLeftChild;
+	    }
+	}
+      else
+	{
+	  pop(pStack, &pNode);
+	  visit(pNode->pData);
+	  pNode = pNode->pRightChild;
+	}
+    }
+  destroyStack(pStack);
 }
 void inOrderTraverseStack2(LP_BI_TREE_NODE pTree, VISIT_FUNC visit)
 {
+  LP_STACK pStack = NULL;
+  STATUS status;
+  LP_BI_TREE_NODE pNode;
+
+
+  status = createStack(&pStack, sizeof(LP_BI_TREE_NODE));
+  if (status != OK)
+    {
+      printf("Create Stack Failed\n");
+      return;
+    }
+  push (pStack, &pTree);
+  while (!isStackEmpty(pStack))
+    {
+      getTop(pStack, &pNode);
+ 
+    }
+  destroyStack (pStack);
 }
   
 void destroyTree(LP_BI_TREE_NODE pRoot)

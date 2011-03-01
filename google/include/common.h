@@ -1,3 +1,5 @@
+#ifndef _COMMON_H
+#define _COMMON_H
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -24,4 +26,4 @@ typedef int BOOL;
 typedef int STATUS;
 typedef int S_RESULT;
 
-
+#endif
