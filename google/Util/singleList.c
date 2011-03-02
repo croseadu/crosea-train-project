@@ -98,6 +98,7 @@ STATUS insertToTail(LP_SINGLE_LIST_NODE pListHead, void * pData)
 		pInsertPos = pInsertPos->pNext;
 
 	pInsertPos->pNext = pNode;
+	pNode->pNext = NULL;
 
 	return OK;
 }
@@ -389,4 +390,15 @@ void reverseList(LP_SINGLE_LIST_NODE pListHead)
       pIterNode = pTempNode;
     }
 
+}
+
+BOOL isListEmpty(const LP_SINGLE_LIST_NODE pListHead)
+{
+  return (pListHead->pNext)?FALSE:TRUE;
+}
+void getListBegin(const LP_SINGLE_LIST_NODE pListHead, void *pOut)
+{
+  char *pCur;
+  pCur = pListHead->pNext->pData;
+  memcpy((char *)pOut, pCur, (unsigned int)pListHead->pData);
 }

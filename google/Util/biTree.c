@@ -1,6 +1,7 @@
 
 #include "../include/biTree.h"
 #include "../include/stack.h"
+#include "../include/listQueue.h"
 
 static STATUS createTreeRecursiveV1(LP_BI_TREE_NODE *ppNode, char *pData, unsigned int *pCurIndex)
 {
@@ -236,10 +237,10 @@ void preOrderTraverStack(LP_BI_TREE_NODE pTree, VISIT_FUNC visit)
     {
       pop(pStack, &pNode);
       visit(pNode->pData);
-      if (pNode->pLeftChild)
-	push (pStack, &pNode->pLeftChild);
-      if (pNode->pRightChild)
+       if (pNode->pRightChild)
 	push (pStack, &pNode->pRightChild);
+       if (pNode->pLeftChild)
+	push (pStack, &pNode->pLeftChild);  
     }
 
 
@@ -296,11 +297,51 @@ void inOrderTraverseStack2(LP_BI_TREE_NODE pTree, VISIT_FUNC visit)
   while (!isStackEmpty(pStack))
     {
       getTop(pStack, &pNode);
+      while (pNode)
+	{
+	  push (pStack, &pNode->pLeftChild);
+	  pNode = pNode->pLeftChild;
+	}
+      pop (pStack, &pNode);
+      if (!isStackEmpty(pStack))
+	{
+	  pop (pStack, &pNode);
+	  visit (pNode->pData);
+	  push (pStack, &pNode->pRightChild);
+	}
  
     }
   destroyStack (pStack);
 }
   
+void levelOrderTraverse(LP_BI_TREE_NODE pRoot, VISIT_FUNC visit)
+{
+  STATUS status;
+  LP_LIST_QUEUE pQueue;
+  LP_BI_TREE_NODE pIterNode;
+
+  status = createListQueue(&pQueue, sizeof(LP_BI_TREE_NODE));
+  if (status != OK)
+    {
+      printf("Create List Queue Failed in Function %s", __FUNCTION__);
+      exit(-1);
+    }
+  insertToQueueTail(pQueue, &pRoot);
+  while (!isQueueEmpty(pQueue))
+    {
+      getFromQueueHead(pQueue, &pIterNode);
+      visit(pIterNode->pData);
+      if (pIterNode->pLeftChild)
+	insertToQueueTail(pQueue, &pIterNode->pLeftChild);
+      if (pIterNode->pRightChild)
+	insertToQueueTail(pQueue, &pIterNode->pRightChild);
+    }
+
+
+  destroyListQueue(pQueue);
+
+}
+
 void destroyTree(LP_BI_TREE_NODE pRoot)
 {
   if (pRoot->pLeftChild)

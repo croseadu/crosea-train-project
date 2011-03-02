@@ -1,4 +1,6 @@
 #include "../include/common.h"
+#include "../include/stack.h"
+#include "../include/circularQueue.h"
 
 #define INIT_SIZE 10
 #define INCRE_SIZE 5
@@ -119,13 +121,13 @@ int main()
       exit(-1);
     }
 
-  printf("\nDepth Order Traverse:");
-  //depthOrderTraverse(pStartNode);
-  printf("\nLevel Order Traverse:");
-  //levelOrderTraverse(pStartNode);
+  printf("\nDepth First Order Traverse:");
+  //depthOrderTraverse(pStartNode, visit);
+  printf("\nWidth First Order Traverse:");
+  //widthOrderTraverse(pStartNode, visit);
 
   printf("\nTopo Order Traverse:");
-  //topoOrderTraverse(pStartNode);
+  //topoOrderTraverse(pStartNode, visit);
 
   destroyGraph(pStartNode);
   fclose(fp);
@@ -211,4 +213,95 @@ void destroyGraph(LP_NODE pStartNode)
 	}
       pIterNode = pNextNode;
     }
+}
+
+void depthOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit)
+{
+  LP_NODE pIterNode;
+  LP_EDGE pIterEdge;
+  LP_STACK pStack;
+  STATUS status;
+
+  status = createStack(&pStack, sizeof(LP_NODE));
+  if (status != OK)
+    {
+      printf("Create Stack Failed in Function %s", __FUNCTION__);
+      exit(-1);
+    }
+
+  pIterNode = pStartNode;
+  while (pIterNode)
+    {
+      pIterNode->bVisited = FALSE;
+      if (pIterNode->pFirstInEdge == NULL)
+	push (pStack, &pIterNode);
+
+      pIterNode = pIterNode->pNextNode;
+    }
+  
+  while (!isStackEmpty(pStack))
+    {
+      pop (pStack, &pIterNode);
+      visit(pIterNode->pData);
+      pIterNode->bVisited = TRUE;
+      pIterEdge = pIterNode->pFirstOutEdge;
+      while (pIterEdge)
+	{
+	  if (pIterEdge->pTo->bVisited == FALSE)
+	    {
+	      push (pStack, &pIterEdge->pTo);
+	    }
+	  pIterEdge = pIterEdge->pNextSameFrom;
+	}
+    }
+  
+  destroyStack(pStack);
+}
+
+void widthOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit)
+{
+  LP_NODE pIterNode;
+  LP_CIRCULAR_QUEUE pQueue;
+  STATUS status;
+  unsigned int maxNum = 0;
+  LP_EDGE pIterEdge;
+
+  pIterNode = pStartNode;
+  while(pIterNode)
+    {
+      pIterNode->bVisited = FALSE;
+      pIterNode = pIterNode->pNextNode;
+      maxNum++;
+    }
+  status = createCircularQueue(&pQueue, maxNum, sizeof(LP_NODE));
+  if (status != OK)
+    {
+      printf ("Create Circular Queue Failed in Function %s", __FUNCTION__);
+      exit(-1);
+    }
+
+  pIterNode = pStartNode;
+  while (pIterNode)
+    {
+      if (pIterNode->pFirstInEdge == NULL)
+	insertToQueueTail(pQueue, &pIterNode);
+      pIterNode = pIterNode->pNextNode;
+    }
+  while (!isQueueEmpty(pQueue))
+    {
+      getFromQueueHead(pQueue, &pIterNode);
+      visit(pIterNode->pData);
+      pIterNode->bVisited = FALSE;
+      pIterEdge = pIterNode->pFirstOutEdge;
+      while (pIterEdge)
+	{
+	  if (pIterEdge->pTo->bVisited == FALSE)
+	    {
+	      insertToQueueTail(pQueue, &pIterEdge->pTo);
+	    }
+	  pIterEdge = pIterEdge->pNextSameFrom;
+	}
+    }
+
+  destroyCircularQueue(pQueue);
 }
