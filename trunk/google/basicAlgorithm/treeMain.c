@@ -34,6 +34,8 @@ int main()
   inOrderTraverseStack1(pRoot, visit);
   printf ("\nStart InOrder Stack Traverse V2:");
   inOrderTraverseStack2(pRoot, visit);
+  printf("\nStart LevelOrder Traverse:");
+  levelOrderTraverse(pRoot, visit);
   putchar('\n');
  
   destroyTree(pRoot);

@@ -47,7 +47,7 @@ BOOL isQueueFull(const LP_CIRCULAR_QUEUE pQueue)
   return (((pQueue->tail+1)%pQueue->maxSize) == pQueue->head)?TRUE:FALSE;
 }
 
-void getFromHead(LP_CIRCULAR_QUEUE pQueue, void *pOut)
+void getFromQueueHead(LP_CIRCULAR_QUEUE pQueue, void *pOut)
 {
   char *pCur;
 
@@ -59,7 +59,7 @@ void getFromHead(LP_CIRCULAR_QUEUE pQueue, void *pOut)
   pQueue->head++;
 }
 
-void insertToTail(LP_CIRCULAR_QUEUE pQueue, void *pIn)
+void insertToQueueTail(LP_CIRCULAR_QUEUE pQueue, void *pIn)
 {
   char *pCur;
 

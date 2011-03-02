@@ -20,7 +20,7 @@ void destroyCircularQueue(LP_CIRCULAR_QUEUE pQueue);
 BOOL isQueueEmpty(const LP_CIRCULAR_QUEUE pQueue);
 BOOL isQueueFull(const LP_CIRCULAR_QUEUE pQueue);
 
-void getFromHead(LP_CIRCULAR_QUEUE pQueue, void *pOut);
-void insertToTail(LP_CIRCULAR_QUEUE pQueue, void *pIn);
+void getFromQueueHead(LP_CIRCULAR_QUEUE pQueue, void *pOut);
+void insertToQueueTail(LP_CIRCULAR_QUEUE pQueue, void *pIn);
 
 #endif
