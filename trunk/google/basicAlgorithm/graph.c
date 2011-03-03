@@ -1,6 +1,7 @@
 #include "../include/common.h"
 #include "../include/stack.h"
 #include "../include/circularQueue.h"
+#include "../include/singleList.h"
 
 #define INIT_SIZE 10
 #define INCRE_SIZE 5
@@ -26,13 +27,19 @@ typedef struct _EDGE
 
 LP_NODE findNode(LP_NODE pStartNode, void *pKeyData, COMPARE_FUNC compare);
 
+void printChar(char c)
+{
+  printf ("%c",c);
+}
 
 void getNext(FILE *fp, char *pC)
 {
-    do
+  while (!feof(fp))
       {
 	*pC = fgetc(fp); 
-      }while (*pC == ' ' || *pC == '\t');
+	if (*pC != ' ' && *pC != '\t' && *pC != '\n' && *pC != '\r')
+	  break;
+      }
 }
 
 S_RESULT compareKey(void *pFirst, void *pSecond)
@@ -42,6 +49,11 @@ S_RESULT compareKey(void *pFirst, void *pSecond)
   return R_LT;
 }
 
+void visit (void *pData)
+{
+  printf("%c", *(char *)pData);
+}
+
 STATUS createNode(LP_NODE *ppNode, void *pData, unsigned int sizeOfData);
 STATUS createEdge(LP_NODE pFrom, LP_NODE pTo);
 void destroyGraph(LP_NODE pStartNode);
@@ -49,12 +61,19 @@ void destroyGraph(LP_NODE pStartNode);
 #define VALID_EDGE_START(c) (c == '(')
 #define VALID_EDGE_SEPARATOR(c) (c == ',')
 #define VALID_EDGE_END(c) (c == ')')
+
+
+void depthOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit);
+void widthOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit);
+void topoOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit);
+
 int main()
 {
   FILE *fp;
   char c;
   STATUS status = OK;
   NODE *pStartNode = NULL, *pTo, *pFrom;
+  LP_NODE pIterNode, pNextNode;
   EDGE *pEdge;
 
   if ((fp = fopen("inputData.txt", "r")) == NULL)
@@ -63,10 +82,10 @@ int main()
       exit(-1);
     }
 
+  getNext(fp, &c);
   while (!feof(fp))
     {
-      getNext(fp, &c);
-      if (!VALID_EDGE_START(c))
+       if (!VALID_EDGE_START(c))
 	{
 	  status = ERROR;
 	  break;
@@ -77,7 +96,7 @@ int main()
 	  status = ERROR;
 	  break;
 	}
-      if (pFrom = findNode(pStartNode, &c, compareKey))
+      if ((pFrom = findNode(pStartNode, &c, compareKey)) == NULL)
 	{
 	  status = createNode(&pFrom, &c, sizeof(char));
 	  if (status != OK)
@@ -96,7 +115,7 @@ int main()
 	{
 	  status = ERROR;
 	}
-      if (pTo = findNode(pStartNode, &c, compareKey))
+      if ((pTo = findNode(pStartNode, &c, compareKey)) == NULL)
 	{
 	  status = createNode(&pTo, &c, sizeof(char));
 	  if (status != OK)
@@ -121,14 +140,35 @@ int main()
       exit(-1);
     }
 
+  // Reverse the Node List 
+  pIterNode = pStartNode->pNextNode;
+  pStartNode->pNextNode = NULL;
+  while (pIterNode)
+    {
+      pNextNode = pIterNode->pNextNode;
+      pIterNode->pNextNode = pStartNode;
+      pStartNode = pIterNode;
+      pIterNode = pNextNode;
+    }
+  printf("\nOriginal Node List is :");
+  pIterNode = pStartNode;
+  while (pIterNode)
+    {
+      printf ("%c", *(char *)pIterNode->pData);
+      pIterNode = pIterNode->pNextNode;
+    }
+
   printf("\nDepth First Order Traverse:");
-  //depthOrderTraverse(pStartNode, visit);
+  depthOrderTraverse(pStartNode, visit);
   printf("\nWidth First Order Traverse:");
-  //widthOrderTraverse(pStartNode, visit);
+  widthOrderTraverse(pStartNode, visit);
 
   printf("\nTopo Order Traverse:");
-  //topoOrderTraverse(pStartNode, visit);
+  topoOrderTraverse(pStartNode, visit);
 
+
+
+  putchar('\n');
   destroyGraph(pStartNode);
   fclose(fp);
   return 0;
@@ -161,6 +201,7 @@ STATUS createNode(LP_NODE *ppNode, void *pData, unsigned int sizeOfData)
     }
 
   memcpy(pNode->pData, (char *)pData, sizeOfData);
+  *ppNode = pNode;
   return OK;
 }
 
@@ -233,28 +274,36 @@ void depthOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit)
   while (pIterNode)
     {
       pIterNode->bVisited = FALSE;
-      if (pIterNode->pFirstInEdge == NULL)
-	push (pStack, &pIterNode);
-
       pIterNode = pIterNode->pNextNode;
     }
-  
-  while (!isStackEmpty(pStack))
+
+  pIterNode = pStartNode;
+  while (pIterNode)
     {
-      pop (pStack, &pIterNode);
-      visit(pIterNode->pData);
-      pIterNode->bVisited = TRUE;
-      pIterEdge = pIterNode->pFirstOutEdge;
-      while (pIterEdge)
+      if (pIterNode->bVisited == FALSE)
 	{
-	  if (pIterEdge->pTo->bVisited == FALSE)
-	    {
-	      push (pStack, &pIterEdge->pTo);
+	  push (pStack, &pIterNode);
+	  while (!isStackEmpty(pStack))
+	    {     
+	      pop (pStack, &pIterNode);
+	      if (pIterNode->bVisited == FALSE)
+		{
+		  visit(pIterNode->pData);
+		  pIterNode->bVisited = TRUE;
+		  pIterEdge = pIterNode->pFirstOutEdge;
+		  while (pIterEdge)
+		    {
+		      if (pIterEdge->pTo->bVisited == FALSE)
+			{
+			  push (pStack, &pIterEdge->pTo);
+			}
+		      pIterEdge = pIterEdge->pNextSameFrom;
+		    }
+		}
 	    }
-	  pIterEdge = pIterEdge->pNextSameFrom;
 	}
+      pIterNode = pIterNode->pNextNode;
     }
-  
   destroyStack(pStack);
 }
 
@@ -283,25 +332,129 @@ void widthOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit)
   pIterNode = pStartNode;
   while (pIterNode)
     {
-      if (pIterNode->pFirstInEdge == NULL)
-	insertToQueueTail(pQueue, &pIterNode);
-      pIterNode = pIterNode->pNextNode;
-    }
-  while (!isQueueEmpty(pQueue))
-    {
-      getFromQueueHead(pQueue, &pIterNode);
-      visit(pIterNode->pData);
-      pIterNode->bVisited = FALSE;
-      pIterEdge = pIterNode->pFirstOutEdge;
-      while (pIterEdge)
+      if (pIterNode->bVisited == FALSE)
 	{
-	  if (pIterEdge->pTo->bVisited == FALSE)
+	  insertToQueueTail(pQueue, &pIterNode);
+	  while (!isQueueEmpty(pQueue))
 	    {
-	      insertToQueueTail(pQueue, &pIterEdge->pTo);
+	      getFromQueueHead(pQueue, &pIterNode);
+	      if (pIterNode->bVisited)
+		continue;
+	      visit(pIterNode->pData);
+	      pIterNode->bVisited = TRUE;
+	      pIterEdge = pIterNode->pFirstOutEdge;
+	      while (pIterEdge)
+		{
+		  if (pIterEdge->pTo->bVisited == FALSE)
+		    {
+		      insertToQueueTail(pQueue, &pIterEdge->pTo);
+		    }
+		  pIterEdge = pIterEdge->pNextSameFrom;
+		}
 	    }
-	  pIterEdge = pIterEdge->pNextSameFrom;
 	}
+      pIterNode = pIterNode->pNextNode;
     }
 
   destroyCircularQueue(pQueue);
+}
+
+typedef struct _DEGREE
+{
+  LP_NODE pNode;
+  unsigned int degree;
+}DEGREE, *LP_DEGREE;
+
+S_RESULT compareNode(void *pFirst, void *pSecond)
+{
+  if (!memcmp(pFirst, pSecond, sizeof(LP_NODE)))
+    return R_EQ;
+  else
+    return R_GT;
+}
+
+void topoOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit)
+{
+  LP_NODE pIterNode;
+  LP_EDGE pIterEdge;
+  LP_STACK pStack;
+  LP_SINGLE_LIST_NODE pListHead;
+  unsigned int nodeNum = 0;
+  unsigned int visitNum = 0;
+  STATUS status;
+  DEGREE tempDegree;
+
+  status = createStack (&pStack, sizeof (pIterNode));
+  if (status != OK)
+    {
+      printf("Create Stack Failed in Function %s", __FUNCTION__);
+      exit(-1);
+    }
+
+
+  status = createSingleList(&pListHead, sizeof(DEGREE));
+    if (status != OK)
+    {
+      printf("Create Single List Failed in Function %s", __FUNCTION__);
+      exit(-1);
+    }
+    
+  pIterNode = pStartNode;
+  while (pIterNode)
+    {
+      pIterNode->bVisited = FALSE;
+      nodeNum++;
+
+      memset(&tempDegree, 0, sizeof(DEGREE));
+      tempDegree.pNode = pIterNode;
+      pIterEdge = pIterNode->pFirstInEdge;
+      while (pIterEdge)
+	{
+	  tempDegree.degree++;
+	  pIterEdge = pIterEdge->pNextSameTo;
+	}
+      if (tempDegree.degree)
+	insertToHead(pListHead, &tempDegree);
+      else
+	push (pStack, &pIterNode);
+
+      pIterNode = pIterNode->pNextNode;
+    }
+
+  while (!isStackEmpty(pStack))
+    {
+      pop (pStack, &pIterNode);
+      visit (pIterNode->pData);
+      pIterNode->bVisited = TRUE;
+      visitNum++;
+
+      pIterEdge = pIterNode->pFirstOutEdge;
+      while (pIterEdge)
+	{
+	  LP_NODE pTo;
+	  pTo = pIterEdge->pTo;
+
+	  findItemInList(pListHead, &pTo, &tempDegree, compareNode);
+	  deleteItemFromList(pListHead, &pTo, compareNode);
+	  tempDegree.degree--;
+	  if (tempDegree.degree == 0)
+	    push (pStack, &pTo);
+	  else
+	    insertToHead(pListHead, &tempDegree);
+
+	  pIterEdge = pIterEdge->pNextSameFrom;
+	}
+    }
+  
+  if (nodeNum > visitNum)
+    {
+      printf("\n Cycle in Graph, total Node is %d, node in Cyle is %d\n",nodeNum, nodeNum - visitNum);
+    }
+  else
+    {
+      printf (":No Cycle in Graph, total Node %d\n", nodeNum);
+    }
+
+  destroySingleList(pListHead);
+  destroyStack(pStack);
 }
