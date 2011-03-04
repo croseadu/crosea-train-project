@@ -6,6 +6,8 @@
 #define INIT_SIZE 10
 #define INCRE_SIZE 5
 
+#define VALUE_EDGE
+
 struct _EDGE;
 
 typedef struct _NODE
@@ -21,6 +23,7 @@ typedef struct _EDGE
 {
   NODE *pFrom;
   NODE *pTo;
+  int value;
   struct _EDGE *pNextSameFrom;
   struct _EDGE *pNextSameTo;
 }EDGE, *LP_EDGE;
@@ -51,11 +54,13 @@ S_RESULT compareKey(void *pFirst, void *pSecond)
 
 void visit (void *pData)
 {
-  printf("%c", *(char *)pData);
+  LP_NODE pNode = (LP_NODE)pData;
+  printf("%c", *(char *)pNode->pData);
 }
 
 STATUS createNode(LP_NODE *ppNode, void *pData, unsigned int sizeOfData);
 STATUS createEdge(LP_NODE pFrom, LP_NODE pTo);
+STATUS createValueEdge(LP_NODE pFrom, LP_NODE pTo, int value);
 void destroyGraph(LP_NODE pStartNode);
 #define VALID_NODE_DATA(c) (c != EOF && c != ',' && c != ')' && c != '(')
 #define VALID_EDGE_START(c) (c == '(')
@@ -65,7 +70,8 @@ void destroyGraph(LP_NODE pStartNode);
 
 void depthOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit);
 void widthOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit);
-void topoOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit);
+BOOL topoOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit);
+void criticalPath(LP_NODE pStartNode);
 
 int main()
 {
@@ -75,6 +81,7 @@ int main()
   NODE *pStartNode = NULL, *pTo, *pFrom;
   LP_NODE pIterNode, pNextNode;
   EDGE *pEdge;
+  int value;
 
   if ((fp = fopen("inputData.txt", "r")) == NULL)
     {
@@ -110,6 +117,31 @@ int main()
 	  status = ERROR;
 	  break;
 	}
+
+#ifdef VALUE_EDGE
+      if (fscanf(fp, "%d", &value))
+	{
+	  if (value < 0)
+	    {
+	      printf("Invalid Edge Value\n");
+	      status = ERROR; 
+	      break;
+	    }
+	}
+      else
+	{
+	  printf("Invalid Input for Edge\n");
+	  status = ERROR;
+	  break;
+	}
+      getNext(fp, &c);
+      if (!VALID_EDGE_SEPARATOR(c))
+	{
+	  status = ERROR;
+	  break;
+	}
+#endif
+
       getNext(fp, &c);
       if (!VALID_NODE_DATA(c))
 	{
@@ -123,7 +155,11 @@ int main()
 	  pTo->pNextNode = pStartNode;
 	  pStartNode = pTo;
 	}
+#ifdef VALUE_EDGE
+      status = createValueEdge(pFrom, pTo, value);
+#else
       status = createEdge(pFrom, pTo);
+#endif
       if (status != OK)
 	break;
       getNext(fp, &c);
@@ -166,7 +202,8 @@ int main()
   printf("\nTopo Order Traverse:");
   topoOrderTraverse(pStartNode, visit);
 
-
+  printf("\nCritical Path:");
+  criticalPath(pStartNode);
 
   putchar('\n');
   destroyGraph(pStartNode);
@@ -233,6 +270,35 @@ STATUS createEdge(LP_NODE pFrom, LP_NODE pTo)
 
   return OK;
 }
+STATUS createValueEdge(LP_NODE pFrom, LP_NODE pTo, int value)
+{
+  EDGE *pIterEdge, *pEdge;
+#if 1
+  pIterEdge = pFrom->pFirstOutEdge;
+  while (pIterEdge && pIterEdge->pTo != pTo)
+    pIterEdge = pIterEdge->pNextSameFrom;
+  assert(pIterEdge == NULL);
+#endif
+
+  pEdge = (LP_EDGE)malloc(sizeof(EDGE));
+  if (NULL == pEdge)
+    {
+      printf("Out Of Memory in Line %d, FUnction %s", __LINE__, __FUNCTION__);
+      return OVERFLOW;
+    }
+  
+  pEdge->pFrom = pFrom;
+  pEdge->pTo = pTo;
+  pEdge->value = value;
+
+  pEdge->pNextSameFrom = pFrom->pFirstOutEdge;
+  pEdge->pNextSameTo = pTo->pFirstInEdge;
+
+  pFrom->pFirstOutEdge = pEdge;
+  pTo->pFirstInEdge = pEdge;
+
+  return OK;
+}
 
 void destroyGraph(LP_NODE pStartNode)
 {
@@ -288,7 +354,7 @@ void depthOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit)
 	      pop (pStack, &pIterNode);
 	      if (pIterNode->bVisited == FALSE)
 		{
-		  visit(pIterNode->pData);
+		  visit(pIterNode);
 		  pIterNode->bVisited = TRUE;
 		  pIterEdge = pIterNode->pFirstOutEdge;
 		  while (pIterEdge)
@@ -340,7 +406,7 @@ void widthOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit)
 	      getFromQueueHead(pQueue, &pIterNode);
 	      if (pIterNode->bVisited)
 		continue;
-	      visit(pIterNode->pData);
+	      visit(pIterNode);
 	      pIterNode->bVisited = TRUE;
 	      pIterEdge = pIterNode->pFirstOutEdge;
 	      while (pIterEdge)
@@ -373,7 +439,7 @@ S_RESULT compareNode(void *pFirst, void *pSecond)
     return R_GT;
 }
 
-void topoOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit)
+BOOL topoOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit)
 {
   LP_NODE pIterNode;
   LP_EDGE pIterEdge;
@@ -424,7 +490,7 @@ void topoOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit)
   while (!isStackEmpty(pStack))
     {
       pop (pStack, &pIterNode);
-      visit (pIterNode->pData);
+      visit (pIterNode);
       pIterNode->bVisited = TRUE;
       visitNum++;
 
@@ -457,4 +523,161 @@ void topoOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit)
 
   destroySingleList(pListHead);
   destroyStack(pStack);
+  return (nodeNum == visitNum)?TRUE:FALSE;
+}
+
+static LP_SINGLE_LIST_NODE pReverseTopoOrderList;
+static LP_SINGLE_LIST_NODE pEarlyTimeList;
+static LP_SINGLE_LIST_NODE pLateTimeList;
+
+typedef struct _EARLY_TIME
+{
+  LP_NODE pNode;
+  unsigned int time;
+}TIME, *LP_TIME;
+
+static void calculateEarlyAndRecordOrder(void *pData)
+{
+  LP_NODE pNode = (LP_NODE)pData;
+  LP_EDGE pIterEdge;
+  TIME earlyTime;
+  unsigned int maxTime = 0;
+  BOOL bFind;
+
+  insertToHead(pReverseTopoOrderList, &pNode);
+  pIterEdge = pNode->pFirstInEdge;
+  if (pIterEdge)
+    {
+      while (pIterEdge)
+	{
+	  bFind = findItemInList(pEarlyTimeList, &pIterEdge->pFrom, &earlyTime, compareNode);
+	  assert(bFind);
+	  if (earlyTime.time + pIterEdge->value > maxTime)
+	    maxTime = earlyTime.time + pIterEdge->value;
+	  pIterEdge = pIterEdge->pNextSameTo;
+	}
+    }
+  earlyTime.time = maxTime;
+  earlyTime.pNode = pNode;
+
+  insertToHead(pEarlyTimeList, &earlyTime);
+}
+
+static void updateLateTime(void *pData)
+{
+  LP_TIME pTime = (LP_TIME)pData;
+  LP_NODE pNode;
+  LP_EDGE pIterEdge;
+  int minTime;
+  BOOL bFind;
+  TIME lateTime;
+
+#define MAX_TIME 65535
+  pNode = pTime->pNode;
+  pIterEdge = pNode->pFirstOutEdge;
+
+  if (pIterEdge)
+    {
+      minTime = MAX_TIME;
+      while (pIterEdge)
+	{
+	  bFind = findItemInList(pLateTimeList, &pIterEdge->pTo, &lateTime, compareNode);
+	  assert(bFind);
+	  if (minTime > lateTime.time - pIterEdge->value)
+	    minTime = lateTime.time - pIterEdge->value;
+	  pIterEdge = pIterEdge->pNextSameFrom;
+	}
+    }
+  else
+    {
+      minTime = pTime->time;
+    }
+  
+  pTime->time = minTime;
+}
+
+static void printTime(void *pData)
+{
+  LP_TIME pTime = (LP_TIME)pData;
+
+  printf("[%c, S %d] ", *(char *)pTime->pNode->pData, pTime->time);
+}
+
+static void copyToLate(void *pData)
+{
+  LP_TIME pTime = (LP_TIME)pData;
+  
+  insertToTail(pLateTimeList, pTime);
+}
+
+void criticalPath(LP_NODE pStartNode)
+{
+  LP_NODE pIterNode;
+  unsigned int nodeNum;
+  BOOL bNoCycle;
+  LP_NODE pSource = NULL, pSink = NULL;
+
+  nodeNum = 0;
+  pIterNode = pStartNode;
+  while (pIterNode)
+    {
+      nodeNum++;
+      if (pIterNode->pFirstInEdge == NULL)
+	{
+	  if (pSource)
+	    {
+	      printf("Two Leader Node in Graph, cannot calculate Critical Path\n");
+	      return;
+	    }
+	  else
+	    {
+	      pSource = pIterNode;
+	    }
+	}
+      if (pIterNode->pFirstOutEdge == NULL)
+	{
+	  if (pSink)
+	    {
+	      printf("Two end Node in Graph, cannot calculate Critical Path\n");
+	      return;
+	    }
+	  else
+	    {
+	      pSink = pIterNode;
+	    }
+	}
+
+      pIterNode = pIterNode->pNextNode;
+    }
+
+
+
+  createSingleList(&pReverseTopoOrderList, sizeof(LP_NODE));
+  createSingleList(&pEarlyTimeList, sizeof(TIME));
+  createSingleList(&pLateTimeList, sizeof(TIME));
+  
+  bNoCycle = topoOrderTraverse(pStartNode, calculateEarlyAndRecordOrder);
+  if (!bNoCycle)
+    {
+      printf("Cycle in Graph, Cannot calculate Critical path");
+      destroySingleList(pLateTimeList);
+      destroySingleList(pEarlyTimeList);
+      destroySingleList(pReverseTopoOrderList);
+      return;
+    }
+
+  printf("\nEarly Time:");
+  listTraverse(pEarlyTimeList, printTime);
+  // Init Late time as Early Time
+  listTraverse(pEarlyTimeList, copyToLate);
+  printf("\nInit Late Time:");
+  listTraverse(pLateTimeList, printTime);
+  
+  listTraverse(pLateTimeList, updateLateTime);
+  printf("\nFinal Late Time");
+  listTraverse(pLateTimeList, printTime);
+
+  destroySingleList(pLateTimeList);
+  destroySingleList(pEarlyTimeList);
+  destroySingleList(pReverseTopoOrderList);
 }
