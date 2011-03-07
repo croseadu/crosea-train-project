@@ -8,6 +8,7 @@
 
 #define VALUE_EDGE
 
+#define MAX_TIME 65535
 struct _EDGE;
 
 typedef struct _NODE
@@ -72,6 +73,7 @@ void depthOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit);
 void widthOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit);
 BOOL topoOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit);
 void criticalPath(LP_NODE pStartNode);
+void shortestPath(LP_NODE pStartNode);
 
 int main()
 {
@@ -572,7 +574,6 @@ static void updateLateTime(void *pData)
   BOOL bFind;
   TIME lateTime;
 
-#define MAX_TIME 65535
   pNode = pTime->pNode;
   pIterEdge = pNode->pFirstOutEdge;
 
@@ -677,7 +678,153 @@ void criticalPath(LP_NODE pStartNode)
   printf("\nFinal Late Time");
   listTraverse(pLateTimeList, printTime);
 
+  printf("\nShortest Path:");
+  shortestPath(pStartNode);
+
   destroySingleList(pLateTimeList);
   destroySingleList(pEarlyTimeList);
   destroySingleList(pReverseTopoOrderList);
+}
+
+typedef struct _DIST
+{
+  LP_NODE pNode;
+  unsigned int distance;
+}DIST, *LP_DIST;
+
+typedef struct _PREV_NODE
+{
+  LP_NODE pNode;
+  LP_NODE pPathPrevNode;
+}PREV_NODE ,*LP_PREV_NODE;
+void visitList(void *pData)
+{
+  LP_NODE pNode;
+  memcpy(&pNode, pData, sizeof(LP_NODE));
+  printf("%c", *(char *)pNode->pData);
+}
+
+void shortestPath(LP_NODE pStartNode)
+{
+  LP_NODE pIterNode;
+  LP_NODE pSource;
+  LP_EDGE pIterEdge;
+  LP_SINGLE_LIST_NODE pDistList, pWorkList, pPrevNodeList, pIterListNode;
+  DIST tempDist, minDist;
+  PREV_NODE prevNode;
+  BOOL bFind;
+  LP_STACK pStack;
+
+  
+  createSingleList(&pDistList, sizeof(DIST));
+  createSingleList(&pPrevNodeList, sizeof(PREV_NODE));
+  createSingleList(&pWorkList, sizeof(LP_NODE));  
+
+  pSource = pStartNode;
+  pIterNode = pStartNode;
+  while (pIterNode)
+    {
+      tempDist.pNode = pIterNode;
+      tempDist.distance = (pIterNode == pSource)?0:MAX_TIME;
+      insertToTail(pDistList, &tempDist);
+      prevNode.pNode = pIterNode;
+      prevNode.pPathPrevNode = NULL;
+      insertToTail(pPrevNodeList, &prevNode);
+     
+      insertToTail(pWorkList, &pIterNode);
+      pIterNode = pIterNode->pNextNode;
+    }
+
+  printf("\nWorkList is :");
+  listTraverse(pWorkList, visitList);
+
+  while (!isListEmpty(pWorkList))
+    {
+      // Find Node whose distance is minimal
+      minDist.distance = MAX_TIME;
+      minDist.pNode = NULL;
+
+      pIterListNode = pWorkList->pNext;
+      while (pIterListNode != NULL)
+	{
+	  memcpy(&pIterNode, pIterListNode->pData, sizeof(LP_NODE));
+	  bFind = findItemInList(pDistList, &pIterNode, &tempDist, compareNode);
+	  assert(bFind);
+	  if (tempDist.distance < minDist.distance)
+	    {
+	      minDist.distance = tempDist.distance;
+	      minDist.pNode = tempDist.pNode;
+	    }
+	  pIterListNode = pIterListNode->pNext;
+	}
+     
+      if (minDist.pNode == NULL)
+	{
+	  printf ("some Node is unreachable in Graph\n");
+	  break;
+	}
+
+      deleteItemFromList(pWorkList, &minDist.pNode, compareNode);
+      pIterEdge = minDist.pNode->pFirstOutEdge;
+      while (pIterEdge)
+	{
+	  bFind = findItemInList(pDistList, &pIterEdge->pTo, &tempDist, compareNode);
+	  assert(bFind);
+	  if (tempDist.distance > minDist.distance + pIterEdge->value)
+	    {
+	      tempDist.distance = minDist.distance + pIterEdge->value;
+	      deleteItemFromList(pDistList, &pIterEdge->pTo, compareNode);
+	      deleteItemFromList(pPrevNodeList, &pIterEdge->pTo, compareNode);
+	      insertToHead(pDistList, &tempDist);
+	      prevNode.pNode = pIterEdge->pTo;
+	      prevNode.pPathPrevNode = minDist.pNode;
+	      insertToHead(pPrevNodeList, &prevNode);
+	    }
+
+	  pIterEdge = pIterEdge->pNextSameFrom;
+	}
+    }
+
+  if (isListEmpty(pWorkList))
+    {
+      // Calculate All path, print it out
+      printf ("\nSucess\n");
+      createStack(&pStack, sizeof(LP_NODE));
+      pIterNode = pStartNode;
+      while (pIterNode)
+	{
+	  printf("[NODE %c]:", *(char *)pIterNode->pData);
+
+	  bFind = findItemInList(pDistList, &pIterNode, &tempDist, compareNode);
+	  assert(bFind);
+	  printf("shortest path length %d", tempDist.distance);
+	  if (tempDist.distance)
+	    {
+	      LP_NODE pPathNode = pIterNode;
+	      printf(" Path:[");
+	      push(pStack, &pPathNode);
+	      while (findItemInList(pPrevNodeList, &pPathNode, &prevNode, compareNode) && prevNode.pPathPrevNode)
+		{
+		  push(pStack, &prevNode.pPathPrevNode);
+		  pPathNode = prevNode.pPathPrevNode;
+		}
+	      while (!isStackEmpty(pStack))
+		{
+		  pop(pStack, &pPathNode);
+		  printf("%c", *(char *)pPathNode->pData);
+		}
+	      putchar(']');
+	    }
+	  putchar('\n');
+	  pIterNode = pIterNode->pNextNode;
+	}
+
+      destroyStack(pStack);
+    }
+
+
+  destroySingleList(pPrevNodeList);
+  destroySingleList(pWorkList);
+  destroySingleList(pDistList);
+
 }

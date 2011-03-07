@@ -402,3 +402,48 @@ void getListBegin(const LP_SINGLE_LIST_NODE pListHead, void *pOut)
   pCur = pListHead->pNext->pData;
   memcpy((char *)pOut, pCur, (unsigned int)pListHead->pData);
 }
+
+
+STATUS copyList(LP_SINGLE_LIST_NODE *ppDstList, LP_SINGLE_LIST_NODE pSrcList)
+{
+  LP_SINGLE_LIST_NODE pDstList;
+  LP_SINGLE_LIST_NODE pIterNode, pLastNode, pInsertNode;
+  unsigned int elementSize = (unsigned int)pSrcList->pData;
+
+  pDstList = (LP_SINGLE_LIST_NODE)malloc(sizeof(SINGLE_LIST_NODE));
+  if (NULL == pDstList)
+    {
+      printf("Out of Memory in line %d Function %s File %s", __LINE__, __FUNCTION__, __FILE__);
+      return OVERFLOW;
+    }
+
+  pDstList->pData = pSrcList->pData;
+  
+  pLastNode = pDstList;
+  pIterNode = pSrcList->pNext;
+  while (pIterNode != NULL)
+    {
+      pInsertNode = (LP_SINGLE_LIST_NODE)malloc(sizeof(SINGLE_LIST_NODE));
+      if (NULL == pInsertNode)
+	{
+	  printf("Out of Memory in line %d Function %s File %s", __LINE__, __FUNCTION__, __FILE__);
+	  return OVERFLOW;
+	}
+
+      pInsertNode->pData = (char *)malloc(elementSize);
+      if (NULL == pInsertNode->pData)
+	{
+	  free(pInsertNode);
+	  printf("Out of Memory in line %d Function %s File %s", __LINE__, __FUNCTION__, __FILE__);
+	  return OVERFLOW;
+	}
+      memcpy(pInsertNode->pData, (char *)pIterNode->pData, elementSize);
+      pLastNode->pNext = pInsertNode;
+      pLastNode = pInsertNode;
+      pIterNode = pIterNode->pNext;
+    }
+  
+  pLastNode->pNext = NULL;
+  *ppDstList = pDstList;
+  return OK;
+}
