@@ -28,6 +28,7 @@ void selectSortList(LP_SINGLE_LIST_NODE pListHead, COMPARE_FUNC pFunc);
 
 BOOL isListEmpty(const LP_SINGLE_LIST_NODE pListHead);
 void getListBegin(const LP_SINGLE_LIST_NODE pListHead, void *pOut);
+STATUS copyList(LP_SINGLE_LIST_NODE *ppDstList, LP_SINGLE_LIST_NODE pSrcList);
 #endif
 
 
