@@ -207,6 +207,9 @@ int main()
   printf("\nCritical Path:");
   criticalPath(pStartNode);
 
+  printf("\nShortest Path:");
+  shortestPath(pStartNode);
+
   putchar('\n');
   destroyGraph(pStartNode);
   fclose(fp);
@@ -677,9 +680,6 @@ void criticalPath(LP_NODE pStartNode)
   listTraverse(pLateTimeList, updateLateTime);
   printf("\nFinal Late Time");
   listTraverse(pLateTimeList, printTime);
-
-  printf("\nShortest Path:");
-  shortestPath(pStartNode);
 
   destroySingleList(pLateTimeList);
   destroySingleList(pEarlyTimeList);
