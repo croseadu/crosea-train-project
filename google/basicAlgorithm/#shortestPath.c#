@@ -455,7 +455,7 @@ void dynamicProgramming(LP_NODE pStartNode ,int nodeNum)
 	  printf("\n==Start Node V[%d]:%c:\n", u, 'a'+u);
 	  for (v = 0; v < nodeNum; v++)
 	    {
-	      if (u != v && EDGE_VALUE(pCurMinimalDist, u ,v) != MAX_WEIGHT)
+	      if (EDGE_VALUE(pCurMinimalDist, u ,v) != MAX_WEIGHT)
 		{
 		  LP_NODE pPathNode;
 		  int pathIndex;
