@@ -27,7 +27,7 @@ int *pAdjWeight = NULL;
 int nodeNum;
 
 #define MAX_WEIGHT 65535
-#define EDGE_VALUE(pWeight,i, j) (*(pWeight + i * nodeNum + j)) 
+#define EDGE_VALUE(pWeight,i, j) *(pWeight + i * nodeNum + j) 
 
 
 void depthOrderTraverse(LP_NODE pStartNode, int nodeNum);
@@ -370,6 +370,21 @@ index, 'a'+index);
 }
 
 
+static LP_EDGE edgeExist(LP_NODE pStartNode ,int from, int to)
+{
+  LP_NODE pFrom, pTo;
+  LP_EDGE pIterEdge;
+
+  pFrom = pStartNode + from;
+  pTo = pStartNode + to;
+
+  pIterEdge = pFrom->pFirstOutEdge;
+  while (pIterEdge && pIterEdge->pTo != pTo)
+    pIterEdge = pIterEdge->pNextSameFrom;
+
+  return pIterEdge;
+}
+
 void dynamicProgramming(LP_NODE pStartNode ,int nodeNum)
 {
   int *pPrevMinimalDist, *pCurMinimalDist, *pTemp;
@@ -421,6 +436,17 @@ void dynamicProgramming(LP_NODE pStartNode ,int nodeNum)
 	    EDGE_VALUE(pCurMinimalDist, i, j) = MAX_WEIGHT;
 	  }
       }
+#if 1
+  putchar('\n');
+  for (i = 0; i < nodeNum; i++)
+    {
+    for (j = 0; j < nodeNum; j++)
+      {
+	printf("%7d", EDGE_VALUE(pCurMinimalDist, i, j));
+      }
+    putchar('\n');
+    }
+#endif
 
 
   for (m = 1; m <= nodeNum - 1; m++)
@@ -443,10 +469,12 @@ void dynamicProgramming(LP_NODE pStartNode ,int nodeNum)
 		  {
 		    minDist = EDGE_VALUE(pPrevMinimalDist,u, w) + pIterEdge->value;
 		    *(pPrevPathNode + u * nodeNum + v) = pStartNode + w;
+		    printf("\nFind New Way[cost:%d] from V%d to V%d through V%d",minDist, u, v ,w);
 		  }
-		EDGE_VALUE(pCurMinimalDist, u ,v) = minDist;
+
 		pIterEdge = pIterEdge->pNextSameTo;
 	      }
+	    EDGE_VALUE(pCurMinimalDist, u ,v) = minDist;
 	  }
     }
 
@@ -455,7 +483,7 @@ void dynamicProgramming(LP_NODE pStartNode ,int nodeNum)
 	  printf("\n==Start Node V[%d]:%c:\n", u, 'a'+u);
 	  for (v = 0; v < nodeNum; v++)
 	    {
-	      if (u != v && EDGE_VALUE(pCurMinimalDist, u ,v) != MAX_WEIGHT)
+	      if (EDGE_VALUE(pCurMinimalDist, u ,v) != MAX_WEIGHT)
 		{
 		  LP_NODE pPathNode;
 		  int pathIndex;
