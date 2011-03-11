@@ -519,6 +519,119 @@ void dynamicProgramming(LP_NODE pStartNode ,int nodeNum)
 }
 void floydDynamicProgramming(LP_NODE pStartNode ,int nodeNum)
 {
+  int u, v;
+  int k;
+  int maxEdge = nodeNum - 1;
+  int *pPrevMinimalDist, *pCurMinimalDist, *temp;
+  LP_NODE *pPrevPathNode;
+  int minDist, from, to;
+  LP_NODE pIterNode, pPathNode, pFrom, pTo;
+  LP_EDGE pIterEdge;
+  LP_STACK pStack;
+
+
+  createStack(&pStack, sizeof(LP_NODE));
+  printf("\n==Start Shorest Path use Floyd dynamic programming==\n");
+
+  pPrevMinimalDist = (int *)malloc(sizeof(int)*nodeNum*nodeNum);
+  if (NULL == pPrevMinimalDist)
+    {
+      printf("Out Of Memory in Line %d, Function %s", __LINE__, __FUNCTION__);
+      exit(OVERFLOW);
+    }
+
+  pCurMinimalDist = (int *)malloc(sizeof(int)*nodeNum*nodeNum);
+  if (NULL == pCurMinimalDist)
+    {
+      printf("Out Of Memory in Line %d, Function %s", __LINE__, __FUNCTION__);
+      exit(OVERFLOW);
+    }
+  pPrevPathNode = (LP_NODE *)malloc(sizeof(LP_NODE)*nodeNum*nodeNum);
+  if (NULL == pPrevPathNode)
+    {
+      printf("Out Of Memory in Line %d, Function %s", __LINE__, __FUNCTION__);
+      exit(OVERFLOW);
+    }
+
+  memset(pCurMinimalDist, 0 , sizeof(int) * nodeNum * nodeNum);
+  memset(pPrevMinimalDist, 0 , sizeof(int) * nodeNum * nodeNum);
+  memset(pPrevPathNode, 0 , sizeof(LP_NODE) * nodeNum * nodeNum);
+
+ for (u = 0; u < nodeNum; u++)
+    for (v = 0; v < nodeNum; v++)
+      {
+	if (pIterEdge = edgeExist(pStartNode, u, v))
+	  {
+	    EDGE_VALUE(pCurMinimalDist, u, v) = pIterEdge->value;
+	    *(pPrevPathNode + u * nodeNum + v) = pStartNode + u;
+	  }
+	else
+	  {
+	    EDGE_VALUE(pCurMinimalDist, u, v) = MAX_WEIGHT;
+	  }
+      }
+
+
+  for (k = 0; k < nodeNum; k++)
+    {
+      temp = pPrevMinimalDist;
+      pPrevMinimalDist = pCurMinimalDist;
+      pCurMinimalDist = temp;
+      
+      for (u = 0; u < nodeNum; u++)
+	for (v = 0; v < nodeNum; v++)
+	  {
+	    int newDist;
+	    minDist = EDGE_VALUE(pPrevMinimalDist, u ,v);
+	    newDist = EDGE_VALUE(pPrevMinimalDist, u ,k) + 
+	      EDGE_VALUE(pPrevMinimalDist,k,v);
+
+	    if (minDist > newDist)
+	      {
+		minDist = newDist;
+		*(pPrevPathNode + u * nodeNum + v) = * (pPrevPathNode + k * nodeNum + v);
+	      }
+	    EDGE_VALUE(pCurMinimalDist, u, v) = minDist;
+	  }
+
+    }
   
+  for (u = 0; u < nodeNum; u++)
+	{
+	  printf("\n==Start Node V[%d]:%c:\n", u, 'a'+u);
+	  for (v = 0; v < nodeNum; v++)
+	    {
+	      if (EDGE_VALUE(pCurMinimalDist, u ,v) != MAX_WEIGHT)
+		{
+		  LP_NODE pPathNode;
+		  int pathIndex;
+		  printf("To Node V[%d]:%c:Short path length %d", v, 'a'+v, EDGE_VALUE(pCurMinimalDist, u ,v));
+		  printf(" path:[");
+		  pPathNode = pStartNode + v;
+		  push(pStack, &pPathNode);
+		  pathIndex = v;
+		  while (*(pPrevPathNode + u * nodeNum + pathIndex))
+		    {
+		      pPathNode = 
+			*(pPrevPathNode + u * nodeNum + pathIndex);
+		      pathIndex = pPathNode - pStartNode;
+		      push(pStack, &pPathNode);
+		    }
+		  while (!isStackEmpty(pStack))
+		    {
+		      pop(pStack, &pPathNode);
+		      putchar(pPathNode->data);
+		    }
+		  putchar(']');
+		  putchar('\n');
+		}
+	    }
+	}
+
+
+  destroyStack(pStack);
+  free(pPrevMinimalDist);
+  free(pCurMinimalDist);
+  free(pPrevPathNode);
 
 }
