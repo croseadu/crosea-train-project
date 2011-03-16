@@ -4,7 +4,8 @@
 #include "../include/circularQueue.h"
 #include "../include/singleList.h"
 
-
+#define INIT_SIZE 10
+#define INCRE_SIZE 5
 
 
 #define MAX_WEIGHT 65535
@@ -15,14 +16,24 @@ typedef struct _NODE
 {
   char data;
   BOOL bVisited;
+  int index;
+  int parent; // Use for MFset, which used to build minimal Tree for Krusal
 }NODE, *LP_NODE;
 
+typedef struct _EDGE
+{
+  int from;
+  int to;
+  int value;
+}EDGE, *LP_EDGE;
 
 int nodeNum;
 
 #define EDGE_VALUE(pWeight,i, j) *(pWeight + i * nodeNum + j) 
 void depthOrderTraverse(LP_NODE pStartNode, int *pAdjWeight, int nodeNum);
 void widthOrderTraverse(LP_NODE pStartNode, int *pAdjWeight, int nodeNum);
+void primMinimalTree(LP_NODE pStartNode, int *pAdjWeight, int nodeNum);
+void krusalMinimalTree(LP_NODE pStartNode, int *pAdjWeight, int nodeNum);
 
 int main()
 {
@@ -130,6 +141,8 @@ int main()
 
   depthOrderTraverse(pStartNode, pAdjWeight, nodeNum);
   widthOrderTraverse(pStartNode, pAdjWeight, nodeNum);
+  primMinimalTree(pStartNode, pAdjWeight, nodeNum);
+  krusalMinimalTree(pStartNode, pAdjWeight,  nodeNum);
   return 0;
 }
 
@@ -228,4 +241,272 @@ void widthOrderTraverse(LP_NODE pStartNode, int *pAdjWeight, int nodeNum)
 
   putchar('\n');
   destroyCircularQueue(pQueue);
+}
+
+typedef struct _MINIMAL_EDGE
+{
+  int from;
+  int to;
+  int value;
+}MINIMAL_EDGE, *LP_MINIMAL_EDGE;
+
+static int selectNonzeronMinimalEdge(LP_MINIMAL_EDGE minimalEdge, int nodeNum)
+{
+  int i;
+  int minimal = -1;
+  int minimalWeight = MAX_WEIGHT;
+  for (i = 0; i < nodeNum; i++)
+    {
+      if (minimalEdge[i].value == 0)
+	continue;
+      
+      if (minimalEdge[i].value < minimalWeight)
+	{
+	  minimal = i;
+	  minimalWeight = minimalEdge[i].value;
+	}
+      
+    }
+
+  return minimal;
+}
+
+void primMinimalTree(LP_NODE pStartNode, int *pAdjWeight, int nodeNum)
+{
+  MINIMAL_EDGE *minimalEdge = NULL;
+  int minimal, i,j;
+  int newNode;
+
+  printf("\n==Start Prim Minimal Tree==\n");
+  minimalEdge = (MINIMAL_EDGE *)malloc(sizeof(MINIMAL_EDGE)*nodeNum);
+  if (NULL == minimalEdge)
+    {
+      printf("Out Of Memory in Line %d, Function %s", __LINE__, __FUNCTION__);
+      exit(OVERFLOW);
+    }
+
+  // Init minimal Edge based on edge graph
+  for (i = 0; i < nodeNum; i++)
+    {
+      minimalEdge[i].from = i;
+      minimalEdge[i].to = 0;
+      minimalEdge[i].value = EDGE_VALUE(pAdjWeight, 0, i);
+    }
+
+  for (i = 1; i < nodeNum; i++)
+    {
+      minimal = selectNonzeronMinimalEdge(minimalEdge, nodeNum);
+      if (minimal == -1)
+	break;
+
+      printf ("\nEdge in Minimal Tree [V%d, V%d, %d]", minimalEdge[minimal].from, 
+	      minimalEdge[minimal].to, minimalEdge[minimal].value);
+
+      minimalEdge[minimal].value = 0;
+      newNode = minimalEdge[minimal].from;
+      // Update minimal Edge information from U, {V-U}
+      for (j = 0; j < nodeNum; j++)
+	{
+	  if (minimalEdge[j].value != 0 
+	      && minimalEdge[j].value > EDGE_VALUE(pAdjWeight, newNode, j))
+	    {
+	      minimalEdge[j].to = newNode;
+	      minimalEdge[j].value = EDGE_VALUE(pAdjWeight, newNode, j);
+	    }
+	}
+      
+    }
+  if (i < nodeNum)
+    {
+      printf("The Graph isn't full connected\n");
+    }
+
+  putchar('\n');
+  free(minimalEdge);
+
+}
+
+typedef struct _EDGE_HEAP
+{
+  LP_EDGE pEdge;
+  int maxEdge;
+  int maxSize;
+}EDGE_HEAP, *LP_EDGE_HEAP;
+
+static void createEdgeHeap(LP_EDGE_HEAP *ppHeap)
+{
+  LP_EDGE_HEAP pHeap;
+  pHeap = (LP_EDGE_HEAP)malloc(sizeof(EDGE_HEAP));
+  if (NULL == pHeap)
+    {
+      printf("Out Of Memory in Line %d, Function %s", __LINE__, __FUNCTION__);
+      exit(OVERFLOW);
+    }
+
+  pHeap->pEdge = (LP_EDGE)malloc(sizeof(EDGE) * INIT_SIZE);
+  if (NULL == pHeap->pEdge)
+    {
+      printf("Out Of Memory in Line %d, Function %s", __LINE__, __FUNCTION__);
+      exit(OVERFLOW);
+    }
+  
+  pHeap->maxEdge = 0;
+  pHeap->maxSize = INIT_SIZE;
+
+  *ppHeap = pHeap;
+}
+
+static void destroyEdgeHeap(LP_EDGE_HEAP pHeap)
+{
+  free(pHeap->pEdge);
+  free(pHeap);
+}
+
+static void insertToEdgeHeap(LP_EDGE_HEAP pHeap, LP_EDGE pEdge)
+{
+  if (pHeap->maxEdge >= pHeap->maxSize-1)
+    {
+      pHeap->pEdge = (LP_EDGE)realloc(pHeap->pEdge, 
+				      (pHeap->maxSize + INCRE_SIZE) * sizeof (EDGE));
+      if (NULL == pHeap->pEdge)
+	{
+	  printf("Out Of Memory in Line %d, Function %s", __LINE__, __FUNCTION__);
+	  exit(OVERFLOW);
+	}
+      pHeap->maxSize += INCRE_SIZE;
+    }
+  pHeap->maxEdge++;
+  memcpy((char *)(pHeap->pEdge + pHeap->maxEdge), (char *)pEdge, sizeof(EDGE));
+}
+
+static BOOL isHeapEmpty(LP_EDGE_HEAP pHeap)
+{
+  return (pHeap->maxEdge == 0)?TRUE:FALSE;
+}
+
+static void heapAdjust(LP_EDGE_HEAP pHeap, int start, int max)
+{
+  EDGE tempEdge;
+  int i = start, j;
+
+  tempEdge.from = (pHeap->pEdge+start)->from;
+  tempEdge.to = (pHeap->pEdge+start)->to;
+  tempEdge.value = (pHeap->pEdge+start)->value;
+
+  for (j = 2*i; j <= max;)
+    {
+      if (j+1<=max 
+	  && (pHeap->pEdge+j+1)->value < (pHeap->pEdge+j)->value)
+	j = j+1;
+      if ((pHeap->pEdge+j)->value < tempEdge.value)
+	{
+	  (pHeap->pEdge+i)->from = (pHeap->pEdge+j)->from;
+	  (pHeap->pEdge+i)->to = (pHeap->pEdge+j)->to;
+	  (pHeap->pEdge+i)->value = (pHeap->pEdge+j)->value;
+	  i = j;
+	  j = 2*i;
+	}
+      else
+	break;
+    }
+  (pHeap->pEdge+i)->value = tempEdge.value;
+  (pHeap->pEdge+i)->from = tempEdge.from;
+  (pHeap->pEdge+i)->to = tempEdge.to;
+}
+static void normalizeHeap(LP_EDGE_HEAP pHeap)
+{
+  int i;
+  i = pHeap->maxEdge/2;
+  for (;i>0;i--)
+    heapAdjust(pHeap, i, pHeap->maxEdge);
+}
+
+static getMinimalFromHeap(LP_EDGE_HEAP pHeap, LP_EDGE pEdge)
+{
+  pEdge->from = (pHeap->pEdge + 1)->from;
+  pEdge->to = (pHeap->pEdge+1)->to;
+  pEdge->value = (pHeap->pEdge+1)->value;
+
+  (pHeap->pEdge+1)->from = (pHeap->pEdge+pHeap->maxEdge)->from;
+  (pHeap->pEdge+1)->to = (pHeap->pEdge+pHeap->maxEdge)->to;
+  (pHeap->pEdge+1)->value = (pHeap->pEdge+pHeap->maxEdge)->value;
+  pHeap->maxEdge--;
+  if (pHeap->maxEdge > 1)
+    heapAdjust(pHeap, 1, pHeap->maxEdge);
+}
+
+static int findRoot(LP_NODE pStartNode, int child)
+{
+  while ((pStartNode+child)->parent > 0)
+    child = (pStartNode+child)->parent;
+  return child;
+}
+
+// Work On Edge, Build a Heap, store Edge in Heap
+void krusalMinimalTree(LP_NODE pStartNode, int *pAdjWeight, int nodeNum)
+{
+  int heapSize = INIT_SIZE;
+  int maxEdgeNum = 0;
+  LP_EDGE_HEAP pHeap;
+  EDGE tempEdge;
+  int root1, root2;
+  int i, j;
+  
+  printf("\n==Start Krusal Minimal Tree ==\n");
+
+  createEdgeHeap(&pHeap);
+
+  for (i = 0; i < nodeNum; i++)
+    {
+      (pStartNode + i)->index = i;
+      (pStartNode + i)->parent = 0;
+    }
+
+  for (i = 0; i < nodeNum; i++)
+    for (j = 0; j < nodeNum; j++)
+      {
+	if (i < j &&
+	    EDGE_VALUE(pAdjWeight, i ,j) < MAX_WEIGHT)
+	  {
+	    maxEdgeNum++;
+	    tempEdge.from = i;
+	    tempEdge.to = j;
+	    tempEdge.value = EDGE_VALUE(pAdjWeight, i, j);
+	    insertToEdgeHeap(pHeap, &tempEdge);
+	  }
+      }
+  normalizeHeap(pHeap);
+  printf("\nDump Edge Heap:\n");
+  for (i = 1; i <= pHeap->maxEdge; i++)
+    {
+      printf("[V%d, V%d, %d]", 
+	     (pHeap->pEdge+i)->from, (pHeap->pEdge+i)->to,(pHeap->pEdge+i)->value);
+    }
+  putchar('\n');
+
+  for (i = 1; i < nodeNum; i++)
+    {
+      root1 = root2 = 0;
+	while (!isHeapEmpty(pHeap))
+	{
+	  getMinimalFromHeap(pHeap, &tempEdge);
+	  root1 = findRoot(pStartNode, tempEdge.from);
+	  root2 = findRoot(pStartNode ,tempEdge.to);
+	  if (root1 != root2)
+	    break;
+	}
+      if (root1 == root2)
+	break;
+      printf("\nMinimal Tree Edge [V%d, V%d, %d]",
+	     tempEdge.from, tempEdge.to, tempEdge.value);
+      (pStartNode+tempEdge.from)->parent = tempEdge.to;
+
+    }
+
+  putchar('\n');
+  destroyEdgeHeap(pHeap);
+  if (i < nodeNum)
+    {
+      printf("\nGraph isn't full connected\n");
+    }
 }
