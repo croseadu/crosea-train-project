@@ -437,9 +437,35 @@ static getMinimalFromHeap(LP_EDGE_HEAP pHeap, LP_EDGE pEdge)
 
 static int findRoot(LP_NODE pStartNode, int child)
 {
-  while ((pStartNode+child)->parent > 0)
-    child = (pStartNode+child)->parent;
-  return child;
+  int root, k;
+
+  root = child;
+
+  while ((pStartNode+root)->parent > 0)
+    root = (pStartNode+root)->parent;
+
+  while (child != root)
+    {
+      k = (pStartNode + child)->parent;
+      (pStartNode + child)->parent = root;
+      child = k;
+    }
+  
+  return root;
+}
+
+static void merge(LP_NODE pStartNode, int tree1, int tree2)
+{
+  if ((pStartNode+tree1)->parent > (pStartNode+tree2)->parent)
+    {
+      (pStartNode + tree2)->parent += (pStartNode + tree1)->parent;
+      (pStartNode + tree1)->parent = tree2;
+    }
+  else
+    {
+      (pStartNode + tree1)->parent += (pStartNode + tree2)->parent;
+      (pStartNode + tree2)->parent = tree1;
+    }
 }
 
 // Work On Edge, Build a Heap, store Edge in Heap
@@ -499,7 +525,7 @@ void krusalMinimalTree(LP_NODE pStartNode, int *pAdjWeight, int nodeNum)
 	break;
       printf("\nMinimal Tree Edge [V%d, V%d, %d]",
 	     tempEdge.from, tempEdge.to, tempEdge.value);
-      (pStartNode+tempEdge.from)->parent = tempEdge.to;
+      merge(pStartNode, tempEdge.from, tempEdge.to);
 
     }
 
