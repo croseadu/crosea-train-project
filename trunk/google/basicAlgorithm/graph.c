@@ -29,6 +29,15 @@ typedef struct _EDGE
   struct _EDGE *pNextSameTo;
 }EDGE, *LP_EDGE;
 
+
+typedef struct _DFS_TREE
+{
+  LP_NODE pNode;
+  struct _DFS_TREE *pFirstChild;
+  struct _DFS_TREE *pNextSibling;
+}DFS_TREE, *LP_DFS_TREE;
+
+
 LP_NODE findNode(LP_NODE pStartNode, void *pKeyData, COMPARE_FUNC compare);
 
 void printChar(char c)
@@ -74,7 +83,9 @@ void widthOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit);
 BOOL topoOrderTraverse(LP_NODE pStartNode, VISIT_FUNC visit);
 void criticalPath(LP_NODE pStartNode);
 void shortestPath(LP_NODE pStartNode);
-
+static void DFStree(LP_DFS_TREE pRoot);
+void DFSforest(LP_NODE pStartNode, LP_DFS_TREE *ppDfsTreeRoot);
+static void preOrderTraverseForest(LP_DFS_TREE pStartRoot);
 int main()
 {
   FILE *fp;
@@ -84,6 +95,7 @@ int main()
   LP_NODE pIterNode, pNextNode;
   EDGE *pEdge;
   int value;
+  LP_DFS_TREE pDFStree;
 
   if ((fp = fopen("inputData.txt", "r")) == NULL)
     {
@@ -201,6 +213,10 @@ int main()
   printf("\nWidth First Order Traverse:");
   widthOrderTraverse(pStartNode, visit);
 
+  printf ("\nDFS Forest:");
+  DFSforest(pStartNode, &pDFStree);
+  preOrderTraverseForest(pDFStree);
+  /*
   printf("\nTopo Order Traverse:");
   topoOrderTraverse(pStartNode, visit);
 
@@ -209,6 +225,7 @@ int main()
 
   printf("\nShortest Path:");
   shortestPath(pStartNode);
+  */
 
   putchar('\n');
   destroyGraph(pStartNode);
@@ -827,4 +844,138 @@ void shortestPath(LP_NODE pStartNode)
   destroySingleList(pWorkList);
   destroySingleList(pDistList);
 
+}
+
+
+void DFSforest(LP_NODE pStartNode, LP_DFS_TREE *ppDfsTreeRoot)
+{
+
+  LP_DFS_TREE pDfsRoot = NULL, pLastDfsRoot = NULL;
+  LP_DFS_TREE pRoot, pChild;
+  LP_NODE pIterNode;
+
+  pIterNode = pStartNode;
+  while (pIterNode)
+    {
+      pIterNode->bVisited = FALSE;
+      pIterNode = pIterNode->pNextNode;
+    }
+
+  pIterNode = pStartNode;
+  while (pIterNode)
+    {
+      if (pIterNode->bVisited)
+	{
+	  pIterNode = pIterNode->pNextNode;
+	  continue;
+	}
+      pIterNode->bVisited = TRUE;
+      pRoot = (LP_DFS_TREE)malloc(sizeof(DFS_TREE));
+      if (NULL == pRoot)
+	{
+	  printf("Out Of Memory in Line %d, Function %s", __LINE__, __FUNCTION__);
+	  exit(OVERFLOW);
+	}
+
+      pRoot->pNode = pIterNode;
+      pRoot->pFirstChild = NULL;
+      pRoot->pNextSibling = NULL;
+      if (pDfsRoot == NULL)
+	{
+	  pDfsRoot = pLastDfsRoot = pRoot;
+	}
+      else
+	{
+	  pLastDfsRoot->pNextSibling = pRoot;
+	  pLastDfsRoot = pRoot;
+	}
+      
+      DFStree(pRoot);
+      pIterNode = pIterNode->pNextNode;
+    }
+
+  *ppDfsTreeRoot = pDfsRoot;
+}
+
+static void DFStree(LP_DFS_TREE pRoot)
+{
+  LP_DFS_TREE pChild;
+  LP_EDGE pIterEdge;
+ 
+  pIterEdge = pRoot->pNode->pFirstOutEdge;
+
+  while (pIterEdge)
+    {
+      if (pIterEdge->pTo->bVisited == FALSE)
+	{
+	  pChild = (LP_DFS_TREE)malloc(sizeof(DFS_TREE));
+	  if (NULL == pChild)
+	    {
+	      printf("Out Of Memory in Line %d, Function %s", __LINE__, __FUNCTION__);
+	      exit(OVERFLOW);
+	    }
+
+	  pChild->pNode = pIterEdge->pTo;
+	  pChild->pFirstChild = NULL;
+	  pChild->pNextSibling = NULL;
+	  if (pRoot->pFirstChild == NULL)
+	    {
+	      pRoot->pFirstChild = pChild;
+	    }
+	  else
+	    {
+	      pChild->pNextSibling = pRoot->pFirstChild;
+	      pRoot->pFirstChild = pChild;
+	    }
+	  pIterEdge->pTo->bVisited = TRUE;
+	  DFStree(pChild);
+	}
+      
+      pIterEdge = pIterEdge->pNextSameFrom;
+    }
+  
+}
+
+static void preOrderTraverseForest(LP_DFS_TREE pStartRoot)
+{
+  LP_STACK pStack;
+  LP_DFS_TREE pIterTree;
+
+  printf("\nTraverse DFS forest:");
+  createStack(&pStack, sizeof(LP_DFS_TREE));
+  pIterTree = pStartRoot;
+  while (pIterTree)
+    {
+      push(pStack, &pIterTree);
+      pIterTree = pIterTree->pNextSibling;
+    }
+
+  while (!isStackEmpty(pStack))
+    {
+      pop(pStack, &pIterTree);
+      printf("%c", *(char *)pIterTree->pNode->pData);
+      pIterTree = pIterTree->pFirstChild;
+      while (pIterTree)
+	{
+	  push(pStack, &pIterTree);
+	  pIterTree = pIterTree->pNextSibling;
+	}
+    }
+  putchar('\n');
+  destroyStack(pStack);
+
+}
+
+void findSCC(LP_NODE pStartNode)
+{
+  LP_NODE pIterNode;
+  pIterNode = pStartNode;
+  while (pIterNode)
+    {
+      nodeNum++;
+      pIterNode->bVisited = FALSE;
+      pIterNode = pIterNode->pNextNode;
+    }
+  
+  
 }
