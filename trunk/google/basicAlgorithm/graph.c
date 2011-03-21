@@ -6,7 +6,7 @@
 #define INIT_SIZE 10
 #define INCRE_SIZE 5
 
-#define VALUE_EDGE
+//#define VALUE_EDGE
 
 #define MAX_TIME 65535
 struct _EDGE;
@@ -86,6 +86,9 @@ void shortestPath(LP_NODE pStartNode);
 static void DFStree(LP_DFS_TREE pRoot);
 void DFSforest(LP_NODE pStartNode, LP_DFS_TREE *ppDfsTreeRoot);
 static void preOrderTraverseForest(LP_DFS_TREE pStartRoot);
+
+void freeDFStree(LP_DFS_TREE pStartRooot);
+void findSCC(LP_NODE pStartNode);
 int main()
 {
   FILE *fp;
@@ -213,9 +216,14 @@ int main()
   printf("\nWidth First Order Traverse:");
   widthOrderTraverse(pStartNode, visit);
 
+  /*
   printf ("\nDFS Forest:");
   DFSforest(pStartNode, &pDFStree);
   preOrderTraverseForest(pDFStree);
+  freeDFStree(pDFStree);
+  */
+
+  findSCC(pStartNode);
   /*
   printf("\nTopo Order Traverse:");
   topoOrderTraverse(pStartNode, visit);
@@ -966,9 +974,68 @@ static void preOrderTraverseForest(LP_DFS_TREE pStartRoot)
 
 }
 
+
+void freeDFStree(LP_DFS_TREE pStartRoot)
+{
+  LP_DFS_TREE pChild, pNext;
+  
+  pChild = pStartRoot->pFirstChild;
+
+  while (pChild)
+    {
+      pNext = pChild->pNextSibling;
+      freeDFStree(pChild);
+      pChild = pNext;
+    }
+  free(pStartRoot);
+}
+
+static LP_NODE *pOrderNodeArray;
+static int curOrder;
+
+void dfsForSCC(LP_NODE pRoot)
+{
+  LP_EDGE pIterEdge;
+  LP_NODE pIterNode;
+
+  pRoot->bVisited = TRUE;
+  
+  pIterEdge = pRoot->pFirstOutEdge;
+  while (pIterEdge)
+    {
+      pIterNode = pIterEdge->pTo;
+      if (pIterNode->bVisited == FALSE)
+	dfsForSCC(pIterNode);
+      pIterEdge = pIterEdge->pNextSameFrom;
+    }
+  
+  pOrderNodeArray[curOrder++] = pRoot;
+}
+
+void revertDFS(LP_NODE pRoot)
+{
+  LP_EDGE pIterEdge;
+  LP_NODE pIterNode;
+
+  pRoot->bVisited = TRUE;
+  printf("%c", *(char *)pRoot->pData);
+
+  pIterEdge = pRoot->pFirstInEdge;
+  while (pIterEdge)
+    {
+      pIterNode = pIterEdge->pFrom;
+      if (pIterNode->bVisited == FALSE)
+	revertDFS(pIterNode);
+      pIterEdge = pIterEdge->pNextSameTo;
+    }
+}
+
 void findSCC(LP_NODE pStartNode)
 {
   LP_NODE pIterNode;
+  int i;
+  int nodeNum = 0, sccNum = 0;
+
   pIterNode = pStartNode;
   while (pIterNode)
     {
@@ -977,5 +1044,43 @@ void findSCC(LP_NODE pStartNode)
       pIterNode = pIterNode->pNextNode;
     }
   
+  curOrder = 0;
+  pOrderNodeArray = (LP_NODE *)malloc(sizeof(LP_NODE)*nodeNum);
+  if (NULL == pOrderNodeArray)
+    {
+      printf("Out Of Memory in Line %d, Function %s", __LINE__, __FUNCTION__);
+      exit(OVERFLOW);
+    }
   
+  memset(pOrderNodeArray, 0, sizeof(LP_NODE)*nodeNum);
+
+  pIterNode = pStartNode;
+  while (pIterNode)
+    {
+      if (pIterNode->bVisited == FALSE)
+	dfsForSCC(pIterNode);
+      pIterNode = pIterNode->pNextNode;
+    }
+  printf("\nFinished DFS Order is :");
+  for (i = 0; i < curOrder; i++)
+    {
+      printf("%c", *(char *)pOrderNodeArray[i]->pData);
+      pOrderNodeArray[i]->bVisited = FALSE;
+    }
+  putchar('\n');
+
+  //Start To Calculate SCC
+  curOrder--;
+  sccNum = 0;
+  while (curOrder >= 0)
+    {
+      printf("The %d SCC is :", sccNum);
+      sccNum++;
+      revertDFS(pOrderNodeArray[curOrder]);
+      putchar('\n');
+      while (curOrder >= 0 && pOrderNodeArray[curOrder]->bVisited == TRUE)
+	curOrder--;
+    }
+  putchar('\n');
+  free(pOrderNodeArray);
 }
