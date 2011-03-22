@@ -635,3 +635,12 @@ void floydDynamicProgramming(LP_NODE pStartNode ,int nodeNum)
   free(pPrevPathNode);
 
 }
+
+
+//BellmanFord
+void bellmanFordShortestPath(LP_NODE pStartNode, int nodeNum)
+{
+
+
+}
+//Johnson
