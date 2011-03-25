@@ -18,6 +18,7 @@ typedef struct _NODE
   struct _NODE *pNextNode;
   BOOL bVisited;
   BOOL bInStack;
+  BOOL bFoundSCC;
   int dfsVisitIndex;
   int reachLowIndex;
 }NODE, *LP_NODE;
@@ -548,9 +549,9 @@ void tarjanDFS(LP_NODE pRoot)
 	    pRoot->reachLowIndex = pIterEdge->pTo->reachLowIndex;
 	}
       else if (pIterEdge->pTo->bInStack 
-	       && pIterEdge->pTo->reachLowIndex < pRoot->reachLowIndex)
+	       && pIterEdge->pTo->dfsVisitIndex < pRoot->reachLowIndex)
 	{
-	  pRoot->reachLowIndex = pIterEdge->pTo->reachLowIndex;
+	  pRoot->reachLowIndex = pIterEdge->pTo->dfsVisitIndex;
 	}
 
       pIterEdge = pIterEdge->pNextSameFrom;
@@ -583,6 +584,7 @@ void gabowFindSCC(LP_NODE pStartNode)
   while (pIterNode)
     {
       pIterNode->bVisited = FALSE;
+      pIterNode->bFoundSCC = FALSE;
       pIterNode = pIterNode->pNextNode;
     }
 
@@ -622,7 +624,7 @@ void gabowDFS(LP_NODE pRoot)
 	{
 	  gabowDFS(pIterEdge->pTo);
 	}
-      else
+      else if (!pIterEdge->pTo->bFoundSCC)
 	{
 	  getTop(pStack2, &pIterNode);
 	  while (pIterNode->dfsVisitIndex > pIterEdge->pTo->dfsVisitIndex)
@@ -642,6 +644,7 @@ void gabowDFS(LP_NODE pRoot)
       do 
 	{
 	  pop(pStack1, &pIterNode);
+	  pIterNode->bFoundSCC = TRUE;
 	  printf("%c", *(char *)pIterNode->pData);
 	}while (pIterNode != pRoot);
       pop(pStack2, &pIterNode);
