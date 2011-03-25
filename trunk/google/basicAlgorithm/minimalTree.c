@@ -536,3 +536,11 @@ void krusalMinimalTree(LP_NODE pStartNode, int *pAdjWeight, int nodeNum)
       printf("\nGraph isn't full connected\n");
     }
 }
+
+
+void reverseDeleteMinimalTree(LP_NODE pStartNode, int *pAdjWeight, int nodeNum)
+{
+
+
+
+}

@@ -7,7 +7,9 @@ Microsoft 100
 The art of algorithm
 
 1 month for all basic algorithm of data structure
-
+  ##
+  seems some algorithm in <<Data Structure>> isn't basic, may need another month 
+  ##
 2 month for Fundunmentals
 
 3 month Introduction to

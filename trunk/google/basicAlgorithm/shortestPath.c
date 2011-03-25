@@ -12,6 +12,7 @@ typedef struct _NODE
   struct _EDGE *pFirstInEdge;
   struct _EDGE *pFirstOutEdge;
   BOOL bVisited;
+  BOOL bInQueue;
 }NODE, *LP_NODE;
 
 typedef struct _EDGE
@@ -36,6 +37,8 @@ void widthOrderTraverse(LP_NODE pStartNode, int nodeNum);
 void dijkstra(LP_NODE pStartNode, int nodeNum);
 void dynamicProgramming(LP_NODE pStartNode, int nodeNum);
 void floydDynamicProgramming(LP_NODE pStartNode, int nodeNum);
+void bellmanFordShortestPath(LP_NODE pStartNode, int nodeNum);
+void johnsonShortestPath(LP_NODE pStartNode ,int nodeNum);
 
 int main()
 {
@@ -50,7 +53,7 @@ int main()
   EDGE *pIterEdge;
 
   
-  if ((fp = fopen("inputData.txt", "r")) == NULL)
+  if ((fp = fopen("inputDataForShortestPath.txt", "r")) == NULL)
     {
       printf ("Cannot Open File inputData.txt\n");
       exit(-1);
@@ -163,7 +166,8 @@ int main()
   dijkstra(pStartNode, nodeNum);
   dynamicProgramming(pStartNode, nodeNum);
   floydDynamicProgramming(pStartNode, nodeNum);
-
+  bellmanFordShortestPath(pStartNode, nodeNum);
+  johnsonShortestPath(pStartNode ,nodeNum);
   putchar('\n');
   free(pAdjWeight);
   return 0;
@@ -265,7 +269,7 @@ void dijkstra(LP_NODE pStartNode ,int nodeNum)
   int i, j;
   LP_STACK pStack;
 
-  printf("\nStart Shortest path calculate, Use dijkstra\n");
+  printf("\nStart SSSP Shortest path calculate, Use dijkstra\n");
   createStack(&pStack, sizeof(LP_NODE));
 
   dist = (int *)malloc(sizeof(int) * (nodeNum));
@@ -396,7 +400,7 @@ void dynamicProgramming(LP_NODE pStartNode ,int nodeNum)
   LP_STACK pStack;
   int minDist;
 
-  printf("\n==Start Shorest Path use dynamic programming==\n");
+  printf("\n==Start All Pairs Shorest Path use dynamic programming==\n");
 
   pPrevMinimalDist = (int *)malloc(sizeof(int)*nodeNum*nodeNum);
   if (NULL == pPrevMinimalDist)
@@ -531,7 +535,7 @@ void floydDynamicProgramming(LP_NODE pStartNode ,int nodeNum)
 
 
   createStack(&pStack, sizeof(LP_NODE));
-  printf("\n==Start Shorest Path use Floyd dynamic programming==\n");
+  printf("\n==Start All Pairs Shorest Path use Floyd dynamic programming==\n");
 
   pPrevMinimalDist = (int *)malloc(sizeof(int)*nodeNum*nodeNum);
   if (NULL == pPrevMinimalDist)
@@ -640,7 +644,189 @@ void floydDynamicProgramming(LP_NODE pStartNode ,int nodeNum)
 //BellmanFord
 void bellmanFordShortestPath(LP_NODE pStartNode, int nodeNum)
 {
+  int *dist;
+  LP_NODE *pPrevPathNode;
+  LP_NODE pIterNode;
+  LP_EDGE pIterEdge;
+  int i, nodeIndex;
+  LP_STACK pStack;
 
+  printf("\bStart SSSP use BellmanFord:\n");
+
+  dist = (int *)malloc(sizeof(int) * (nodeNum));
+  if (NULL == dist)
+    {
+      printf ("Out of Memory in line %d, function %s", __LINE__, __FUNCTION__);
+      exit(OVERFLOW);
+    }
+  pPrevPathNode = (LP_NODE *)malloc(sizeof(LP_NODE) * (nodeNum));
+  if (NULL == pPrevPathNode)
+    {
+      printf ("Out of Memory in line %d, function %s", __LINE__, __FUNCTION__);
+      exit(OVERFLOW);
+    }
+
+  dist[0] = 0;
+  pPrevPathNode[0] = NULL;
+  for (i = 1; i < nodeNum; i++)
+    {
+      pIterNode = pStartNode + i;
+      pIterNode->bVisited = FALSE;
+      dist[i] = MAX_WEIGHT;
+      pPrevPathNode[i] = NULL;
+    }
+
+  for (i = 1; i < nodeNum; i++)
+    {
+      for (nodeIndex = 0; nodeIndex < nodeNum; nodeIndex++)
+	{
+	  pIterNode = pStartNode + nodeIndex;
+	  pIterEdge = pIterNode->pFirstOutEdge;
+	  while (pIterEdge)
+	    {
+	      int u, v;
+	      u = pIterEdge->pFrom - pStartNode;
+	      v = pIterEdge->pTo - pStartNode;
+	      if (dist[v] > dist[u] + pIterEdge->value)
+		{
+		  dist[v] = dist[u] + pIterEdge->value;
+		  pPrevPathNode[v] = pStartNode + u;
+		}
+
+	      pIterEdge = pIterEdge->pNextSameFrom;
+	    }
+	}
+
+    }
+
+  createStack(&pStack, sizeof(LP_NODE));
+  {
+    printf("\n==Start Node V[%d]:%c:\n", 0, 'a');
+    for (i = 0; i < nodeNum; i++)
+      {
+	LP_NODE pPathNode = pStartNode + i;
+	if (dist[i] >= MAX_WEIGHT || i == 0)
+	  continue;
+	printf("To Node V[%d]:%c:Short path length %d", i, 'a'+i, dist[i]);
+	printf(" path:[");
+	push(pStack, &pPathNode);
+	while (pPrevPathNode[pPathNode-pStartNode])
+	  {
+	    pPathNode = pPrevPathNode[pPathNode-pStartNode];
+	    push(pStack, &pPathNode);
+	  }
+	while (!isStackEmpty(pStack))
+	  {
+	    pop(pStack, &pPathNode);
+	    putchar(pPathNode->data);
+	  }
+	putchar(']');
+	putchar('\n');
+      }
+  }
+       
+	destroyStack(pStack);
+
+  free(dist);
+  free(pPrevPathNode);
 
 }
 //Johnson
+// Only Implement the prior Queue, left arc partion 
+void johnsonShortestPath(LP_NODE pStartNode ,int nodeNum)
+{
+  int i;
+  LP_CIRCULAR_QUEUE pQueue;
+  LP_NODE pIterNode;
+  LP_EDGE pIterEdge;
+  int *dist;
+  LP_NODE *pPrevPathNode;
+  LP_STACK pStack;
+
+  printf("\bStart SSSP use johnson:\n");
+
+  dist = (int *)malloc(sizeof(int) * (nodeNum));
+  if (NULL == dist)
+    {
+      printf ("Out of Memory in line %d, function %s", __LINE__, __FUNCTION__);
+      exit(OVERFLOW);
+    }
+  pPrevPathNode = (LP_NODE *)malloc(sizeof(LP_NODE) * (nodeNum));
+  if (NULL == pPrevPathNode)
+    {
+      printf ("Out of Memory in line %d, function %s", __LINE__, __FUNCTION__);
+      exit(OVERFLOW);
+    }
+
+  dist[0] = 0;
+  pPrevPathNode[0] = NULL;
+
+  for (i = 1; i < nodeNum; i++)
+    {
+      (pStartNode+i)->bInQueue = FALSE;
+      (pStartNode+i)->bVisited = FALSE;
+      dist[i] = MAX_WEIGHT;
+      pPrevPathNode[i] = NULL;
+    }
+
+  createCircularQueue(&pQueue, nodeNum, sizeof(LP_NODE));
+
+  pStartNode->bInQueue = TRUE;
+  insertToQueueTail(pQueue, &pStartNode);
+  while (!isQueueEmpty(pQueue))
+    {
+      getFromQueueHead(pQueue, &pIterNode);
+      pIterNode->bInQueue = FALSE;
+      pIterEdge = pIterNode->pFirstOutEdge;
+      
+      while (pIterEdge)
+	{
+	  int u, v;
+	  u = pIterEdge->pFrom - pStartNode;
+	  v = pIterEdge->pTo - pStartNode;
+	  if (dist[v] > dist[u] + pIterEdge->value)
+	    {
+	      dist[v] = dist[u] + pIterEdge->value;
+	      pPrevPathNode[v] = pIterEdge->pFrom;
+	      if (!pIterEdge->pTo->bInQueue)
+		{
+		  pIterEdge->pTo->bInQueue = TRUE;
+		  insertToQueueTail(pQueue, &pIterEdge->pTo);
+		}
+	    }
+
+	  pIterEdge = pIterEdge->pNextSameFrom;
+	}
+    }
+
+  createStack(&pStack, sizeof(LP_NODE));
+  {
+    printf("\n==Start Node V[%d]:%c:\n", 0, 'a');
+    for (i = 0; i < nodeNum; i++)
+      {
+	LP_NODE pPathNode = pStartNode + i;
+	if (dist[i] >= MAX_WEIGHT || i == 0)
+	  continue;
+	printf("To Node V[%d]:%c:Short path length %d", i, 'a'+i, dist[i]);
+	printf(" path:[");
+	push(pStack, &pPathNode);
+	while (pPrevPathNode[pPathNode-pStartNode])
+	  {
+	    pPathNode = pPrevPathNode[pPathNode-pStartNode];
+	    push(pStack, &pPathNode);
+	  }
+	while (!isStackEmpty(pStack))
+	  {
+	    pop(pStack, &pPathNode);
+	    putchar(pPathNode->data);
+	  }
+	putchar(']');
+	putchar('\n');
+      }
+  }
+  destroyStack(pStack);
+
+  destroyCircularQueue(pQueue);
+  free(dist);
+  free(pPrevPathNode);
+}
