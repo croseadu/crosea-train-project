@@ -1,20 +1,51 @@
 eight months plan:
+Must:
+{
+	Chinese:data structure
+	Chinese:Fundunmentals Of Computer Alogorithm
+	Berkeley:..
+	MIT:Introduction to Algorithms
+	Design and Analysis of Algorithms
+	The art of Computer Programming
+	Programming Perls
+}
+Optional:
+{
+	Fundamentals of Computer Algorithms
+	More Programming Perls
+	Tarjan: The Art Of Algorithm
+	Ullman: data structures and algorithms
+}
 
-data structure
-Fundunmentals Of Computer Alogorithm
-Introduction to Algorithms
-Microsoft 100
-The art of algorithm
+Start :2011-02-18
 
-1 month for all basic algorithm of data structure
+2 month for all basic algorithm of data structure
   ##
   seems some algorithm in <<Data Structure>> isn't basic, may need another month 
   ##
-2 month for Fundunmentals
+0.5 month for Fundunmentals
 
-3 month Introduction to
+1 month for Berkely
+2 month Introduction to
 
-2 month Microsfot
+1 month Microsfot
+1 month The art of
 
-2 month The art of
+/*******************/
+2011-04-02 status
+  finished most of  the algorithms in <<Data Structure>>
+  TDO: Need Done Before 2011-04-18
+       1.String Compare
+       2.Balence Tree
+       3.B TREE/ B+ TREE
+       4.Outside Sort
+       5.radixSort
+       6.sparse2DArray
+       7.Forest/ForestToTree/Tree Counter
+       8.GList
+       9.Maze
+       10.Queen
+       11.Compute Expression
+       12.File Operation
+
 

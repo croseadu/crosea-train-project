@@ -65,13 +65,13 @@ int main()
   (pStartNode+2)->parent = -1;
   
   (pStartNode+3)->grade = "exceed";
-  (pStartNode+3)->weight = 15;
+  (pStartNode+3)->weight = 20;
   (pStartNode+3)->leftChild = -1;
   (pStartNode+3)->rightChild = -1;
   (pStartNode+3)->parent = -1;
 
   (pStartNode+4)->grade = "outstanding";
-  (pStartNode+4)->weight = 5;
+  (pStartNode+4)->weight = 10;
   (pStartNode+4)->leftChild = -1;
   (pStartNode+4)->rightChild = -1;
   (pStartNode+4)->parent = -1;
@@ -122,7 +122,8 @@ int main()
 
   inOrderTraverse(pStartNode,  2 * NODE_NUM - 2);
   putchar('\n');
-  // Second Part
+  // Second Part, Encode
+
   
 
 

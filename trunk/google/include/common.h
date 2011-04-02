@@ -22,6 +22,8 @@
 #define R_LT -1
 #define R_GT 1
 
+#define MAX(a,b) ((a)>(b)?(a):(b))
+
 typedef int BOOL;
 typedef int STATUS;
 typedef int S_RESULT;
