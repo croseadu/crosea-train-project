@@ -74,7 +74,54 @@ int *footPrint;
 int *cannotPass;
 POS *prevNode;
 int *flag;
+POS *path;
+void findPath(int pathLength);
 BOOL findOnePass(LP_STACK pStack);
+void output(POS *path, int length)
+ {
+   int i,j;
+
+      char *pDumpBuffer;
+      pDumpBuffer = (char *)malloc(M*M*sizeof(char));
+      if (NULL == pDumpBuffer)
+	{
+	  printf("Out Of Memory In LIne %d, FUnction %s", __LINE__, __FILE__);
+	  exit(OVERFLOW);
+	}
+      for (i = 0; i < M; i++)
+	for (j = 0; j < M; j++)
+	  {
+	    if (START(i, j))
+	      *(pDumpBuffer + i * M + j) = 'S';
+	    else if (END(i, j))
+	      *(pDumpBuffer + i * M + j) = 'E';
+	    else if (map[i][j])
+      	      *(pDumpBuffer + i * M + j) = '#';
+	    else 
+	      *(pDumpBuffer + i * M + j) = ' ';
+	  }
+
+      for (i = 0; i < length; i++)
+	{
+	  int m,n;
+	  m = path[i].i;
+	  n = path[i].j;
+	  *(pDumpBuffer + m*M + n) = '.';
+	}
+
+      printf("\nPossible Path:\n");
+      for (i = 0; i < M; i++)
+	{
+	  for (j = 0; j < M; j++)
+	    {
+	      putchar('[');
+	      putchar((*(pDumpBuffer + i * M + j)));
+	      putchar(']');
+	    }
+	  putchar('\n');
+	}
+    }
+
 int main()
 {
 
@@ -148,7 +195,7 @@ int main()
 
   /*******************************/
   printf("\nFind Shortest path, Width Traverse");
-#define LINK(i, j, i1, j1) ((i1 <= i+1 && i1 >= i-1) && (j1 <= j+1 && j1 >= j-1))
+
   prevNode = (POS *)malloc(M*M*sizeof(POS));
   flag = (int *)malloc(M*M*sizeof(int));
 
@@ -240,16 +287,66 @@ int main()
 	}
 
     }
-
-    
-
   }
   free (prevNode);
   free (flag);
   /******************************/
+  printf("\nFind Two or More Solution Use HUISUO");
+  {
+
+    int pathLength;
+    POS tempPos;
+    path = (POS *)malloc(sizeof(POS)*M*M);
+    assert(path);
+
+    tempPos.i = 1;
+    tempPos.j = 1;
+    
+    path[pathLength++] = tempPos;
+    findPath(pathLength);
+
+    free(path);
+  }
+  /******************************/
   return 0;
 }
 
+void findPath(int pathLength)
+{
+  static counter = 0;
+  int k,m,n,i;
+  POS tempPos;
+
+  tempPos = path[pathLength-1];
+
+  if (END(tempPos.i, tempPos.j))
+    {
+      printf("\nFind A Possible path %d", counter+1);
+      output(path, pathLength);
+      counter++;
+    }
+  m = tempPos.i;
+  n = tempPos.j;
+  for (k = 0; k < 4; k++)
+    {
+      tempPos = nextPos(m,n, k);
+      if (map[tempPos.i][tempPos.j])
+	continue;
+      i = 0;
+      while (i < pathLength)
+	{
+	if (path[i].i ==  tempPos.i 
+	    && path[i].j == tempPos.j)
+	  break;
+	i++;
+	}
+      if (i >= pathLength)
+	{
+	  path[pathLength] = tempPos;
+	  findPath(pathLength+1);
+	}
+    }
+}
 
 BOOL findOnePass(LP_STACK pStack)
 {
