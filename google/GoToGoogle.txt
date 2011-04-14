@@ -32,20 +32,22 @@ Start :2011-02-18
 1 month The art of
 
 /*******************/
-2011-04-02 status
+2011-04-14 status
   finished most of  the algorithms in <<Data Structure>>
   TDO: Need Done Before 2011-04-18
        1.String Compare
-       2.Balence Tree
+       2.Balence Tree [Done]
        3.B TREE/ B+ TREE
-       4.Outside Sort
+       4.Outside Sort [Done]
        5.radixSort
-       6.sparse2DArray
+       6.sparse2DArray [Done]
        7.Forest/ForestToTree/Tree Counter
-       8.GList
-       9.Maze
-       10.Queen
+       8.GList [Done]
+       9.Maze [Done]
+       10.Queen [Done]
        11.Compute Expression
        12.File Operation
+       13.Search
+       14.Hash
 
 
