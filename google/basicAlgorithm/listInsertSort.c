@@ -1,7 +1,5 @@
 #include "../include/common.h"
-#undef MAX
-#define MAX 10
-#define KEY_NUM 3
+
 
 typedef struct _NODE
 {
@@ -11,9 +9,7 @@ typedef struct _NODE
 
 #define INIT 20
 #define INCRE 20
-int hint[MAX][2];
-void distribute(LP_NODE pHead, int numOfData, int keyIndex);
-void collect(LP_NODE pHead);
+
 int main()
 {
   FILE *fp;
@@ -23,13 +19,13 @@ int main()
   int numOfData;
   int maxElement;
   NODE *pHead;
-  int i, p;
-  int j;
- 
+  int i;
+  int last;
+  int p;
 
-  if ((fp = fopen("input/radixSort.txt", "r")) == NULL)
+  if ((fp = fopen("input/listInsertSort.txt", "r")) == NULL)
     {
-      printf ("Cannot Open File radixSort.txt\n");
+      printf ("Cannot Open File listInsertSort.txt\n");
       exit(-1);
     }
 
@@ -84,26 +80,38 @@ int main()
   while (i <= numOfData)
     {
       (pHead + i)->next = i+1;
-      if(i && (pHead+i)->value >= 1000)
-	{
-	  printf("KEY NUM is too big\n");
-	  exit(-1);
-	}
       i++;
     }
-  (pHead + numOfData)->next = 0;
+  (pHead + numOfData + 1)->next = 0;
 
-  for (i = 1; i <= KEY_NUM; i++)
+  printf("\nInputData is :\n");
+  for (i = 1; i <= numOfData; i++)
     {
-      memset(hint, 0, sizeof(hint));
-      distribute(pHead, numOfData, i);
-      printf("\nDistribute:");
-      for (j = 0; j < MAX; j++)
-	printf("%d[%d,%d]", j, hint[j][0],hint[j][1]);
-
-      collect(pHead);
+      printf("%5d", (pHead + i)->value);
+      if (i && i%10 == 0 )
+	putchar('\n');
     }
 
+  printf("\nStart ListInsert Sort");
+  (pHead + 1)->next = 0;
+  last = 1;
+  for (i = 2; i <= numOfData; i++)
+    {
+      if ((pHead + i)->value >= (pHead+last)->value)
+	{
+	  (pHead+last)->next = i;
+	  (pHead+i)->next = 0;
+	  last = i;
+	}
+      else 
+	{
+	  int prev = 0;
+	  while ((pHead + (pHead+prev)->next)->value <= (pHead+i)->value)
+	    prev = (pHead+prev)->next;
+	  (pHead+i)->next = (pHead+prev)->next;
+	  (pHead+prev)->next = i;
+	}
+    }
   printf("\nResult:\n");
   printf("Header:[%d] ** ", pHead->next);
   for (i = 1; i <= numOfData; i++)
@@ -148,53 +156,7 @@ int main()
 	putchar('\n');
     }
 
-  fclose(fp);
   free(pHead);
-
-}
-
-int getKey(int value, int keyIndex)
-{
-  int temp = value;
-  while (keyIndex-- > 1)
-    temp /= 10;
-  return temp%10;
-}
-
-void distribute(LP_NODE pHead, int numOfData, int keyIndex)
-{
-  int i;
-  int cur;
-  for (i = pHead->next; i != 0; i = (pHead+i)->next)
-    {
-      cur = getKey((pHead+i)->value, keyIndex);
-      if (hint[cur][0] == 0)
-	{
-	  hint[cur][0] = i;
-	  hint[cur][1] = i;
-	}
-      else
-	{
-	  (pHead+hint[cur][1])->next = i;
-	  hint[cur][1] = i;
-	}
-    }
-}
-void collect(LP_NODE pHead)
-{
-  int i = 0;
-  int prev;
-
-  prev = 0;
-  while (i < MAX)
-    {
-      while (i < MAX && hint[i][0] == 0)
-	i++;
-      if (i >= MAX)
-	break;
-      (pHead+prev)->next = hint[i][0];
-      prev = hint[i][1];
-      i++;
-    }
-  (pHead+prev)->next = 0;
+  fclose(fp);
+  return 0;
 }
