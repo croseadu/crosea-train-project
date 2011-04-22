@@ -32,22 +32,32 @@ Start :2011-02-18
 1 month The art of
 
 /*******************/
-2011-04-14 status
+2011-04-18 status
   finished most of  the algorithms in <<Data Structure>>
   TDO: Need Done Before 2011-04-18
-       1.String Compare
+       1.String Compare [Done]
        2.Balence Tree [Done]
        3.B TREE/ B+ TREE
        4.Outside Sort [Done]
-       5.radixSort
+       5.radixSort | listInsertSort + arrange + rearrange
        6.sparse2DArray [Done]
-       7.Forest/ForestToTree/Tree Counter
+       7.Forest/ForestToTree/ [Done]  //Tree Counter
        8.GList [Done]
        9.Maze [Done]
        10.Queen [Done]
-       11.Compute Expression
-       12.File Operation
+       11.Compute Expression [Done]
+       12.File Operation [suspend]
        13.Search
-       14.Hash
+       14.Hash 
 
+2011-04-22 Update
+  finished work on <<Data Structure>>, left issue
+  1. B/B+ TREE
+  2. Tree/Binary Tree Count
+  3. [Quick|Heap]Sort with rerrange 
+  4. binary Search|Fino Search|Hash
+  5. Memory Operation     
+
+  Start Work on <<Chinese:Fundunmentals Of Computer Alogorithm>>
+  Plan finished this job by 05/22/2011
 
