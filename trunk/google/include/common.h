@@ -2,6 +2,7 @@
 #define _COMMON_H
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include <ctype.h>
 #include <math.h>
 #include <string.h>
