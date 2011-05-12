@@ -269,12 +269,12 @@ void getOrder(const int h[],
 int main()
 {
 
-   int height[] =  {1,2,3,4,5,6};
-  int bloom[] =  {1,3,1,3,1,3};
-  int wilt[] = {2,4,2,4,2,4} ;
-  //int height[]={5,4,3,2,1};
-  //int bloom[]={1,5,10,15,20};
-  //int wilt[]=  {4,9,14,19,24};//{5,10,14,20,25};//{5,10,15,20,25};
+  //int height[] =  {1,2,3,4,5,6};
+   //int bloom[] =  {1,3,1,3,1,3};
+  //int wilt[] = {2,4,2,4,2,4} ;
+  int height[]={5,3,4,2,1};
+  int bloom[]={1,10,5,15,20};
+  int wilt[]= {5,15,10,20,25};
   int order[20];
 
   getOrder(height, bloom, wilt, order, sizeof(height)/sizeof(height[0]));
