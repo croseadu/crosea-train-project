@@ -32,7 +32,26 @@ Start :2011-02-18
 1 month The art of
 
 /*******************/
-2011-04-18 status
+
+[2011-06-23] Update
+  1.finished book of <<Chinese:Fundenmentals of Computer Algorithm>>,
+  but not carefully study charpter after DP, need rework.
+  2.study algorithm tuturial from TopCoder, Plan to work on several classic
+  problem from WIKI.
+
+
+[2011-04-22] Update
+  finished work on <<Data Structure>>, left issue
+  1. B/B+ TREE
+  2. Tree/Binary Tree Count
+  3. [Quick|Heap]Sort with rerrange 
+  4. binary Search|Fino Search|Hash
+  5. Memory Operation     
+
+  Start Work on <<Chinese:Fundenmentals Of Computer Algorithm>>
+  Plan finished this job by 05/22/2011
+
+[2011-04-18] status
   finished most of  the algorithms in <<Data Structure>>
   TDO: Need Done Before 2011-04-18
        1.String Compare [Done]
@@ -50,14 +69,5 @@ Start :2011-02-18
        13.Search
        14.Hash 
 
-2011-04-22 Update
-  finished work on <<Data Structure>>, left issue
-  1. B/B+ TREE
-  2. Tree/Binary Tree Count
-  3. [Quick|Heap]Sort with rerrange 
-  4. binary Search|Fino Search|Hash
-  5. Memory Operation     
 
-  Start Work on <<Chinese:Fundunmentals Of Computer Alogorithm>>
-  Plan finished this job by 05/22/2011
 

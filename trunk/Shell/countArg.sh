@@ -1,0 +1,3 @@
+echo "$# args"
+echo "$@"
+echo "$*"
