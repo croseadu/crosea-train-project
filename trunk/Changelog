@@ -1,0 +1,3 @@
+2012-07-23 Yuehai Du <croseadu@gmail.com>
+	Start Working on own utility.
+	* include/Array.h (Array, Vector) New data structure.
