@@ -1,3 +1,15 @@
+
+
+2012-07-30 Yuehai Du <croseadu@gmail.com>
+	Working on Stack Util
+	* include/stack.h New File.
+	(Stack):New Data structure.
+
+2012-07-26 Yuehai Du <croseadu@gmail.com>
+	Working on List Util
+	* include/list.h New File.
+	(List): New Data structure.
+
 2012-07-23 Yuehai Du <croseadu@gmail.com>
 	Start Working on own utility.
-	* include/Array.h (Array, Vector) New data structure.
+	* include/Array.h (Array, Vector): New data structure.
