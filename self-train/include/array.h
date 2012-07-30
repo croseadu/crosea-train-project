@@ -4,6 +4,8 @@
 #include <cstring>
 #include <iostream>
 
+namespace MyUtil
+{
 template <class T, unsigned int N> 
 class Array;
 template <class T, unsigned int N>
@@ -70,6 +72,7 @@ class Vector
 {
   T * data_;
   unsigned int size_;
+  unsigned int capacity_;
 public:
   Vector():data_(0), size_(0){}
   
@@ -111,7 +114,40 @@ public:
     return data_[idx];
   }
 
+  void reserve(unsigned int size)
+  {
+    if (size <= capacity_)
+      return true;
+    T * newData = new T[size];
+    if (!newData)
+      throw std::bad_alloc();
+    
+    memcpy((void *)newData, (void *)data_, sizeof(T)*size_);
+    
+    delete [] data_;
+    capacity_ = size;
+  }
 
+  bool push_back(const T & in)
+  {
+    if (size_ == capacity_)
+      {
+        reserve(capacity_*2);
+        capacity_ *= 2;
+      }
+    data_[size_] = in;
+    size_++;
+  }
+
+  void erase(const unsigned int idx)
+  {
+    assert(idx < size_);
+    for (unsigned int i = idx; i < size_; i++)
+      data_[i] = data_[i+1];
+    size_--;
+  }
+
+  unsigned int capacity() const { return capacity_; }
   unsigned int size() const { return size_; }
   friend std::ostream & operator<< <> (std::ostream &out, const Vector<T> &);
 
@@ -126,5 +162,7 @@ std::ostream & operator<<(std::ostream &out, const Vector<T> & in)
   return out;
 }
 
+
+}
 
 #endif
