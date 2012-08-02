@@ -131,6 +131,11 @@ bool operator!=(ConstListIterator<T> lhs, ConstListIterator<T> rhs)
 {
   return lhs.getNode() != rhs.getNode();
 }
+template <class T>
+bool operator==(ConstListIterator<T> lhs, ConstListIterator<T> rhs)
+{
+  return !(lhs != rhs);
+}
 
 
 
@@ -138,28 +143,47 @@ template <typename T>
 class List
 {
   ListNode<T> *pHead;
-  
+  unsigned int size_;
+
 public:
   typedef ListIterator<T> iterator;
   typedef ConstListIterator<T> const_iterator;
 public:
-  List():pHead(new ListNode<T>()){}
+ List():pHead(new ListNode<T>()), size_(0){}
   ~List()
   {
     clear();
     delete pHead;
   }
-  
+
+  iterator insert(const_iterator pos, const T & in)
+  {
+    size_++;
+    ListNode<T> * newNode = new ListNode<T>(in);
+    ListNode<T> * next = pos.getNode();
+    newNode->next = next;
+    newNode->prev = next->prev;
+    newNode->prev->next = newNode;
+    next->prev = newNode;
+    return iterator(newNode);
+  }
+
   bool push_back(const T & in)
   {
     ListNode<T> * newNode = new ListNode<T>(in);
     pHead->prev->insert(newNode);
+    size_++;
+    return true;
   }
+  
+  
 
   bool push_before(const T & in)
   {
     ListNode<T> * newNode = new ListNode<T>(in);
     pHead->insert(newNode);
+    size_++;
+    return true;
   }
   iterator begin()
   {
@@ -183,9 +207,19 @@ public:
       }
     pHead->next = pHead;
     pHead->prev = pHead;
+    size_ = 0;
   }
 
-  
+  iterator find(const T & in)
+  {
+    iterator RI = begin();
+    for (; RI != end(); ++RI)
+      if (*RI == in)
+        break;
+    return RI;
+  }
+
+
   void erase(iterator RI)
   {
     ListNode<T> *node, *prev;
@@ -193,8 +227,13 @@ public:
     prev = node->prev;
     node->remove();
     delete node;
+    size_--;
     //return iterator(prev);
   }
+
+  unsigned int size() const { return size_; }
+  
+  void sort();
   
 };
 

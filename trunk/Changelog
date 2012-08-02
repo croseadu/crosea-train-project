@@ -1,4 +1,10 @@
 
+2012-08-02 Yuehai Du <croseadu@gmail.com>
+	Working on Set/Queue/Circular.
+	* include/set.h (Set): New.
+	* include/circularQueue.h (CircularQueue): New.
+	* include/queue.h (Queue): New.
+	* include/staticList.h (StaticList): New, not finished yet.
 
 2012-07-30 Yuehai Du <croseadu@gmail.com>
 	Working on Stack Util
