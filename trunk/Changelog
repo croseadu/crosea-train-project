@@ -1,3 +1,6 @@
+2012-08-03 Yuehai Du <croseadu@gmail.com>
+	Finished StaticList Util.
+	* include/staticList.h (StaticList): Add all interface.
 
 2012-08-02 Yuehai Du <croseadu@gmail.com>
 	Working on Set/Queue/Circular.
