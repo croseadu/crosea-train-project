@@ -58,7 +58,7 @@ public:
 
   const T * operator->() const
   {
-    return &*this;
+    return &**this;
   }
 
   ConstListIterator & operator++()
@@ -101,7 +101,7 @@ public:
 
   T * operator->()
   {
-    return &(this->node_->data_);
+    return &(**this_);
   }
 
   ListIterator & operator++()
@@ -176,8 +176,6 @@ public:
     return true;
   }
   
-  
-
   bool push_before(const T & in)
   {
     ListNode<T> * newNode = new ListNode<T>(in);
