@@ -1,3 +1,12 @@
+2012-08-15 Yuehai Du <croseadu@gmail.com>
+	Start work on <<Data Structure>>
+	finished FormatConversion/LineEdit/ParenthesesMatch/PolyAdd.
+	* example/dataStructure/formatConvert.cpp: New.
+	* example/dataStructure/lineEdit.cpp: New.
+	* example/dataStructure/parenthesesMatch.cpp: New.
+	* example/dataStructure/polyAdd.cpp: New.
+
+
 2012-08-03 Yuehai Du <croseadu@gmail.com>
 	Finished StaticList Util.
 	* include/staticList.h (StaticList): Add all interface.
