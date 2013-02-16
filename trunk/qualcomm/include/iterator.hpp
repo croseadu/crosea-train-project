@@ -1,12 +1,24 @@
 #ifndef _MY_ITERATOR_HPP
 #define _MY_ITERATOR_HPP
+#include "iterator_traits.hpp"
+
 namespace MyUtil
 {
+  template <class T>
+  class random_iterator;
+
+  template <class T>
+  int operator-(const random_iterator<T> & start, const random_iterator<T> & end);
+
+
 template <class T>
 class random_const_iterator
 {
   const T* _ptr;
 public:
+  typedef random_iter_tag iter_tag;
+
+
   random_const_iterator():_ptr(0){}
   random_const_iterator(T* p):_ptr(p){}
   random_const_iterator(const random_const_iterator &rhs):_ptr(rhs._ptr){}
@@ -59,12 +71,14 @@ class random_iterator
 {
   T* _ptr;
 public:
+  typedef random_iter_tag iter_tag;
+
   random_iterator():_ptr(0){}
   random_iterator(T* p):_ptr(p){}
   random_iterator(const random_iterator &rhs):_ptr(rhs._ptr){}
 
-  T & operator*() { return *_ptr; }
-  T* operator->() { return _ptr; }
+  T & operator*() const  { return *_ptr; } 
+  T* operator->() const { return _ptr; } 
 
   random_iterator & operator++() 
   {
@@ -103,6 +117,9 @@ public:
     return _ptr != rhs._ptr;
   }
 
+  
+  friend int operator-<>(const random_iterator & lhs, const random_iterator &rhs);
+
 };
 
 template <class T>
@@ -114,12 +131,20 @@ random_iterator<T> operator+(const random_iterator<T> & rhs, int offset)
 }
 
 template <class T>
+int operator-(const random_iterator<T> & lhs, const random_iterator<T> & rhs)
+{
+  return lhs._ptr - rhs._ptr;
+}
+
+template <class T>
 random_const_iterator<T> operator+(const random_const_iterator<T> & rhs, int offset)
 {
   random_const_iterator<T> tmp(rhs);
   tmp+=offset;
   return tmp;
 }
+
+
 
 }
 #endif
