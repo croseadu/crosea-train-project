@@ -7,10 +7,12 @@
 namespace MyUtil
 {
 
-  template <class T, class Storage = doubleList<T> >
+  template <class T, 
+	    template <class U>
+            class Storage = doubleList >
   class stack
   {
-    Storage _impl;
+    Storage<T> _impl;
   public:
     stack(){};
     stack(const stack &rhs){}

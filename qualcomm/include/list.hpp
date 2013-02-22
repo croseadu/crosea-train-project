@@ -310,6 +310,7 @@ namespace MyUtil
       doubleNode<V> *_node;
     public:
       typedef bidirection_iter_tag iter_tag;
+      typedef V value_type;
 
       list_iterator():_node(0){}
       explicit list_iterator(doubleNode<V> *node):_node(node){}
@@ -363,6 +364,8 @@ namespace MyUtil
       const doubleNode<V> *_node;
     public:
       typedef bidirection_iter_tag iter_tag;
+      typedef V value_type;
+
       list_const_iterator():_node(0){}
       explicit list_const_iterator(const doubleNode<V> *node):_node(node){}
       list_const_iterator & operator++() 
@@ -520,7 +523,7 @@ namespace MyUtil
 
     void pop_front ()
     {
-      erase(iterator(pHead));
+      erase(iterator(pHead->next));
     }
     void pop_back ()
     {

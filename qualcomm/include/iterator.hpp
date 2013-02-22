@@ -17,6 +17,7 @@ class random_const_iterator
   const T* _ptr;
 public:
   typedef random_iter_tag iter_tag;
+  typedef T value_type;
 
 
   random_const_iterator():_ptr(0){}
@@ -72,6 +73,7 @@ class random_iterator
   T* _ptr;
 public:
   typedef random_iter_tag iter_tag;
+  typedef T value_type;
 
   random_iterator():_ptr(0){}
   random_iterator(T* p):_ptr(p){}
@@ -108,6 +110,11 @@ public:
     _ptr += offset;
     return *this;
   }
+  random_iterator & operator-=(int offset)
+  {
+    _ptr -= offset;
+    return *this;
+  }
   bool operator==(const random_iterator & rhs) const
   {
     return _ptr == rhs._ptr;
@@ -127,6 +134,13 @@ random_iterator<T> operator+(const random_iterator<T> & rhs, int offset)
 {
   random_iterator<T> tmp(rhs);
   tmp+=offset;
+  return tmp;
+}
+template <class T>
+random_iterator<T> operator-(const random_iterator<T> & rhs, int offset)
+{
+  random_iterator<T> tmp(rhs);
+  tmp-=offset;
   return tmp;
 }
 

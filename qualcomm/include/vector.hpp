@@ -135,6 +135,22 @@ public:
 
   void pop_back()
   {
+    //_data[_size-1].T::~T();
+    --_size;
+  }
+
+  void push_front(T value)
+  {
+    reserve(_size+1);
+    for (int i = _size; i > 0; i++)
+      _data[i] = _data[i-1];
+    ++_size;
+  }
+  
+  void pop_front()
+  {
+    for (int i = 0; i < _size-1; i++)
+      _data[i] = _data[i+1];
     --_size;
   }
 

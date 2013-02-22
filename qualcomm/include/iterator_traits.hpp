@@ -11,12 +11,14 @@ namespace MyUtil
   struct iterator_traits
   {
     typedef typename iterator::iter_tag iterator_category;
+    typedef typename iterator::value_type value_type;
   };
 
   template <class T>
   struct iterator_traits< T* >
   {
     typedef random_iter_tag iterator_category;
+    typedef T value_type;
   };
 }
 #endif
