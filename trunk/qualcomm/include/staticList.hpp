@@ -18,8 +18,8 @@ namespace MyUtil
 
     vector< Node<T> > _impl;
     unsigned int maxSize;
-    unsigned int freeIdx;
-    unsigned int headIdx;
+    int freeIdx;
+    int headIdx;
     Node<T> *base;
 
   public:
@@ -28,6 +28,11 @@ namespace MyUtil
       base = &_impl[0];
       freeIdx = 0;
       maxSize = max;
+      headIdx = -1;
+
+      for (unsigned i = 0; i < max -1; i++)
+	_impl[i].nextIdx = i+1;
+      _impl[i].nextIdx = -1;
     }
 
     template <class V>
@@ -35,6 +40,8 @@ namespace MyUtil
     {
       Node<V> * base;
       unsigned int cur;
+      friend class staticList;
+
     public:
       typedef forward_iter_tag iter_tag;
 
@@ -69,6 +76,59 @@ namespace MyUtil
     };
 
     typedef static_iterator<T> iterator;
+
+    iterator begin ()
+    {
+      return iterator(base, headIdx);
+    }
+
+
+    iterator end()
+    {
+      return iterator(base, -1);
+    }
+
+    iterator insert(iterator insertPt, T value)
+    {
+      assert (freeIdx != -1);
+      int newIdx = freeIdx;
+      freeIdx = _impl[freeIdx].nextIdx;
+      _impl[newIdx]._data = value;
+      _impl[newIdx].nextIdx = _impl[insertPt.cur].nextIdx;
+      _impl[insertPt.cur].nextIdx = newIdx;
+      return iterator(base, newIdx);
+    }
+
+    iterator push_front(T value)
+    {
+      assert (freeIdx != -1);
+      int newIdx = freeIdx;
+      freeIdx = _impl[freeIdx].nextIdx;
+
+      _impl[newIdx]._data = value;
+      _impl[newIdx].nextIdx = headIdx;
+      headIdx = newIdx;
+      return iterator(base, newIdx);
+    }
+
+    iterator push_back(T value)
+    {
+      assert (freeIdx != -1);
+      int newIdx = freeIdx;
+      freeIdx = _impl[freeIdx].nextIdx;
+
+      _impl[newIdx]._data = value;
+      _impl[newIdx].nextIdx = -1;
+      
+      int insertPtIdx = headIdx;
+      if (headIdx == -1)
+	headIdx = newIdx;
+      else
+	{
+	  while (insertPtIdx)
+	}
+
+      return iterator(base, newIdx);
 
   }
 
