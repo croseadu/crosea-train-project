@@ -1,0 +1,17 @@
+1. Data Structure
+   1. Array
+   2. List
+   3. Queue
+   4. Stack
+   5. SparseMatrix
+   6. GList
+   7. BinaryTree
+   8. Tree
+   9. Graph
+   
+
+
+
+2. Chinese Fundamentals
+
+
