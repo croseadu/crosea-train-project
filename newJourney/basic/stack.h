@@ -2,8 +2,8 @@
 #include <fstream>
 #include <string>
 #include <algorithm>
-#include <assert>
-
+#include <assert.h>
+#include "exceptions.h"
 template <class T>
 struct Stack
 {
@@ -17,10 +17,10 @@ struct Stack
 template <class T>
 bool initStack(Stack<T> **ppStack)
 {
-  Stack<T> *pStack = new Stack();
+  Stack<T> *pStack = new Stack<T>();
   if (pStack == 0)
     return false;
-  pStack->base = new T[Stack::init_size];
+  pStack->base = new T[Stack<T>::init_size];
   if (pStack->base == 0)
     {
       delete pStack;
@@ -34,18 +34,20 @@ bool initStack(Stack<T> **ppStack)
 template <class T>
 void destroyStack(Stack<T> **ppStack)
 {
-  delete (**pStack)->base;
+  delete (*ppStack)->base;
   delete (*ppStack);
 }
 
 template <class T>
 void push(Stack<T> *pStack, const T &element)
 {
-  if (top-base >= pStack->stackSize)
+  if (pStack->top-pStack->base >= pStack->stackSize)
     {
       T * pTemp = new T[pStack->stackSize + Stack<T>::incre_size];
       if(pTemp == 0);
-	throw "Out Of Memory";
+      {
+	throw MyException("Out Of Memory");
+      }
       std::copy(pStack->base, pStack->top, pTemp);
       delete pStack->base;
       pStack->base = pTemp;
@@ -65,7 +67,9 @@ template <class T>
 void pop(Stack<T> *pStack, T &element)
 {
   if (isEmpty(pStack))
-    throw "Pop on empty Stack";
+    {
+      throw MyException("Pop on empty Stack");
+    }
   
   element = *--pStack->top;
 }
@@ -73,14 +77,20 @@ void pop(Stack<T> *pStack, T &element)
 
 
 template <class T>
-void top(Stack<T> *pStack, T & element)
+const T top(Stack<T> *pStack)
 {
   if (isEmpty(pStack))
-    throw "top on empty Stack";
+    {
+      throw MyException("top on empty Stack");
+    }
+  return *(pStack->top-1);  
   
-  element = *(pStack->top-1);  
 }
 
 
-
+template <class T>
+unsigned int size(Stack<T> *pStack)
+{
+  return pStack->top - pStack->base;
+}
 
