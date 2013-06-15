@@ -163,7 +163,7 @@ void ListSort(List<T> *pHead)
 	  int temp = pHead->data[i];
 
 	  j = i;
-	  while (j > 0 && pHead->data[j] < pHead->data[j-1])
+	  while (j > 0 && temp < pHead->data[j-1])
 	    pHead->data[j] = pHead->data[j-1];
 	  pHead->data[j] = temp;
 	}

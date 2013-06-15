@@ -1,0 +1,38 @@
+One year plan:
+Must:
+{
+	Chinese:data structure
+	Chinese:Fundunmentals Of Computer Algorithm
+	Berkeley:..
+	MIT:Introduction to Algorithms
+	Design and Analysis of Algorithms
+	The art of Computer Programming
+	Programming Perls
+
+	Fundamentals of Computer Algorithms
+	More Programming Perls
+	Tarjan: The Art Of Algorithm
+	Ullman: data structures and algorithms
+
+	--
+	There are other two good books names Algorithm.
+	read it after finished Chinese:Fundunmentals of Computer Algorithm.
+}
+
+Start :2013-06-13
+
+2 month for all basic algorithm of data structure
+0.5 month for Fundunmentals
+
+1 month for Berkely
+2 month Introduction to
+
+1 month Microsfot
+1 month The art of
+
+More work will be added later.
+
+/*****/
+
+
+

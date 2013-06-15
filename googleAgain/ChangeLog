@@ -1,0 +1,12 @@
+
+
+2013-06-14 Yuehai Du <croseadu@gmail.com>
+
+	worked on util, finished array.
+	* include/list.h: new file.
+	* include/mytype.h: new file.
+	* util/list.c: new file.
+
+2013-06-13 Yuehai Du <croseadu@gmail.com>
+
+	Kick off new project for GoToGoogle.
