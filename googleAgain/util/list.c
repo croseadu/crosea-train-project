@@ -2,7 +2,8 @@
 #include <stdio.h>
 
 
-bool initList(LPList *ppList, unsigned elementSize, PrintFunc printer)
+bool initList(LPList *ppList, unsigned elementSize, 
+	      PrintFunc printer, CompareFunc eq, CompareFunc less)
 {
   LPList pHead = malloc(sizeof(List));
   if (NULL == pHead)
@@ -17,6 +18,8 @@ bool initList(LPList *ppList, unsigned elementSize, PrintFunc printer)
   pHead->capacity = LIST_INIT_SIZE;
   pHead->size = 0;
   pHead->printer = printer;
+  pHead->equal = eq;
+  pHead->less = less;
   *ppList = pHead;
   return true;
 }
@@ -125,7 +128,28 @@ bool deleteListItem(LPList pList, int idx)
 }
 
 
-unsigned int deleteValInList(LPList pList, PredFunc pred)
+unsigned int deleteValInList(LPList pList, void *val)
+{
+  int deleteItem = 0;
+  int i = 0, j = 0;
+  while (i < pList->size) {
+    if (!pList->equal(pList->data+i*pList->elementSize, val)){
+      if (i != j){
+	memcpy(pList->data+j*pList->elementSize,
+	       pList->data+i*pList->elementSize,
+	       pList->elementSize);
+      }
+      ++j;
+    }
+    ++i;
+  }
+  deleteItem = pList->size - j;
+  pList->size = j;
+  return deleteItem;
+}
+
+
+unsigned int deleteIfInList(LPList pList, PredFunc pred)
 {
   int deleteItem = 0;
   int i = 0, j = 0;
@@ -143,8 +167,8 @@ unsigned int deleteValInList(LPList pList, PredFunc pred)
   deleteItem = pList->size - j;
   pList->size = j;
   return deleteItem;
-}
 
+}
 
 void visitList(LPList pList, VisitFunc visitor)
 {
@@ -183,19 +207,19 @@ int locateItem(LPList pList, PredFunc pred)
   return -1;
 }
 
-void sortList(LPList pList,CompareFunc less)
+static void insertSortList(LPList pList)
 {
   int i;
   char *pTemp = malloc(pList->elementSize);
 
   for (i =1; i < pList->size; i++)
     {
-      if (less(pList->data+i * pList->elementSize, 
+      if (pList->less(pList->data+i * pList->elementSize, 
 	       pList->data+pList->elementSize*(i-1)))
 	{
 	  int j = i-1;
 	  getItem(pList, i, pTemp);
-	  while (j >= 0 && less(pTemp, pList->data+j*pList->elementSize)) {
+	  while (j >= 0 && pList->less(pTemp, pList->data+j*pList->elementSize)) {
 	    memcpy(pList->data+pList->elementSize * (j+1),
 		   pList->data+pList->elementSize*j,
 		   pList->elementSize);
@@ -208,6 +232,11 @@ void sortList(LPList pList,CompareFunc less)
     }
 
   free(pTemp);
+}
+
+void sortList(LPList pList)
+{
+  insertSortList(pList);
 }
 
 

@@ -1,4 +1,15 @@
+2013-06-17 Yuehai Du <croseadu@gmail.com>
 
+	worked on util, finished linkList.
+	* include/linkList.h: new file.
+	* include/list.h (initList): Add equal/less function.
+	(insertSortList): Declare.
+	(deleteValInList): Change call parameter.
+	(deleteIfInList): Declare.
+	* util/linkList.c: new file.
+	* util/list.c (insertSortList): new function.
+	(deleteIfInList): Ditto.
+	(deleteValInList): Change call parameter.
 
 2013-06-14 Yuehai Du <croseadu@gmail.com>
 

@@ -1,5 +1,5 @@
 
-#include "list.h"
+#include "linkList.h"
 #include <stdio.h>
 
 static int counter = 0;
@@ -48,7 +48,7 @@ int main()
   FILE *fp;
   char buf[4096];
 
-  LPList pList = NULL;
+  LPLinkList pList = NULL;
   int data;
 
   if ((fp = fopen("in.txt","r")) == NULL) {
@@ -56,28 +56,31 @@ int main()
     return -1;
   }
 
-  if (!initList(&pList, sizeof(int), printInt, equal, less)){
+  if (!initLinkList(&pList, sizeof(int), printInt, equal, less)){
     printf("Failed to create List\n");
     return -1;
   }
   
   while (fscanf(fp, "%d", &data) != EOF)
     {
-      insertToListHead(pList,&data);
+      insertToLinkListTail(pList,&data);
     }
-
-  printList(pList);
+  printf("\nList is :");
+  printLinkList(pList);
   
-  sortList(pList);
+  sortLinkList(pList);
 
   printf("After Sorted:\n");
-  printList(pList);
+  printLinkList(pList);
 
-  visitList(pList, findModN);
-  deleteIfInList(pList, isModN);
+  visitLinkList(pList, findModN);
+  deleteIfInLinkList(pList, isModN);
   printf("After remove ModN\n");
-  printList(pList);
-  destroyList(&pList);
+  printLinkList(pList);
+  reverseLinkList(pList);
+  printf("After reverse LinkList\n");
+  printLinkList(pList);
+  destroyLinkList(&pList);
 
   fclose(fp);
   return 0;
