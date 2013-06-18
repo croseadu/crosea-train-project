@@ -1,10 +1,16 @@
 
-#include "linkList.h"
+#include "doubleLinkList.h"
 #include <stdio.h>
 
 static int counter = 0;
+static int reset = 0;
 static void printInt(void *val)
 {
+  if (reset) {
+    reset = 0; 
+    counter = 0;
+  }
+  
   printf("%5d", *(int *)val);
   ++counter;
   if (!(counter%4))
@@ -48,7 +54,7 @@ int main()
   FILE *fp;
   char buf[4096];
 
-  LPLinkList pList = NULL;
+  LPDoubleLinkList pList = NULL;
   int data;
 
   if ((fp = fopen("in.txt","r")) == NULL) {
@@ -56,31 +62,38 @@ int main()
     return -1;
   }
 
-  if (!initLinkList(&pList, sizeof(int), printInt, equal, less)){
+  if (!initDoubleLinkList(&pList, sizeof(int), printInt, equal, less)){
     printf("Failed to create List\n");
     return -1;
   }
   
   while (fscanf(fp, "%d", &data) != EOF)
     {
-      insertToLinkListTail(pList,&data);
+      insertToDoubleLinkListTail(pList,&data);
     }
   printf("\nList is :");
-  printLinkList(pList);
+  reset = 1;
+  printDoubleLinkList(pList);
   
-  //sortLinkList(pList);
+  
+  sortDoubleLinkList(pList);
 
   printf("After Sorted:\n");
-  printLinkList(pList);
+  reset = 1;
+  printDoubleLinkList(pList);
 
-  visitLinkList(pList, findModN);
-  deleteIfInLinkList(pList, isModN);
+  visitDoubleLinkList(pList, findModN);
+  deleteIfInDoubleLinkList(pList, isModN);
   printf("After remove ModN\n");
-  printLinkList(pList);
-  reverseLinkList(pList);
+  reset = 1;
+  printDoubleLinkList(pList);
+  reverseDoubleLinkList(pList);
   printf("After reverse LinkList\n");
-  printLinkList(pList);
-  destroyLinkList(&pList);
+  reset = 1;
+  printDoubleLinkList(pList);
+
+  
+  destroyDoubleLinkList(&pList);
 
   fclose(fp);
   return 0;

@@ -1,3 +1,14 @@
+2013-06-18 Yuehai Du <croseadu@gmail.com>
+
+	worked on util, finished double linkList,
+	stack,queue.
+	* include/doubleLinkList.h: new file.
+	* include/queue.h: new file.
+	* include/stack.h: new file.
+	* util/doubleLinkList.c: new file.
+	* util/stack.c: new file.
+	* util/queue.c: new file.
+
 2013-06-17 Yuehai Du <croseadu@gmail.com>
 
 	worked on util, finished linkList.
