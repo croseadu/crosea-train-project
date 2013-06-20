@@ -1,6 +1,11 @@
+2013-06-20 Yuehai Du <croseadu@gmail.com>
+
+	worked on basic algorithm, finished brace Match.
+	* basic/braceMatch.c: new file.
+
 2013-06-19 Yuehai Du <croseadu@gmail.com>
 
-	worked on util, finished data Mode conversion.
+	worked on basic algorithm, finished data Mode conversion.
 	* basic/conversion.c: new file.
 	* util/stack.c (push):Fix a top address calculation error.
 
