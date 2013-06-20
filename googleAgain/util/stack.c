@@ -43,13 +43,15 @@ bool getTop(LPStack pStack, void *out)
 bool push(LPStack pStack, void * in)
 {
   if (pStack->top - pStack->base >= pStack->elementSize * pStack->capacity) {
-    pStack->base = realloc(pStack->base, 
+    char *pNew;
+    pNew = realloc(pStack->base, 
 			   pStack->elementSize*(pStack->capacity+INCRE_STACK_SIZE));
-    if (NULL == pStack->base) {
+    if (NULL == pNew) {
       printf("Out Of Memory in %s", __func__);
       return false;
     } 
-    pStack->top = pStack->base + pStack->capacity; 
+    pStack->base = pNew;
+    pStack->top = pStack->base + pStack->capacity * pStack->elementSize; 
     pStack->capacity += INCRE_STACK_SIZE;
   }
 
