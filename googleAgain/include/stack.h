@@ -21,4 +21,5 @@ bool push(LPStack pStack, void * in);
 bool pop(LPStack pStack, void *out);
 void clearStack(LPStack pStack);
 void destroyStack(LPStack *ppStack);
+unsigned int sizeOfStack(LPStack pStack);
 #endif

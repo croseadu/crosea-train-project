@@ -1,3 +1,10 @@
+2013-06-24 Yuehai Du <croseadu@gmail.com>
+
+	worked on basic algorithm, finished calculate expression.
+	* basic/calcExpr.c: new file.
+	* include/stack.h (sizeOfStack):Declare.
+	* util/stack.c (sizeOfStack):new function.
+	
 2013-06-20 Yuehai Du <croseadu@gmail.com>
 
 	worked on basic algorithm, finished brace Match.

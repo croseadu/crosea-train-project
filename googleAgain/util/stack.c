@@ -81,3 +81,7 @@ void destroyStack(LPStack *ppStack)
   *ppStack = NULL;
 }
 
+unsigned int sizeOfStack(LPStack pStack)
+{
+  return (pStack->top-pStack->base)/pStack->elementSize;
+}
