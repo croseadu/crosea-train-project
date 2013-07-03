@@ -1,3 +1,8 @@
+2013-07-03 Yuehai Du <croseadu@gmail.com>
+
+	worked on 8 queens, a simple recursive way.
+	* basic/eightQueen.c: new file.
+
 2013-07-02 Yuehai Du <croseadu@gmail.com>
 
 	worked on basic algorithm, finished PolyAdd, add some
