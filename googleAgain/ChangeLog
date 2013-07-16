@@ -1,8 +1,13 @@
 2013-07-16 Yuehai Du <croseadu@gmail.com>
 
+	worked on maze, write a non-recursive method.
+	* basic/maze.c: new file.
+
+2013-07-09 Yuehai Du <croseadu@gmail.com>
+
 	worked on 8 queens, a non-recursive algorithm.
 	* basic/eightQueen.c: add new method.
-	
+
 2013-07-03 Yuehai Du <croseadu@gmail.com>
 
 	worked on 8 queens, a simple recursive way.
