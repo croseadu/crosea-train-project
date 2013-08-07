@@ -1,3 +1,8 @@
+2013-08-07 Yuehai Du <croseadu@gmail.com>
+
+	worked on Sparse Matrix.
+	* basic/SparseMatrix.c: new file.
+	
 2013-07-31 Yuehai Du <croseadu@gmail.com>
 
 	worked on binaryTree.
