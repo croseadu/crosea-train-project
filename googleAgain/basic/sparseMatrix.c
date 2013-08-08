@@ -5,6 +5,7 @@
 #define ElementType int
 #define N 10
 #define M 8
+#define T 9
 ElementType matrix1[8][10] = 
 {
   {0,4,0,0,0,0,-5,0,0,0},
@@ -207,11 +208,41 @@ void transposeSMatrix2(LPSMatrix pSrc, LPSMatrix *ppDst)
   *ppDst = pDst;
 }
 
+void mulMatrix(int (*lhs)[N], int  (*rhs)[T],  int (*dst)[T])
+{
+  int i, j, k,sum;
+  for (i = 0; i < M; ++i)
+    for (j = 0; j < T; ++j) {
+      sum = 0;
+      for (k = 0; k < N; ++k)
+	sum += lhs[i][k]+rhs[k][j];
+      dst[i][j] = sum;
+    }
+}
+
+
+void mulSMatrix(LPSMatrix lhs, LPSMatrix rhs, LPSMatrix *result)
+{
+  LPSMatrix pDst = NULL;
+  pDst = (LPSMatrix)malloc(sizeof(SMatrix));
+  if (NULL == pDst) {
+    printf ("Out Of memory in %s", __func__);
+    return;
+  }
+  
+
+
+
+
+  *result = pDst;
+}
+
 int main()
 {
   LPSMatrix pSMatrix = NULL;
   LPSMatrix pDstSMatrix = NULL;
   int i,j;
+  int d[M][T];
 
   printMatrix(matrix1, 8,10);
   createSMatrixFromMatrix(&pSMatrix, matrix1, 8, 10);
@@ -228,6 +259,16 @@ int main()
 
   transposeSMatrix2(pSMatrix, &pDstSMatrix);
   printSMatrix(pDstSMatrix);
+
+  mulMatrix(matrix1, matrix2, d);
+  printf("Matrix:\n");
+  for(i = 0; i < M ; ++i) {
+    for(j = 0; j < T; ++j){
+      printf("%5d", d[i][j]);
+    }
+    putchar('\n');
+  }
+  
 
   free(pSMatrix->items);
   free(pSMatrix);
