@@ -1,3 +1,8 @@
+2013-08-09 Yuehai Du <croseadu@gmail.com>
+
+	worked on GList. second version implementation.
+	* basic/GList2.c: new file.
+
 2013-08-08 Yuehai Du <croseadu@gmail.com>
 
 	worked on GList.
