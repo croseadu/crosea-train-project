@@ -83,8 +83,8 @@ LPGNode createGList(const char **ppStr)
 int main()
 {
   LPGNode pNode;
-  //const char *p = "(a,(b),(e,(c,())))";
-  const char *p = "((a,(),(e,f)),(b,(c,d,(g,h,(k,i))),e),())";
+  const char *p = "(a,(b),(e,(c,())))";
+  //const char *p = "((a,(),(e,f)),(b,(c,d,(g,h,(k,i))),e),())";
   pNode = createGList(&p);
   putchar('\n');
   dumpGList(pNode);
