@@ -1,3 +1,8 @@
+2013-08-27 Yuehai Du <croseadu@gmail.com>
+
+	worked on array sort algorithm.
+	* basic/sort.c: new file.
+
 2013-08-09 Yuehai Du <croseadu@gmail.com>
 
 	worked on GList. second version implementation.
