@@ -1,3 +1,8 @@
+2013-09-05 Yuehai Du <croseadu@gmail.com>
+
+	worked on ThreadingTree.
+	* basic/threadingTree.c: new file.
+
 2013-08-27 Yuehai Du <croseadu@gmail.com>
 
 	worked on array sort algorithm.
