@@ -1,3 +1,10 @@
+2013-09-12 Yuehai Du <croseadu@gmail.com>
+
+	finished set equivalent.
+	finished huffman tree.
+	* basic/equivalent.c: new file.
+	* basic/huffmanTree.c: new file.
+
 2013-09-11 Yuehai Du <croseadu@gmail.com>
 
 	worked on Tree-Forest->binaryTree.
