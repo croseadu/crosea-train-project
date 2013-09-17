@@ -1,3 +1,8 @@
+2013-09-17 Yuehai Du <croseadu@gmail.com>
+
+	add a Heap utility which will used as a prioritQueue.
+	* include/heap.h: new file.
+
 2013-09-12 Yuehai Du <croseadu@gmail.com>
 
 	finished set equivalent.

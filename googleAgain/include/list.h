@@ -8,8 +8,6 @@
 #define LIST_INIT_SIZE 10
 #define LIST_INCRE_SIZE 5
 
-
-
 struct _LIST
 {
   char *data;
