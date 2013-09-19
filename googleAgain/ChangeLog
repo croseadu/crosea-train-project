@@ -1,3 +1,9 @@
+2013-09-19 Yuehai Du <croseadu@gmail.com>
+
+	work on minimal spanning tree on undirected graph.
+	finished Prim Algorithm.
+	* basic/minimalTree.c: new file.
+
 2013-09-17 Yuehai Du <croseadu@gmail.com>
 
 	add a Heap utility which will used as a prioritQueue.
