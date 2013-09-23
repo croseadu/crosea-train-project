@@ -18,7 +18,7 @@ typedef struct _Tok
 #define INCRE_SET_SIZE 5
 typedef struct _Node
 {
-  unsigned int parent;
+  int parent;
   ElementType data;
 }SetNode, *LPSetNode;
 
@@ -83,7 +83,8 @@ void unionNode(LPSet pSet, int lhs, int rhs)
 
 int findRoot(LPSet pSet, int i)
 {
-  int k = i, j;
+  int k, j;
+  k = i;
   while (pSet->pNode[k].parent >= 0)
     k = pSet->pNode[k].parent;
 
@@ -210,6 +211,7 @@ typedef struct _Edge
   // in undirected Graph, no from or to.
   LPVertex_K pFrom;
   LPVertex_K pTo;
+  unsigned int weight;
   
   struct _Edge *pNextFrom;
   struct _Edge *pNextTo;
@@ -223,7 +225,8 @@ typedef struct _Edge
 typedef struct _Graph2
 {
   LPVertex_K pVertexSet;
-  LPEdge_K pFirstEdge;
+  LPEdge_K pEdgeSet;
+  unsigned int count;
 }Graph_K, *LPGraph_K;
 
 
@@ -435,7 +438,163 @@ void minimalTree_Prim(const char *p)
   destroyGraph_P(&pGraph);
 }
 
+bool initGraph_K(LPGraph_K *ppGraph)
+{
+  LPGraph_K pGraph;
+
+  pGraph = (LPGraph_K)malloc(sizeof(Graph_K));
+  if (NULL == pGraph) {
+    printf ("Out Of Memory in %s", __func__);
+    return false;
+  }
+  pGraph->pVertexSet = NULL;
+  pGraph->pEdgeSet = NULL;
+  pGraph->count = 0;
+  *ppGraph = pGraph;
+  return true;
+}
+
+LPVertex_K getOrInsertVertex_K(LPGraph_K pGraph, ElementType key)
+{
+  LPVertex_K *ppIter, pVertex;
+  ppIter = &pGraph->pVertexSet;
+  while(*ppIter && (*ppIter)->data != key)
+    ppIter = &(*ppIter)->pNextVertex;
+  if (NULL != *ppIter)
+    return *ppIter;
+  
+  pVertex = (LPVertex_K)malloc(sizeof(Vertex_K));
+  if (NULL == pVertex) {
+    printf ("Out Of Memory in %s", __func__);
+    return NULL;
+  }
+
+  pVertex->data = key;
+  pVertex->pFirstEdge = NULL;
+  pVertex->pNextVertex = NULL;
+
+  *ppIter = pVertex;
+  ++pGraph->count;
+  return pVertex;
+}
+
+bool addEdgeToGraph_K(LPGraph_K pGraph, LPVertex_K pFrom, LPVertex_K pTo, unsigned int weight)
+{
+  LPEdge_K pEdge, pIterEdge;
+  
+  pEdge = (LPEdge_K)malloc(sizeof(Edge_K));
+  if (NULL == pEdge) {
+    printf ("OUt Of Memory in %s", __func__);
+    return false;
+  }
+
+  pEdge->pFrom = pFrom;
+  pEdge->pTo = pTo;
+  pEdge->pNextFrom = pFrom->pFirstEdge;
+  pFrom->pFirstEdge = pEdge;
+  pEdge->pNextTo = pTo->pFirstEdge;
+  pTo->pFirstEdge = pEdge;
+  pEdge->pNextEdge = NULL;
+  pEdge->weight = weight;
+
+  if (pGraph->pEdgeSet == NULL)
+    pGraph->pEdgeSet = pEdge;
+  else {
+    pIterEdge = pGraph->pEdgeSet;
+    while (pIterEdge->pNextEdge)
+      pIterEdge = pIterEdge->pNextEdge;
+    pIterEdge->pNextEdge = pEdge;
+  }
+  return true;
+}
+
+void createGraph_K(LPGraph_K pGraph, const char *p)
+{
+  const char *p2 = p;
+  LPVertex_K pLhs, pRhs;
+  Tok token;
+
+  while(getNextToken(&token, &p2)) {
+    pLhs = getOrInsertVertex_K(pGraph, token.first);
+    pRhs = getOrInsertVertex_K(pGraph, token.second);
+    addEdgeToGraph_K(pGraph, pLhs, pRhs, token.weight);
+  }
+}
+
+void destroyGraph_K(LPGraph_K *ppGraph)
+{
+  LPVertex_K pIterVertex, pNextVertex;
+  LPEdge_K pIterEdge, pNextEdge;
+
+  pIterVertex = (*ppGraph)->pVertexSet;
+  while (pIterVertex) {
+    pNextVertex = pIterVertex->pNextVertex;
+    free (pIterVertex);
+    pIterVertex = pNextVertex;
+  }
+
+  pIterEdge = (*ppGraph)->pEdgeSet;
+  while (pIterEdge) {
+    pNextEdge = pIterEdge->pNextEdge;
+    free (pIterEdge);
+    pIterEdge = pNextEdge;
+  }
+  free (*ppGraph);
+  *ppGraph = NULL;
+}
+
+bool lessEdge(void *lhs, void *rhs)
+{
+  LPEdge_K pLeftEdge, pRightEdge;
+
+  pLeftEdge = *(LPEdge_K *)lhs;
+  pRightEdge = *(LPEdge_K *)rhs;
+  
+  return pLeftEdge->weight < pRightEdge->weight;
+}
+
 void minimalTree_Kruskal(const char *p)
 {
+  LPGraph_K pGraph;
+  LPHeap pHeap;
+  LPEdge_K pIterEdge;
+  LPVertex_K pIterVertex;
+  LPSet pSet;
+  int i;
+  int leftIdx, rightIdx;
 
+
+  initGraph_K(&pGraph);
+  
+  createGraph_K(pGraph, p);
+  
+  initHeap(&pHeap, sizeof(LPEdge_K), lessEdge);
+  pIterEdge = pGraph->pEdgeSet;
+  while (pIterEdge) {
+    insertKeyToHeap(pHeap, &pIterEdge);
+    pIterEdge = pIterEdge->pNextEdge;
+  }
+  
+  initSet(&pSet);
+  pIterVertex = pGraph->pVertexSet;
+  while (pIterVertex) {
+    insertNode(pSet, pIterVertex->data);
+    pIterVertex = pIterVertex->pNextVertex;
+  }
+  
+  for (i = 0; i < pGraph->count-1; ++i) {
+    do {
+      peek(pHeap, &pIterEdge);
+      removeRoot(pHeap);
+      leftIdx = findNode(pSet, pIterEdge->pFrom->data);
+      rightIdx = findNode(pSet, pIterEdge->pTo->data);
+    } while(findRoot(pSet, leftIdx) == findRoot(pSet, rightIdx));
+    unionNode(pSet, leftIdx, rightIdx);
+    printf("\nSelect Edge between v[%c] and v[%c]", pIterEdge->pFrom->data, pIterEdge->pTo->data);
+  }
+  putchar('\n');
+
+  destroySet(&pSet);
+  destroyHeap(&pHeap);
+  destroyGraph_K(&pGraph);
 }

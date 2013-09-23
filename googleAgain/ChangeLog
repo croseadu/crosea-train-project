@@ -1,3 +1,9 @@
+2013-09-23 Yuehai Du <croseadu@gmail.com>
+
+	worked on minimal spanning tree on undirected graph.
+	finished Kruskal algorithm.
+	* basic/minimalTree.c: add another implementation.
+
 2013-09-19 Yuehai Du <croseadu@gmail.com>
 
 	work on minimal spanning tree on undirected graph.
