@@ -24,4 +24,9 @@ bool enQueue(LPQueue pQueue, void * in);
 bool deQueue(LPQueue pQueue, void *out);
 void clearQueue(LPQueue pQueue);
 void destroyQueue(LPQueue *ppQueue);
+
+bool isQueueEmpty(LPQueue pQueue)
+{
+  return pQueue->pHead == NULL;
+}
 #endif
