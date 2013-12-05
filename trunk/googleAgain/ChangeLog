@@ -1,3 +1,9 @@
+2013-12-05 Yuehai Du <croseadu@gmail.com>
+
+	worked on find SCC.
+	add tarjan and pathBased version.
+	* basic/directedGraph.c: add two new version find SCC.
+
 2013-11-20 Yuehai Du <croseadu@gmail.com>
 
 	worked on Find Strong Component in directed Graph.
