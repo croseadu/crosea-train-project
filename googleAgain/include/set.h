@@ -39,7 +39,8 @@ bool initSet(LPSet *ppSet, unsigned int elementSize, PrintFunc printer, CompareF
   pSet->elementSize = elementSize;
   pSet->count = 0;
   pSet->capacity = INIT_SET_SIZE;
-  
+  pSet->printer = printer;
+  pSet->equal = eq;
   *ppSet = pSet;
   return true;
 }
@@ -60,7 +61,7 @@ bool isSetEmpty(LPSet pSet)
   return pSet->count == 0;
 }
 
-bool insertToSet(LPSet, void *key)
+bool insertToSet(LPSet pSet, void *key)
 {
   if (pSet->count >= pSet->capacity) {
     pSet->data = realloc(pSet->data, (pSet->capacity + INCRE_SET_SIZE)*pSet->elementSize);
@@ -80,7 +81,7 @@ void clearSet(LPSet pSet)
   pSet->count = 0;
 }
 
-void destorySet(LPSet *ppSet)
+void destroySet(LPSet *ppSet)
 {
   free((*ppSet)->data);
   free(*ppSet);
