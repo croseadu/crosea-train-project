@@ -48,9 +48,9 @@ bool initMap(LPMap *ppMap, unsigned int sizeOfKey,
   pMap->sizeOfVal = sizeOfVal;
   pMap->size = 0;
   pMap->capacity = INIT_MAP_SIZE;
-  pMap->printKey = printKey;
-  pMap->printVal = printVal;
-  pMap->keyEq = keyEq;
+  pMap->keyPrint = printKey;
+  pMap->valPrint = printVal;
+  pMap->keyEqual = keyEq;
   *ppMap = pMap;
   return true;
 }
@@ -91,8 +91,6 @@ bool insertOrModifyEntry(LPMap pMap, void *key, void * val)
   memcpy(pMap->valPool+i*pMap->sizeOfVal, val, pMap->sizeOfVal);
   return true;
 }  
-  
-}
 
 bool findValueViaKey(LPMap pMap, void * key, void * val)
 {
