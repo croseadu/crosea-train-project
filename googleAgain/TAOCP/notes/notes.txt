@@ -1,0 +1,15 @@
+1. Find The greatest common divisor.
+   m, n -> r;
+   if (n > m)
+     swap(m,n);
+   while(1) {
+      r = m % n;
+      if (r == 0)
+      	 break;
+      m = n;
+      n = r;
+   }
+   return n;
+2. extended Elucid GCD
+am+bn=d;
+   
