@@ -13,6 +13,7 @@ typedef struct _Heap {
   unsigned int elementSize;
 
   CompareFunc less;
+  CompareFunc equal;
   unsigned int capacity; 
 }Heap, *LPHeap;
 
@@ -20,7 +21,7 @@ typedef struct _Heap {
 #define INIT_HEAP_SIZE 10
 #define INCRE_HEAP_SIZE 5
 
-bool initHeap(LPHeap *ppHeap, unsigned int elementSize, CompareFunc less)
+bool initHeap(LPHeap *ppHeap, unsigned int elementSize, CompareFunc less, CompareFunc equal)
 {
   LPHeap pHeap = NULL;
 
@@ -39,6 +40,7 @@ bool initHeap(LPHeap *ppHeap, unsigned int elementSize, CompareFunc less)
   pHeap->size = 0;
   pHeap->elementSize = elementSize;
   pHeap->less = less;
+  pHeap->equal = equal;
   pHeap->capacity = INIT_HEAP_SIZE;
 
 
@@ -96,6 +98,37 @@ void removeRoot(LPHeap pHeap)
 	 pHeap->elementSize);
   free (pTemp);
 }
+
+void increaseRank(LPHeap pHeap, void *old, void * new)
+{
+  int i, j, n;
+  n = pHeap->size;
+  
+  for (i = 0; i < n; ++i) {
+    if (pHeap->equal(pHeap->data+i*pHeap->elementSize,
+		     old)) 
+      break;
+  }
+
+  j = i;
+  while (j >= 0) {
+    if (pHeap->less(new, pHeap->data+j*pHeap->elementSize)) {
+      
+      memcpy(pHeap->data+i*pHeap->elementSize, 
+	     pHeap->data+j*pHeap->elementSize,
+	     pHeap->elementSize);
+      i = j;
+      if (j == 0)
+	--j;
+      else
+	j /= 2;
+    }
+    else
+      break;
+  }
+  memcpy(pHeap->data+i*pHeap->elementSize, new, pHeap->elementSize);
+}
+
 
 void insertKeyToHeap(LPHeap pHeap, void *in)
 {
