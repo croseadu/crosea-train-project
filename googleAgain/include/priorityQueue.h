@@ -7,24 +7,45 @@
 
 typedef struct _Priority_Queue {
   LPHeap pHeap;
-  
-
 }PriorityQueue, *LPPriorityQueue;
 
 
-bool initPriorityQueue(LPPriorityQueue *ppQueue)
+bool initPriorityQueue(LPPriorityQueue *ppQueue, unsigned int elementSize,
+		       CompareFunc less, CompareFunc equal)
 {
-
+  initHeap(&pHeap, elementSize, less, equal);
 }
+
 void destroyPriorityQueue(LPPriorityQueue *ppQueue)
 {
-
+  destroyHeap(&pHeap);
 }
-void findMin(LPPriorityQueue pQueue, void *out);
-void deleteMin(LPPriorityQueue pQUeue, void *out);
+
+void findMin(LPPriorityQueue pQueue, void *out)
+{
+  peek(pHeap, out);
+}
+
+void deleteMin(LPPriorityQueue pQueue, void *out)
+{
+  peek(pHeap, out);
+  removeRoot(pHeap);
+}
+
 void insertToPriorityQueue(LPPriorityQueue pQueue, void *in)
-void boostPriority(LPPr);
-void isPriorityQueueEmpty();
+{
+  insertKeyToHeap(pHeap, in);
+}
+
+void boostPriority(LPPriorityQueue pQueue, void *key, void *new)
+{
+  increaseRank(pHeap, key, new);
+}
+
+void isPriorityQueueEmpty(LPPriorityQueue pQueue)
+{
+  return isHeapEmpty(pHeap);
+}
 
 
 #endif
