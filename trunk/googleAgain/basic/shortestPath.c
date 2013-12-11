@@ -211,6 +211,7 @@ void destroyGraph(LPDGraph *ppGraph)
 }
 
 void Dijkstra(LPDGraph);
+void DijkstraWithHeap();
 void naiveDynamicProgramming(LPDGraph);
 void BellmanFord(LPDGraph);
 void FloydWarShall(LPDGraph);
@@ -225,6 +226,7 @@ int main()
   createGraph(pGraph);
   
   Dijkstra();
+  DijkstraWithHeap();
   naiveDynamicProgramming();
   BellmanFord();
   FloydWarShall();
@@ -235,11 +237,11 @@ int main()
 
   return 0;
 }
+#define MAX_LENGTH 0x7FFFFFFF
 
 //Non-Negative Weight
 void Dijkstra(LPDGraph pGraph)
 {
-#define MAX_LENGTH 0x7FFFFFFF
   bool *visited = NULL;
   int *prev = NULL;
   int *dist = NULL;
@@ -270,22 +272,19 @@ void Dijkstra(LPDGraph pGraph)
     dist[i] = MAX_LENGTH;
   }
   dist[0] = 0;
-  cur = 0;
-  initQueue(&pQueue, sizeof(int));
   initStack(&pStack, sizeof(int));
-  enQueue(pQueue, &cur);
 
-  while (!isEmpty(pQueue)) {
-    deQueue(pQueue, &cur);
+
+  for (i = 0; i < nodeNum; ++i) {
+    cur = findNoVisitedMin(dist, visited);
     visited[cur] = true;
     
     pIterEdge = (pGraph->pFirstNode+cur)->pFirstOutEdge;
     while (pIterEdge) {
       if (dist[cur] + pIterEdge->weight < dist[pIterEdge->toIdx]) {
+	assert (visited[cur] == false);
 	dist[pIterEdge->toIdx] = dist[cur] + pIterEdge->weight;
 	prev[pIterEdge->toIdx] = cur;
-	if (visited[pIterEdge->toIdx] == false)
-	  enQueue(pQueue,&pIterEdge->toIdx);
       }
       pIterEdge = pIterEdge->pNextSameFrom;
     }
@@ -308,10 +307,111 @@ void Dijkstra(LPDGraph pGraph)
   }
 
   destroyStack(&pStack);
-  destroyQueue(&pQueue)
   free(visited);
   free(prev);
   free(dist);
+}
+
+typedef struct _DistInfo 
+{
+  int *pDist;
+  unsigned int idx;
+}DistInfo, *LPDistInfo;
+
+bool lessDist(void *lhs, void *rhs)
+{
+  LPDistInfo pLhs, pRhs;
+  int *dist;
+
+  pLhs = (LPDistInfo)lhs;
+  pRhs = (LPDistInfo)rhs;
+  dist = pLhs->pDist;
+
+  return dist[pLhs->idx] < dist[pRhs->idx];
+}
+
+bool sameNode(void *lhs, void *rhs)
+{
+  LPDistInfo pLhs, pRhs;
+
+  pLhs = (LPDistInfo)lhs;
+  pRhs = (LPDistInfo)rhs;
+
+  return pLhs->idx == pRhs->idx;
+}
+
+void DijkstraWithHeap(LPDGraph pGraph)
+{
+  int i, nodeNum, newDist;
+  int *dist;
+  int *prev;
+  LPPriorityQueue pQueue; 
+  LPStack pStack;
+  DistInfo t, t2;
+  LPEdge pIterEdge;
+
+  dist = (int *)malloc(sizeof(int)*pGraph->count);
+  prev = (int *)malloc(sizeof(int)*pGraph->count);
+  if (NULL == dist || NULL == prev) {
+    if (dist)
+      free(dist);
+    if (prev)
+      free(prev);
+    return;
+  }
+
+  initStack(&pStack, sizeof(LPNode));
+  initPriorityQueue(&pQueue, sizeof(DistInfo), lessDist, sameNode);
+  nodeNum = pGraph->count;
+
+  dist[0] = 0;
+  t.pDist = dist;
+  t.idx = 0;
+  t2.pDist = dist;
+  insertToPriorityQueue(pQueue, &t);
+  for (i = 1; i < nodeNum; ++i) {
+    dist[i] = MAX_LENGTH;
+    prev[i] = -1;
+    t.idx = i;
+    insertToPriorityQueue(pQueue, &t);
+  }
+
+  while (!isPriorityQueueEmpty(pQueue)) {
+    deleteMin(pQueue, &t);
+    
+    pIterEdge = (pGraph->pFirstNode+t.idx)->pFirstOutEdge;
+    while (pIterEdge) {
+      newDist = dist[t.idx] + pIterEdge->weight;
+      if (newDist < dist[pIterEdge->toIdx]) {
+	dist[pIterEdge->toIdx] = newDist;
+	prev[pIterEdge->toIdx] = t.idx;
+	t2.idx = pIterEdge->toIdx;
+	boostPriority(pQueue, &t2, &t2);
+      }
+      pIterEdge = pIterEdge->pNextSameFrom;
+    }
+  }
+
+  for (i = 1; i < nodeNum; ++i) {
+    prevNode = prev[i];
+    while(1) {
+      push(pStack, &prevNode);
+      if (prevNode == 0)
+	break;
+      prevNode = prev[prevNode];
+    }
+    printf("\nFrom V[%d] to V[%d]: \n", 0, i);
+    while (!isStackEmpty(pStack)) {
+      pop(pStack, &path);
+      printf ("V[%d]->", path);
+    }
+    printf("V[%d]\n", i);
+  }
+
+  destroyPriorityQueue(&pQueue);
+  destroyStack(&pStack);
+  free(dist);
+  free(prev);
 }
 
 void naiveDynamicProgramming(LPDGraph pGraph){}
