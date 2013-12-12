@@ -3,7 +3,7 @@
 #include <string.h>
 
 #include "../include/mytype.h"
-#include "../include/heap.h"
+#include "../include/binaryHeap.h"
 
 typedef char ElementType;
 typedef struct _Tok
@@ -553,10 +553,19 @@ bool lessEdge(void *lhs, void *rhs)
   return pLeftEdge->weight < pRightEdge->weight;
 }
 
+bool equalEdge(void *lhs, void *rhs)
+{
+  LPEdge_K pLeftEdge, pRightEdge;
+
+  pLeftEdge = *(LPEdge_K *)lhs;
+  pRightEdge = *(LPEdge_K *)rhs;
+  
+  return pLeftEdge == pRightEdge;
+}
 void minimalTree_Kruskal(const char *p)
 {
   LPGraph_K pGraph;
-  LPHeap pHeap;
+  LPBinaryHeap pHeap;
   LPEdge_K pIterEdge;
   LPVertex_K pIterVertex;
   LPSet pSet;
@@ -568,10 +577,10 @@ void minimalTree_Kruskal(const char *p)
   
   createGraph_K(pGraph, p);
   
-  initHeap(&pHeap, sizeof(LPEdge_K), lessEdge);
+  initBinaryHeap(&pHeap, sizeof(LPEdge_K), lessEdge, equalEdge);
   pIterEdge = pGraph->pEdgeSet;
   while (pIterEdge) {
-    insertKeyToHeap(pHeap, &pIterEdge);
+    insertKeyToBinaryHeap(pHeap, &pIterEdge);
     pIterEdge = pIterEdge->pNextEdge;
   }
   
@@ -584,8 +593,8 @@ void minimalTree_Kruskal(const char *p)
   
   for (i = 0; i < pGraph->count-1; ++i) {
     do {
-      peek(pHeap, &pIterEdge);
-      removeRoot(pHeap);
+      peekBinaryHeap(pHeap, &pIterEdge);
+      removeRootFromBinaryHeap(pHeap);
       leftIdx = findNode(pSet, pIterEdge->pFrom->data);
       rightIdx = findNode(pSet, pIterEdge->pTo->data);
     } while(findRoot(pSet, leftIdx) == findRoot(pSet, rightIdx));
@@ -595,6 +604,6 @@ void minimalTree_Kruskal(const char *p)
   putchar('\n');
 
   destroySet(&pSet);
-  destroyHeap(&pHeap);
+  destroyBinaryHeap(&pHeap);
   destroyGraph_K(&pGraph);
 }
