@@ -414,7 +414,108 @@ void DijkstraWithHeap(LPDGraph pGraph)
   free(prev);
 }
 
-void naiveDynamicProgramming(LPDGraph pGraph){}
+
+#define M 15
+int path[M][M][M];
+void extendShortestPath(int *dPrev, int *dCur, int *adjMatrix, int n)
+{
+  int i, j, k, m;
+  memcpy(dCur, dPrev, sizeof(int)*n*n);
+  for (i = 0; i < n; ++i)
+    for (j = 0; j < n; ++j)
+      for(k = 0; k < n; ++k)
+	if (dPrev[i][k]+adjMatrix[k][j] < dCur[i][j]) {
+	  dCur[i][j] = dPrev[i][k] + adjMatrix[k][i];
+	  for (m = 0; m < n; ++m)
+	    path[i][j][m] = p[i][k][m] | p[k][i][m];
+	}
+
+}
+
+void naiveDynamicProgramming(LPDGraph pGraph)
+{
+  int nodeNum = pGraph->count;
+  int i, j,k,m,n;
+  int *adjMatrix; 
+  int *dPrev;
+  int *dCur;
+
+  adjMatrix = (int *)malloc(nodeNum*nodeNum*sizeof(int));
+  dPrev = (int *)malloc(nodeNum*nodeNum*sizeof(int));
+  dCur = (int *)malloc(nodeNum*nodeNum*sizeof(int));
+
+  if (NULL == adjMatrix
+      || NULL == dPrev
+      || NULL == dCur) {
+    if (adjMatrix)
+      free(adjMatrix);
+    if (dPrev)
+      free(dPrev);
+    if (dCur)
+      free(dCur);
+    printf ("Out of Memory in %s\n", __func__);
+    return;
+  }
+
+  // Create adjMatrix from adj List
+  for (i = 0; i < nodeNum; ++i) {
+    for (j = 0; j < nodeNum; ++j)
+      *(adjMatrix+i*nodeNum+j) = MAX_LENGTH;
+    *(adjMatrix+i*nodeNum+i) = 0;
+    pIterEdge = (pGraph->pFirstNode+i)->pFirstOutEdge;
+    while (pIterEdge) {
+      *(adjMatrix+i*nodeNum+pIterEdge->toIdx) = pIterEdge->weight;
+      pIterEdge = pIterEdge->pNextSameFrom;
+    }
+  }
+
+  //Init D(1)
+  memcpy(dPrev, adjMatrix, nodeNum*nodeNum*sizeof(int));
+  n = nodeNum;
+  for (i = 0; i < n; ++i)
+    for (j = 0; j < n; ++j)
+      for (k = 0; k < n; ++k)
+	if (k != i && k != j)
+	  path[i][j][k] = 0;
+        else 
+          path[i][j][k] = 1;
+
+  for (m=2; m < n; ++m) {
+    extendShortestPath(dPrev, dCur, adjMatrix, n);
+    //swap pointer, we don't have n D, just use two to used as D(k) and D(k-1)
+    t = dPrev;
+    dPrev = dCur;
+    dCur = dPrev;
+  }
+    
+  // dPrev hold final result
+  for (i = 0; i < n; ++i)
+    for (j = 0; j < n; ++j) {
+      if (*(dPrev+i*n+j) != MAX_LENGTH) {
+	//There is a path
+	printf("\n ShortestPath between V[%d] and V[%d]:\n", i, j);
+	printf("V[%d]");
+	m = i;
+	while (m != j) {
+	  for (k = 0; k < n; ++k)
+	    if (path[m][j][k] && *(adjMatrix+m*n+k)!= MAX_LENGTH)
+	      break;
+	  printf("->V[%d]",k);
+	  m = k;
+	}
+	
+      }
+
+    }
+
+  free(adjMatrix);
+  free(dPrev);
+  free(dCur);
+
+}
 void BellmanFord(LPDGraph pGraph){}
-void FloydWarShall(LPDGraph pGraph){}
+void FloydWarShall(LPDGraph pGraph)
+{
+
+}
 void Johnson(LPDGraph pGraph){}
