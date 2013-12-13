@@ -513,9 +513,138 @@ void naiveDynamicProgramming(LPDGraph pGraph)
   free(dCur);
 
 }
-void BellmanFord(LPDGraph pGraph){}
+// Can handle negative edge
+void BellmanFord(LPDGraph pGraph)
+{
+  int i, n;
+  int *dist;
+  int *prev;
+  LPEdge pIterEdge;
+
+  n = pGraph->count;
+  dist = (int *)malloc(sizeof(int)*n);
+  if (NULL == dist)
+    return;
+  prev = (int *)malloc(sizeof(int)*n);
+  if (NULL == prev) {
+    free(dist);
+    return;
+  }
+  
+  for (i = 0; i < n; ++i) {
+    dist[i] = MAX_LENGTH;
+    prev[i] = -1;
+  }
+  dist[0] = 0;
+
+  for (i = 0; i < n-1; ++i) {
+    pIterEdge = pGraph->pFirstEdge;
+    while (pIterEdge) {
+      if (dist[pIterEdge->toIdx] > dist[pIterEdge->fromIdx] + pIterEdge->weight) {
+	dist[pIterEdge->toIdx] > dist[pIterEdge->fromIdx] + pIterEdge->weight;
+	prev[pIterEdge->toIdx] = pIterEdge->fromIdx;
+      }
+      pIterEdge = pIterEdge->pNextEdge;
+    }
+  }
+
+    pIterEdge = pGraph->pFirstEdge;
+    while (pIterEdge) {
+      if (dist[pIterEdge->toIdx] > dist[pIterEdge->fromIdx] + pIterEdge->weight) {
+	// found a negative cycle
+      }
+      pIterEdge = pIterEdge->pNextEdge;
+    }
+
+}
+
 void FloydWarShall(LPDGraph pGraph)
+{
+  int i, j, k,m,n;
+  int *adjMatrix; 
+  int *dist;
+  int alt;
+
+  n = pGraph->nodeNum;
+  adjMatrix = (int *)malloc(n*n*sizeof(int));
+  dist = (int *)malloc(n*n*sizeof(int));
+
+  if (NULL == adjMatrix
+      || NULL == dist) {
+    if (adjMatrix)
+      free(adjMatrix);
+    if (dist)  
+      free(dist);
+    printf ("Out of Memory in %s\n", __func__);
+    return;
+  }
+
+  // Create adjMatrix from adj List
+  for (i = 0; i < n; ++i) {
+    for (j = 0; j < n; ++j)
+      *(adjMatrix+i*n+j) = MAX_LENGTH;
+    *(adjMatrix+i*i+i) = 0;
+    pIterEdge = (pGraph->pFirstNode+i)->pFirstOutEdge;
+    while (pIterEdge) {
+      *(adjMatrix+i*nodeNum+pIterEdge->toIdx) = pIterEdge->weight;
+      pIterEdge = pIterEdge->pNextSameFrom;
+    }
+  }
+
+  //Init D(-1)
+  memcpy(dPrev, adjMatrix, n*n*sizeof(int));
+  for (i = 0; i < n; ++i)
+    for (j = 0; j < n; ++j)
+      for (k = 0; k < n; ++k)
+	if (k != i && k != j)
+	  path[i][j][k] = 0;
+        else 
+          path[i][j][k] = 1;
+
+  for (k = 0; k < n; ++k)
+    for (i = 0; i < n; ++i)
+      for (j = 0; j < n; ++j) {
+	alt = *(dist+i*n+k) + *(dist+k*n+j);
+	if (*(dist+i*n+j) > alt) {
+	  *(dist+i*n+j) = alt;
+	  for (m = 0; m < n; ++m) //This should be implement as a bitset to avoid extra o(n)
+	    path[i][j][m] = p[i][k][m] | p[k][i][m];
+	}
+      }
+
+  //
+  // for path, there are two other different approach to calculate
+  // one is a predecessor matrix
+  //  init p(i,j)  if (i == j || (i,j) is not an edge ) assign NIL otherwise assign i
+  //    p(i,j) = p (k,j)
+  // other is a intermediate matrix
+  //   next(i,j) = k
+  //   reconstruct path like path(i,j) = path(i,k) + k + path(k,j)
+
+  // dist hold final result
+  for (i = 0; i < n; ++i)
+    for (j = 0; j < n; ++j) {
+      if (*(dist+i*n+j) != MAX_LENGTH) {
+	//There is a path
+	printf("\n ShortestPath between V[%d] and V[%d]:\n", i, j);
+	printf("V[%d]");
+	m = i;
+	while (m != j) {
+	  for (k = 0; k < n; ++k)
+	    if (path[m][j][k] && *(adjMatrix+m*n+k)!= MAX_LENGTH)
+	      break;
+	  printf("->V[%d]",k);
+	  m = k;
+	}
+	
+      }
+
+    }
+
+  free(adjMatrix);
+  free(dist);
+}
+void Johnson(LPDGraph pGraph)
 {
 
 }
-void Johnson(LPDGraph pGraph){}

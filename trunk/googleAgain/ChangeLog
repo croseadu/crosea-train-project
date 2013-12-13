@@ -1,6 +1,12 @@
 2013-12-12 Yuehai Du <croseadu@gmail.com>
 
 	working on the shortest path issue.
+	add BellmanFord and FloydWarshall algorithm.
+	* basic/shortestPath.c: add other two algorithm.
+
+2013-12-12 Yuehai Du <croseadu@gmail.com>
+
+	working on the shortest path issue.
 	dynamic programming part.
 	* basic/shortestPath.c:Add naive DP algorithm.
 
