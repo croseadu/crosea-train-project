@@ -1,3 +1,14 @@
+2013-12-12 Yuehai Du <croseadu@gmail.com>
+
+	working on the shortest path issue.
+	dynamic programming part.
+	* basic/shortestPath.c:Add naive DP algorithm.
+
+2013-12-12 Yuehai Du <croseadu@gmail.com>
+
+	working on the MIX simulator.
+	* MIX/*.h, *.cpp
+
 2013-12-10 Yuehai Du <croseadu@gmail.com>
 
 	working on the Shortest Path issue.
