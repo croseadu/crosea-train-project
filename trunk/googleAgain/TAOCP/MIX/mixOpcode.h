@@ -3,6 +3,15 @@
 
 
 namespace MIX{
+  enum Opcode {
+#define HANDLE_INST(num, opcode) \
+    opcode = num,
+   #include "Instruction.def"
+#undef HANDLE_INST
+    LASTOP
+  };
+
+  /*
   enum OpCode
     {
       NOP = 0,
@@ -12,10 +21,11 @@ namespace MIX{
       DIV = 4,
   
       MOVE = 7,
-
+      
       LDA = 8,
       LDX = 15,
       LDAN = 16,
+
       LDXN = 23,
 
       STA = 24,
@@ -36,19 +46,25 @@ namespace MIX{
       // to determine final Operation
       LDI = 64, // 8+i
       LDIN, // 16+i
+
       STI, // 24+i
+
       ENTA, // C=48, F=2
       ENTX, // C=55, F=2
       ENTI, // C=48+i, F=2
+
       ENNA, // C=48, F=3
       ENNX, // C=55, F=3,
       ENNI, // C=48+i, F=3;
+
       INCA, // C=48, F=0
       INCX, // C=55, F=0
       INCI, // C=48+i, F=0
+
       DECA, // C=48, F=1
       DECX, // C=55, F=1
       DECI, // C=48+i, F=1
+
       CMPI, // C=56+i
       JMP,  // C=39, F=0
       JSJ,  // C=39, F=1
@@ -88,5 +104,6 @@ namespace MIX{
 
       LASTOP
     };
+  */
 }
 #endif
