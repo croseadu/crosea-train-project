@@ -10,7 +10,11 @@ namespace MIX {
     unsigned char reserved :2;
   public:
     MixByte():value(0), reserved(0) {}
-    void reset();
+    void reset()
+    {
+      value = 0;
+      reserved = 0;
+    }
     unsigned char read() const { return value; }
     unsigned char write(unsigned char inVal)  
     { 
@@ -24,7 +28,13 @@ namespace MIX {
     MixByte data[5];
     bool negative;
   public:
-  GeneralReg():negative(false){}
+    GeneralReg():negative(false){}
+    void reset()
+    {
+      for(int i = 0; i < 5; ++i)
+	data[i].reset;
+      negative = false;
+    }
     int read(unsigned char field) 
     {
       int L;
@@ -44,6 +54,9 @@ namespace MIX {
       }
       return result*sign;
     }
+    void getSign() const { return negative; }
+    void setSign(bool neg) { negative = neg; }
+    void setByte(const MixByte &src, unsigned int idx) { data[idx] = src; }
   };
 
   typedef GeneralReg AReg;
