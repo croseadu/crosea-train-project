@@ -30,7 +30,7 @@ namespace MIX {
     MixByte opcode; //C
 
     unsigned char getMajorOpcode() const { return opcode.read();}
-    unsigned char getMinorOpcode() const { return field.read();}
+    unsigned char getField() const { return field.read();}
     int getAddress() const 
     {
       int sign = negative?1:-1;

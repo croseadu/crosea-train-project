@@ -41,19 +41,67 @@ void MixMachine::visit(const Instruction &inst)
 void MixMachine::visitNOP(const Instruction &inst)
 {
   std::cout<<"visit NOP"<<std::endl;
+
 }
 
 void MixMachine::visitADD(const Instruction &inst)
 {
   std::cout<<"visit ADD"<<std::endl;
+  GeneralReg src;
+  GeneralReg result;
+  unsigned char field = inst.getField();
+  if (field%8 == 6) {
+    // FloatingPoint handle
+    return;
+  }
+
+  bool overflow = false;
+  loadHelper(inst, src, inst.getField());
+  result = add(src, rA, &overflow);
+  if (overflow) {
+
+  } else if (result.isZero()) {
+
+  }
+  else {
+
+  }
 }
 void MixMachine::visitSUB(const Instruction &inst)
 {
   std::cout<<"visit SUB"<<std::endl;
+  GeneralReg src;
+  GeneralReg result;
+  unsigned char field = inst.getField();
+  if (field%8 == 6) {
+    // FloatingPoint handle
+    return;
+  }
+
+  bool overflow = false;
+  loadHelper(inst, src, inst.getField());
+  result = sub(src, rA, &overflow);
+  if (overflow) {
+
+  } else {
+
+  }
 }
 void MixMachine::visitMUL(const Instruction &inst)
 {
   std::cout<<"visit MUL"<<std::endl;
+  GeneralReg src;
+  GeneralReg result, result2;
+  unsigned char field = inst.getField();
+  if (field%8 == 6) {
+    // FloatingPoint handle
+    return;
+  }
+
+  loadHelper(inst, src, inst.getField());
+  result = mul(src, rA, result2);
+  rA = result;
+  rX = resutl2;
 }
 void MixMachine::visitDIV(const Instruction &inst)
 {
@@ -65,10 +113,11 @@ void MixMachine::visitMOVE(const Instruction &inst)
   std::cout<<"visit LDA"<<std::endl;
 }
 
-void MixMachine::visitLDA(const Instruction &inst)
+void MixMachine::loadHelper(const Instruction &inst, 
+			    GeneralReg &dst,
+			    bool flipSign)
 {
-  std::cout<<"visit LDA"<<std::endl;
-  unsigned int field = inst.getMinorOpcode();
+  unsigned int field = inst.getField();
   GeneralReg content;
   int address = inst.getAddress();
   int idxReg = inst.getIndexRegID();
@@ -78,37 +127,53 @@ void MixMachine::visitLDA(const Instruction &inst)
   content = mem.read(address);
   
   unsigned left = field/8, right = field%8;
-  rA.reset();
+  dst.reset();
   if (left == 0) { 
-    rA.setSign(content.getSign());
+    dst.setSign(content.getSign());
     ++left;
   }
   int dstIdx = 4;
   while (right >= left) {
-    rA.setByte(content.getByte(right-1), dstIdx);
+    dst.setByte(content.getByte(right-1), dstIdx);
     --right;
     --dstIdx;
-  }
+  }  
+  if (flipSign)
+    dst.flipSign();
+}
+void MixMachine::visitLDA(const Instruction &inst)
+{
+  std::cout<<"visit LDA"<<std::endl;
+  loadHelper(inst, rA);
 }
 
 void MixMachine::visitLDX(const Instruction &inst)
 {
   std::cout<<"visit LDX"<<std::endl;
+  loadHelper(inst, rX);
 }
 
 void MixMachine::visitLDAN(const Instruction &inst)
 {
   std::cout<<"visit LDAN"<<std::endl;
+  loadHelper(inst, rA, true);
 }
 
 void MixMachine::visitLDXN(const Instruction &inst)
 {
   std::cout<<"visit LDXN"<<std::endl;
+  loadHelper(inst, rX, true);
 }
 
 void MixMachine::visitSTA(const Instruction &inst)
 {
   std::cout<<"visit STA"<<std::endl;
+  int address = inst.getAddress();
+  int idxReg = inst.getIndexRegID();
+  if (idxReg > 0)
+    address += rI[idxReg].read();
+
+  mem.write(address, rA, inst.getField());
 }
 void MixMachine::visitSTX(const Instruction &inst)
 {
@@ -117,10 +182,23 @@ void MixMachine::visitSTX(const Instruction &inst)
 void MixMachine::visitSTJ(const Instruction &inst)
 {
   std::cout<<"visit STJ"<<std::endl;
+  int address = inst.getAddress();
+  int idxReg = inst.getIndexRegID();
+  if (idxReg > 0)
+    address += rI[idxReg].read();
+  mem.write(address, rJ,inst.getField());
+
 }
 void MixMachine::visitSTZ(const Instruction &inst)
 {
   std::cout<<"visit STZ"<<std::endl;
+  GeneralReg temp;
+  temp.reset();
+  int address = inst.getAddress();
+  int idxReg = inst.getIndexRegID();
+  if (idxReg > 0)
+    address += rI[idxReg].read();
+  mem.write(address, temp, inst.getField());
 }
 
 
@@ -158,53 +236,79 @@ void MixMachine::visitCMPX(const Instruction &inst)
 void MixMachine::visitLDI(const Instruction &inst)
 {
   std::cout<<"visit LDI"<<std::endl;
+  
+  loadHelper(inst, rI[inst.getMajorOpcode()-8]);
 }
 void MixMachine::visitLDIN(const Instruction &inst)
 {
   std::cout<<"visit LDIN"<<std::endl;
+  loadHelper(inst, rI[inst.getMajorOpcode()-16], true);
 }
 void MixMachine::visitSTI(const Instruction &inst)
 {
   std::cout<<"visit STI"<<std::endl;
+  int address = inst.getAddress();
+  int idxReg = inst.getIndexRegID();
+  if (idxReg > 0)
+    address += rI[idxReg].read();
+  mem.write(address, rI[inst.getMajorOpcode()-24],inst.getField());
 }
 
 void MixMachine::visitENTA(const Instruction &inst)
 {
   std::cout<<"visit ENTA"<<std::endl;
+  rA.write(inst.getAddress);
 }
 void MixMachine::visitENTX(const Instruction &inst)
 {
   std::cout<<"visit ENTX"<<std::endl;
+  rX.write(inst.getAddress());
 }
 void MixMachine::visitENTI(const Instruction &inst)
 {
   std::cout<<"visit ENTI"<<std::endl;
+  rI[inst.getMajorOpcode()-48].write(inst.getAddress());
 }
 
 void MixMachine::visitENNA(const Instruction &inst)
 {
   std::cout<<"visit ENNA"<<std::endl;
+  rA.write(inst.getAddress());
+  rA.flipSign();
 }
 void MixMachine::visitENNX(const Instruction &inst)
 {
   std::cout<<"visit ENNX"<<std::endl;
+  rX.write(inst.getAddress());
+  rX.flipSign();
 }
 void MixMachine::visitENNI(const Instruction &inst)
 {
   std::cout<<"visit ENNI"<<std::endl;
+  rI[inst.getMajorOpcode()-48].write(inst.getAddress());
+  rI[inst.getMajorOpcode()-48].flipSign();
 }
 
 void MixMachine::visitINCA(const Instruction &inst)
 {
   std::cout<<"visit INCA"<<std::endl;
+  GeneralReg temp(inst.getAddress());
+  GeneralReg result;
+  bool overflow = false;
+  result = add(rA, temp, overflow);
 }
 void MixMachine::visitINCX(const Instruction &inst)
 {
   std::cout<<"visit INCX"<<std::endl;
+  GeneralReg temp(inst.getAddress());
+  GeneralReg result;
+  bool overflow = false;
+  result = add(rX, temp, overflow);
 }
 void MixMachine::visitINCI(const Instruction &inst)
 {
   std::cout<<"visit INCI"<<std::endl;
+  
 }
 
 void MixMachine::visitDECA(const Instruction &inst)

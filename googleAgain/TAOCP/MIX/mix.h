@@ -57,6 +57,38 @@ namespace MIX {
 	  --right;
 	}
       }
+      void write(int address, const IReg &src, unsigned char field) 
+      {
+	unsigned char left = field/8, right=field%8;
+	m[address].reset();
+	if (left == 0) {
+	  m[address].setSign(src.getSign());
+	  ++left;
+	}
+	unsigned int srcIdx = 4;
+	while(right >= left) {
+	  if (right > 3)
+	    m[address].setByte(src.getByte(srcIdx), right-1);
+	  --srcIdx;
+	  --right;
+	}
+      }
+      void write(int address, const JReg &src, unsigned char field) 
+      {
+	unsigned char left = field/8, right=field%8;
+	m[address].reset();
+	if (left == 0) {
+	  m[address].setSign(false);
+	  ++left;
+	}
+	unsigned int srcIdx = 2;
+	while(right >= left) { 
+	  m[address].setByte(src.getByte(srcIdx), right-1);
+	  --srcIdx;
+	  --right;
+	}
+      }
+
     };
     MemoryCell mem;
 
