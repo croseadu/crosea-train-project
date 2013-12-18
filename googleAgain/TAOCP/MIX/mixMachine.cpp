@@ -41,7 +41,7 @@ void MixMachine::visit(const Instruction &inst)
 void MixMachine::visitNOP(const Instruction &inst)
 {
   std::cout<<"visit NOP"<<std::endl;
-
+  ++pc;
 }
 
 void MixMachine::visitADD(const Instruction &inst)
@@ -66,6 +66,7 @@ void MixMachine::visitADD(const Instruction &inst)
   else {
 
   }
+  ++pc;
 }
 void MixMachine::visitSUB(const Instruction &inst)
 {
@@ -86,6 +87,7 @@ void MixMachine::visitSUB(const Instruction &inst)
   } else {
 
   }
+  ++pc;
 }
 void MixMachine::visitMUL(const Instruction &inst)
 {
@@ -102,6 +104,7 @@ void MixMachine::visitMUL(const Instruction &inst)
   result = mul(src, rA, result2);
   rA = result;
   rX = resutl2;
+  ++pc;
 }
 void MixMachine::visitDIV(const Instruction &inst)
 {
@@ -111,6 +114,7 @@ void MixMachine::visitDIV(const Instruction &inst)
 void MixMachine::visitMOVE(const Instruction &inst)
 {
   std::cout<<"visit LDA"<<std::endl;
+  ++pc;
 }
 
 void MixMachine::loadHelper(const Instruction &inst, 
@@ -145,24 +149,28 @@ void MixMachine::visitLDA(const Instruction &inst)
 {
   std::cout<<"visit LDA"<<std::endl;
   loadHelper(inst, rA);
+  ++pc;
 }
 
 void MixMachine::visitLDX(const Instruction &inst)
 {
   std::cout<<"visit LDX"<<std::endl;
   loadHelper(inst, rX);
+  ++pc;
 }
 
 void MixMachine::visitLDAN(const Instruction &inst)
 {
   std::cout<<"visit LDAN"<<std::endl;
   loadHelper(inst, rA, true);
+  ++pc;
 }
 
 void MixMachine::visitLDXN(const Instruction &inst)
 {
   std::cout<<"visit LDXN"<<std::endl;
   loadHelper(inst, rX, true);
+  ++pc;
 }
 
 void MixMachine::visitSTA(const Instruction &inst)
@@ -174,10 +182,12 @@ void MixMachine::visitSTA(const Instruction &inst)
     address += rI[idxReg].read();
 
   mem.write(address, rA, inst.getField());
+  ++pc;
 }
 void MixMachine::visitSTX(const Instruction &inst)
 {
   std::cout<<"visit STX"<<std::endl;
+  ++pc;
 }
 void MixMachine::visitSTJ(const Instruction &inst)
 {
@@ -199,16 +209,31 @@ void MixMachine::visitSTZ(const Instruction &inst)
   if (idxReg > 0)
     address += rI[idxReg].read();
   mem.write(address, temp, inst.getField());
+  ++pc;
 }
 
 
 void MixMachine::visitJBUS(const Instruction &inst)
 {
   std::cout<<"visit JBUS"<<std::endl;
+  unsigned int unit = inst.getField();
+  if (!u[unit]->busy()) {
+    int address = inst.getAddress();
+    int idxReg = inst.getIndexRegID();
+    if (idxReg > 0)
+      address += rI[idxReg].read();
+    pc = mem.read(address).read(5);
+  }
+  else
+    ++pc;
 }
 void MixMachine::visitIOC(const Instruction &inst)
 {
   std::cout<<"visit IOC"<<std::endl;
+  unsigned int unit = inst.getField();
+  int address = inst.getAddress();
+  u[unit]->rewind(address, rX);
+  ++pc;
 }
 void MixMachine::visitIN(const Instruction &inst)
 {
@@ -455,6 +480,35 @@ void MixMachine::visitHLT(const Instruction &inst)
 void MixMachine::visitNUM(const Instruction &inst)
 {
   std::cout<<"visit NUM"<<std::endl;
+  int sign;
+  unsigned int data[10];
+  int idx = 9;
+  sign = (rA.getSign())?-1:1;
+  
+  for (int i = 4; i >= 0; --i) {
+    int byteVal = rX.getByte().read();
+    char digit = getCharCode(byteVal);
+    if (digit < '0' || digit > '9')
+      digit = '0'+(byteVal%10);
+    data[idx] = digit - '0';
+    --idx;
+  }
+  for (int i = 4; i >= 0; --i) {
+    int byteVal = rA.getByte().read();
+    char digit = getCharCode(byteVal);
+    if (digit < '0' || digit > '9')
+      digit = '0'+(byteVal%10);
+    data[idx] = digit - '0';
+    --idx;
+  }
+  int result = 0;
+  while (int i = 0; i < 10; ++i) {
+    result *= 10;
+    result += data[i];
+  }
+  result *= sign;
+  rA.write(result);
+  ++pc;
 }
 void MixMachine::visitCHAR(const Instruction &inst)
 {
