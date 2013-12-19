@@ -27,6 +27,12 @@ HANDLE_INST(56, CMPA ,Class)
 HANDLE_INST(63, CMPX ,Class)
 
 HANDLE_INST(64, LDI ,Class)
+
+
+
+
+
+
 HANDLE_INST(65, LDIN ,Class)
 
 HANDLE_INST(66, STI ,Class)

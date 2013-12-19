@@ -644,7 +644,147 @@ void FloydWarShall(LPDGraph pGraph)
   free(adjMatrix);
   free(dist);
 }
+// 1. Add fake node with all edge = 0
+// 2. run bellman-ford to check have negative-cycle
+// 3. reweight graph
+// 4. run dijstra
+// 5. reweight
 void Johnson(LPDGraph pGraph)
 {
 
+}
+
+typedef struct _priorItem
+{
+  unsigned int idx;
+  unsigned int pToF;
+}PriorItem, *LPPriorItem;
+
+bool lessF(void *lhs, void *rhs)
+{
+  LPPriorItem pLhs, pRhs;
+  int *fValue;
+
+  pLhs = (LPPriorItem)lhs;
+  pRhs = (LPPriorItem)rhs;
+  fValue = pLhs->pToF;
+
+  return fValue[pLhs->idx] < fValue[pRhs->idx];
+}
+
+bool equalNode(void *lhs, void *rhs)
+{
+  LPPriorItem pLhs, pRhs;
+
+  pLhs = (LPPriorItem)lhs;
+  pRhs = (LPPriorItem)rhs;
+
+  return pLhs->idx == pRhs->idx;
+}
+
+// Single pair shortest path
+void AStarPathFinding(LPDGraph pGraph)
+{
+
+
+  LPNode pStart, pEnd;
+  LPPriorityQueue pOpenList;
+  LPBitSet pCloseSet, pOpenSet;
+  PriorItem tempItem;
+
+  int *h;
+  int *f;
+  int *g;
+  int *path;
+
+  int n = pGraph->count;
+
+  int *tempBuffer;
+  tempBuffer = (int *)malloc(sizeof(int)*n*4);
+  if (NULL == tempBuffer) {
+    printf ("Out Of Memory in %s", __func__);
+    return;
+  }
+  h = tempBuffer;
+  f = h+n;
+  g = f+n;
+  path = g+n;
+  
+
+  pStart = pGraph->pFirstNode;
+  pEnd = pGraph->pFirstNode+n-1;
+
+  initHeuristic(pGraph, h);
+
+  g[0] = 0;
+  path[0] = -1;
+  f[0] = h[0] + g[0];
+
+  initPriorityQueue(&pOpenList, sizeof(PriorItem), lessF, equalNode);
+  initBitSet(&pCloseSet, n);
+  initBitSet(&pOpenSet, n);
+
+  tempItem.pToF = f;
+  tempItem.idx = 0;
+  insertToPriorityQueue(pQueue, &tempItem);
+  setInBitSet(pOpenSet, tempItem.idx);
+  while (!isPriorityQueueEmpty(pOpenList)) {
+    deleteMin(pQueue, &tempItem);
+    if (tempItem.idx == pEnd->idx)
+      break;
+    
+    current = tempItem.idx;
+
+    resetInBitSet(pOpenSet, current)
+    setInBitSet(pCloseSet, current);
+    pIterEdge = (pGraph->pFirstNode+current)->pFirstOutEdge;
+    while (pIterEdge) {
+      temp_g = g[tempItem.idx]+pIterEdge->weight;
+      temp_f = temp_g + h[pIterEdge->toIdx];
+
+      if (testInBitSet(pCloseSet, pIterEdge->toIdx) &&
+	  temp_f >= f[pIterEdge->toIdx]) {
+	pIterEdge = pIterEdge->pNextSameFrom;
+	continue;
+      }
+      if (!testInBitSet(pOpenSet, pIterEdge->toIdx) ||
+	  temp_f < f[pIterEdge->toIdx]) {
+	path[pIterEdge->toIdx] = current;
+	g[pIterEdge->toIdx] = temp_g;
+	f[pIterEdge->toIdx] = temp_f;
+	tempItem.idx = pIterEdge->toIdx;
+
+	if (!testInBitSet(pOpenSet, pIterEdge->toIdx)) {
+	  setInBitSet(pOpenSet, pIterEdge->toIdx);
+	  insertToPriorityQueue(pOpenList, &tempItem);
+	} else {
+	  bootPriority(pOpenList, &tempItem, &tempItem)
+	}
+	
+      }
+      pIterEdge = pIterEdge->pNextSameFrom;
+    }
+  }
+  
+  // Output Path
+  initStack(&pStack, sizeof(int));
+  prev = pEnd->idx;
+  push(pStack, &prev);
+  while(path[prev] != pStart->idx) {
+    prev = path[prev];
+    push(pStack, &prev);
+  }
+  printf("\n path from start v[%d] to end v[%d]:\n", pStart->idx, pEnd->idx);
+  printf("V[%d]", pStart->idx)
+  while (!isStackEmpty(pStack)) {
+    pop(pStack, &prev)
+    printf("->V[%d]", prev)
+  }
+  putchar('\n');
+  destroyStack(&pStack);
+
+  destroyBitSet(&pCloseSet);
+  destroyBitSet(&pOpenSet);
+
+  destroyPriorityQueue(&pOpenList);
 }
