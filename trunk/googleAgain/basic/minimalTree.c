@@ -492,6 +492,7 @@ bool addEdgeToGraph_K(LPGraph_K pGraph, LPVertex_K pFrom, LPVertex_K pTo, unsign
   pEdge->pTo = pTo;
   pEdge->pNextFrom = pFrom->pFirstEdge;
   pFrom->pFirstEdge = pEdge;
+
   pEdge->pNextTo = pTo->pFirstEdge;
   pTo->pFirstEdge = pEdge;
   pEdge->pNextEdge = NULL;
