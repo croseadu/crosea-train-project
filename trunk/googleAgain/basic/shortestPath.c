@@ -1,12 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <assert.h>
 #include "../include/queue.h"
+#include "../include/priorityQueue.h"
 #include "../include/stack.h"
 #include "../include/set.h"
 
 #define INIT_GRAPH_NODE 5
 #define INCRE_GRAPH_NODE 5
+
+#define M 15
+int path[M][M][M];
 
 typedef char ElementType;
 
@@ -137,6 +141,15 @@ unsigned int  getOrInsertNode(LPDGraph pGraph, ElementType key)
 {
   LPNode pNode = pGraph->pFirstNode;
   LPNode pNewNode;
+  unsigned int i = 0;
+
+  while (i < pGraph->count) {
+    if ((pGraph->pFirstNode+i)->data == key)
+      break;
+    ++i;
+  }
+  if (i < pGraph->count)
+    return i;
   
   if (pGraph->count >= pGraph->capacity) {
     pGraph->pFirstNode = realloc(pGraph->pFirstNode, (pGraph->capacity+INCRE_GRAPH_NODE)*sizeof(Node));
@@ -171,7 +184,7 @@ bool addEdge(LPDGraph pGraph, unsigned int fromIdx, unsigned int toIdx, unsigned
   (pGraph->pFirstNode+fromIdx)->pFirstOutEdge = pNewEdge;
   pNewEdge->pNextSameTo = (pGraph->pFirstNode+toIdx)->pFirstInEdge;
   (pGraph->pFirstNode+toIdx)->pFirstInEdge = pNewEdge;
-
+  pNewEdge->weight = weight;
   pNewEdge->pNextEdge = pGraph->pFirstEdge;
   pGraph->pFirstEdge = pNewEdge;
   return true;
@@ -181,7 +194,7 @@ void createGraph(LPDGraph pGraph, const char *p)
 {
   const char *p2 = p;
   Tok token;
-  LPNode pFrom, pTo;
+  int fromIdx, toIdx;
 
   while (getNextToken(&token, &p2)) {
     fromIdx = getOrInsertNode (pGraph, token.first);
@@ -211,7 +224,7 @@ void destroyGraph(LPDGraph *ppGraph)
 }
 
 void Dijkstra(LPDGraph);
-void DijkstraWithHeap();
+void DijkstraWithHeap(LPDGraph);
 void naiveDynamicProgramming(LPDGraph);
 void BellmanFord(LPDGraph);
 void FloydWarShall(LPDGraph);
@@ -221,16 +234,18 @@ int main()
 {
 
   LPDGraph pGraph = NULL;
+  char in[] = "(A,C,10) (A,E,30) (A,F,100) (B,C,5) (C,D,50) (E,D,20) (D,F,10) (E,F,60)";
+  const char *p = in;
 
   initGraph(&pGraph);
-  createGraph(pGraph);
+  createGraph(pGraph, p);
   
-  Dijkstra();
-  DijkstraWithHeap();
-  naiveDynamicProgramming();
-  BellmanFord();
-  FloydWarShall();
-  Johnson();
+  Dijkstra(pGraph);
+  DijkstraWithHeap(pGraph);
+  naiveDynamicProgramming(pGraph);
+  BellmanFord(pGraph);
+  FloydWarShall(pGraph);
+  //Johnson();
 
   destroyGraph(&pGraph);
 
@@ -238,6 +253,30 @@ int main()
   return 0;
 }
 #define MAX_LENGTH 0x7FFFFFFF
+
+int findNoVisitedMin(int *dist, int *flag, int n)
+{
+  int i;
+  int minIdx;
+
+  i = 0;
+  while (flag[i] || dist[i] == MAX_LENGTH)
+    ++i;
+  minIdx = i;
+  ++i;
+  
+  while (i < n) {
+    if (flag[i] ||
+	dist[i] == MAX_LENGTH ||
+	dist[i] > dist[minIdx]) {
+      ++i;
+      continue;
+    }
+    minIdx = i;
+    ++i;
+  }
+  return minIdx;
+}
 
 //Non-Negative Weight
 void Dijkstra(LPDGraph pGraph)
@@ -274,23 +313,31 @@ void Dijkstra(LPDGraph pGraph)
   dist[0] = 0;
   initStack(&pStack, sizeof(int));
 
-
+  printf("\nDijstra :");
   for (i = 0; i < nodeNum; ++i) {
-    cur = findNoVisitedMin(dist, visited);
+    cur = findNoVisitedMin(dist, visited, nodeNum);
+    if (cur >= nodeNum) {
+      break;
+    }
     visited[cur] = true;
-    
+    printf ("\nFind Min %c", (pGraph->pFirstNode+cur)->data);
     pIterEdge = (pGraph->pFirstNode+cur)->pFirstOutEdge;
     while (pIterEdge) {
       if (dist[cur] + pIterEdge->weight < dist[pIterEdge->toIdx]) {
-	assert (visited[cur] == false);
+	printf("\nUpdate To, V[%c] ", (pGraph->pFirstNode+pIterEdge->toIdx)->data);
+	assert (visited[pIterEdge->toIdx] == false);
 	dist[pIterEdge->toIdx] = dist[cur] + pIterEdge->weight;
 	prev[pIterEdge->toIdx] = cur;
       }
       pIterEdge = pIterEdge->pNextSameFrom;
     }
   }
-
+  printf("\nDump Path:");
   for (i = 1; i < nodeNum; ++i) {
+    if (dist[i] == MAX_LENGTH) {
+      printf ("\nNo Path between V[%c] to V[%c]",pGraph->pFirstNode->data, (pGraph->pFirstNode+i)->data);
+      continue;
+    }
     prevNode = prev[i];
     while(1) {
       push(pStack, &prevNode);
@@ -298,12 +345,12 @@ void Dijkstra(LPDGraph pGraph)
 	break;
       prevNode = prev[prevNode];
     }
-    printf("\nFrom V[%d] to V[%d]: \n", 0, i);
+    printf("\nFrom V[%c] to V[%c] dist = %d: ", pGraph->pFirstNode->data, (pGraph->pFirstNode+i)->data, dist[i]);
     while (!isStackEmpty(pStack)) {
       pop(pStack, &path);
-      printf ("V[%d]->", path);
+      printf ("V[%c]->",  (pGraph->pFirstNode+path)->data);
     }
-    printf("V[%d]\n", i);
+    printf("V[%c]\n", (pGraph->pFirstNode+i)->data);
   }
 
   destroyStack(&pStack);
@@ -349,6 +396,7 @@ void DijkstraWithHeap(LPDGraph pGraph)
   LPStack pStack;
   DistInfo t, t2;
   LPEdge pIterEdge;
+  int trail, prevNode;
 
   dist = (int *)malloc(sizeof(int)*pGraph->count);
   prev = (int *)malloc(sizeof(int)*pGraph->count);
@@ -375,10 +423,12 @@ void DijkstraWithHeap(LPDGraph pGraph)
     t.idx = i;
     insertToPriorityQueue(pQueue, &t);
   }
-
+  printf("\n Dijstra with Heap: ");
   while (!isPriorityQueueEmpty(pQueue)) {
     deleteMin(pQueue, &t);
-    
+    if (dist[t.idx] == MAX_LENGTH)
+      break;
+    printf ("\nFind Min V[%c]", (pGraph->pFirstNode+t.idx)->data);
     pIterEdge = (pGraph->pFirstNode+t.idx)->pFirstOutEdge;
     while (pIterEdge) {
       newDist = dist[t.idx] + pIterEdge->weight;
@@ -392,7 +442,13 @@ void DijkstraWithHeap(LPDGraph pGraph)
     }
   }
 
+  printf("\nDump Path: ");
   for (i = 1; i < nodeNum; ++i) {
+    if (dist[i] == MAX_LENGTH) {
+      printf ("\nNo Path between V[%c] to V[%c]",pGraph->pFirstNode->data, (pGraph->pFirstNode+i)->data);
+      continue;
+    }
+
     prevNode = prev[i];
     while(1) {
       push(pStack, &prevNode);
@@ -400,12 +456,12 @@ void DijkstraWithHeap(LPDGraph pGraph)
 	break;
       prevNode = prev[prevNode];
     }
-    printf("\nFrom V[%d] to V[%d]: \n", 0, i);
+    printf ("\nFrom between V[%c] to V[%c] dist = %d :",pGraph->pFirstNode->data, (pGraph->pFirstNode+i)->data, dist[i]);
     while (!isStackEmpty(pStack)) {
-      pop(pStack, &path);
-      printf ("V[%d]->", path);
+      pop(pStack, &trail);
+      printf ("V[%c]->", (pGraph->pFirstNode+trail)->data);
     }
-    printf("V[%d]\n", i);
+    printf("V[%c]\n", (pGraph->pFirstNode+i)->data);
   }
 
   destroyPriorityQueue(&pQueue);
@@ -415,8 +471,9 @@ void DijkstraWithHeap(LPDGraph pGraph)
 }
 
 
-#define M 15
-int path[M][M][M];
+#define GET(mem, i, j, n)			\
+  *(mem+i*n+j)
+
 void extendShortestPath(int *dPrev, int *dCur, int *adjMatrix, int n)
 {
   int i, j, k, m;
@@ -424,10 +481,12 @@ void extendShortestPath(int *dPrev, int *dCur, int *adjMatrix, int n)
   for (i = 0; i < n; ++i)
     for (j = 0; j < n; ++j)
       for(k = 0; k < n; ++k)
-	if (dPrev[i][k]+adjMatrix[k][j] < dCur[i][j]) {
-	  dCur[i][j] = dPrev[i][k] + adjMatrix[k][i];
+	if (GET(adjMatrix,k,j,n) != MAX_LENGTH 
+	    &&  GET(dPrev,i,k,n) != MAX_LENGTH
+	    && GET(dPrev,i,k,n)+ GET(adjMatrix,k,j,n) < GET(dCur,i,j,n)) {
+          GET(dCur,i,j,n) = GET(dPrev,i,k,n)+ GET(adjMatrix,k,j,n);
 	  for (m = 0; m < n; ++m)
-	    path[i][j][m] = p[i][k][m] | p[k][i][m];
+	    path[i][j][m] = path[i][k][m] | path[k][j][m];
 	}
 
 }
@@ -439,7 +498,10 @@ void naiveDynamicProgramming(LPDGraph pGraph)
   int *adjMatrix; 
   int *dPrev;
   int *dCur;
+  int *t;
+  LPEdge pIterEdge;
 
+  printf("\nNaive DynamicProgramming:");
   adjMatrix = (int *)malloc(nodeNum*nodeNum*sizeof(int));
   dPrev = (int *)malloc(nodeNum*nodeNum*sizeof(int));
   dCur = (int *)malloc(nodeNum*nodeNum*sizeof(int));
@@ -461,7 +523,7 @@ void naiveDynamicProgramming(LPDGraph pGraph)
   for (i = 0; i < nodeNum; ++i) {
     for (j = 0; j < nodeNum; ++j)
       *(adjMatrix+i*nodeNum+j) = MAX_LENGTH;
-    *(adjMatrix+i*nodeNum+i) = 0;
+    //*(adjMatrix+i*nodeNum+i) = 0;
     pIterEdge = (pGraph->pFirstNode+i)->pFirstOutEdge;
     while (pIterEdge) {
       *(adjMatrix+i*nodeNum+pIterEdge->toIdx) = pIterEdge->weight;
@@ -475,17 +537,17 @@ void naiveDynamicProgramming(LPDGraph pGraph)
   for (i = 0; i < n; ++i)
     for (j = 0; j < n; ++j)
       for (k = 0; k < n; ++k)
-	if (k != i && k != j)
+	if (i == k || j == k)
+	  path[i][j][k] = 1;
+	else 
 	  path[i][j][k] = 0;
-        else 
-          path[i][j][k] = 1;
 
   for (m=2; m < n; ++m) {
     extendShortestPath(dPrev, dCur, adjMatrix, n);
     //swap pointer, we don't have n D, just use two to used as D(k) and D(k-1)
     t = dPrev;
     dPrev = dCur;
-    dCur = dPrev;
+    dCur = t;
   }
     
   // dPrev hold final result
@@ -493,16 +555,23 @@ void naiveDynamicProgramming(LPDGraph pGraph)
     for (j = 0; j < n; ++j) {
       if (*(dPrev+i*n+j) != MAX_LENGTH) {
 	//There is a path
-	printf("\n ShortestPath between V[%d] and V[%d]:\n", i, j);
-	printf("V[%d]");
+	printf("\n ShortestPath between V[%c] and V[%c] dist = %d", 
+	       (pGraph->pFirstNode+i)->data, (pGraph->pFirstNode+j)->data,
+	       *(dPrev+i*n+j));
+	
+	printf("V[%c]", (pGraph->pFirstNode+i)->data);
 	m = i;
-	while (m != j) {
+	while(m != j) {
 	  for (k = 0; k < n; ++k)
-	    if (path[m][j][k] && *(adjMatrix+m*n+k)!= MAX_LENGTH)
+	    if (path[m][j][k] && 
+		*(adjMatrix+m*n+k)!= MAX_LENGTH 
+		&& *(adjMatrix+m*n+k) == *(dPrev+m*n+k)
+		&&  k != m)
 	      break;
-	  printf("->V[%d]",k);
+	  printf("->V[%c]",(pGraph->pFirstNode+k)->data);
 	  m = k;
 	}
+	
 	
       }
 
@@ -520,6 +589,8 @@ void BellmanFord(LPDGraph pGraph)
   int *dist;
   int *prev;
   LPEdge pIterEdge;
+  LPStack pStack;
+  int prevNode, trail;
 
   n = pGraph->count;
   dist = (int *)malloc(sizeof(int)*n);
@@ -531,6 +602,7 @@ void BellmanFord(LPDGraph pGraph)
     return;
   }
   
+  printf ("\n BellmanFord :");
   for (i = 0; i < n; ++i) {
     dist[i] = MAX_LENGTH;
     prev[i] = -1;
@@ -540,22 +612,51 @@ void BellmanFord(LPDGraph pGraph)
   for (i = 0; i < n-1; ++i) {
     pIterEdge = pGraph->pFirstEdge;
     while (pIterEdge) {
-      if (dist[pIterEdge->toIdx] > dist[pIterEdge->fromIdx] + pIterEdge->weight) {
-	dist[pIterEdge->toIdx] > dist[pIterEdge->fromIdx] + pIterEdge->weight;
+      if (dist[pIterEdge->fromIdx] != MAX_LENGTH &&
+	  dist[pIterEdge->toIdx] > dist[pIterEdge->fromIdx] + pIterEdge->weight) {
+	dist[pIterEdge->toIdx] = dist[pIterEdge->fromIdx] + pIterEdge->weight;
 	prev[pIterEdge->toIdx] = pIterEdge->fromIdx;
       }
       pIterEdge = pIterEdge->pNextEdge;
     }
   }
 
-    pIterEdge = pGraph->pFirstEdge;
-    while (pIterEdge) {
-      if (dist[pIterEdge->toIdx] > dist[pIterEdge->fromIdx] + pIterEdge->weight) {
+  pIterEdge = pGraph->pFirstEdge;
+  while (pIterEdge) {
+    if (dist[pIterEdge->toIdx] > dist[pIterEdge->fromIdx] + pIterEdge->weight) {
 	// found a negative cycle
-      }
-      pIterEdge = pIterEdge->pNextEdge;
+      printf ("Found negative cycle\n");
+      goto cleanup;
     }
+    pIterEdge = pIterEdge->pNextEdge;
+  }
 
+     
+  printf("\nDump Path:");
+  initStack(&pStack, sizeof(int));
+  for (i = 1; i < n; ++i) {
+    if (dist[i] == MAX_LENGTH) {
+      printf ("\nNo Path between V[%c] to V[%c]",pGraph->pFirstNode->data, (pGraph->pFirstNode+i)->data);
+      continue;
+    }
+    prevNode = prev[i];
+    while(1) {
+      push(pStack, &prevNode);
+      if (prevNode == 0)
+	break;
+      prevNode = prev[prevNode];
+    }
+    printf("\nFrom V[%c] to V[%c] dist = %d: ", pGraph->pFirstNode->data, (pGraph->pFirstNode+i)->data, dist[i]);
+    while (!isStackEmpty(pStack)) {
+      pop(pStack, &trail);
+      printf ("V[%c]->",  (pGraph->pFirstNode+trail)->data);
+    }
+    printf("V[%c]\n", (pGraph->pFirstNode+i)->data);
+  }
+  destroyStack(&pStack);
+ cleanup:
+  free(dist);
+  free(prev);
 }
 
 void FloydWarShall(LPDGraph pGraph)
@@ -564,8 +665,9 @@ void FloydWarShall(LPDGraph pGraph)
   int *adjMatrix; 
   int *dist;
   int alt;
+  LPEdge pIterEdge;
 
-  n = pGraph->nodeNum;
+  n = pGraph->count;
   adjMatrix = (int *)malloc(n*n*sizeof(int));
   dist = (int *)malloc(n*n*sizeof(int));
 
@@ -579,20 +681,21 @@ void FloydWarShall(LPDGraph pGraph)
     return;
   }
 
+  printf ("\n FloydwarShall :");
+
   // Create adjMatrix from adj List
   for (i = 0; i < n; ++i) {
     for (j = 0; j < n; ++j)
       *(adjMatrix+i*n+j) = MAX_LENGTH;
-    *(adjMatrix+i*i+i) = 0;
     pIterEdge = (pGraph->pFirstNode+i)->pFirstOutEdge;
     while (pIterEdge) {
-      *(adjMatrix+i*nodeNum+pIterEdge->toIdx) = pIterEdge->weight;
+      *(adjMatrix+i*n+pIterEdge->toIdx) = pIterEdge->weight;
       pIterEdge = pIterEdge->pNextSameFrom;
     }
   }
 
   //Init D(-1)
-  memcpy(dPrev, adjMatrix, n*n*sizeof(int));
+  memcpy(dist, adjMatrix, n*n*sizeof(int));
   for (i = 0; i < n; ++i)
     for (j = 0; j < n; ++j)
       for (k = 0; k < n; ++k)
@@ -604,11 +707,14 @@ void FloydWarShall(LPDGraph pGraph)
   for (k = 0; k < n; ++k)
     for (i = 0; i < n; ++i)
       for (j = 0; j < n; ++j) {
+	if (*(dist+i*n+k) == MAX_LENGTH ||
+	    *(dist+k*n+j) == MAX_LENGTH)
+	  continue;
 	alt = *(dist+i*n+k) + *(dist+k*n+j);
 	if (*(dist+i*n+j) > alt) {
 	  *(dist+i*n+j) = alt;
 	  for (m = 0; m < n; ++m) //This should be implement as a bitset to avoid extra o(n)
-	    path[i][j][m] = p[i][k][m] | p[k][i][m];
+	    path[i][j][m] = path[i][k][m] | path[k][j][m];
 	}
       }
 
@@ -626,17 +732,22 @@ void FloydWarShall(LPDGraph pGraph)
     for (j = 0; j < n; ++j) {
       if (*(dist+i*n+j) != MAX_LENGTH) {
 	//There is a path
-	printf("\n ShortestPath between V[%d] and V[%d]:\n", i, j);
-	printf("V[%d]");
+	printf("\n ShortestPath between V[%c] and V[%c] dist = %d:\n", 
+	       (pGraph->pFirstNode+i)->data, (pGraph->pFirstNode+j)->data,
+	       *(dist+i*n+j));
+	printf("V[%c]", (pGraph->pFirstNode+i)->data);
+
 	m = i;
-	while (m != j) {
+	while(m != j) {
 	  for (k = 0; k < n; ++k)
-	    if (path[m][j][k] && *(adjMatrix+m*n+k)!= MAX_LENGTH)
+	    if (path[m][j][k] && 
+		*(adjMatrix+m*n+k)!= MAX_LENGTH 
+		&& *(adjMatrix+m*n+k) == *(dist+m*n+k)
+		&&  k != m)
 	      break;
-	  printf("->V[%d]",k);
+	  printf("->V[%c]",(pGraph->pFirstNode+k)->data);
 	  m = k;
 	}
-	
       }
 
     }
@@ -657,7 +768,7 @@ void Johnson(LPDGraph pGraph)
 typedef struct _priorItem
 {
   unsigned int idx;
-  unsigned int pToF;
+  unsigned int *pToF;
 }PriorItem, *LPPriorItem;
 
 bool lessF(void *lhs, void *rhs)
@@ -686,7 +797,7 @@ bool equalNode(void *lhs, void *rhs)
 void AStarPathFinding(LPDGraph pGraph)
 {
 
-
+  /*
   LPNode pStart, pEnd;
   LPPriorityQueue pOpenList;
   LPBitSet pCloseSet, pOpenSet;
@@ -787,4 +898,5 @@ void AStarPathFinding(LPDGraph pGraph)
   destroyBitSet(&pOpenSet);
 
   destroyPriorityQueue(&pOpenList);
+  */
 }
