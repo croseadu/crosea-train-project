@@ -549,11 +549,11 @@ void findSccV3(LPDGraph pGraph)
 
 int calcDegree(LPNode pNode)
 {
-  LPEdge pIterEdge = pNode->pFirstOutEdge;
+  LPEdge pIterEdge = pNode->pFirstInEdge;
   int d = 0;
   while (pIterEdge) {
     ++d;
-    pIterEdge = pIterEdge->pNextSameFrom;
+    pIterEdge = pIterEdge->pNextSameTo;
   }
   return d;
 }
@@ -595,6 +595,7 @@ void topoOrderSort(LPDGraph pGraph)
       insertOrModifyEntry(pMap, &pSucc, &degree);
       if (degree == 0)
 	push (pStack, &pSucc);
+      pEdge = pEdge->pNextSameFrom;
     }
   }
 
@@ -606,10 +607,7 @@ void topoOrderSort(LPDGraph pGraph)
   destroyStack(&pStack);
 }
 
-void criticalPath()
-{
 
-}
 
 int main()
 {
