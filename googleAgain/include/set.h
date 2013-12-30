@@ -1,6 +1,6 @@
 #ifndef _MY_SET_H
 #define _MY_SET_H
-
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "mytype.h"

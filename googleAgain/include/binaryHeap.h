@@ -110,7 +110,9 @@ void increaseRankOnBinaryHeap(LPBinaryHeap pHeap, void *old, void * new)
       break;
   }
 
-  j = i;
+  if (i == 0)
+    return;
+  j = i/2;
   while (j >= 0) {
     if (pHeap->less(new, pHeap->data+j*pHeap->elementSize)) {
       

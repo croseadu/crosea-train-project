@@ -3,48 +3,58 @@
 
 //implement a min PriorityQueue
 
-#include "heap.h"
+#include "binaryHeap.h"
 
 typedef struct _Priority_Queue {
-  LPHeap pHeap;
+  LPBinaryHeap pHeap;
 }PriorityQueue, *LPPriorityQueue;
 
 
 bool initPriorityQueue(LPPriorityQueue *ppQueue, unsigned int elementSize,
 		       CompareFunc less, CompareFunc equal)
 {
-  initHeap(&pHeap, elementSize, less, equal);
+  LPPriorityQueue pQueue;
+  pQueue = (LPPriorityQueue)malloc(sizeof(PriorityQueue));
+  if (NULL == pQueue) {
+    return false;
+  }
+  initBinaryHeap(&pQueue->pHeap, elementSize, less, equal);
+  *ppQueue = pQueue;
 }
 
 void destroyPriorityQueue(LPPriorityQueue *ppQueue)
 {
-  destroyHeap(&pHeap);
+  destroyBinaryHeap(&(*ppQueue)->pHeap);
+  free(*ppQueue);
+  *ppQueue = NULL;
 }
 
 void findMin(LPPriorityQueue pQueue, void *out)
 {
-  peek(pHeap, out);
+  peekBinaryHeap(pQueue->pHeap, out);
 }
 
 void deleteMin(LPPriorityQueue pQueue, void *out)
 {
-  peek(pHeap, out);
-  removeRoot(pHeap);
+  peekBinaryHeap(pQueue->pHeap, out);
+  removeRootFromBinaryHeap(pQueue->pHeap);
 }
 
 void insertToPriorityQueue(LPPriorityQueue pQueue, void *in)
 {
-  insertKeyToHeap(pHeap, in);
+  insertKeyToBinaryHeap(pQueue->pHeap, in);
+  validateBinaryHeap(pQueue->pHeap);
 }
 
 void boostPriority(LPPriorityQueue pQueue, void *key, void *new)
 {
-  increaseRank(pHeap, key, new);
+  increaseRankOnBinaryHeap(pQueue->pHeap, key, new);
+  validateBinaryHeap(pQueue->pHeap);
 }
 
-void isPriorityQueueEmpty(LPPriorityQueue pQueue)
+bool isPriorityQueueEmpty(LPPriorityQueue pQueue)
 {
-  return isHeapEmpty(pHeap);
+  return isBinaryHeapEmpty(pQueue->pHeap);
 }
 
 
