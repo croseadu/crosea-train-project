@@ -2,6 +2,8 @@
 #define _MY_QUEUE_H
 
 #include "mytype.h"
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct _QueueNode
 {

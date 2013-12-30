@@ -1,3 +1,23 @@
+2013-12-30 Yuehai Du <croseadu@gmail.com>
+
+	finished Find BiConnectComponent in undirectedGraph.
+	* basic/findBiConnectComponent.c: implement it.
+
+2013-12-27 Yuehai Du <croseadu@gmail.com>
+
+	Finished Critical path algorithm.
+	* basic/criticalPath.c:
+
+2013-12-27 Yuehai Du <croseadu@gmail.com>
+
+	working on SpanningTree generation.
+	* basic/undirectedGraph.c: add DFS/BFS spanningTree.
+
+2013-12-23 Yuehai Du <croseadu@gmail.com>
+
+	make all ShortestPath algorithm work.
+	* basic/shortestpath.c: debug all algorithm.
+
 2013-12-12 Yuehai Du <croseadu@gmail.com>
 
 	working on the shortest path issue.
