@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef unsigned char KeyType;
+typedef int ElementType;
 
 typedef struct _Cell
 {
-  KeyType data[4];
+  ElementType data;
   int next;
 }Cell, *LPCell;
 
@@ -14,16 +14,6 @@ typedef struct _Cell
 #define INIT_SIZE 10
 #define INCRE_SIZE 5
 
-int getValue(LPCell pValue)
-{
-  unsigned int value;
-  value = pValue->data[0];
-  value |= (pValue->data[1]<<8);
-  value |= (pValue->data[2]<<16);
-  value |= (pValue->data[3]<<24);
-
-  return value;
-}
 void reserve(int **pArray, int *pCapacity, int i)
 {
   int *p = *pArray;
@@ -39,9 +29,6 @@ void reserve(int **pArray, int *pCapacity, int i)
   *pCapacity = *pCapacity + INCRE_SIZE;
   *pArray = p;
 }
-void distribute(LPCell sortList, int length, int idx, int *f, int *e)
-  ;
-void collect(LPCell sortList, int *f, int *e);
 
 
 int main()
@@ -49,12 +36,13 @@ int main()
   FILE *fp;
   int *a = NULL;
   int data, length, capacity;
-  int i, j;
-  int *f, *e;
-  unsigned int v;
-  LPCell sortList;
-  int p ,q;
+  int i;
+  LPCell sortList = NULL;
+  int j;
+  int p, q;
+  int prev, last;
   Cell temp;
+  
 
   if ((fp = fopen("sort.txt", "r")) == NULL) {
     printf("Can't Open Input file\n");
@@ -83,6 +71,7 @@ int main()
   if ((i+1)%10)
     putchar('\n');
 
+  
   sortList = (LPCell)malloc(sizeof(Cell)*(length+1));
   if (NULL == sortList) {
     printf ("Out Of Memory in %s", __func__);
@@ -90,52 +79,50 @@ int main()
   }
 
   for (i = 0; i < length; ++i) {
-    v = a[i];
-    for (j = 0; j < 4; ++j) {
-      sortList[i+1].data[j] = (v>>(j*8))&0xff;
-    }
+    sortList[i+1].data = a[i];
     sortList[i+1].next = i+2;
   }
   sortList[length].next = 0;
+  
+  j = 2;
   sortList[0].next = 1;
-
-  f = (int *)malloc(sizeof(int)*255);
-  e = (int *)malloc(sizeof(int)*255);
-  if (NULL == f || NULL == e)
-    goto cleanup;
-
-  printf ("\ninit list is :\n");
-  for (i = 1; i <= length; ++i) {
-    printf("%5d", getValue(sortList+i));
-    if ((i+1)%10 == 0)
-      putchar('\n');
+  sortList[1].next = 0;
+  last = 1;
+  while (j <= length) {
+    if (sortList[j].data < sortList[last].data) {
+      prev = 0;
+      while (sortList[prev].next && sortList[sortList[prev].next].data <= sortList[j].data)
+	prev = sortList[prev].next;
+      sortList[j].next = sortList[prev].next;
+      sortList[prev].next = j;
+    }
+    else {
+      sortList[last].next = j;
+      sortList[j].next = 0;
+      last = j;
+    }
+    ++j;
   }
-  putchar('\n');
 
-  for (i = 0; i < 4; ++i) {
-    distribute(sortList, length, i, f, e);
-    collect(sortList, f, e);
-  }
-
-  printf("\nAfter list sort:\n");
-  i = 0;
   j = sortList[0].next;
+  i = 0;
+  printf("\nAfter list sort:\n");
   while (j != 0) {
-    printf("%5d", getValue(sortList+j));
+    printf("%5d", sortList[j].data);
     j = sortList[j].next;
     ++i;
     if ((i+1)%10 == 0)
       putchar('\n');
   }
   putchar('\n');
-
-
+    
   p = sortList[0].next;
   for (i = 1; i <= length; ++i) {
-    while (p < i)
+    while (p < i) 
       p = sortList[p].next;
     q = sortList[p].next;
     if (p != i) {
+      //swap p  i
       temp = sortList[p];
       sortList[p] = sortList[i];
       sortList[i] = temp;
@@ -144,69 +131,24 @@ int main()
     p = q;
   }
 
-  printf("\nAfter rearrange:\n");
+
+  printf("\nAfter Adjust: \n");
   for (i = 1; i <= length; ++i) {
-    printf("%5d", getValue(sortList+i));
+    printf("%5d", sortList[i].data);
     if (i%10 == 0)
       putchar('\n');
   }
-  putchar('\n'); 
-  
+  putchar('\n');
 
+  free (sortList);
  cleanup:
-  if (f)
-    free (f);
-  if (e)
-    free (e);
-  if (sortList)
-    free (sortList);
-  if (a) 
-    free (a);
+  free (a);
   fclose(fp);
 }
 
 
 
-void distribute(LPCell sortList, int length, int idx, int *f, int *e)
-{
-  int i = 0;
-  int j;
 
-  for (i = 0; i < 256; ++i)
-    f[i] = 0;
 
-  for (i = sortList[0].next; i != 0; i = sortList[i].next) {
-    j = sortList[i].data[idx];
-    if (!f[j]) 
-      f[j] = i;
-    else
-      sortList[e[j]].next = i;
-    e[j] = i;
-  }
-}
-
-int succ(int *f, int i)
-{
-  if (i == 255)
-    return 256;
-  while(!f[++i]);
-  return i;
-}
-
-void collect(LPCell sortList, int *f, int *e)
-{
-  int i;
-  int prev;
-  i = 0;
-  if (!f[i])
-    i = succ(f, i);
-  prev = 0;
-  for (; i < 256; i = succ(f,i)) {
-    sortList[prev].next = f[i];
-    prev = e[i];
-  }
-    
-  sortList[prev].next = 0;
-}
 
 
