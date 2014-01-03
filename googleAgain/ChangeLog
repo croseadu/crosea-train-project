@@ -1,3 +1,7 @@
+2014-01-03 Yuehai Du <croseadu@gmail.com>
+
+	* basic/externalSort.c: implement a loserTree based merge.
+
 2014-01-02 Yuehai Du <croseadu@gmai.com>
 
 	* basic/tableInsertSort.c: implement table insert sort.
