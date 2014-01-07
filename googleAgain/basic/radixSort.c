@@ -39,8 +39,7 @@ void reserve(int **pArray, int *pCapacity, int i)
   *pCapacity = *pCapacity + INCRE_SIZE;
   *pArray = p;
 }
-void distribute(LPCell sortList, int length, int idx, int *f, int *e)
-  ;
+void distribute(LPCell sortList, int length, int idx, int *f, int *e);
 void collect(LPCell sortList, int *f, int *e);
 
 

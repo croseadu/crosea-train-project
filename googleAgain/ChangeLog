@@ -1,3 +1,9 @@
+2014-01-06 Yuehai Du <croseadu@gmail.com>
+
+	* basic/treeSelectionSort.c: implement tree-based SelectSort.
+	* basic/twoWayInsertionSort.c: implement two-way insertSort.
+	* basic/foldHalfFindInsertionSort.c: implement fold-half search insertSort.c.
+
 2014-01-03 Yuehai Du <croseadu@gmail.com>
 
 	* basic/externalSort.c: implement a loserTree based merge.
