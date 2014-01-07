@@ -1,3 +1,7 @@
+2014-01-07 Yuehai Du <croseadu@gmail.com>
+
+	* basic/replaceSelectionSort.c: implement Replace-Selection Sort.
+
 2014-01-06 Yuehai Du <croseadu@gmail.com>
 
 	* basic/treeSelectionSort.c: implement tree-based SelectSort.
