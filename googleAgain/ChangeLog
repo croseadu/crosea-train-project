@@ -1,3 +1,8 @@
+2014-01-09 Yuehai Du <croseadu@gmail.com>
+
+	* basic/staticFind.c: implement linear search
+	fold half search, fibonacci search.
+
 2014-01-07 Yuehai Du <croseadu@gmail.com>
 
 	* basic/replaceSelectionSort.c: implement Replace-Selection Sort.
