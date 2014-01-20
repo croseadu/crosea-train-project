@@ -1,3 +1,7 @@
+2013-01-20 Yuehai Du <croseadu@gmail.com>
+
+	* basic/balancedBinaryTree.c: Implement AVL Tree.
+
 2014-01-14 Yuehai Du <croseadu@gmail.com>
 
 	* basic/binarySearchTree: implement dynamic binary search tree.
