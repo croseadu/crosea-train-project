@@ -11,11 +11,11 @@
 typedef int Result;
 typedef int bool;
 
-typedef bool (*LessFunc)(char *lhs, char *rhs);
-typedef bool (*EqualFunc)(char *lhs, char *rhs);
-typedef void (*Printer)(char *data);
+typedef bool (*LessFunc)(const char *lhs, const char *rhs);
+typedef bool (*EqualFunc)(const char *lhs, const char *rhs);
+typedef void (*Printer)(const char *data);
 typedef void (*Visitor)(char *data);
-typedef bool (*Pred)(char *data);
+typedef bool (*Pred)(const char *data);
 
 enum SORT_ALGORITHM
 {
