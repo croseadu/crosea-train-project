@@ -13,7 +13,7 @@ typedef struct _SingleLinkList {
   unsigned int elementSize;
   Printer printer;
   LessFunc less;
-  EqualFunc euqal;
+  EqualFunc equal;
   unsigned int formatCounter;
 }SingleLinkList, *LPSingleLinkList;
 
@@ -24,8 +24,8 @@ bool createSingleLinkList(LPSingleLinkList *ppList,
 			  LessFunc less,
 			  EqualFunc equal);
 void destroySingleLinkList(LPSingleLinkList *ppList);
-void visitSingleLinkList(LPSingleLinkList pList);
-void printSingleLinkList(const LPSingleLinkList pList);
+void visitSingleLinkList(LPSingleLinkList pList, Visitor visitor);
+void printSingleLinkList(const LPSingleLinkList pList, const char *prefix);
 void sortSingleLinkList(LPSingleLinkList pList);
 
 bool insertToHeadOfSingleLinkList(LPSingleLinkList, const char *);
@@ -38,12 +38,13 @@ bool insertBeforeSingleLinkList(LPSingleLinkList,
 				const char *);
 bool removeDataFromSingleLinkList(LPSingleLinkList, const char *);
 bool removeIfFromSingleLinkList(LPSingleLinkList, Pred);
-bool removeFromSingleLinkList(LPSingleLinkList, LPSingleLinkListNode **);
+bool removeFromSingleLinkList(LPSingleLinkList, LPSingleLinkListNode *);
 
-LPSingleLinkList mergeSingleList(const LPSingleLinkList *,
-				 const LPSingleLinkList *);
-LPSingleLinkList differenceOfSingleLinkList(const LPSingleLinkList *,
-					    const LPSingleLinkList *);
+LPSingleLinkList mergeSingleList(const LPSingleLinkList ,
+				 const LPSingleLinkList );
+LPSingleLinkList differenceOfSingleLinkList(const LPSingleLinkList ,
+					    const LPSingleLinkList );
 
+void reverseSingleLinkList(LPSingleLinkList pList);
 
 #endif
