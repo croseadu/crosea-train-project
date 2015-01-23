@@ -33,8 +33,8 @@ BOOL insertToTailOfSingleLinkList(LPSingleLinkList pList,
 				  void *elementData);
 BOOL insertAfterInSingleLinkList(LPSingleLinkList pList,
 				 void *elementData,
-				 SingleLinkListIter pPos);
-BOOL insertBeforeInSingleLinkList(LPSingleLInkList pList,
+				 SingleLinkListNodeIter pPos);
+BOOL insertBeforeInSingleLinkList(LPSingleLinkList pList,
 				  void *elementData,
 				  SingleLinkListNodeIter pPos);
 SingleLinkListNodeIter findInSingleLinkList(LPSingleLinkList pList,
