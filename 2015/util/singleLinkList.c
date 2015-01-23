@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <assert.h>
+
 
 
 #include "../include/singleLinkList.h"
@@ -8,15 +10,15 @@
 			
 BOOL 
 createSingleLinkList(LPSingleLinkList *ppList,
-			  unsigned int elementSize,
-			  PrintFunc printer,
-			  LessFunc less,
-			  EqualFunc equal)
+		     unsigned int elementSize,
+		     PrintFunc printer,
+		     LessFunc less,
+		     EqualFunc equal)
 {
   LPSingleLinkList pList = NULL;
   pList = (LPSingleLinkList)malloc(sizeof(SingleLinkList));
   if (NULL == pList) {
-    printf("Out Of Memory in %d %s", ___LINE__, __func__);
+    printf("Out Of Memory in %d %s", __LINE__, __func__);
     return False;
   }
   pList->pHead = NULL;
@@ -41,7 +43,7 @@ destroySingleLinkList(LPSingleLinkList *ppList)
   while (pIterNode) {
     pNextNode = pIterNode->pNextNode;
     free(pIterNode->data);
-    free(pIterNode)
+    free(pIterNode);
     pIterNode = pNextNode;
   }
   free(pList);
@@ -53,7 +55,23 @@ static LPSingleLinkListNode
 createNewSingleLinkListNode(const LPSingleLinkList pList,
 			    void *elementData)
 {
+  LPSingleLinkListNode pNode;
+  
+  pNode = (LPSingleLinkListNode)malloc(sizeof(SingleLinkListNode));
+  if (NULL == pNode) {
+    return NULL;
+  }
+  pNode->data = malloc(pList->elementSize);
+  if (NULL == pNode->data) {
+    free(pNode);
+    return NULL;
+  }
 
+  memcpy(pNode->data,
+	 elementData,
+	 pList->elementSize);
+  pNode->pNextNode = NULL;
+  return pNode;
 }
 BOOL 
 insertToHeadOfSingleLinkList(LPSingleLinkList pList,
@@ -67,7 +85,7 @@ insertToHeadOfSingleLinkList(LPSingleLinkList pList,
   if (NULL == pInsertNode)
     return False;
 
-  pInsertNode->pNextNode = (*ppStartNode)->pNextNode;
+  pInsertNode->pNextNode = (*ppStartNode);
   *ppStartNode = pInsertNode;
   return True;
   
@@ -106,7 +124,7 @@ insertAfterInSingleLinkList(LPSingleLinkList pList,
 }
 
 BOOL
-insertBeforeInSingleLinkList(LPSingleLInkList pList,
+insertBeforeInSingleLinkList(LPSingleLinkList pList,
 			     void *elementData,
 			     SingleLinkListNodeIter iter)
 {
@@ -198,7 +216,7 @@ static void
 insertSortSingleLinkList(LPSingleLinkList pList)
 {
   LPSingleLinkListNode pIterNode, pNextNode;
-  LPSingleLinkListNode ppInsertPos;
+  LPSingleLinkListNode *ppInsertPos;
   if (NULL == pList->pHead ||
       NULL == pList->pHead->pNextNode)
     return;
@@ -208,7 +226,7 @@ insertSortSingleLinkList(LPSingleLinkList pList)
   while (pIterNode) {
     pNextNode = pIterNode->pNextNode;
     ppInsertPos = &pList->pHead;
-    while (*ppInsertPos && !pList->pLess(pIterNode->data, (*ppPos)->data))
+    while (*ppInsertPos && !pList->less(pIterNode->data, (*ppInsertPos)->data))
       ppInsertPos = &(*ppInsertPos)->pNextNode;
     pIterNode->pNextNode = *ppInsertPos;
     *ppInsertPos = pIterNode;
@@ -236,6 +254,17 @@ visitSingleLinkList(LPSingleLinkList pList,
 }
 void printSingleLinkList(LPSingleLinkList pList)
 {
-
-
+  LPSingleLinkListNode pIterNode;
+  int counter = 0;
+  printf("\n");
+  pIterNode = pList->pHead;
+  while (pIterNode) {
+    pList->printer(pIterNode->data);
+    ++counter;
+    if (counter % 5 == 0)
+      putchar('\n');
+    pIterNode = pIterNode->pNextNode;
+  }
+  if (counter % 5)
+    putchar('\n');
 }
