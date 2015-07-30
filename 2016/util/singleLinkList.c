@@ -170,7 +170,8 @@ enum BOOL removeIfInSingleLinkList(LPSingleLinkList pList, Pred pred)
 
 }
 
-void traverseSingleLinkList(LPSingleLinkList pList, Visitor visitor)
+void
+traverseSingleLinkList(LPSingleLinkList pList, Visitor visitor)
 {
 	LPSingleLinkListNode pIterNode = pList->pHead;
 	while (NULL != pIterNode) {
@@ -178,7 +179,8 @@ void traverseSingleLinkList(LPSingleLinkList pList, Visitor visitor)
 		pIterNode = pIterNode->pNextNode;
 	}
 }
-void sortSingleLinkList(LPSingleLinkList pList)
+void
+sortSingleLinkList(LPSingleLinkList pList)
 {
 	LPSingleLinkListNode pNode, pNextNode, *ppInsertBefore;
 	if (pList->pHead == NULL ||
@@ -186,8 +188,8 @@ void sortSingleLinkList(LPSingleLinkList pList)
 		return;
 	pNode = pList->pHead->pNextNode;
 	pList->pHead->pNextNode = NULL;
-	while (pNode) {
-		pNextNode = pNode;
+	while (pNode != NULL) {
+		pNextNode = pNode->pNextNode;
 		ppInsertBefore = &pList->pHead;
 		while (*ppInsertBefore && !pList->less(pNode->data, (*ppInsertBefore)->data))
 			ppInsertBefore = &(*ppInsertBefore)->pNextNode;
@@ -205,7 +207,7 @@ void printSingleLinkList(const LPSingleLinkList pList)
 	LPSingleLinkListNode pIterNode = pList->pHead;
 	const int format = 5;
 	int count = 0;
-	while (NULL == pIterNode) {
+	while (pIterNode != NULL) {
 		pList->printer(pIterNode->data);
 		++count;
 		if (count % format == 0) {

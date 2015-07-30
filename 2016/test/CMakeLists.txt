@@ -1,1 +1,2 @@
 ADD_SUBDIRECTORY(singleLinkList)
+ADD_SUBDIRECTORY(doubleLinkList)

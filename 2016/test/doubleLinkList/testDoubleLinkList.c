@@ -1,5 +1,5 @@
 
-#include "singleLinkList.h"
+#include "doubleLinkList.h"
 #include "common.h"
 
 void printer(const void *data)
@@ -19,11 +19,11 @@ less(const void *lhs, const void *rhs)
 
 int main()
 {
-	LPSingleLinkList pList = NULL;
+	LPDoubleLinkList pList = NULL;
 	FILE *fp = NULL;
 	int data;
 
-	if (False == createSingleLinkList(&pList,
+	if (False == createDoubleLinkList(&pList,
 				  	  sizeof(int),
 				  	  printer,
 				  	  less)) {
@@ -41,26 +41,26 @@ int main()
 	
 
 	while (fscanf(fp, "%d", &data) > 0) {
-		insertToHeadOfSingleLinkList(pList, &data);
+		insertToHeadOfDoubleLinkList(pList, &data);
 	}
 
 
 	printf("Input List is :\n");
-	printSingleLinkList(pList);
+	printDoubleLinkList(pList);
 
-	reverseSingleLinkList(pList);
+	reverseDoubleLinkList(pList);
 	printf("After reverser, List is :\n");
-	printSingleLinkList(pList);
+	printDoubleLinkList(pList);
 	
-	sortSingleLinkList(pList);
+	sortDoubleLinkList(pList);
 	printf("After Sort, List is :\n");
-	printSingleLinkList(pList);
+	printDoubleLinkList(pList);
 	
 	
 
 cleanup:
 
-	destroySingleLinkList(&pList);
+	destroyDoubleLinkList(&pList);
 
 	return 0;
 }

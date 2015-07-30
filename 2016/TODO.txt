@@ -1,0 +1,38 @@
+1. polynomial of one indeterminate
+2. conversion between different number system.
+3. matching parentheses
+4. line edit
+5. maze
+6. expression calculator
++  hanoi
+7. simulation of discrete event
+8. string matching
+9. KMP
+10. generalized list
+11. polynomial of multiple indeterminate
+12. tree traverse
+13. threading tree
+14. forest
+15. tree counting
+16. tree-equivalent
+17. Huffman Tree
+18. backtracking
+19. graph
+20. SCC
+21. minimal spanning tree
+22. Heavily connected component
+23. topo order
+24. critical path
+25. short path
+26. memory management
+27. finding
+28. static tree list
+29. indexing list
+30. B tree
+31. B+ tree
+32. key Tree
+33. Hash
+34. sorting
+35. radix sorting
+36. external sorting
+
