@@ -8,8 +8,8 @@
 
 enum BOOL 
 {
- True = 0,
- False = 1
+ True = 1,
+ False = 0
 };
 
 typedef void (*Printer)(const void *data);
