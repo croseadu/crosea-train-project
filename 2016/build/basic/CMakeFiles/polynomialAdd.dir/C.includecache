@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/common.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+myMemory.h
+../include/myMemory.h
+
+../include/myMemory.h
+
+../include/singleLinkList.h
+common.h
+../include/common.h
+
+/local/.train/train/2016/basic/polynomialAdd.c
+singleLinkList.h
+/local/.train/train/2016/basic/singleLinkList.h
+assert.h
+-
+common.h
+/local/.train/train/2016/basic/common.h
+

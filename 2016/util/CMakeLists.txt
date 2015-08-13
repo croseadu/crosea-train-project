@@ -1,6 +1,7 @@
 SET(SRC_LIST memory.c
              singleLinkList.c
 	     doubleLinkList.c
+	     inOutHelper.c
 	     stack.c
  	     map.c
              set.c

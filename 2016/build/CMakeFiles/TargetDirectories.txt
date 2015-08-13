@@ -1,0 +1,5 @@
+/local/.train/train/2016/build/basic/CMakeFiles/conversion.dir
+/local/.train/train/2016/build/basic/CMakeFiles/polynomialAdd.dir
+/local/.train/train/2016/build/test/doubleLinkList/CMakeFiles/testDoubleLinkList.dir
+/local/.train/train/2016/build/test/singleLinkList/CMakeFiles/testSingleLinkList.dir
+/local/.train/train/2016/build/util/CMakeFiles/utils.dir

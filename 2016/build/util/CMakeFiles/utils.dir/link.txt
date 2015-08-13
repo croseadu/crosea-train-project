@@ -1,0 +1,2 @@
+/usr/bin/ar cr ../lib/libutils.a  CMakeFiles/utils.dir/memory.o CMakeFiles/utils.dir/singleLinkList.o CMakeFiles/utils.dir/doubleLinkList.o CMakeFiles/utils.dir/inOutHelper.o CMakeFiles/utils.dir/stack.o CMakeFiles/utils.dir/map.o CMakeFiles/utils.dir/set.o CMakeFiles/utils.dir/circularQueue.o CMakeFiles/utils.dir/staticLinkList.o CMakeFiles/utils.dir/priorityQueue.o
+/usr/bin/ranlib ../lib/libutils.a

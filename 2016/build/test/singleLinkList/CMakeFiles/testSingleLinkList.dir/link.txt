@@ -1,0 +1,1 @@
+/usr/bin/gcc   -g    CMakeFiles/testSingleLinkList.dir/testSingleLinkList.o  -o ../../bin/testSingleLinkList -rdynamic ../../lib/libutils.a 

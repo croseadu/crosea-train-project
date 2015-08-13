@@ -1,0 +1,1 @@
+/usr/bin/gcc   -g    CMakeFiles/polynomialAdd.dir/polynomialAdd.o  -o ../bin/polynomialAdd -rdynamic ../lib/libutils.a 

@@ -23,4 +23,14 @@ typedef void (*Visitor)(void *data);
 #define INCRE_SIZE 5
 
 
+enum BOOL isEOF(const char in);
+
+void skipSpace(char **ppChar);
+
+
+enum BOOL match(const char in, const char ref);
+void advanceTill(char **ppChar, const char ref);
+
+#include "myMemory.h"
+
 #endif

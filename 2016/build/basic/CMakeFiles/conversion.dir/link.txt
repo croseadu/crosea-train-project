@@ -1,0 +1,1 @@
+/usr/bin/gcc   -g    CMakeFiles/conversion.dir/conversion.o  -o ../bin/conversion -rdynamic ../lib/libutils.a 
