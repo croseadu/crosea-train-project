@@ -120,22 +120,167 @@ bool insertToTailOfSingleLinkList(LPSingleLinkList pList, const void *data)
 
 
 
-bool insertBeforeInSingleLinkList(LPSingleLinkList pList, const void *data, IterOfSingleLinkList);
+bool
+insertBeforeInSingleLinkList(LPSingleLinkList pList, const void *data, IterOfSingleLinkList it)
+{
+	
+	LPSingleLinkListNode *ppInsertAfter;
+	LPSingleLinkListNode pNewNode = createNewSingleLinkList(pList, data);
+
+	if (NULL == pNewNode) {
+		return False;
+	}
+
+	pNewNode->pNextNode = *it;
+	*it = pNewNode;
+
+	return True;
+	
+}
+
+
 bool insertAfterInSingleLinkList(LPSingleLinkList pList, const void *data, IterOfSingleLinkList);
+{
+	
+	LPSingleLinkListNode *ppInsertAfter;
+	LPSingleLinkListNode pNewNode = createNewSingleLinkList(pList, data);
 
-IterOfSingleLinkList findInSingleLinkList(LPSingleLinkList pList, const void *data);
-IterOfSingleLinkList findIfInSingleLinkList(LPSingleLinkList pList, Pred pred);
+	if (NULL == pNewNode) {
+		return False;
+	}
 
-bool removeInSingleLinkList(LPSingleLinkList pList, const void *data);
-bool removeIfInSingleLinkList(LPSingleLinkList pList, Pred);
+	pNewNode->pNextNode = *it;
+	*it = pNewNode;
 
-bool eraseFromSingleLinkList(LPSingleLinkList pList, IterOfSingleLinkList iter);
+	return True;
+}
+
+IterOfSingleLinkList
+findInSingleLinkList(LPSingleLinkList pList, const void *data)
+{
+	IterOfSingleLinkList it;
+
+	it = &pList->pHead;
+	while (*it && 
+		( pList->less((*it)->data, data) || pList->less(data, (*it)->data) )) {
+		it = &((*it)->pNextNode);
+	}
+	return it;
+}
 
 
-bool isSingleLinkListEmpty(const LPSingleLinkList);
+IterOfSingleLinkList
+findIfInSingleLinkList(LPSingleLinkList pList, Pred pred)
+{
 
-void sortSingleLinkList(LPSingleLinkList);
-void traverseSingleLinkList(LPSingleLinkList);
+	IterOfSingleLinkList it;
+
+	it = &pList->pHead;
+	while (*it && pred((*it)->data) == False ) {
+		it = &((*it)->pNextNode);
+	}
+	return it;
+}
+
+bool
+removeInSingleLinkList(LPSingleLinkList pList, const void *data)
+{
+	IterOfSingleLinkList it;
+	LPSingleLinkListNode pRemovedNode;
+	it = &pList->pHead;
+	bool found = False;
+	while (*it != NULL) {
+		if (pList->less((*it)->data, data) == False && pList->less(data, (*it)->data) == False) {
+			pRemovedNode = *it;
+			*it = (*it)->pNextNode;
+			myFree(pRemovedNode->data);
+			myFree(pRemovedNode);
+			found = True;
+		} else {
+			it = &((*it)->pNextNode);
+		}
+	}
+	
+	return found;
+}
+
+bool
+removeIfInSingleLinkList(LPSingleLinkList pList, Pred pred)
+{
+
+	IterOfSingleLinkList it;
+	LPSingleLinkListNode pRemovedNode;
+	it = &pList->pHead;
+	bool found = False;
+	while (*it != NULL) {
+		if (pred((*it)->data) == True) {
+			pRemovedNode = *it;
+			*it = (*it)->pNextNode;
+			myFree(pRemovedNode->data);
+			myFree(pRemovedNode);
+			found = True;
+		} else {
+			it = &((*it)->pNextNode);
+		}
+	}
+	
+	return found;
+}
+
+bool
+eraseFromSingleLinkList(LPSingleLinkList pList, IterOfSingleLinkList iter)
+{
+	LPSingleLinkListNode pRemoveNode = *iter;
+	*iter = pRemoveNode->pNextNode;
+
+	myFree(pRemoveNode->data);
+	myFree(pRemoveNode);
+
+	return True;
+}
+
+
+bool
+isSingleLinkListEmpty(const LPSingleLinkList pList)
+{
+	return pList->pHead == NULL ? True : False;
+}
+
+void
+sortSingleLinkList(LPSingleLinkList pList)
+{
+	LPSingleLinkListNode pIterNode, pNextNode;
+	IterOfSingleLinkList it;
+
+	if (NULL == pList->pHead) {
+		return;
+	}
+
+	pIterNode = pList->pHead->pNextNode;
+	pList->phead->pNextNode = NULL;
+	while (pIterNode != NULL) {
+		it = &pList->pHead;
+		while (*it != NULL && pList->less((*it)->data,data) == True) {
+			it = &((*it)->pNextNode);
+		}
+		*it = pIterNode;
+		pNextNode = pIterNode->pNextNode;
+		pIterNode->pNextNode = NULL;
+		pIterNode = pNextNode;
+	}
+
+}
+
+void traverseSingleLinkList(LPSingleLinkList)
+{
+
+}
+
+void uniqueSingleLinkList(LPSingleLinkList pList)
+{
+
+
+}
 
 
 
