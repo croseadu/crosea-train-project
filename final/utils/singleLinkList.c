@@ -271,14 +271,35 @@ sortSingleLinkList(LPSingleLinkList pList)
 
 }
 
-void traverseSingleLinkList(LPSingleLinkList)
+void
+traverseSingleLinkList(LPSingleLinkList pList, Visitor visitor)
 {
+	LPSingleLinkListNode pIterNode = pList->pHead;
+
+	while (pIterNode != NULL) {
+		visitor(pIterNode->data);
+		pIterNode = pIterNode->pNextNode;
+	}
 
 }
 
 void uniqueSingleLinkList(LPSingleLinkList pList)
 {
+	IterOfSingleLinkList it = &pList->pHead;
+	LPSingleLinkListNode pRemovedNode;	
 
+	while (*it != NULL) {
+		if (!pList->less((*it)->data, (*last)->data) && !pList->less((*last)->data, (*it)->data)) {
+			pRemovedNode = *it;
+			*it = pRemoveNode->pNextNode;
+			
+			myFree(pRemovedNode->data);
+			myFree(pRemovedNode);
+			
+		} else {
+			it = &((*it)->pNextNode); 
+		}
+	}
 
 }
 
