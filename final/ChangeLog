@@ -1,3 +1,8 @@
+2016-03-09 Yuehai Du
+	finished 80% of single link list.
+	* singleLinkList.c	
+
+
 2016-03-08 Yuehai Du
-  Add initial Utils.
-  * singleLinkList.h/c
+	Add initial Utils.
+ 	*singleLinkList.h/c

@@ -25,7 +25,7 @@ void destroyStack(LPStack *ppStack);
 bool push(LPStack pStack, const void *data);
 void pop(LPStack pStack, void *data);
 
-bool getTop(LPStack pStack, void *data);
+void getTop(LPStack pStack, void *data);
 bool isStackEmpty(const LPStack pStack);
 
 unsigned int sizeOfStack(const LPStack pStack);

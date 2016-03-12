@@ -10,7 +10,7 @@ typedef struct _SingleLinkListNode
 }SingleLinkListNode, *LPSingleLinkListNode;
 
 
-typedef LPSingleLinkListNode * IterOfSingleLinkList;
+typedef LPSingleLinkListNode * IteratorOfSingleLinkList;
 
 
 typedef struct _SingleLinkList
@@ -32,16 +32,16 @@ void clearSingleLinkList(LPSingleLinkList pList);
 bool insertToHeadOfSingleLinkList(LPSingleLinkList pList, const void *data);
 bool insertToTailOfSingleLinkList(LPSingleLinkList pList, const void *data);
 
-bool insertBeforeInSingleLinkList(LPSingleLinkList pList, const void *data, IterOfSingleLinkList);
-bool insertAfterInSingleLinkList(LPSingleLinkList pList, const void *data, IterOfSingleLinkList);
+bool insertBeforeInSingleLinkList(LPSingleLinkList pList, const void *data, IteratorOfSingleLinkList);
+bool insertAfterInSingleLinkList(LPSingleLinkList pList, const void *data, IteratorOfSingleLinkList);
 
-IterOfSingleLinkList findInSingleLinkList(LPSingleLinkList pList, const void *data);
-IterOfSingleLinkList findIfInSingleLinkList(LPSingleLinkList pList, Pred pred);
+IteratorOfSingleLinkList findInSingleLinkList(LPSingleLinkList pList, const void *data);
+IteratorOfSingleLinkList findIfInSingleLinkList(LPSingleLinkList pList, Pred pred);
 
 bool removeInSingleLinkList(LPSingleLinkList pList, const void *data);
 bool removeIfInSingleLinkList(LPSingleLinkList pList, Pred);
 
-bool eraseFromSingleLinkList(LPSingleLinkList pList, IterOfSingleLinkList iter);
+bool eraseFromSingleLinkList(LPSingleLinkList pList, IteratorOfSingleLinkList iter);
 
 
 bool isSingleLinkListEmpty(const LPSingleLinkList);
