@@ -9,12 +9,14 @@ typedef struct {
 	unsigned int keySize;
 	unsigned int dataSize;
 
+	Printer keyPrinter;
+	Printer dataPrinter;
 	Less keyCompare;
 }Map, *LPMap;
 
 typedef IteratorOfSingleLinkList IteratorOfMap;
 
-bool createMap(LPMap *ppMap, unsigned int keySize, unsigned int dataSize, Less keyCompare);
+bool createMap(LPMap *ppMap, unsigned int keySize, unsigned int dataSize, Less keyCompare, Printer, Printer);
 
 void destroyMap(LPMap *ppMap);
 

@@ -7,6 +7,7 @@ typedef struct _Vector
 {
 	char *data;
 
+	unsigned int size;
 	unsigned int elementSize;
 	unsigned int compacity;
 }Vector, *LPVector;
@@ -36,9 +37,9 @@ typedef int IteratorOfVector;
 
 bool insertBeforeInVector(LPVector, IteratorOfVector, const void *data);
 
-bool clearVector(LPVector);
+void clearVector(LPVector);
 
-bool eraseFromVector(LPVector, IteratorOfVector);
+void eraseFromVector(LPVector, IteratorOfVector);
 
 
 

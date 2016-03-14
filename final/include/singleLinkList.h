@@ -47,7 +47,7 @@ bool eraseFromSingleLinkList(LPSingleLinkList pList, IteratorOfSingleLinkList it
 bool isSingleLinkListEmpty(const LPSingleLinkList);
 
 void sortSingleLinkList(LPSingleLinkList);
-void traverseSingleLinkList(LPSingleLinkList);
+void traverseSingleLinkList(LPSingleLinkList, Visitor);
 
 
 

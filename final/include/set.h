@@ -11,11 +11,13 @@ typedef struct _Set
 
 	unsigned int keySize;
 	Less         keyCompare;
+
+	Printer      printer;
 }Set, *LPSet;
 
 typedef IteratorOfSingleLinkList IteratorOfSet;
 
-bool createSet(LPSet *, unsigned int keySize, Less less);
+bool createSet(LPSet *, unsigned int keySize, Less less, Printer printer);
 void destroySet(LPSet *);
 
 void clearSet(LPSet);
