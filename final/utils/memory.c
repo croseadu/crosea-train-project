@@ -4,9 +4,9 @@
 #include <stdlib.h>
 
 
-void *myAlloc(size_t size)
+void *myAlloc(unsigned int size)
 {
-  return alloc(size);
+  return malloc(size);
 }
 
 void myFree(void *ptr)
@@ -14,7 +14,7 @@ void myFree(void *ptr)
   free(ptr);
 }
 
-void *myReAlloc(void *ptr, size_t size)
+void *myReAlloc(void *ptr, unsigned int size)
 {
 	return realloc(ptr, size);
 }

@@ -8,27 +8,44 @@
 
 typedef struct _CircularQueue
 {
-  char *buffer;
-  unsigned int head;
-  unsigned int tail;
+	char *base;
+	unsigned int head;
+	unsigned int tail;
 
-  unsigned int maxElements;
-  unsigned int elementSize;
+	unsigned int maxItem;
+	unsigned int elementSize;
+
+	Less less;
+	Printer printer;
 }CircularQueue, *LPCircularQueue;
 
-bool createCircularQueue(LPCircularQueue *ppQueue, 
-			 unsigned int elementSize,
-			 unsigned int maxElements);
-void destroyCircularQUeue(LPCircularQueue *ppQueue);
 
 
 
-bool enqueueCircular(LPCircularQueue pQueue, const void *data);
-void dequeueCircular(LPCircularQueue pQueue, void *data);
+bool createCircularQueue(LPCircularQueue *ppQueue, unsigned int elementSize, unsigned int maxItem, Less less, Printer printer);
+
+void destroyCircularQueue(LPCircularQueue *ppQueue);
 
 
-bool isCircularQueueEmpty(const LPCircularQUeue);
-unsigned int sizeOfCircularQueue(const LPCircularQueue);
+void clearCircularQUeue(LPCircularQueue pQueue);
+
+
+
+
+void getHeadOfCircularQueue(LPCircularQueue, void *);
+void getTailOfCircularQueue(LPCircularQueue, void *);
+
+
+
+bool enCircularQueue(LPCircularQueue, const void *);
+
+void deCircularQueue(LPCircularQueue, void *);
+
+
+
+
+unsigned int getSizeOfCircularQueue(const LPCircularQueue);
+bool isCircularQueueEmpty(const LPCircularQueue);
 
 
 #endif

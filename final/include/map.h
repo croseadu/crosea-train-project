@@ -29,4 +29,11 @@ IteratorOfMap findInMap(LPMap pMap, const void *key);
 
 void eraseFromMap(LPMap pMap, IteratorOfMap iter);
 
+
+
+void getFirstOfMapIterator(LPMap, IteratorOfMap, void *key);
+void getSecondOfMapIterator(LPMap, IteratorOfMap, void *data);
+
+void setSecondOfMapIterator(LPMap, IteratorOfMap, const void *data);
+
 #endif

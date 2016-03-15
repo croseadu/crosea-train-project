@@ -2,7 +2,9 @@
 
 #include "myMemory.h"
 
+
 #include <stdio.h>
+#include <string.h>
 #include <assert.h>
 
 
@@ -86,7 +88,7 @@ createNewSingleLinkListNode(const LPSingleLinkList pList, const void *data)
 bool
 insertToHeadOfSingleLinkList(LPSingleLinkList pList, const void *data)
 {
-	LPSingleLinkListNode pNewNode = createNewSingleLinkList(pList, data);
+	LPSingleLinkListNode pNewNode = createNewSingleLinkListNode(pList, data);
 
 	if (NULL == pNewNode) {
 		return False;
@@ -103,7 +105,8 @@ bool insertToTailOfSingleLinkList(LPSingleLinkList pList, const void *data)
 {
 	
 	LPSingleLinkListNode *ppInsertAfter;
-	LPSingleLinkListNode pNewNode = createNewSingleLinkList(pList, data);
+	LPSingleLinkListNode pNewNode = createNewSingleLinkListNode(pList, data);
+
 
 	if (NULL == pNewNode) {
 		return False;
@@ -121,11 +124,11 @@ bool insertToTailOfSingleLinkList(LPSingleLinkList pList, const void *data)
 
 
 bool
-insertBeforeInSingleLinkList(LPSingleLinkList pList, const void *data, IteartorOfSingleLinkList it)
+insertBeforeInSingleLinkList(LPSingleLinkList pList, const void *data, IteratorOfSingleLinkList it)
 {
 	
 	LPSingleLinkListNode *ppInsertAfter;
-	LPSingleLinkListNode pNewNode = createNewSingleLinkList(pList, data);
+	LPSingleLinkListNode pNewNode = createNewSingleLinkListNode(pList, data);
 
 	if (NULL == pNewNode) {
 		return False;
@@ -139,11 +142,11 @@ insertBeforeInSingleLinkList(LPSingleLinkList pList, const void *data, IteartorO
 }
 
 
-bool insertAfterInSingleLinkList(LPSingleLinkList pList, const void *data, IteartorOfSingleLinkList);
+bool insertAfterInSingleLinkList(LPSingleLinkList pList, const void *data, IteratorOfSingleLinkList it) 
 {
 	
 	LPSingleLinkListNode *ppInsertAfter;
-	LPSingleLinkListNode pNewNode = createNewSingleLinkList(pList, data);
+	LPSingleLinkListNode pNewNode = createNewSingleLinkListNode(pList, data);
 
 	if (NULL == pNewNode) {
 		return False;
@@ -155,10 +158,10 @@ bool insertAfterInSingleLinkList(LPSingleLinkList pList, const void *data, Itear
 	return True;
 }
 
-IteartorOfSingleLinkList
+IteratorOfSingleLinkList
 findInSingleLinkList(LPSingleLinkList pList, const void *data)
 {
-	IteartorOfSingleLinkList it;
+	IteratorOfSingleLinkList it;
 
 	it = &pList->pHead;
 	while (*it && 
@@ -169,11 +172,11 @@ findInSingleLinkList(LPSingleLinkList pList, const void *data)
 }
 
 
-IteartorOfSingleLinkList
+IteratorOfSingleLinkList
 findIfInSingleLinkList(LPSingleLinkList pList, Pred pred)
 {
 
-	IteartorOfSingleLinkList it;
+	IteratorOfSingleLinkList it;
 
 	it = &pList->pHead;
 	while (*it && pred((*it)->data) == False ) {
@@ -185,7 +188,7 @@ findIfInSingleLinkList(LPSingleLinkList pList, Pred pred)
 bool
 removeInSingleLinkList(LPSingleLinkList pList, const void *data)
 {
-	IteartorOfSingleLinkList it;
+	IteratorOfSingleLinkList it;
 	LPSingleLinkListNode pRemovedNode;
 	it = &pList->pHead;
 	bool found = False;
@@ -208,7 +211,7 @@ bool
 removeIfInSingleLinkList(LPSingleLinkList pList, Pred pred)
 {
 
-	IteartorOfSingleLinkList it;
+	IteratorOfSingleLinkList it;
 	LPSingleLinkListNode pRemovedNode;
 	it = &pList->pHead;
 	bool found = False;
@@ -228,7 +231,7 @@ removeIfInSingleLinkList(LPSingleLinkList pList, Pred pred)
 }
 
 bool
-eraseFromSingleLinkList(LPSingleLinkList pList, IteartorOfSingleLinkList iter)
+eraseFromSingleLinkList(LPSingleLinkList pList, IteratorOfSingleLinkList iter)
 {
 	LPSingleLinkListNode pRemoveNode = *iter;
 	*iter = pRemoveNode->pNextNode;
@@ -250,17 +253,17 @@ void
 sortSingleLinkList(LPSingleLinkList pList)
 {
 	LPSingleLinkListNode pIterNode, pNextNode;
-	IteartorOfSingleLinkList it;
+	IteratorOfSingleLinkList it;
 
 	if (NULL == pList->pHead) {
 		return;
 	}
 
 	pIterNode = pList->pHead->pNextNode;
-	pList->phead->pNextNode = NULL;
+	pList->pHead->pNextNode = NULL;
 	while (pIterNode != NULL) {
 		it = &pList->pHead;
-		while (*it != NULL && pList->less((*it)->data,data) == True) {
+		while (*it != NULL && pList->less((*it)->data,pIterNode->data) == True) {
 			it = &((*it)->pNextNode);
 		}
 		*it = pIterNode;
@@ -285,13 +288,17 @@ traverseSingleLinkList(LPSingleLinkList pList, Visitor visitor)
 
 void uniqueSingleLinkList(LPSingleLinkList pList)
 {
-	IteartorOfSingleLinkList it = &pList->pHead;
+	IteratorOfSingleLinkList last = &pList->pHead;
+	IteratorOfSingleLinkList it;
 	LPSingleLinkListNode pRemovedNode;	
 
+	if (pList->pHead->pNextNode == NULL)
+		return;
+	it = &pList->pHead->pNextNode;
 	while (*it != NULL) {
 		if (!pList->less((*it)->data, (*last)->data) && !pList->less((*last)->data, (*it)->data)) {
 			pRemovedNode = *it;
-			*it = pRemoveNode->pNextNode;
+			*it = pRemovedNode->pNextNode;
 			
 			myFree(pRemovedNode->data);
 			myFree(pRemovedNode);

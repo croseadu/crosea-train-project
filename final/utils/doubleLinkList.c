@@ -2,6 +2,8 @@
 
 #include "myMemory.h"
 
+
+#include <string.h>
 #include <stdio.h>
 #include <assert.h>
 
@@ -22,7 +24,7 @@ createDoubleLinkList(LPDoubleLinkList *ppList,
 		return False;
 	}
 
-	pList->pHead = (LPDoubleLinkList)myAlloc(sizeof(DoubleLinkListNode));
+	pList->pHead = (LPDoubleLinkListNode)myAlloc(sizeof(DoubleLinkListNode));
 	if (NULL == pList->pHead) {
 		myFree(pList);
 		assert(0 && "out of memory!");
@@ -44,7 +46,11 @@ createDoubleLinkList(LPDoubleLinkList *ppList,
 void
 destroyDoubleLinkList(LPDoubleLinkList *ppList)
 {
+	LPDoubleLinkList pList;
 	assert(ppList != NULL && *ppList != NULL);
+	
+
+	pList = *ppList;
 	clearDoubleLinkList(*ppList);
 	myFree(pList->pHead);
 	pList->pHead = NULL;
@@ -97,7 +103,7 @@ createNewDoubleLinkListNode(const LPDoubleLinkList pList, const void *data)
 bool
 insertToHeadOfDoubleLinkList(LPDoubleLinkList pList, const void *data)
 {
-	LPDoubleLinkListNode pNewNode = createNewDoubleLinkList(pList, data);
+	LPDoubleLinkListNode pNewNode = createNewDoubleLinkListNode(pList, data);
 
 	if (NULL == pNewNode) {
 		return False;
@@ -117,7 +123,7 @@ bool insertToTailOfDoubleLinkList(LPDoubleLinkList pList, const void *data)
 {
 	
 	LPDoubleLinkListNode pInsertAfter;
-	LPDoubleLinkListNode pNewNode = createNewDoubleLinkList(pList, data);
+	LPDoubleLinkListNode pNewNode = createNewDoubleLinkListNode(pList, data);
 
 	if (NULL == pNewNode) {
 		return False;
@@ -138,10 +144,10 @@ bool insertToTailOfDoubleLinkList(LPDoubleLinkList pList, const void *data)
 
 
 bool
-insertBeforeInDoubleLinkList(LPDoubleLinkList pList, const void *data, IterOfDoubleLinkList it)
+insertBeforeInDoubleLinkList(LPDoubleLinkList pList, const void *data, IteratorOfDoubleLinkList it)
 {
 	
-	LPDoubleLinkListNode pNewNode = createNewDoubleLinkList(pList, data);
+	LPDoubleLinkListNode pNewNode = createNewDoubleLinkListNode(pList, data);
 
 	if (NULL == pNewNode) {
 		return False;
@@ -156,10 +162,10 @@ insertBeforeInDoubleLinkList(LPDoubleLinkList pList, const void *data, IterOfDou
 }
 
 
-bool insertAfterInDoubleLinkList(LPDoubleLinkList pList, const void *data, IterOfDoubleLinkList it);
+bool insertAfterInDoubleLinkList(LPDoubleLinkList pList, const void *data, IteratorOfDoubleLinkList it)
 {
 	
-	LPDoubleLinkListNode pNewNode = createNewDoubleLinkList(pList, data);
+	LPDoubleLinkListNode pNewNode = createNewDoubleLinkListNode(pList, data);
 
 	if (NULL == pNewNode) {
 		return False;
@@ -173,10 +179,10 @@ bool insertAfterInDoubleLinkList(LPDoubleLinkList pList, const void *data, IterO
 	return True;
 }
 
-IterOfDoubleLinkList
+IteratorOfDoubleLinkList
 findInDoubleLinkList(LPDoubleLinkList pList, const void *data)
 {
-	IterOfDoubleLinkList it;
+	IteratorOfDoubleLinkList it;
 
 	it = &(pList->pHead->pNextNode);
 	while (*it != pList->pHead && 
@@ -187,11 +193,11 @@ findInDoubleLinkList(LPDoubleLinkList pList, const void *data)
 }
 
 
-IterOfDoubleLinkList
+IteratorOfDoubleLinkList
 findIfInDoubleLinkList(LPDoubleLinkList pList, Pred pred)
 {
 
-	IterOfDoubleLinkList it;
+	IteratorOfDoubleLinkList it;
 
 	it = &(pList->pHead->pNextNode);
 	while (*it != pList->pHead && pred((*it)->data) == False ) {
@@ -203,7 +209,7 @@ findIfInDoubleLinkList(LPDoubleLinkList pList, Pred pred)
 bool
 removeInDoubleLinkList(LPDoubleLinkList pList, const void *data)
 {
-	IterOfDoubleLinkList it;
+	IteratorOfDoubleLinkList it;
 	LPDoubleLinkListNode pRemovedNode;
 	it = &(pList->pHead->pNextNode);
 	bool found = False;
@@ -211,7 +217,7 @@ removeInDoubleLinkList(LPDoubleLinkList pList, const void *data)
 		if (pList->less((*it)->data, data) == False && pList->less(data, (*it)->data) == False) {
 			pRemovedNode = *it;
 			*it = pRemovedNode->pNextNode;
-			(*it)->pPrevNode = pRemoveNode->pPrevNode;
+			(*it)->pPrevNode = pRemovedNode->pPrevNode;
 
 
 			myFree(pRemovedNode->data);
@@ -229,7 +235,7 @@ bool
 removeIfInDoubleLinkList(LPDoubleLinkList pList, Pred pred)
 {
 
-	IterOfDoubleLinkList it;
+	IteratorOfDoubleLinkList it;
 	LPDoubleLinkListNode pRemovedNode;
 	it = &pList->pHead;
 	bool found = False;
@@ -237,7 +243,7 @@ removeIfInDoubleLinkList(LPDoubleLinkList pList, Pred pred)
 		if (pred((*it)->data) == True) {
 			pRemovedNode = *it;
 			*it = pRemovedNode->pNextNode;
-			(*it)->pPrevNode = pRemoveNode->pPrevNode;
+			(*it)->pPrevNode = pRemovedNode->pPrevNode;
 
 
 			myFree(pRemovedNode->data);
@@ -252,14 +258,14 @@ removeIfInDoubleLinkList(LPDoubleLinkList pList, Pred pred)
 }
 
 bool
-eraseFromDoubleLinkList(LPDoubleLinkList pList, IterOfDoubleLinkList iter)
+eraseFromDoubleLinkList(LPDoubleLinkList pList, IteratorOfDoubleLinkList it)
 {
-	LPDoubleLinkListNode pRemovedNode = *iter;
-	*iter = pRemovedNode->pNextNode;
+	LPDoubleLinkListNode pRemovedNode = *it;
+	*it = pRemovedNode->pNextNode;
 	(*it)->pPrevNode = pRemovedNode->pPrevNode;
 
-	myFree(pRemoveNode->data);
-	myFree(pRemoveNode);
+	myFree(pRemovedNode->data);
+	myFree(pRemovedNode);
 
 	return True;
 }
@@ -275,18 +281,18 @@ void
 sortDoubleLinkList(LPDoubleLinkList pList)
 {
 	LPDoubleLinkListNode pIterNode, pNextNode;
-	IterOfDoubleLinkList it;
+	IteratorOfDoubleLinkList it;
 
 	if (NULL == pList->pHead) {
 		return;
 	}
 
 	pIterNode = pList->pHead->pNextNode;
-	pList->phead->pNextNode = pList->pHead;
+	pList->pHead->pNextNode = pList->pHead;
 	pList->pHead->pPrevNode = pList->pHead;
 	while (pIterNode != pList->pHead) {
 		it = &pList->pHead->pNextNode;
-		while (*it != pList->pHead && pList->less((*it)->data,data) == True) {
+		while (*it != pList->pHead && pList->less((*it)->data, pIterNode->data) == True) {
 			it = &((*it)->pNextNode);
 		}
 		pNextNode = pIterNode->pNextNode;
@@ -315,14 +321,21 @@ traverseDoubleLinkList(LPDoubleLinkList pList, Visitor visitor)
 
 void uniqueDoubleLinkList(LPDoubleLinkList pList)
 {
-	IterOfDoubleLinkList it = &pList->pHead->pNextNode;
+	IteratorOfDoubleLinkList last = &pList->pHead->pNextNode;
 	LPDoubleLinkListNode pRemovedNode;	
+	IteratorOfDoubleLinkList it;		
 
+	if (pList->pHead->pNextNode == pList->pHead ||
+	    pList->pHead->pNextNode->pNextNode == pList->pHead)
+		return;
+
+	it = &pList->pHead->pNextNode->pNextNode;
+	
 	while (*it != pList->pHead) {
 		if (!pList->less((*it)->data, (*last)->data) && !pList->less((*last)->data, (*it)->data)) {
 			pRemovedNode = *it;
 			(*it)->pPrevNode = pRemovedNode->pPrevNode;
-			*it = pRemoveNode->pNextNode;
+			*it = pRemovedNode->pNextNode;
 			
 			myFree(pRemovedNode->data);
 			myFree(pRemovedNode);
