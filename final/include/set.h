@@ -26,7 +26,7 @@ bool insertToSet(LPSet, const void *key);
 void eraseFromSet(LPSet, IteratorOfSet);
 
 unsigned int countInSet(const LPSet, const void *key);
-IteartorOfSet findInSet(const LPSet, const void *key);
+IteratorOfSet findInSet(const LPSet, const void *key);
 
 #endif
 

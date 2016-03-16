@@ -50,7 +50,7 @@ void sortSingleLinkList(LPSingleLinkList);
 void traverseSingleLinkList(LPSingleLinkList, Visitor);
 
 
-
+void reverseSingleLinkList(LPSingleLinkList);
 
 #endif
 

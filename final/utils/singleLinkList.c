@@ -165,7 +165,7 @@ findInSingleLinkList(LPSingleLinkList pList, const void *data)
 
 	it = &pList->pHead;
 	while (*it && 
-		( pList->less((*it)->data, data) || pList->less(data, (*it)->data) )) {
+		( pList->less((*it)->data, data) == True || pList->less(data, (*it)->data) == True )) {
 		it = &((*it)->pNextNode);
 	}
 	return it;
@@ -255,7 +255,7 @@ sortSingleLinkList(LPSingleLinkList pList)
 	LPSingleLinkListNode pIterNode, pNextNode;
 	IteratorOfSingleLinkList it;
 
-	if (NULL == pList->pHead) {
+	if (NULL == pList->pHead || NULL == pList->pHead->pNextNode) {
 		return;
 	}
 
@@ -266,9 +266,10 @@ sortSingleLinkList(LPSingleLinkList pList)
 		while (*it != NULL && pList->less((*it)->data,pIterNode->data) == True) {
 			it = &((*it)->pNextNode);
 		}
-		*it = pIterNode;
+
 		pNextNode = pIterNode->pNextNode;
-		pIterNode->pNextNode = NULL;
+		pIterNode->pNextNode = *it;
+		*it = pIterNode;
 		pIterNode = pNextNode;
 	}
 
@@ -292,11 +293,14 @@ void uniqueSingleLinkList(LPSingleLinkList pList)
 	IteratorOfSingleLinkList it;
 	LPSingleLinkListNode pRemovedNode;	
 
-	if (pList->pHead->pNextNode == NULL)
+	if (NULL == pList->pHead || pList->pHead->pNextNode == NULL)
 		return;
+
 	it = &pList->pHead->pNextNode;
+
 	while (*it != NULL) {
-		if (!pList->less((*it)->data, (*last)->data) && !pList->less((*last)->data, (*it)->data)) {
+		if (False == pList->less((*it)->data, (*last)->data) && 
+		    False == pList->less((*last)->data, (*it)->data)) {
 			pRemovedNode = *it;
 			*it = pRemovedNode->pNextNode;
 			
@@ -304,6 +308,7 @@ void uniqueSingleLinkList(LPSingleLinkList pList)
 			myFree(pRemovedNode);
 			
 		} else {
+			last = it;
 			it = &((*it)->pNextNode); 
 		}
 	}
@@ -311,6 +316,28 @@ void uniqueSingleLinkList(LPSingleLinkList pList)
 }
 
 
+void reverseSingleLinkList(LPSingleLinkList pList)
+{
+	LPSingleLinkListNode pIterNode;
+	LPSingleLinkListNode pNextNode;
+	LPSingleLinkListNode pHeadNode;
+	
+	if (pList->pHead == NULL || pList->pHead->pNextNode == NULL)
+		return;
+	
+	pIterNode = pList->pHead->pNextNode;
+	pHeadNode = pList->pHead;
+	pHeadNode->pNextNode = NULL;
+	while (pIterNode) {
+		pNextNode = pIterNode->pNextNode;
 
+		pIterNode->pNextNode = pHeadNode;
+		pHeadNode = pIterNode;
+
+		pIterNode = pNextNode;
+	}
+	
+	pList->pHead = pHeadNode;
+}
 
 

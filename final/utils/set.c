@@ -7,8 +7,6 @@
 #include <assert.h>
 
 
-
-
 bool
 createSet(LPSet *ppSet, unsigned int keySize, Less less, Printer printer)
 {
@@ -20,7 +18,7 @@ createSet(LPSet *ppSet, unsigned int keySize, Less less, Printer printer)
 		return False;
 	}
 
-	if (False == createSingleLinkList(&pSet->pList, keySize, printer, Less)) {
+	if (False == createSingleLinkList(&pSet->pList, keySize, printer, less)) {
 		myFree(pSet);
 		assert(0 && "Out Of Memory!");
 		return False;
@@ -73,20 +71,20 @@ eraseFromSet(LPSet pSet, IteratorOfSet it)
 {
 	IteratorOfSingleLinkList itOfList = (IteratorOfSingleLinkList)it;
 
-	if (False == removeFromSingleLinkList(pSet->pList, itOfLit)) {
+	if (False == removeFromSingleLinkList(pSet->pList, itOfList)) {
 		assert(0 && "remove a item which doesn't exist in set!");
 		return;
 	}
 }
 
 static countOfOccurences = 0;
-static void *refData = NULL;
+static const void *refData = NULL;
 static unsigned int elementSize = 0;
 
 void countItem(const void *in)
 {
 	if (memcmp(in, refData, elementSize) == 0) {
-		++countOfOccurrences;
+		++countOfOccurences;
 	} 
 }
 
@@ -103,7 +101,7 @@ countInSet(const LPSet pSet, const void *key)
 }
 
 
-IteartorOfSet
+IteratorOfSet
 findInSet(const LPSet pSet, const void *key)
 {
 	IteratorOfSingleLinkList it;

@@ -78,6 +78,7 @@ testSingleLinkList_OBJECTS = \
 testSingleLinkList_EXTERNAL_OBJECTS =
 
 bin/testSingleLinkList: test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/main.c.o
+bin/testSingleLinkList: lib/libutils.a
 bin/testSingleLinkList: test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/build.make
 bin/testSingleLinkList: test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking C executable ../../bin/testSingleLinkList"

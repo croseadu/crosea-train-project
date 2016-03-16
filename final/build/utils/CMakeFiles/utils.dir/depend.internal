@@ -4,12 +4,17 @@
 utils/CMakeFiles/utils.dir/circularQueue.c.o
  /local/.train/train/final/utils/circularQueue.c
 utils/CMakeFiles/utils.dir/doubleLinkList.c.o
+ ../include/common.h
  ../include/doubleLinkList.h
  ../include/myMemory.h
  /local/.train/train/final/utils/doubleLinkList.c
 utils/CMakeFiles/utils.dir/inOutHelper.c.o
  /local/.train/train/final/utils/inOutHelper.c
 utils/CMakeFiles/utils.dir/map.c.o
+ ../include/common.h
+ ../include/map.h
+ ../include/myMemory.h
+ ../include/singleLinkList.h
  /local/.train/train/final/utils/map.c
 utils/CMakeFiles/utils.dir/memory.c.o
  ../include/myMemory.h

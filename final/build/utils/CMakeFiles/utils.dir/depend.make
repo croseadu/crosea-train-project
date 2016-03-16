@@ -3,12 +3,17 @@
 
 utils/CMakeFiles/utils.dir/circularQueue.c.o: ../utils/circularQueue.c
 
+utils/CMakeFiles/utils.dir/doubleLinkList.c.o: ../include/common.h
 utils/CMakeFiles/utils.dir/doubleLinkList.c.o: ../include/doubleLinkList.h
 utils/CMakeFiles/utils.dir/doubleLinkList.c.o: ../include/myMemory.h
 utils/CMakeFiles/utils.dir/doubleLinkList.c.o: ../utils/doubleLinkList.c
 
 utils/CMakeFiles/utils.dir/inOutHelper.c.o: ../utils/inOutHelper.c
 
+utils/CMakeFiles/utils.dir/map.c.o: ../include/common.h
+utils/CMakeFiles/utils.dir/map.c.o: ../include/map.h
+utils/CMakeFiles/utils.dir/map.c.o: ../include/myMemory.h
+utils/CMakeFiles/utils.dir/map.c.o: ../include/singleLinkList.h
 utils/CMakeFiles/utils.dir/map.c.o: ../utils/map.c
 
 utils/CMakeFiles/utils.dir/memory.c.o: ../include/myMemory.h

@@ -5,6 +5,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <assert.h>
 
 
@@ -186,7 +187,7 @@ findInDoubleLinkList(LPDoubleLinkList pList, const void *data)
 
 	it = &(pList->pHead->pNextNode);
 	while (*it != pList->pHead && 
-		( pList->less((*it)->data, data) || pList->less(data, (*it)->data) )) {
+		( pList->less((*it)->data, data) == True || pList->less(data, (*it)->data) == True)) {
 		it = &((*it)->pNextNode);
 	}
 	return it;
@@ -283,7 +284,8 @@ sortDoubleLinkList(LPDoubleLinkList pList)
 	LPDoubleLinkListNode pIterNode, pNextNode;
 	IteratorOfDoubleLinkList it;
 
-	if (NULL == pList->pHead) {
+	if (pList->pHead->pNextNode == pList->pHead || 
+            pList->pHead->pNextNode->pNextNode == pList->pHead) {
 		return;
 	}
 
@@ -332,7 +334,8 @@ void uniqueDoubleLinkList(LPDoubleLinkList pList)
 	it = &pList->pHead->pNextNode->pNextNode;
 	
 	while (*it != pList->pHead) {
-		if (!pList->less((*it)->data, (*last)->data) && !pList->less((*last)->data, (*it)->data)) {
+		if (False == pList->less((*it)->data, (*last)->data) &&
+		    False == pList->less((*last)->data, (*it)->data)) {
 			pRemovedNode = *it;
 			(*it)->pPrevNode = pRemovedNode->pPrevNode;
 			*it = pRemovedNode->pNextNode;
@@ -341,13 +344,18 @@ void uniqueDoubleLinkList(LPDoubleLinkList pList)
 			myFree(pRemovedNode);
 			
 		} else {
+			last = it;
 			it = &((*it)->pNextNode); 
 		}
 	}
 
 }
 
-
+void
+reverseDoubleLinkList(LPDoubleLinkList pList)
+{
+	
+}
 
 
 
