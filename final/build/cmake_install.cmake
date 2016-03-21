@@ -36,6 +36,7 @@ IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   INCLUDE("/local/.train/train/final/build/utils/cmake_install.cmake")
   INCLUDE("/local/.train/train/final/build/test/cmake_install.cmake")
+  INCLUDE("/local/.train/train/final/build/basic/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 

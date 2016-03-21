@@ -238,9 +238,9 @@ removeIfInDoubleLinkList(LPDoubleLinkList pList, Pred pred)
 
 	IteratorOfDoubleLinkList it;
 	LPDoubleLinkListNode pRemovedNode;
-	it = &pList->pHead;
+	it = &pList->pHead->pNextNode;
 	bool found = False;
-	while (*it != NULL) {
+	while (*it != pList->pHead ) {
 		if (pred((*it)->data) == True) {
 			pRemovedNode = *it;
 			*it = pRemovedNode->pNextNode;
@@ -354,7 +354,27 @@ void uniqueDoubleLinkList(LPDoubleLinkList pList)
 void
 reverseDoubleLinkList(LPDoubleLinkList pList)
 {
-	
+	IteratorOfDoubleLinkList it;
+	LPDoubleLinkListNode pIterNode;
+	LPDoubleLinkListNode pNextNode;
+	if (pList->pHead->pNextNode == pList->pHead)
+		return;
+
+	pIterNode = pList->pHead->pNextNode;
+	pList->pHead->pNextNode = pList->pHead;
+	pList->pHead->pPrevNode = pList->pHead;
+
+	while (pIterNode != pList->pHead) {
+		pNextNode = pIterNode->pNextNode;
+		
+		pIterNode->pNextNode = pList->pHead->pNextNode;
+		pIterNode->pPrevNode = pList->pHead;
+
+		pIterNode->pNextNode->pPrevNode = pIterNode;
+		pIterNode->pPrevNode->pNextNode = pIterNode;
+
+		pIterNode = pNextNode;
+	}	
 }
 
 

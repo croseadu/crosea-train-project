@@ -1,2 +1,4 @@
+/local/.train/train/final/build/basic/CMakeFiles/decimalToBinary.dir
+/local/.train/train/final/build/test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir
 /local/.train/train/final/build/test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir
 /local/.train/train/final/build/utils/CMakeFiles/utils.dir

@@ -8,23 +8,23 @@
 
 ../include/common.h
 
-../include/doubleLinkList.h
+../include/myMemory.h
+
+../include/stack.h
 common.h
 ../include/common.h
 
-../include/myMemory.h
-
-/local/.train/train/final/utils/doubleLinkList.c
-doubleLinkList.h
-/local/.train/train/final/utils/doubleLinkList.h
+/local/.train/train/final/utils/stack.c
+stack.h
+/local/.train/train/final/utils/stack.h
 myMemory.h
 /local/.train/train/final/utils/myMemory.h
-string.h
--
 stdio.h
 -
 stdlib.h
 -
 assert.h
+-
+string.h
 -
 

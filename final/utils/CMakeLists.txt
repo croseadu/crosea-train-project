@@ -9,5 +9,6 @@ SET(SRC_LIST memory.c
              staticLinkList.c
              queue.c
 	     priorityQueue.c
+	     utils.c
              )
 ADD_LIBRARY(utils ${SRC_LIST})

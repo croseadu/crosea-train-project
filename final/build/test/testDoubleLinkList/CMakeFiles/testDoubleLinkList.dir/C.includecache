@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/common.h
+
+../include/doubleLinkList.h
+common.h
+../include/common.h
+
+../include/utils.h
+
+/local/.train/train/final/test/testDoubleLinkList/main.c
+doubleLinkList.h
+/local/.train/train/final/test/testDoubleLinkList/doubleLinkList.h
+doubleLinkList.h
+/local/.train/train/final/test/testDoubleLinkList/doubleLinkList.h
+utils.h
+/local/.train/train/final/test/testDoubleLinkList/utils.h
+stdio.h
+-
+assert.h
+-
+stdlib.h
+-
+common.h
+/local/.train/train/final/test/testDoubleLinkList/common.h
+

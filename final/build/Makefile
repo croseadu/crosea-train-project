@@ -121,6 +121,32 @@ testSingleLinkList/fast:
 	$(MAKE) -f test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/build.make test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/build
 .PHONY : testSingleLinkList/fast
 
+#=============================================================================
+# Target rules for targets named testDoubleLinkList
+
+# Build rule for target.
+testDoubleLinkList: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testDoubleLinkList
+.PHONY : testDoubleLinkList
+
+# fast build rule for target.
+testDoubleLinkList/fast:
+	$(MAKE) -f test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/build.make test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/build
+.PHONY : testDoubleLinkList/fast
+
+#=============================================================================
+# Target rules for targets named decimalToBinary
+
+# Build rule for target.
+decimalToBinary: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 decimalToBinary
+.PHONY : decimalToBinary
+
+# fast build rule for target.
+decimalToBinary/fast:
+	$(MAKE) -f basic/CMakeFiles/decimalToBinary.dir/build.make basic/CMakeFiles/decimalToBinary.dir/build
+.PHONY : decimalToBinary/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -131,6 +157,8 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... utils"
 	@echo "... testSingleLinkList"
+	@echo "... testDoubleLinkList"
+	@echo "... decimalToBinary"
 .PHONY : help
 
 

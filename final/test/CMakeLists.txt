@@ -1,2 +1,2 @@
 ADD_SUBDIRECTORY(testSingleLinkList)
-#ADD_SUBDIRECTORY(testDoubleLinkList)
+ADD_SUBDIRECTORY(testDoubleLinkList)
