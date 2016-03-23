@@ -27,7 +27,7 @@ int main()
 	char strs[4096];
 	unsigned int i;
 	char dummy;
-	char newstr[4096];
+	char newStr[4096];
 	unsigned int size;
 
 
@@ -53,14 +53,14 @@ int main()
 	}
 
 
-	size = getSizeOfStack(pStack);
+	size = sizeOfStack(pStack);
 	if (size > 0) {
-		newstr[size] = 0;
+		newStr[size] = 0;
 		while (size-- > 0) {
 			assert(isStackEmpty(pStack) == False);
 			pop(pStack, &newStr[size]);
 		}
-		assert(iStackEmpty(pStack) == True);
+		assert(isStackEmpty(pStack) == True);
 		printf("Final input is:%s\n", newStr);
 
 	} else {

@@ -1,0 +1,1 @@
+/usr/bin/gcc   -g    CMakeFiles/parenthesesMatch.dir/parenthesesMatching.c.o  -o ../bin/parenthesesMatch -rdynamic ../lib/libutils.a 

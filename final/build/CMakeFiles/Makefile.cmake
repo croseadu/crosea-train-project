@@ -49,5 +49,8 @@ SET(CMAKE_DEPEND_INFO_FILES
   "utils/CMakeFiles/utils.dir/DependInfo.cmake"
   "test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/DependInfo.cmake"
   "test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/DependInfo.cmake"
+  "basic/CMakeFiles/calculator.dir/DependInfo.cmake"
   "basic/CMakeFiles/decimalToBinary.dir/DependInfo.cmake"
+  "basic/CMakeFiles/lineEdit.dir/DependInfo.cmake"
+  "basic/CMakeFiles/parenthesesMatch.dir/DependInfo.cmake"
   )

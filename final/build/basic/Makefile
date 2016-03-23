@@ -96,6 +96,20 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+basic/CMakeFiles/calculator.dir/rule:
+	cd /local/.train/train/final/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/calculator.dir/rule
+.PHONY : basic/CMakeFiles/calculator.dir/rule
+
+# Convenience name for target.
+calculator: basic/CMakeFiles/calculator.dir/rule
+.PHONY : calculator
+
+# fast build rule for target.
+calculator/fast:
+	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/build
+.PHONY : calculator/fast
+
+# Convenience name for target.
 basic/CMakeFiles/decimalToBinary.dir/rule:
 	cd /local/.train/train/final/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/decimalToBinary.dir/rule
 .PHONY : basic/CMakeFiles/decimalToBinary.dir/rule
@@ -108,6 +122,58 @@ decimalToBinary: basic/CMakeFiles/decimalToBinary.dir/rule
 decimalToBinary/fast:
 	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/decimalToBinary.dir/build.make basic/CMakeFiles/decimalToBinary.dir/build
 .PHONY : decimalToBinary/fast
+
+# Convenience name for target.
+basic/CMakeFiles/lineEdit.dir/rule:
+	cd /local/.train/train/final/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/lineEdit.dir/rule
+.PHONY : basic/CMakeFiles/lineEdit.dir/rule
+
+# Convenience name for target.
+lineEdit: basic/CMakeFiles/lineEdit.dir/rule
+.PHONY : lineEdit
+
+# fast build rule for target.
+lineEdit/fast:
+	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/lineEdit.dir/build.make basic/CMakeFiles/lineEdit.dir/build
+.PHONY : lineEdit/fast
+
+# Convenience name for target.
+basic/CMakeFiles/parenthesesMatch.dir/rule:
+	cd /local/.train/train/final/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/parenthesesMatch.dir/rule
+.PHONY : basic/CMakeFiles/parenthesesMatch.dir/rule
+
+# Convenience name for target.
+parenthesesMatch: basic/CMakeFiles/parenthesesMatch.dir/rule
+.PHONY : parenthesesMatch
+
+# fast build rule for target.
+parenthesesMatch/fast:
+	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/parenthesesMatch.dir/build.make basic/CMakeFiles/parenthesesMatch.dir/build
+.PHONY : parenthesesMatch/fast
+
+calculator.o: calculator.c.o
+.PHONY : calculator.o
+
+# target to build an object file
+calculator.c.o:
+	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/calculator.c.o
+.PHONY : calculator.c.o
+
+calculator.i: calculator.c.i
+.PHONY : calculator.i
+
+# target to preprocess a source file
+calculator.c.i:
+	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/calculator.c.i
+.PHONY : calculator.c.i
+
+calculator.s: calculator.c.s
+.PHONY : calculator.s
+
+# target to generate assembly for a file
+calculator.c.s:
+	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/calculator.c.s
+.PHONY : calculator.c.s
 
 decimalToBinary.o: decimalToBinary.c.o
 .PHONY : decimalToBinary.o
@@ -133,18 +199,78 @@ decimalToBinary.c.s:
 	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/decimalToBinary.dir/build.make basic/CMakeFiles/decimalToBinary.dir/decimalToBinary.c.s
 .PHONY : decimalToBinary.c.s
 
+lineEdit.o: lineEdit.c.o
+.PHONY : lineEdit.o
+
+# target to build an object file
+lineEdit.c.o:
+	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/lineEdit.dir/build.make basic/CMakeFiles/lineEdit.dir/lineEdit.c.o
+.PHONY : lineEdit.c.o
+
+lineEdit.i: lineEdit.c.i
+.PHONY : lineEdit.i
+
+# target to preprocess a source file
+lineEdit.c.i:
+	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/lineEdit.dir/build.make basic/CMakeFiles/lineEdit.dir/lineEdit.c.i
+.PHONY : lineEdit.c.i
+
+lineEdit.s: lineEdit.c.s
+.PHONY : lineEdit.s
+
+# target to generate assembly for a file
+lineEdit.c.s:
+	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/lineEdit.dir/build.make basic/CMakeFiles/lineEdit.dir/lineEdit.c.s
+.PHONY : lineEdit.c.s
+
+parenthesesMatching.o: parenthesesMatching.c.o
+.PHONY : parenthesesMatching.o
+
+# target to build an object file
+parenthesesMatching.c.o:
+	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/parenthesesMatch.dir/build.make basic/CMakeFiles/parenthesesMatch.dir/parenthesesMatching.c.o
+.PHONY : parenthesesMatching.c.o
+
+parenthesesMatching.i: parenthesesMatching.c.i
+.PHONY : parenthesesMatching.i
+
+# target to preprocess a source file
+parenthesesMatching.c.i:
+	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/parenthesesMatch.dir/build.make basic/CMakeFiles/parenthesesMatch.dir/parenthesesMatching.c.i
+.PHONY : parenthesesMatching.c.i
+
+parenthesesMatching.s: parenthesesMatching.c.s
+.PHONY : parenthesesMatching.s
+
+# target to generate assembly for a file
+parenthesesMatching.c.s:
+	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/parenthesesMatch.dir/build.make basic/CMakeFiles/parenthesesMatch.dir/parenthesesMatching.c.s
+.PHONY : parenthesesMatching.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... calculator"
 	@echo "... decimalToBinary"
 	@echo "... edit_cache"
+	@echo "... lineEdit"
+	@echo "... parenthesesMatch"
 	@echo "... rebuild_cache"
+	@echo "... calculator.o"
+	@echo "... calculator.i"
+	@echo "... calculator.s"
 	@echo "... decimalToBinary.o"
 	@echo "... decimalToBinary.i"
 	@echo "... decimalToBinary.s"
+	@echo "... lineEdit.o"
+	@echo "... lineEdit.i"
+	@echo "... lineEdit.s"
+	@echo "... parenthesesMatching.o"
+	@echo "... parenthesesMatching.i"
+	@echo "... parenthesesMatching.s"
 .PHONY : help
 
 

@@ -41,3 +41,7 @@ utils/CMakeFiles/utils.dir/stack.c.o: ../utils/stack.c
 
 utils/CMakeFiles/utils.dir/staticLinkList.c.o: ../utils/staticLinkList.c
 
+utils/CMakeFiles/utils.dir/utils.c.o: ../include/common.h
+utils/CMakeFiles/utils.dir/utils.c.o: ../include/utils.h
+utils/CMakeFiles/utils.dir/utils.c.o: ../utils/utils.c
+

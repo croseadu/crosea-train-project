@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/common.h
+
+../include/stack.h
+common.h
+../include/common.h
+
+../include/utils.h
+common.h
+../include/common.h
+
+/local/.train/train/final/basic/calculator.c
+stack.h
+/local/.train/train/final/basic/stack.h
+utils.h
+/local/.train/train/final/basic/utils.h
+stdio.h
+-
+stdlib.h
+-
+assert.h
+-
+

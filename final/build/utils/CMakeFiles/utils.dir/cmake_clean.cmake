@@ -10,6 +10,7 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/utils.dir/staticLinkList.c.o"
   "CMakeFiles/utils.dir/queue.c.o"
   "CMakeFiles/utils.dir/priorityQueue.c.o"
+  "CMakeFiles/utils.dir/utils.c.o"
   "../lib/libutils.pdb"
   "../lib/libutils.a"
 )

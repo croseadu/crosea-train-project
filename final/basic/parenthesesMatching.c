@@ -1,6 +1,6 @@
 #include "stack.h"
 
-
+#include "utils.h"
 
 
 #include <stdio.h>
@@ -22,7 +22,7 @@ int main()
 	unsigned int i;
 	bool matched;
 	
-	if (False == createStack(&pStack, sizeof(char), print)) {
+	if (False == createStack(&pStack, sizeof(char), dummyPrint)) {
 		exit(-1);
 	}
 
@@ -45,7 +45,7 @@ int main()
 				break;
 			}			
 
-			if (isStackEmpty(pStack)) {
+			if (isStackEmpty(pStack) == True) {
 				matched = False;
 				break;
 			}	
@@ -71,6 +71,7 @@ int main()
 			}		
 		}		
 		++i;
+		
 	}
 	
 

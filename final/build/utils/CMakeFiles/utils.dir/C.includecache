@@ -8,23 +8,11 @@
 
 ../include/common.h
 
-../include/myMemory.h
-
-../include/stack.h
+../include/utils.h
 common.h
 ../include/common.h
 
-/local/.train/train/final/utils/stack.c
-stack.h
-/local/.train/train/final/utils/stack.h
-myMemory.h
-/local/.train/train/final/utils/myMemory.h
-stdio.h
--
-stdlib.h
--
-assert.h
--
-string.h
--
+/local/.train/train/final/utils/utils.c
+utils.h
+/local/.train/train/final/utils/utils.h
 

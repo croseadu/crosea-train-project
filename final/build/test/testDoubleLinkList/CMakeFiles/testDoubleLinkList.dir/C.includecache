@@ -13,6 +13,8 @@ common.h
 ../include/common.h
 
 ../include/utils.h
+common.h
+../include/common.h
 
 /local/.train/train/final/test/testDoubleLinkList/main.c
 doubleLinkList.h

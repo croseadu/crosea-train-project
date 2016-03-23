@@ -135,6 +135,19 @@ testDoubleLinkList/fast:
 .PHONY : testDoubleLinkList/fast
 
 #=============================================================================
+# Target rules for targets named calculator
+
+# Build rule for target.
+calculator: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 calculator
+.PHONY : calculator
+
+# fast build rule for target.
+calculator/fast:
+	$(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/build
+.PHONY : calculator/fast
+
+#=============================================================================
 # Target rules for targets named decimalToBinary
 
 # Build rule for target.
@@ -147,6 +160,32 @@ decimalToBinary/fast:
 	$(MAKE) -f basic/CMakeFiles/decimalToBinary.dir/build.make basic/CMakeFiles/decimalToBinary.dir/build
 .PHONY : decimalToBinary/fast
 
+#=============================================================================
+# Target rules for targets named lineEdit
+
+# Build rule for target.
+lineEdit: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lineEdit
+.PHONY : lineEdit
+
+# fast build rule for target.
+lineEdit/fast:
+	$(MAKE) -f basic/CMakeFiles/lineEdit.dir/build.make basic/CMakeFiles/lineEdit.dir/build
+.PHONY : lineEdit/fast
+
+#=============================================================================
+# Target rules for targets named parenthesesMatch
+
+# Build rule for target.
+parenthesesMatch: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 parenthesesMatch
+.PHONY : parenthesesMatch
+
+# fast build rule for target.
+parenthesesMatch/fast:
+	$(MAKE) -f basic/CMakeFiles/parenthesesMatch.dir/build.make basic/CMakeFiles/parenthesesMatch.dir/build
+.PHONY : parenthesesMatch/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -158,7 +197,10 @@ help:
 	@echo "... utils"
 	@echo "... testSingleLinkList"
 	@echo "... testDoubleLinkList"
+	@echo "... calculator"
 	@echo "... decimalToBinary"
+	@echo "... lineEdit"
+	@echo "... parenthesesMatch"
 .PHONY : help
 
 

@@ -41,3 +41,7 @@ utils/CMakeFiles/utils.dir/stack.c.o
  /local/.train/train/final/utils/stack.c
 utils/CMakeFiles/utils.dir/staticLinkList.c.o
  /local/.train/train/final/utils/staticLinkList.c
+utils/CMakeFiles/utils.dir/utils.c.o
+ ../include/common.h
+ ../include/utils.h
+ /local/.train/train/final/utils/utils.c
