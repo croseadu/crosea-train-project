@@ -10,5 +10,6 @@ SET(SRC_LIST memory.c
              queue.c
 	     priorityQueue.c
 	     utils.c
+	     vector.c
              )
 ADD_LIBRARY(utils ${SRC_LIST})

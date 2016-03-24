@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <assert.h>
 
 
@@ -20,7 +21,7 @@ createVector(LPVector *ppVector, unsigned int elementSize)
 		return False;
 	}
 
-	pVector->data = alloc(elementSize * INIT_SIZE);
+	pVector->data = myAlloc(elementSize * INIT_SIZE);
 	if (NULL == pVector->data) {
 		myFree(pVector->data);
 		assert(0 && "Out Of memory!");
@@ -38,7 +39,7 @@ createVector(LPVector *ppVector, unsigned int elementSize)
 }
 
 
-void destroyVector(LPVector **ppVector)
+void destroyVector(LPVector *ppVector)
 {
 	LPVector pVector = *ppVector;
 	clearVector(pVector);
@@ -46,6 +47,12 @@ void destroyVector(LPVector **ppVector)
 	myFree(pVector);
 
 	*ppVector = NULL;
+}
+
+void *
+dataOfVector(LPVector pVector)
+{
+	return (void *)pVector->data;
 }
 
 
@@ -97,7 +104,7 @@ popBackFromVector(LPVector pVector, void *data)
 	assert(isVectorEmpty(pVector) == False);
 	
 	--pVector->size;
-	memcpy(data, pVector->data + pvector->size * pVector->elementSize, pVector->elementSize);
+	memcpy(data, (char *)pVector->data + pVector->size * pVector->elementSize, pVector->elementSize);
 }
 
 void
@@ -116,7 +123,7 @@ getBackInVector(const LPVector pVector, void *data)
 	
 	assert(isVectorEmpty(pVector) == False);
 	
-	memcpy(data, pVector->data + (pvector->size - 1)* pVector->elementSize, pVector->elementSize);
+	memcpy(data, (char *)pVector->data + (pVector->size - 1)* pVector->elementSize, pVector->elementSize);
 }
 
 
@@ -136,7 +143,7 @@ insertBeforeInVector(LPVector pVector, IteratorOfVector it, const void *data)
 			pVector->data + pVector->elementSize * it,
 			(end - it) * pVector->elementSize);
 	}
-	mempcy(pVector->data + pVector->elementSize * it, data, pVector->elementSize);
+	memcpy(pVector->data + pVector->elementSize * it, data, pVector->elementSize);
 	++pVector->size;
 	return True;
 }
@@ -152,6 +159,8 @@ clearVector(LPVector pVector)
 void
 eraseFromVector(LPVector pVector, IteratorOfVector it)
 {
+	unsigned int end = pVector->size;
+
 	assert (it >= 0 && it < end);
 
 	if (it != end - 1) {

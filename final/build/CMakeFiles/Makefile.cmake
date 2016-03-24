@@ -12,6 +12,7 @@ SET(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/CMakeCCompiler.cmake"
   "CMakeFiles/CMakeCXXCompiler.cmake"
   "CMakeFiles/CMakeSystem.cmake"
+  "../sorting/CMakeLists.txt"
   "../test/CMakeLists.txt"
   "../test/testDoubleLinkList/CMakeLists.txt"
   "../test/testSingleLinkList/CMakeLists.txt"
@@ -41,6 +42,7 @@ SET(CMAKE_MAKEFILE_PRODUCTS
   "test/CMakeFiles/CMakeDirectoryInformation.cmake"
   "test/testSingleLinkList/CMakeFiles/CMakeDirectoryInformation.cmake"
   "test/testDoubleLinkList/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "sorting/CMakeFiles/CMakeDirectoryInformation.cmake"
   "basic/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
@@ -49,6 +51,9 @@ SET(CMAKE_DEPEND_INFO_FILES
   "utils/CMakeFiles/utils.dir/DependInfo.cmake"
   "test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/DependInfo.cmake"
   "test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/DependInfo.cmake"
+  "sorting/CMakeFiles/bubbleSort.dir/DependInfo.cmake"
+  "sorting/CMakeFiles/insertSort.dir/DependInfo.cmake"
+  "sorting/CMakeFiles/selectionSort.dir/DependInfo.cmake"
   "basic/CMakeFiles/calculator.dir/DependInfo.cmake"
   "basic/CMakeFiles/decimalToBinary.dir/DependInfo.cmake"
   "basic/CMakeFiles/lineEdit.dir/DependInfo.cmake"

@@ -9,7 +9,7 @@ typedef struct _Vector
 
 	unsigned int size;
 	unsigned int elementSize;
-	unsigned int compacity;
+	unsigned int capacity;
 }Vector, *LPVector;
 
 
@@ -17,10 +17,11 @@ typedef struct _Vector
 #include "common.h"
 
 bool createVector(LPVector *ppVector, unsigned int elementSize);
-void destroyVector(LPVector **ppVector);
+void destroyVector(LPVector *ppVector);
 
 
 
+void *dataOfVector(LPVector);
 unsigned int sizeOfVector(const LPVector pVector);
 bool isVectorEmpty(const LPVector pVector);
 

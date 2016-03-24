@@ -45,3 +45,8 @@ utils/CMakeFiles/utils.dir/utils.c.o
  ../include/common.h
  ../include/utils.h
  /local/.train/train/final/utils/utils.c
+utils/CMakeFiles/utils.dir/vector.c.o
+ ../include/common.h
+ ../include/myMemory.h
+ ../include/vector.h
+ /local/.train/train/final/utils/vector.c

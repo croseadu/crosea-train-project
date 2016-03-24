@@ -1,0 +1,1 @@
+/usr/bin/gcc   -g    CMakeFiles/bubbleSort.dir/bubbleSort.c.o  -o ../bin/bubbleSort -rdynamic ../lib/libutils.a 

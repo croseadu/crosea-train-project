@@ -1,0 +1,1 @@
+/usr/bin/gcc   -g    CMakeFiles/insertSort.dir/insertSort.c.o  -o ../bin/insertSort -rdynamic ../lib/libutils.a 

@@ -135,6 +135,45 @@ testDoubleLinkList/fast:
 .PHONY : testDoubleLinkList/fast
 
 #=============================================================================
+# Target rules for targets named bubbleSort
+
+# Build rule for target.
+bubbleSort: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 bubbleSort
+.PHONY : bubbleSort
+
+# fast build rule for target.
+bubbleSort/fast:
+	$(MAKE) -f sorting/CMakeFiles/bubbleSort.dir/build.make sorting/CMakeFiles/bubbleSort.dir/build
+.PHONY : bubbleSort/fast
+
+#=============================================================================
+# Target rules for targets named insertSort
+
+# Build rule for target.
+insertSort: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 insertSort
+.PHONY : insertSort
+
+# fast build rule for target.
+insertSort/fast:
+	$(MAKE) -f sorting/CMakeFiles/insertSort.dir/build.make sorting/CMakeFiles/insertSort.dir/build
+.PHONY : insertSort/fast
+
+#=============================================================================
+# Target rules for targets named selectionSort
+
+# Build rule for target.
+selectionSort: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 selectionSort
+.PHONY : selectionSort
+
+# fast build rule for target.
+selectionSort/fast:
+	$(MAKE) -f sorting/CMakeFiles/selectionSort.dir/build.make sorting/CMakeFiles/selectionSort.dir/build
+.PHONY : selectionSort/fast
+
+#=============================================================================
 # Target rules for targets named calculator
 
 # Build rule for target.
@@ -197,6 +236,9 @@ help:
 	@echo "... utils"
 	@echo "... testSingleLinkList"
 	@echo "... testDoubleLinkList"
+	@echo "... bubbleSort"
+	@echo "... insertSort"
+	@echo "... selectionSort"
 	@echo "... calculator"
 	@echo "... decimalToBinary"
 	@echo "... lineEdit"

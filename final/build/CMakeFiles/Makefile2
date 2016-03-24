@@ -71,7 +71,7 @@ utils/preinstall:
 utils/CMakeFiles/utils.dir/all:
 	$(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/depend
 	$(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  7 8 9 10 11 12 13 14 15 16 17 18
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  10 11 12 13 14 15 16 17 18 19 20 21 22
 	@echo "Built target utils"
 .PHONY : utils/CMakeFiles/utils.dir/all
 
@@ -81,7 +81,7 @@ all: utils/CMakeFiles/utils.dir/all
 
 # Build rule for subdir invocation for target.
 utils/CMakeFiles/utils.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 12
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 13
 	$(MAKE) -f CMakeFiles/Makefile2 utils/CMakeFiles/utils.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 0
 .PHONY : utils/CMakeFiles/utils.dir/rule
@@ -139,7 +139,7 @@ test/testSingleLinkList/preinstall:
 test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/build.make test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/depend
 	$(MAKE) -f test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/build.make test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  6
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  9
 	@echo "Built target testSingleLinkList"
 .PHONY : test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/all
 
@@ -149,7 +149,7 @@ all: test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/all
 
 # Build rule for subdir invocation for target.
 test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 13
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 14
 	$(MAKE) -f CMakeFiles/Makefile2 test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 0
 .PHONY : test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/rule
@@ -189,7 +189,7 @@ test/testDoubleLinkList/preinstall:
 test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/build.make test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/depend
 	$(MAKE) -f test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/build.make test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  5
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  8
 	@echo "Built target testDoubleLinkList"
 .PHONY : test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/all
 
@@ -199,7 +199,7 @@ all: test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/all
 
 # Build rule for subdir invocation for target.
 test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 13
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 14
 	$(MAKE) -f CMakeFiles/Makefile2 test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 0
 .PHONY : test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/rule
@@ -215,6 +215,130 @@ test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/clean:
 
 # clean rule for target.
 clean: test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory sorting
+
+# Convenience name for "all" pass in the directory.
+sorting/all: sorting/CMakeFiles/bubbleSort.dir/all
+sorting/all: sorting/CMakeFiles/insertSort.dir/all
+sorting/all: sorting/CMakeFiles/selectionSort.dir/all
+.PHONY : sorting/all
+
+# Convenience name for "clean" pass in the directory.
+sorting/clean: sorting/CMakeFiles/bubbleSort.dir/clean
+sorting/clean: sorting/CMakeFiles/insertSort.dir/clean
+sorting/clean: sorting/CMakeFiles/selectionSort.dir/clean
+.PHONY : sorting/clean
+
+# Convenience name for "preinstall" pass in the directory.
+sorting/preinstall:
+.PHONY : sorting/preinstall
+
+#=============================================================================
+# Target rules for target sorting/CMakeFiles/bubbleSort.dir
+
+# All Build rule for target.
+sorting/CMakeFiles/bubbleSort.dir/all: utils/CMakeFiles/utils.dir/all
+	$(MAKE) -f sorting/CMakeFiles/bubbleSort.dir/build.make sorting/CMakeFiles/bubbleSort.dir/depend
+	$(MAKE) -f sorting/CMakeFiles/bubbleSort.dir/build.make sorting/CMakeFiles/bubbleSort.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  1
+	@echo "Built target bubbleSort"
+.PHONY : sorting/CMakeFiles/bubbleSort.dir/all
+
+# Include target in all.
+all: sorting/CMakeFiles/bubbleSort.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+sorting/CMakeFiles/bubbleSort.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 14
+	$(MAKE) -f CMakeFiles/Makefile2 sorting/CMakeFiles/bubbleSort.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 0
+.PHONY : sorting/CMakeFiles/bubbleSort.dir/rule
+
+# Convenience name for target.
+bubbleSort: sorting/CMakeFiles/bubbleSort.dir/rule
+.PHONY : bubbleSort
+
+# clean rule for target.
+sorting/CMakeFiles/bubbleSort.dir/clean:
+	$(MAKE) -f sorting/CMakeFiles/bubbleSort.dir/build.make sorting/CMakeFiles/bubbleSort.dir/clean
+.PHONY : sorting/CMakeFiles/bubbleSort.dir/clean
+
+# clean rule for target.
+clean: sorting/CMakeFiles/bubbleSort.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target sorting/CMakeFiles/insertSort.dir
+
+# All Build rule for target.
+sorting/CMakeFiles/insertSort.dir/all: utils/CMakeFiles/utils.dir/all
+	$(MAKE) -f sorting/CMakeFiles/insertSort.dir/build.make sorting/CMakeFiles/insertSort.dir/depend
+	$(MAKE) -f sorting/CMakeFiles/insertSort.dir/build.make sorting/CMakeFiles/insertSort.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  4
+	@echo "Built target insertSort"
+.PHONY : sorting/CMakeFiles/insertSort.dir/all
+
+# Include target in all.
+all: sorting/CMakeFiles/insertSort.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+sorting/CMakeFiles/insertSort.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 14
+	$(MAKE) -f CMakeFiles/Makefile2 sorting/CMakeFiles/insertSort.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 0
+.PHONY : sorting/CMakeFiles/insertSort.dir/rule
+
+# Convenience name for target.
+insertSort: sorting/CMakeFiles/insertSort.dir/rule
+.PHONY : insertSort
+
+# clean rule for target.
+sorting/CMakeFiles/insertSort.dir/clean:
+	$(MAKE) -f sorting/CMakeFiles/insertSort.dir/build.make sorting/CMakeFiles/insertSort.dir/clean
+.PHONY : sorting/CMakeFiles/insertSort.dir/clean
+
+# clean rule for target.
+clean: sorting/CMakeFiles/insertSort.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target sorting/CMakeFiles/selectionSort.dir
+
+# All Build rule for target.
+sorting/CMakeFiles/selectionSort.dir/all: utils/CMakeFiles/utils.dir/all
+	$(MAKE) -f sorting/CMakeFiles/selectionSort.dir/build.make sorting/CMakeFiles/selectionSort.dir/depend
+	$(MAKE) -f sorting/CMakeFiles/selectionSort.dir/build.make sorting/CMakeFiles/selectionSort.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  7
+	@echo "Built target selectionSort"
+.PHONY : sorting/CMakeFiles/selectionSort.dir/all
+
+# Include target in all.
+all: sorting/CMakeFiles/selectionSort.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+sorting/CMakeFiles/selectionSort.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 14
+	$(MAKE) -f CMakeFiles/Makefile2 sorting/CMakeFiles/selectionSort.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 0
+.PHONY : sorting/CMakeFiles/selectionSort.dir/rule
+
+# Convenience name for target.
+selectionSort: sorting/CMakeFiles/selectionSort.dir/rule
+.PHONY : selectionSort
+
+# clean rule for target.
+sorting/CMakeFiles/selectionSort.dir/clean:
+	$(MAKE) -f sorting/CMakeFiles/selectionSort.dir/build.make sorting/CMakeFiles/selectionSort.dir/clean
+.PHONY : sorting/CMakeFiles/selectionSort.dir/clean
+
+# clean rule for target.
+clean: sorting/CMakeFiles/selectionSort.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -245,7 +369,7 @@ basic/preinstall:
 basic/CMakeFiles/calculator.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/depend
 	$(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  1
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  2
 	@echo "Built target calculator"
 .PHONY : basic/CMakeFiles/calculator.dir/all
 
@@ -255,7 +379,7 @@ all: basic/CMakeFiles/calculator.dir/all
 
 # Build rule for subdir invocation for target.
 basic/CMakeFiles/calculator.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 13
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 14
 	$(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/calculator.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 0
 .PHONY : basic/CMakeFiles/calculator.dir/rule
@@ -280,7 +404,7 @@ clean: basic/CMakeFiles/calculator.dir/clean
 basic/CMakeFiles/decimalToBinary.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f basic/CMakeFiles/decimalToBinary.dir/build.make basic/CMakeFiles/decimalToBinary.dir/depend
 	$(MAKE) -f basic/CMakeFiles/decimalToBinary.dir/build.make basic/CMakeFiles/decimalToBinary.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  2
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  3
 	@echo "Built target decimalToBinary"
 .PHONY : basic/CMakeFiles/decimalToBinary.dir/all
 
@@ -290,7 +414,7 @@ all: basic/CMakeFiles/decimalToBinary.dir/all
 
 # Build rule for subdir invocation for target.
 basic/CMakeFiles/decimalToBinary.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 13
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 14
 	$(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/decimalToBinary.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 0
 .PHONY : basic/CMakeFiles/decimalToBinary.dir/rule
@@ -315,7 +439,7 @@ clean: basic/CMakeFiles/decimalToBinary.dir/clean
 basic/CMakeFiles/lineEdit.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f basic/CMakeFiles/lineEdit.dir/build.make basic/CMakeFiles/lineEdit.dir/depend
 	$(MAKE) -f basic/CMakeFiles/lineEdit.dir/build.make basic/CMakeFiles/lineEdit.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  3
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  5
 	@echo "Built target lineEdit"
 .PHONY : basic/CMakeFiles/lineEdit.dir/all
 
@@ -325,7 +449,7 @@ all: basic/CMakeFiles/lineEdit.dir/all
 
 # Build rule for subdir invocation for target.
 basic/CMakeFiles/lineEdit.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 13
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 14
 	$(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/lineEdit.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 0
 .PHONY : basic/CMakeFiles/lineEdit.dir/rule
@@ -350,7 +474,7 @@ clean: basic/CMakeFiles/lineEdit.dir/clean
 basic/CMakeFiles/parenthesesMatch.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f basic/CMakeFiles/parenthesesMatch.dir/build.make basic/CMakeFiles/parenthesesMatch.dir/depend
 	$(MAKE) -f basic/CMakeFiles/parenthesesMatch.dir/build.make basic/CMakeFiles/parenthesesMatch.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  4
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  6
 	@echo "Built target parenthesesMatch"
 .PHONY : basic/CMakeFiles/parenthesesMatch.dir/all
 
@@ -360,7 +484,7 @@ all: basic/CMakeFiles/parenthesesMatch.dir/all
 
 # Build rule for subdir invocation for target.
 basic/CMakeFiles/parenthesesMatch.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 13
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 14
 	$(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/parenthesesMatch.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 0
 .PHONY : basic/CMakeFiles/parenthesesMatch.dir/rule

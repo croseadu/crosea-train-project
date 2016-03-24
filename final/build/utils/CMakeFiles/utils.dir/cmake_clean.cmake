@@ -11,6 +11,7 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/utils.dir/queue.c.o"
   "CMakeFiles/utils.dir/priorityQueue.c.o"
   "CMakeFiles/utils.dir/utils.c.o"
+  "CMakeFiles/utils.dir/vector.c.o"
   "../lib/libutils.pdb"
   "../lib/libutils.a"
 )
