@@ -1,6 +1,5 @@
 
 
-
 #include "common.h"
 #include "utils.h"
 #include <stdio.h>
@@ -11,54 +10,47 @@
 #include <string.h>
 
 
-
-void heapSort(int *, unsigned int);
-
-
-void heapAdjust(int *, unsigned int start, unsigned int end);
+int partition(int * base, int start, int end);
+void quickSort(int *base, int start, int end);
 
 
-void
-heapAdjust(int *base, unsigned int start, unsigned int end)
+int partition(int *base, int start, int end)
 {
-	int val = base[start];
-	int i , j;
+	int val;
+	int low, high;
+
+	if (start+1 >= end)
+		return start;
+
+	val = base[start];
 	
-	for (i = start, j = 2*i; j <= end;) {
-		if (j+1<=end && base[j+1] > base[j])
-			++j;
-		if (base[j] <= val)
-			break;
-		
-		base[i] = base[j];
-		i = j;
-		j = 2*j;
-	} 
-	base[i] = val;
+	low = start;
+	high = end - 1;
+	while (low < high) {
+		while (base[high] >= val && high > low)
+			--high;
+		base[low] = base[high];
+		while (base[low] <= val && low < high)
+			++low;
+		base[high] = base[low];
+
+	}
+	base[low] = val;
+	return low;
 }
 
 void
-heapSort(int *base, unsigned int size)
+quickSort(int *base, int start, int end)
 {
-
-	int start;
-	int end = size - 1;
-	int temp;	
-	int i;
-	start = end/2;	
-
-	for(;start >= 0; --start) {
-		heapAdjust(base, start, end);
-	} 
-
 	
-	for(i = size - 1; i > 0; --i) {
-		temp = base[0];
-		base[0] = base[i];
-		base[i] = temp;
-		heapAdjust(base, 0, i - 1);
-	}
+	int pivot;
 
+	if (start+1 >= end)
+		return;
+
+	pivot = partition(base, start, end);
+	quickSort(base, start, pivot);
+	quickSort(base, pivot+1, end);	
 }
 
 int main()
@@ -109,7 +101,8 @@ int main()
 	}
 	if (align % 5) putchar('\n');
 
-	heapSort(base, size);
+
+	quickSort(base, 0, size);
 	
 	printf("\nAfter Sort:\n");
 	align = 0;

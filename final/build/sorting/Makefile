@@ -110,6 +110,20 @@ bubbleSort/fast:
 .PHONY : bubbleSort/fast
 
 # Convenience name for target.
+sorting/CMakeFiles/heapSort.dir/rule:
+	cd /local/.train/train/final/build && $(MAKE) -f CMakeFiles/Makefile2 sorting/CMakeFiles/heapSort.dir/rule
+.PHONY : sorting/CMakeFiles/heapSort.dir/rule
+
+# Convenience name for target.
+heapSort: sorting/CMakeFiles/heapSort.dir/rule
+.PHONY : heapSort
+
+# fast build rule for target.
+heapSort/fast:
+	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/heapSort.dir/build.make sorting/CMakeFiles/heapSort.dir/build
+.PHONY : heapSort/fast
+
+# Convenience name for target.
 sorting/CMakeFiles/insertSort.dir/rule:
 	cd /local/.train/train/final/build && $(MAKE) -f CMakeFiles/Makefile2 sorting/CMakeFiles/insertSort.dir/rule
 .PHONY : sorting/CMakeFiles/insertSort.dir/rule
@@ -122,6 +136,34 @@ insertSort: sorting/CMakeFiles/insertSort.dir/rule
 insertSort/fast:
 	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/insertSort.dir/build.make sorting/CMakeFiles/insertSort.dir/build
 .PHONY : insertSort/fast
+
+# Convenience name for target.
+sorting/CMakeFiles/mergeSort.dir/rule:
+	cd /local/.train/train/final/build && $(MAKE) -f CMakeFiles/Makefile2 sorting/CMakeFiles/mergeSort.dir/rule
+.PHONY : sorting/CMakeFiles/mergeSort.dir/rule
+
+# Convenience name for target.
+mergeSort: sorting/CMakeFiles/mergeSort.dir/rule
+.PHONY : mergeSort
+
+# fast build rule for target.
+mergeSort/fast:
+	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/mergeSort.dir/build.make sorting/CMakeFiles/mergeSort.dir/build
+.PHONY : mergeSort/fast
+
+# Convenience name for target.
+sorting/CMakeFiles/quickSort.dir/rule:
+	cd /local/.train/train/final/build && $(MAKE) -f CMakeFiles/Makefile2 sorting/CMakeFiles/quickSort.dir/rule
+.PHONY : sorting/CMakeFiles/quickSort.dir/rule
+
+# Convenience name for target.
+quickSort: sorting/CMakeFiles/quickSort.dir/rule
+.PHONY : quickSort
+
+# fast build rule for target.
+quickSort/fast:
+	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/quickSort.dir/build.make sorting/CMakeFiles/quickSort.dir/build
+.PHONY : quickSort/fast
 
 # Convenience name for target.
 sorting/CMakeFiles/selectionSort.dir/rule:
@@ -161,6 +203,30 @@ bubbleSort.c.s:
 	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/bubbleSort.dir/build.make sorting/CMakeFiles/bubbleSort.dir/bubbleSort.c.s
 .PHONY : bubbleSort.c.s
 
+heapSort.o: heapSort.c.o
+.PHONY : heapSort.o
+
+# target to build an object file
+heapSort.c.o:
+	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/heapSort.dir/build.make sorting/CMakeFiles/heapSort.dir/heapSort.c.o
+.PHONY : heapSort.c.o
+
+heapSort.i: heapSort.c.i
+.PHONY : heapSort.i
+
+# target to preprocess a source file
+heapSort.c.i:
+	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/heapSort.dir/build.make sorting/CMakeFiles/heapSort.dir/heapSort.c.i
+.PHONY : heapSort.c.i
+
+heapSort.s: heapSort.c.s
+.PHONY : heapSort.s
+
+# target to generate assembly for a file
+heapSort.c.s:
+	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/heapSort.dir/build.make sorting/CMakeFiles/heapSort.dir/heapSort.c.s
+.PHONY : heapSort.c.s
+
 insertSort.o: insertSort.c.o
 .PHONY : insertSort.o
 
@@ -184,6 +250,54 @@ insertSort.s: insertSort.c.s
 insertSort.c.s:
 	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/insertSort.dir/build.make sorting/CMakeFiles/insertSort.dir/insertSort.c.s
 .PHONY : insertSort.c.s
+
+mergeSort.o: mergeSort.c.o
+.PHONY : mergeSort.o
+
+# target to build an object file
+mergeSort.c.o:
+	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/mergeSort.dir/build.make sorting/CMakeFiles/mergeSort.dir/mergeSort.c.o
+.PHONY : mergeSort.c.o
+
+mergeSort.i: mergeSort.c.i
+.PHONY : mergeSort.i
+
+# target to preprocess a source file
+mergeSort.c.i:
+	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/mergeSort.dir/build.make sorting/CMakeFiles/mergeSort.dir/mergeSort.c.i
+.PHONY : mergeSort.c.i
+
+mergeSort.s: mergeSort.c.s
+.PHONY : mergeSort.s
+
+# target to generate assembly for a file
+mergeSort.c.s:
+	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/mergeSort.dir/build.make sorting/CMakeFiles/mergeSort.dir/mergeSort.c.s
+.PHONY : mergeSort.c.s
+
+qSort.o: qSort.c.o
+.PHONY : qSort.o
+
+# target to build an object file
+qSort.c.o:
+	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/quickSort.dir/build.make sorting/CMakeFiles/quickSort.dir/qSort.c.o
+.PHONY : qSort.c.o
+
+qSort.i: qSort.c.i
+.PHONY : qSort.i
+
+# target to preprocess a source file
+qSort.c.i:
+	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/quickSort.dir/build.make sorting/CMakeFiles/quickSort.dir/qSort.c.i
+.PHONY : qSort.c.i
+
+qSort.s: qSort.c.s
+.PHONY : qSort.s
+
+# target to generate assembly for a file
+qSort.c.s:
+	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/quickSort.dir/build.make sorting/CMakeFiles/quickSort.dir/qSort.c.s
+.PHONY : qSort.c.s
 
 selectionSort.o: selectionSort.c.o
 .PHONY : selectionSort.o
@@ -217,15 +331,27 @@ help:
 	@echo "... depend"
 	@echo "... bubbleSort"
 	@echo "... edit_cache"
+	@echo "... heapSort"
 	@echo "... insertSort"
+	@echo "... mergeSort"
+	@echo "... quickSort"
 	@echo "... rebuild_cache"
 	@echo "... selectionSort"
 	@echo "... bubbleSort.o"
 	@echo "... bubbleSort.i"
 	@echo "... bubbleSort.s"
+	@echo "... heapSort.o"
+	@echo "... heapSort.i"
+	@echo "... heapSort.s"
 	@echo "... insertSort.o"
 	@echo "... insertSort.i"
 	@echo "... insertSort.s"
+	@echo "... mergeSort.o"
+	@echo "... mergeSort.i"
+	@echo "... mergeSort.s"
+	@echo "... qSort.o"
+	@echo "... qSort.i"
+	@echo "... qSort.s"
 	@echo "... selectionSort.o"
 	@echo "... selectionSort.i"
 	@echo "... selectionSort.s"

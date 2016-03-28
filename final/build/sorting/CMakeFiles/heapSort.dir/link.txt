@@ -1,0 +1,1 @@
+/usr/bin/gcc   -g    CMakeFiles/heapSort.dir/heapSort.c.o  -o ../bin/heapSort -rdynamic ../lib/libutils.a 

@@ -148,6 +148,19 @@ bubbleSort/fast:
 .PHONY : bubbleSort/fast
 
 #=============================================================================
+# Target rules for targets named heapSort
+
+# Build rule for target.
+heapSort: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 heapSort
+.PHONY : heapSort
+
+# fast build rule for target.
+heapSort/fast:
+	$(MAKE) -f sorting/CMakeFiles/heapSort.dir/build.make sorting/CMakeFiles/heapSort.dir/build
+.PHONY : heapSort/fast
+
+#=============================================================================
 # Target rules for targets named insertSort
 
 # Build rule for target.
@@ -159,6 +172,32 @@ insertSort: cmake_check_build_system
 insertSort/fast:
 	$(MAKE) -f sorting/CMakeFiles/insertSort.dir/build.make sorting/CMakeFiles/insertSort.dir/build
 .PHONY : insertSort/fast
+
+#=============================================================================
+# Target rules for targets named mergeSort
+
+# Build rule for target.
+mergeSort: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 mergeSort
+.PHONY : mergeSort
+
+# fast build rule for target.
+mergeSort/fast:
+	$(MAKE) -f sorting/CMakeFiles/mergeSort.dir/build.make sorting/CMakeFiles/mergeSort.dir/build
+.PHONY : mergeSort/fast
+
+#=============================================================================
+# Target rules for targets named quickSort
+
+# Build rule for target.
+quickSort: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 quickSort
+.PHONY : quickSort
+
+# fast build rule for target.
+quickSort/fast:
+	$(MAKE) -f sorting/CMakeFiles/quickSort.dir/build.make sorting/CMakeFiles/quickSort.dir/build
+.PHONY : quickSort/fast
 
 #=============================================================================
 # Target rules for targets named selectionSort
@@ -237,7 +276,10 @@ help:
 	@echo "... testSingleLinkList"
 	@echo "... testDoubleLinkList"
 	@echo "... bubbleSort"
+	@echo "... heapSort"
 	@echo "... insertSort"
+	@echo "... mergeSort"
+	@echo "... quickSort"
 	@echo "... selectionSort"
 	@echo "... calculator"
 	@echo "... decimalToBinary"

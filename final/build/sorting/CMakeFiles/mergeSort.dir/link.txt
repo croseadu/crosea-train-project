@@ -1,0 +1,1 @@
+/usr/bin/gcc   -g    CMakeFiles/mergeSort.dir/mergeSort.c.o  -o ../bin/mergeSort -rdynamic ../lib/libutils.a 

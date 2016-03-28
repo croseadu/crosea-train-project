@@ -71,7 +71,7 @@ utils/preinstall:
 utils/CMakeFiles/utils.dir/all:
 	$(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/depend
 	$(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  10 11 12 13 14 15 16 17 18 19 20 21 22
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  13 14 15 16 17 18 19 20 21 22 23 24 25
 	@echo "Built target utils"
 .PHONY : utils/CMakeFiles/utils.dir/all
 
@@ -139,7 +139,7 @@ test/testSingleLinkList/preinstall:
 test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/build.make test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/depend
 	$(MAKE) -f test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/build.make test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  9
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  12
 	@echo "Built target testSingleLinkList"
 .PHONY : test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir/all
 
@@ -189,7 +189,7 @@ test/testDoubleLinkList/preinstall:
 test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/build.make test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/depend
 	$(MAKE) -f test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/build.make test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  8
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  11
 	@echo "Built target testDoubleLinkList"
 .PHONY : test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/all
 
@@ -222,13 +222,19 @@ clean: test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir/clean
 
 # Convenience name for "all" pass in the directory.
 sorting/all: sorting/CMakeFiles/bubbleSort.dir/all
+sorting/all: sorting/CMakeFiles/heapSort.dir/all
 sorting/all: sorting/CMakeFiles/insertSort.dir/all
+sorting/all: sorting/CMakeFiles/mergeSort.dir/all
+sorting/all: sorting/CMakeFiles/quickSort.dir/all
 sorting/all: sorting/CMakeFiles/selectionSort.dir/all
 .PHONY : sorting/all
 
 # Convenience name for "clean" pass in the directory.
 sorting/clean: sorting/CMakeFiles/bubbleSort.dir/clean
+sorting/clean: sorting/CMakeFiles/heapSort.dir/clean
 sorting/clean: sorting/CMakeFiles/insertSort.dir/clean
+sorting/clean: sorting/CMakeFiles/mergeSort.dir/clean
+sorting/clean: sorting/CMakeFiles/quickSort.dir/clean
 sorting/clean: sorting/CMakeFiles/selectionSort.dir/clean
 .PHONY : sorting/clean
 
@@ -272,13 +278,48 @@ clean: sorting/CMakeFiles/bubbleSort.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target sorting/CMakeFiles/heapSort.dir
+
+# All Build rule for target.
+sorting/CMakeFiles/heapSort.dir/all: utils/CMakeFiles/utils.dir/all
+	$(MAKE) -f sorting/CMakeFiles/heapSort.dir/build.make sorting/CMakeFiles/heapSort.dir/depend
+	$(MAKE) -f sorting/CMakeFiles/heapSort.dir/build.make sorting/CMakeFiles/heapSort.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  4
+	@echo "Built target heapSort"
+.PHONY : sorting/CMakeFiles/heapSort.dir/all
+
+# Include target in all.
+all: sorting/CMakeFiles/heapSort.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+sorting/CMakeFiles/heapSort.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 14
+	$(MAKE) -f CMakeFiles/Makefile2 sorting/CMakeFiles/heapSort.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 0
+.PHONY : sorting/CMakeFiles/heapSort.dir/rule
+
+# Convenience name for target.
+heapSort: sorting/CMakeFiles/heapSort.dir/rule
+.PHONY : heapSort
+
+# clean rule for target.
+sorting/CMakeFiles/heapSort.dir/clean:
+	$(MAKE) -f sorting/CMakeFiles/heapSort.dir/build.make sorting/CMakeFiles/heapSort.dir/clean
+.PHONY : sorting/CMakeFiles/heapSort.dir/clean
+
+# clean rule for target.
+clean: sorting/CMakeFiles/heapSort.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target sorting/CMakeFiles/insertSort.dir
 
 # All Build rule for target.
 sorting/CMakeFiles/insertSort.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f sorting/CMakeFiles/insertSort.dir/build.make sorting/CMakeFiles/insertSort.dir/depend
 	$(MAKE) -f sorting/CMakeFiles/insertSort.dir/build.make sorting/CMakeFiles/insertSort.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  4
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  5
 	@echo "Built target insertSort"
 .PHONY : sorting/CMakeFiles/insertSort.dir/all
 
@@ -307,13 +348,83 @@ clean: sorting/CMakeFiles/insertSort.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target sorting/CMakeFiles/mergeSort.dir
+
+# All Build rule for target.
+sorting/CMakeFiles/mergeSort.dir/all: utils/CMakeFiles/utils.dir/all
+	$(MAKE) -f sorting/CMakeFiles/mergeSort.dir/build.make sorting/CMakeFiles/mergeSort.dir/depend
+	$(MAKE) -f sorting/CMakeFiles/mergeSort.dir/build.make sorting/CMakeFiles/mergeSort.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  7
+	@echo "Built target mergeSort"
+.PHONY : sorting/CMakeFiles/mergeSort.dir/all
+
+# Include target in all.
+all: sorting/CMakeFiles/mergeSort.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+sorting/CMakeFiles/mergeSort.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 14
+	$(MAKE) -f CMakeFiles/Makefile2 sorting/CMakeFiles/mergeSort.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 0
+.PHONY : sorting/CMakeFiles/mergeSort.dir/rule
+
+# Convenience name for target.
+mergeSort: sorting/CMakeFiles/mergeSort.dir/rule
+.PHONY : mergeSort
+
+# clean rule for target.
+sorting/CMakeFiles/mergeSort.dir/clean:
+	$(MAKE) -f sorting/CMakeFiles/mergeSort.dir/build.make sorting/CMakeFiles/mergeSort.dir/clean
+.PHONY : sorting/CMakeFiles/mergeSort.dir/clean
+
+# clean rule for target.
+clean: sorting/CMakeFiles/mergeSort.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target sorting/CMakeFiles/quickSort.dir
+
+# All Build rule for target.
+sorting/CMakeFiles/quickSort.dir/all: utils/CMakeFiles/utils.dir/all
+	$(MAKE) -f sorting/CMakeFiles/quickSort.dir/build.make sorting/CMakeFiles/quickSort.dir/depend
+	$(MAKE) -f sorting/CMakeFiles/quickSort.dir/build.make sorting/CMakeFiles/quickSort.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  9
+	@echo "Built target quickSort"
+.PHONY : sorting/CMakeFiles/quickSort.dir/all
+
+# Include target in all.
+all: sorting/CMakeFiles/quickSort.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+sorting/CMakeFiles/quickSort.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 14
+	$(MAKE) -f CMakeFiles/Makefile2 sorting/CMakeFiles/quickSort.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/final/build/CMakeFiles 0
+.PHONY : sorting/CMakeFiles/quickSort.dir/rule
+
+# Convenience name for target.
+quickSort: sorting/CMakeFiles/quickSort.dir/rule
+.PHONY : quickSort
+
+# clean rule for target.
+sorting/CMakeFiles/quickSort.dir/clean:
+	$(MAKE) -f sorting/CMakeFiles/quickSort.dir/build.make sorting/CMakeFiles/quickSort.dir/clean
+.PHONY : sorting/CMakeFiles/quickSort.dir/clean
+
+# clean rule for target.
+clean: sorting/CMakeFiles/quickSort.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target sorting/CMakeFiles/selectionSort.dir
 
 # All Build rule for target.
 sorting/CMakeFiles/selectionSort.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f sorting/CMakeFiles/selectionSort.dir/build.make sorting/CMakeFiles/selectionSort.dir/depend
 	$(MAKE) -f sorting/CMakeFiles/selectionSort.dir/build.make sorting/CMakeFiles/selectionSort.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  7
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  10
 	@echo "Built target selectionSort"
 .PHONY : sorting/CMakeFiles/selectionSort.dir/all
 
@@ -439,7 +550,7 @@ clean: basic/CMakeFiles/decimalToBinary.dir/clean
 basic/CMakeFiles/lineEdit.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f basic/CMakeFiles/lineEdit.dir/build.make basic/CMakeFiles/lineEdit.dir/depend
 	$(MAKE) -f basic/CMakeFiles/lineEdit.dir/build.make basic/CMakeFiles/lineEdit.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  5
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  6
 	@echo "Built target lineEdit"
 .PHONY : basic/CMakeFiles/lineEdit.dir/all
 
@@ -474,7 +585,7 @@ clean: basic/CMakeFiles/lineEdit.dir/clean
 basic/CMakeFiles/parenthesesMatch.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f basic/CMakeFiles/parenthesesMatch.dir/build.make basic/CMakeFiles/parenthesesMatch.dir/depend
 	$(MAKE) -f basic/CMakeFiles/parenthesesMatch.dir/build.make basic/CMakeFiles/parenthesesMatch.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  6
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/final/build/CMakeFiles  8
 	@echo "Built target parenthesesMatch"
 .PHONY : basic/CMakeFiles/parenthesesMatch.dir/all
 

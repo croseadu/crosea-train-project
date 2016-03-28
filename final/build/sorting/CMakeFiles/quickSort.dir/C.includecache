@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/common.h
+
+../include/myMemory.h
+
+../include/utils.h
+common.h
+../include/common.h
+
+../include/vector.h
+common.h
+../include/common.h
+
+/local/.train/train/final/sorting/qSort.c
+common.h
+/local/.train/train/final/sorting/common.h
+utils.h
+/local/.train/train/final/sorting/utils.h
+stdio.h
+-
+stdlib.h
+-
+assert.h
+-
+vector.h
+/local/.train/train/final/sorting/vector.h
+myMemory.h
+/local/.train/train/final/sorting/myMemory.h
+string.h
+-
+

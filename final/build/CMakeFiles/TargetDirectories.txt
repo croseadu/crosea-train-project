@@ -1,9 +1,12 @@
 /local/.train/train/final/build/sorting/CMakeFiles/bubbleSort.dir
 /local/.train/train/final/build/basic/CMakeFiles/calculator.dir
 /local/.train/train/final/build/basic/CMakeFiles/decimalToBinary.dir
+/local/.train/train/final/build/sorting/CMakeFiles/heapSort.dir
 /local/.train/train/final/build/sorting/CMakeFiles/insertSort.dir
 /local/.train/train/final/build/basic/CMakeFiles/lineEdit.dir
+/local/.train/train/final/build/sorting/CMakeFiles/mergeSort.dir
 /local/.train/train/final/build/basic/CMakeFiles/parenthesesMatch.dir
+/local/.train/train/final/build/sorting/CMakeFiles/quickSort.dir
 /local/.train/train/final/build/sorting/CMakeFiles/selectionSort.dir
 /local/.train/train/final/build/test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir
 /local/.train/train/final/build/test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir
