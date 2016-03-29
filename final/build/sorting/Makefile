@@ -179,6 +179,20 @@ selectionSort/fast:
 	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/selectionSort.dir/build.make sorting/CMakeFiles/selectionSort.dir/build
 .PHONY : selectionSort/fast
 
+# Convenience name for target.
+sorting/CMakeFiles/shellInsertSort.dir/rule:
+	cd /local/.train/train/final/build && $(MAKE) -f CMakeFiles/Makefile2 sorting/CMakeFiles/shellInsertSort.dir/rule
+.PHONY : sorting/CMakeFiles/shellInsertSort.dir/rule
+
+# Convenience name for target.
+shellInsertSort: sorting/CMakeFiles/shellInsertSort.dir/rule
+.PHONY : shellInsertSort
+
+# fast build rule for target.
+shellInsertSort/fast:
+	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/shellInsertSort.dir/build.make sorting/CMakeFiles/shellInsertSort.dir/build
+.PHONY : shellInsertSort/fast
+
 bubbleSort.o: bubbleSort.c.o
 .PHONY : bubbleSort.o
 
@@ -323,6 +337,30 @@ selectionSort.c.s:
 	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/selectionSort.dir/build.make sorting/CMakeFiles/selectionSort.dir/selectionSort.c.s
 .PHONY : selectionSort.c.s
 
+shellInsertSort.o: shellInsertSort.c.o
+.PHONY : shellInsertSort.o
+
+# target to build an object file
+shellInsertSort.c.o:
+	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/shellInsertSort.dir/build.make sorting/CMakeFiles/shellInsertSort.dir/shellInsertSort.c.o
+.PHONY : shellInsertSort.c.o
+
+shellInsertSort.i: shellInsertSort.c.i
+.PHONY : shellInsertSort.i
+
+# target to preprocess a source file
+shellInsertSort.c.i:
+	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/shellInsertSort.dir/build.make sorting/CMakeFiles/shellInsertSort.dir/shellInsertSort.c.i
+.PHONY : shellInsertSort.c.i
+
+shellInsertSort.s: shellInsertSort.c.s
+.PHONY : shellInsertSort.s
+
+# target to generate assembly for a file
+shellInsertSort.c.s:
+	cd /local/.train/train/final/build && $(MAKE) -f sorting/CMakeFiles/shellInsertSort.dir/build.make sorting/CMakeFiles/shellInsertSort.dir/shellInsertSort.c.s
+.PHONY : shellInsertSort.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -337,6 +375,7 @@ help:
 	@echo "... quickSort"
 	@echo "... rebuild_cache"
 	@echo "... selectionSort"
+	@echo "... shellInsertSort"
 	@echo "... bubbleSort.o"
 	@echo "... bubbleSort.i"
 	@echo "... bubbleSort.s"
@@ -355,6 +394,9 @@ help:
 	@echo "... selectionSort.o"
 	@echo "... selectionSort.i"
 	@echo "... selectionSort.s"
+	@echo "... shellInsertSort.o"
+	@echo "... shellInsertSort.i"
+	@echo "... shellInsertSort.s"
 .PHONY : help
 
 

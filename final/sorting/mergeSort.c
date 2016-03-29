@@ -59,7 +59,7 @@ void mergeSort(int *base, int start, int end, int *shadow)
 }
 
 
-
+/*
 void mergeSort2(int *dst, int *src, int start, int end, int *swap);
 void merge2(int *dst, int *src, int start, int end);
 
@@ -79,7 +79,7 @@ mergeSort2(int *dst, int *src, int start, int end, int *swap)
 
 
 }
-
+*/
 
 int main()
 {

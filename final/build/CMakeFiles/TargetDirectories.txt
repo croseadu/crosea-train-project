@@ -8,6 +8,7 @@
 /local/.train/train/final/build/basic/CMakeFiles/parenthesesMatch.dir
 /local/.train/train/final/build/sorting/CMakeFiles/quickSort.dir
 /local/.train/train/final/build/sorting/CMakeFiles/selectionSort.dir
+/local/.train/train/final/build/sorting/CMakeFiles/shellInsertSort.dir
 /local/.train/train/final/build/test/testDoubleLinkList/CMakeFiles/testDoubleLinkList.dir
 /local/.train/train/final/build/test/testSingleLinkList/CMakeFiles/testSingleLinkList.dir
 /local/.train/train/final/build/utils/CMakeFiles/utils.dir

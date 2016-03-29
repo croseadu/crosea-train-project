@@ -57,6 +57,7 @@ SET(CMAKE_DEPEND_INFO_FILES
   "sorting/CMakeFiles/mergeSort.dir/DependInfo.cmake"
   "sorting/CMakeFiles/quickSort.dir/DependInfo.cmake"
   "sorting/CMakeFiles/selectionSort.dir/DependInfo.cmake"
+  "sorting/CMakeFiles/shellInsertSort.dir/DependInfo.cmake"
   "basic/CMakeFiles/calculator.dir/DependInfo.cmake"
   "basic/CMakeFiles/decimalToBinary.dir/DependInfo.cmake"
   "basic/CMakeFiles/lineEdit.dir/DependInfo.cmake"

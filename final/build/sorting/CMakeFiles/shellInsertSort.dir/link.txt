@@ -1,0 +1,1 @@
+/usr/bin/gcc   -g    CMakeFiles/shellInsertSort.dir/shellInsertSort.c.o  -o ../bin/shellInsertSort -rdynamic ../lib/libutils.a 

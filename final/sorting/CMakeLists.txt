@@ -16,6 +16,6 @@ target_link_libraries(mergeSort utils)
 add_executable(heapSort heapSort.c)
 target_link_libraries(heapSort utils)
 
-#add_executable(shellInsertSort shellInsertSort.c)
-#target_link_libraries(shellInsertSort utils)
+add_executable(shellInsertSort shellInsertSort.c)
+target_link_libraries(shellInsertSort utils)
 

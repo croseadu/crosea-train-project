@@ -213,6 +213,19 @@ selectionSort/fast:
 .PHONY : selectionSort/fast
 
 #=============================================================================
+# Target rules for targets named shellInsertSort
+
+# Build rule for target.
+shellInsertSort: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 shellInsertSort
+.PHONY : shellInsertSort
+
+# fast build rule for target.
+shellInsertSort/fast:
+	$(MAKE) -f sorting/CMakeFiles/shellInsertSort.dir/build.make sorting/CMakeFiles/shellInsertSort.dir/build
+.PHONY : shellInsertSort/fast
+
+#=============================================================================
 # Target rules for targets named calculator
 
 # Build rule for target.
@@ -281,6 +294,7 @@ help:
 	@echo "... mergeSort"
 	@echo "... quickSort"
 	@echo "... selectionSort"
+	@echo "... shellInsertSort"
 	@echo "... calculator"
 	@echo "... decimalToBinary"
 	@echo "... lineEdit"
