@@ -1,56 +1,66 @@
-#ifndef _MY_SINGLE_LINK_LIST_H
-#define _MY_SINGLE_LINK_LIST_H
+#ifndef _My_SINGLE_LINK_LIST
+#define _MY_SINGLE_LINK_LIST
 
 #include "common.h"
 
+
+
 typedef struct _SingleLinkListNode
 {
-	char *data;
+	void *data;
 	struct _SingleLinkListNode *pNext;
 }SingleLinkListNode, *LPSingleLinkListNode;
 
+typedef LPSingleLinkListNode * SingleLinkListIter;
 
 
-typedef struct _SingleLinkList
+typdef struct _SingleLinkList
 {
-	LPSingleLinkListNode 	pHead;
-	unsigned int 		elementSize;
-
-	Printer 		printer;
-	Less			less;
-
+	LPSingleLinkList pHead;
+	unsigned int elementSize;
+	Less less;
+	Printer printer;
 }SingleLinkList, *LPSingleLinkList;
 
 
-BOOL createSingleLinkList(LPSingleLinkList *ppList,
-			  unsigned int elementSize,
-			  Printer printer,
-			  Less less);
+BOOL
+createSingleLinkList(LPSingleLinkList *ppList,
+	             unsigned int elementSize,
+		     Less less,
+		     Printer printer);
 
-void clearSingleLinkList(LPSingleLinkList);
-void destroySingleLinkList(LPSingleLinkList *ppList);
-
-
-void traverseSingleLinkList(LPSingleLinkList, Visitor visitor);
-void sortSingleLinkList(LPSingleLinkList);
+void
+destroySingleLinkList(LPSingleLinkList *ppList);
 
 
-void printSingleLinkList(const LPSingleLinkList);
+BOOL
+insertToHeadOfSingleLinkList(LPSingleLinkList, const void *data);
+BOOL
+insertToTailOfSingleLinkList(LPSingleLinkList, const void *data);
+BOOL
+insertAfterInSingleLinkList(LPSingleLinkList, SingleLinkListIter, const void *data);
+BOOL
+insertBeforeInSingleLinkList(LPSingleLinkList, SingleLinkListIter, const void *data);
 
 
-LPSingleLinkListNode *findInSingleLinkList(LPSingleLinkList, const void *ref);
+SingleLinkListIter
+findInSingleLinkList(LPSingleLinkList, const void *);
 
-LPSingleLinkListNode *findIfInSingleLinkList(LPSingleLinkList, Pred pred);
+SingleLinkListIter
+findIfInSingleLinkList(LPSingleLinkList, Pred);
 
-void uniqueSingleLinkList(LPSingleLinkList);
-BOOL removeInSingleLinkList(LPSingleLinkList, const void *ref);
-BOOL removeIfInSingleLinkList(LPSingleLinkList, Pred pred);
-
-BOOL insertToHeadOfSingleLinkList(LPSingleLinkList, const void *data);
-BOOL insertToTailOfSingleLinkList(LPSingleLinkList, const void *data);
-BOOL insertAfterInSingleLinkList(LPSingleLinkList, LPSingleLinkListNode *ppInsertPos, const void *);
-BOOL insertBeforeInSingleLinkList(LPSingleLinkList, LPSingleLinkListNode *ppInsertPos, const void *);
+BOOL
+removeInSingleLinkList(LPSingleLinkList, const void *);
+BOOL
+removeIfInSingleLinkList(LPSingleLinkList, Pred);
+void
+eraseFromSingleLinkList(LPSingleLinkList, SingleLinkListIter);
 
 
+void
+sortSingleLinkList(LPSingleLinkList);
+
+void
+traverseSingleLinkList(LPSingleLinkList, Visitor visitor);
 
 #endif

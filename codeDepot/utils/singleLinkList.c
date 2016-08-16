@@ -1,293 +1,309 @@
 #include "singleLinkList.h"
 
 
+#include "utils.h"
 #include "memory.h"
 
+#include <stdio.h>
+#include <string.h>
 #include <assert.h>
 
-BOOL createSingleLinkList(LPSingleLinkList *ppList,
-			  unsigned int elementSize,
-			  Printer printer,
-			  Less less)
+
+BOOL
+createSingleLinkList(LPSingleLinkList *ppList,
+	             unsigned int elementSize,
+		     Less less,
+		     Printer printer)
 {
 	LPSingleLinkList pList = NULL;
 
-
 	pList = (LPSingleLinkList)myAlloc(sizeof(SingleLinkList));
 	if (NULL == pList) {
-		assert(0 && "Out Of Memory");
+		DBG(printf("Out Of Memory in %s %d", __FILE__, __line__));
 		return False;
 	}
-	pList->pHead 		= NULL;
-	pList->elementSize 	= elementSize;
-	pList->printer 		= printer;
-	pList->less 		= less;
+	pList->pHead = NULL;
+	pList->elementSize = elementSize;
+	pList->less = less;
+	pList->printer = printer;
+
 
 	*ppList = pList;
+
 	return True;
 }
 
-void clearSingleLinkList(LPSingleLinkList pList)
+void
+destroySingleLinkList(LPSingleLinkList *ppList)
 {
-	LPSingleLinkListNode pIterNode, pNextNode;
-	assert(pList);
+	LPSingleLinkList pList = *ppList;
+	LPSingleLinkListNode pIter, pNext;
+	
+	if (NULL == pList)
+		return;
 
-	pIterNode = pList->pHead;
-	while (pIterNode != NULL) {
-		pNextNode = pIterNode;
+	pIter = pList->pHead;
+	while (NULL != pIter) {
+		pNext = pIter->pNext;
+		
+		myFree(pIter->data);
+		myFree(pIter);
 
-		myFree(pIterNode->data);
-		myFree(pIterNode);
-
-		pIterNode = pNextNode;
+		pIter = pNext;	
 	}
-
-	pList->pHead = NULL;
-
-}
-
-void destroySingleLinkList(LPSingleLinkList *ppList)
-{
-	LPSingleLinkList pList;
-
-	assert(ppList);
-	pList = *ppList;
-
-	clearSingleLinkList(pList);
 	myFree(pList);
 
 	*ppList = NULL;
 }
 
-void traverseSingleLinkList(LPSingleLinkList pList, Visitor visitor)
+static 
+LPSingleLinkListNode
+createSingleLinkListNode(const LPSingleLinkList pList, const void *data)
 {
-	LPSingleLinkListNode pIterNode = pList->pHead;
+	LPSingleLinkListNode pNode = NULL;
 
-	while (pIterNode != NULL) {
-		visitor(pIterNode->data);
-		pIterNode = pIterNode->pNextNode;
-	}
-}
-
-void sortSingleLinkList(LPSingleLinkList pList)
-{
-	LPSingleLinkListNode pIterNode, pNextNode;
-	LPSingleLinkListNode *ppInsertPos;
-  	assert(pList);
-
-	if (NULL == pList->pHead ||
-	    NULL == pList->pHead->pNext)
-		return;
-
-
-	pIterNode = pList->pHead->pNextNode;
-	pList->pHead->pNextNode = NULL;
-
-	while (pIterNode != NULL) {
-		pNextNode = pIterNode->pNext;
-		ppInsertPos = &pList->pHead;
-		while (*ppInsertPos != NULL && 
-		       pList->less((*ppInsertPos)->data, pIterNode->data) == True)
-			ppInsertPos = &(*ppInsertPos)->pNext;
-		pIterNode->pNext = *ppInsertPos;
-		*ppInsertPos = pIterNode;
-		
-		pIterNode = pNextNode;
-	}
-
-
-}
-
-
-void printSingleLinkList(const LPSingleLinkList pList)
-{
-	unsigned int count = 0;
-#define MAX_ITEM_PER_LINE 5
-	LPSingleLinkListNode pIterNode = pList->pHead;
-	while (pIterNode != NULL) {
-		pList->printer(pIterNode->data);
-		++count;
-		if (count % MAX_ITEM_PER_LINE == 0)
-			putchar('\n');
-	}
-	
-	if (count % 5 != 0)
-		putchar('\n');
-#undef MAX_ITER_PER_LINE	
-}
-
-
-LPSingleLinkListNode *findInSingleLinkList(LPSingleLinkList pList, const void *ref)
-{
-	LPSingleLinkListNode *ppIterNode = &pList->pHead;
-	while (*ppIterNode != NULL && 
-		pList->less(ref, (*ppIterNode)->data) == False &&
-		pList->less((*ppIterNode)->data, ref) == False)
-		ppIterNode = &(*ppIterNode)->pNext;
-	return ppIterNode;
-}
-
-LPSingleLinkListNode *findIfInSingleLinkList(LPSingleLinkList, Pred pred)
-{
-	LPSingleLinkListNode *ppIterNode = &pList->pHead;
-	while (*ppIterNode != NULL && 
-		pList->pred((*ppIterNode)->data) == False)
-		ppIterNode = &(*ppIterNode)->pNext;
-	return ppIterNode;
-}
-}
-
-void uniqueSingleLinkList(LPSingleLinkList pList)
-{
-	LPSingleLinkListNode pIterNode;
-	LPSingleLinkListNode pNode;
-
-	if (NULL == pList->pHead ||
-	    NULL == pList->pHead->pNext)
-		return;
-
-	pIterNode = pList->pHead;
-	while (pIterNode->pNext != NULL) {
-		if (pList->less(pIterNode->pNext->data, pIterNode->data) == False &&
-		    pList->less((pIterNode->data, pIterNode->pNext->data) == False) {
-			pNode = pIterNode->pNextNode;
-			pIterNode->pNextNode = pNode->pNext;
-			myFree(pNode->data);
-			myFree(pNode);
-		} else {
-			pIterNode = pIterNode->pNextNode;
-		}
-	}
-}
-
-BOOL removeInSingleLinkList(LPSingleLinkList pList, const void *ref)
-{
-	LPSingleLinkListNode *ppIterNode = NULL;
-	LPSingleLinkListNode pNode;
-
-	while (*ppIterNode != NULL) {
-		if (pList->less(ref, (*ppIterNode)->data) == False &&
-		    pList->less((*ppIterNode)->data, ref) == False) {
-			pNode = *ppIterNode;
-			*ppIterNode = pNode->pNext;
-			myFree(pNode->data);
-			myFree(pNode);
-
-		} else {
-			ppIterNode = &(*ppIterNode)->pNext;
-		}
-			
-	}
-
-
-}
-
-BOOL removeIfInSingleLinkList(LPSingleLinkList pList, Pred pred)
-{
-	LPSingleLinkListNode *ppIterNode = NULL;
-	LPSingleLinkListNode pNode;
-
-	while (*ppIterNode != NULL) {
-		if (pList->pred((*ppIterNode)->data) == True) {
-			pNode = *ppIterNode;
-			*ppIterNode = pNode->pNext;
-			myFree(pNode->data);
-			myFree(pNode);
-
-		} else {
-			ppIterNode = &(*ppIterNode)->pNext;
-		}
-			
-	}
-
-}
-
-static
-LPSingleLinkListNode createNewSingleLinkListNode(LPSingleLinkList pList, const void *data)
-{
-	LPSingleLinkListNode pNewNode = NULL;
-		
-	pNewNode = (LPSingleLinkListNode)myAlloc(sizeof(SingleLinkListNode));
-	if (NULL == pNewNode) {
-		assert(0 && "Out Of memory!");
+	pNode = (LPSingleLinkListNode)myAlloc(sizeof(SingleLinkListNode));
+	if (NULL == pNode) {
+		DBG(printf("Out Of Memory in %s %d", __FILE__, __line__));
 		return NULL;
 	}
-
-	pNewNode->data = (char *)myAlloc(pList->elementSize);
-	if (NULL == pNewNode->data) {
-		myFree(pNewNode);
-		assert(0 &&"Out Of Memory!");
+	pNode->data = myAlloc(pList->elementSize);
+	if (NULL == pNode->data) {
+		DBG(printf("Out Of Memory in %s %d", __FILE__, __line__));
+		myFree(pNode);
 		return NULL;
 	}
-
-	memcpy(pNewNode->data, data, pList->elementSize);
-	pNewNode->pNext = NULL;
-	return pNewNode;
-}
-
-
-BOOL insertToHeadOfSingleLinkList(LPSingleLinkList pList, const void *data)
-{
-	LPSingleLinkListNode pNewNode;
-
-	pNewNode = createNewSingleLinkListNode(pList, data);
-	if (NULL == pNewNode)
-		return False;
-	pNewNode->pNext = pList->pHead;
-	pList->pHead = pNewNode;
-
-	return True;
-
-}
-
-BOOL insertToTailOfSingleLinkList(LPSingleLinkList pList, const void *data)
-{
-	LPSingleLinkListNode pNewNode = NULL;
-	LPSingleLinkListNode *ppInsertPos = NULL;
 	
-	pNewNode = createNewSingleLinkListNode(pList, data);
-	if (NULL == pNewNode)
-		return False;
-	
-	ppInsertPos = &pList->pHead;
-	while ( *ppInsertPos != NULL)
-		ppInsertPos = &(*ppInsertPos)->pNext;
+	memcpy(pNode->data, data, pList->elementSize);
+	pNode->pNext = NULL;
 
-	*ppInsertPos = pNewNode;
-	
-
-	return True;
-
-
+	return pNode;
 }
-BOOL insertAfterInSingleLinkList(LPSingleLinkList pList, LPSingleLinkListNode *ppInsertPos, const void *data)
+
+BOOL
+insertToHeadOfSingleLinkList(LPSingleLinkList pList, const void *data)
 {
-	LPSingleLinkListNode pNewNode;
+	LPSingleLinkListNode pNode = NULL;
 
-	pNewNode = createNewSingleLinkListNode(pList, data);
-	if (NULL == pNewNode)
-		return False;
+	pNode = createSingleLinkListNode(pList, data);
+	if (NULL == pNode)
+		return False;	
 
-	pNewNode->pNext = (*ppInsertPos)->pNext;
-	(*ppInsertPos)->pNext = pNewNode;
+	pNode->pNext = pList->pHead;
+	pList->phead = pNode;
 
 	return True;
 }
 
-BOOL insertBeforeInSingleLinkList(LPSingleLinkList, LPSingleLinkListNode *ppInsertPos, const void *)
+BOOL
+insertToTailOfSingleLinkList(LPSingleLinkList pList, const void *data)
 {
-	LPSingleLinkListNode pNewNode;
+	LPSingleLinkListNode pNode = NULL, pIter;
 
-	pNewNode = createNewSingleLinkListNode(pList, data);
-	if (NULL == pNewNode)
-		return False;
+	pNode = createSingleLinkListNode(pList, data);
+	if (NULL == pNode)
+		return False;	
 
-	pNewNode->pNext = (*ppInsertPos);
-	(*ppInsertPos) = pNewNode;
+	if (NULL == pList->pHead) {
+		pNode->pNext = NULL;
+		pList-<oGead = pNode;
+	} else {
+		pIter = pList->pHead;
+		while (pIter->pNext)
+			pIter = pIter->pNext;
+		pIter->pNext = pNode;
+		pNode->pNext = NULL;
+	}
 
 	return True;
+}
+
+BOOL
+insertAfterInSingleLinkList(LPSingleLinkList pList, SingleLinkListIter pos, const void *data)
+{
+	LPSingleLinkListNode pNode;
+
+	assert(pos != NULL);
+
+	pNode = createSingleLinkListNode(pList, data);
+	if (NULL == pNode) 
+		return False;
+
+	pNode->pNext = (*pos)->pNext;
+	(*pos)->pNext = pNode;
+
+	return True;
+}
+
+BOOL
+insertBeforeInSingleLinkList(LPSingleLinkList pList, SingleLinkListIter pos, const void *data)
+{
+	LPSingleLinkListNode pNode;
+
+	assert(pos != NULL);
+
+	pNode = createSingleLinkListNode(pList, data);
+	if (NULL == pNode) 
+		return False;
+
+	pNode->pNext = (*pos);
+	(*pos) = pNode;
+
+	return True;
+}
+
+
+SingleLinkListIter
+findInSingleLinkList(LPSingleLinkList pList, const void *ref)
+{
+	SingleLinkListIter it = NULL;
+	it = &pList->pHead;
+	while ( *it != NULL ) {
+		if (pList->less((*it)->data, ref) == False &&
+		    pList->less(ref, (*it)->data) == False)
+			return it;
+		it = &(*it)->pNext;
+	}
+	return NULL;
+}
+
+SingleLinkListIter
+findIfInSingleLinkList(LPSingleLinkList pList, Pred pred)
+{
+	SingleLinkListIter it = &pList->pHead;
+	
+	while (*it != NULL) {
+		if (pred((*it)->data) == True)
+			return it;
+	}
+	return NULL;
+}
+
+BOOL
+removeInSingleLinkList(LPSingleLinkList pList, const void *ref)
+{
+	BOOL bRemoved = False;
+	SingleLinkListIter it = &pList->pHead;
+	LPSingleLinkListNode pDeleteNode;
+	while (*it != NULL) {
+		if (pList->less((*it)->data, ref) == False &&
+		    pList->less(ref, (*it)->data) == False) {
+			pDeleteNode = *it;
+			*it = pDeleteNode->pNext;
+
+			myFree(pDeleteNode->data);
+			myFree(pDeleteNode);	
+
+			bRemoved = True;		
+
+		} else {
+			it = &(*it)->pNext;
+		}	
+
+	}	
+
+	return bRemoved;
+}
+
+BOOL
+removeIfInSingleLinkList(LPSingleLinkList pList, Pred pred)
+{
+	BOOL bRemoved = False;
+	SingleLinkListIter it = &pList->pHead;
+	LPSingleLinkListNode pDeleteNode;
+	while (*it != NULL) {
+		if (pred((*it)->data) == True) {
+			pDeleteNode = *it;
+			*it = pDeleteNode->pNext;
+
+			myFree(pDeleteNode->data);
+			myFree(pDeleteNode);
+			
+			bRemoved = True;			
+
+		} else {
+			it = &(*it)->pNext;
+		}	
+
+	}	
+
+	return bRemoved;
+}
+
+void
+eraseFromSingleLinkList(LPSingleLinkList pList, SingleLinkListIter it)
+{
+	LPSingleLinkListNode pDeleteNode = *it;
+
+	*it = pDeleteNode->pNext;
+	
+	myFree(pDeleteNode->data);
+	myFree(pDeleteNode);
 
 }
 
 
+void
+sortSingleLinkList(LPSingleLinkList pList)
+{
+	SingleLinkListIter it;
+	LPSingleLinkListNode pIter, pNext;
+
+	if (pList->pHead == NULL)
+		return;
+	
+	pIter = pList->pHead->pNext;
+	pList->pHead->pNext = NULL;
+
+	while(NULL != pIter) {
+		pNext = pIter->pNext;
+		it = &pList->pHead;
+		while (*it != NULL &&
+		       pList->less((*it)->data, pIter->data) == True)
+			it = &(*it)->pNext;
+		
+		pIter->pNext = *it;
+		*it = pIter;
+
+		pIter = pNext;
+	}
+
+}
+
+// Assume list has been sorted.
+void
+uniqueSingleLinkList(LPSingleLinkList pList)
+{
+	LPSingleLinkListNode pPrev;
+
+	if (pList->pHead == NULL)
+		return;
+
+	pPrev = pList->pHead;
+	while (pPrev->pNext != NULL) {
+		if (pList->less(pPrev->data, pPrev->pNext->data) == False &&
+		    pList->less(pPrev->pNext->data, pPrev->data) == False) {
+			pDeleteNode = pPrev->pNext;
+			pPrev->pNext = pDeleteNode->pNext;
+
+			myFree(pDeleteNode->data);
+			myFree(pDeleteNode);		
+
+		} else {
+			pPrev = pPrev->pNext;
+		}
+
+	}
+}
+
+void
+traverseSingleLinkList(LPSingleLinkList pList, Visitor visitor)
+{
+	LPSingleLinkListNode pIter = pList->pHead;
+	while (pIter != NULL) {
+
+		visitor(pIter->data);
+		pIter = pIter->pNext;
+	}
+}
 

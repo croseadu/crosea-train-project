@@ -1,14 +1,9 @@
 #ifndef _MY_MEMORY_H
 #define _MY_MEMORY_H
 
-
-#include "common.h"
-
-
-void *myAlloc(unsigned int size);
-
-void *myFree(void *);
-
-
+void *myAlloc(size_t size);
+void myFree(void *ptr);
+void *myRealloc(void *ptr, size_t newSize);
 
 #endif
+

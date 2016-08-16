@@ -1,20 +1,44 @@
 #include "memory.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
+
+#include "common.h"
+
+#include <stdlib.h>
+#include <stdio.h>
 #include <assert.h>
 
 
-void *myAlloc(unsigned int size)
+
+//#define MEMSPY
+
+
+void *
+myAlloc(size_t size)
 {
 	return malloc(size);
+
 }
 
-
-void myFree(void *ptr)
+void
+myFree(void *ptr)
 {
-	free(ptr);
+	return free(ptr);
 }
+
+
+void *
+myRealloc(void *ptr, size_t size)
+{
+	return realloc(ptr, size);
+}
+
+
+
+
+
+
+
+
+
 
