@@ -61,6 +61,14 @@ void
 sortSingleLinkList(LPSingleLinkList);
 
 void
+uniqueSingleLinkList(LPSingleLinkList);
+
+void
 traverseSingleLinkList(LPSingleLinkList, Visitor visitor);
 
+BOOL 
+isSingleLinkListEmpty(const LPSingleLinkList pList);
+
+unsigned int
+getSizeOfSingleLinkList(const LPSingleLinkList pList);
 #endif
