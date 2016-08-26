@@ -14,9 +14,9 @@ typedef struct _SingleLinkListNode
 typedef LPSingleLinkListNode * SingleLinkListIter;
 
 
-typdef struct _SingleLinkList
+typedef struct _SingleLinkList
 {
-	LPSingleLinkList pHead;
+	LPSingleLinkListNode pHead;
 	unsigned int elementSize;
 	Less less;
 	Printer printer;

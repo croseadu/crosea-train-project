@@ -8,7 +8,7 @@ struct QueueImpl;
 
 typedef struct _Queue
 {
-	QueueImpl *pImpl;
+	struct QueueImpl *pImpl;
 	
 	unsigned int elementSize;	
 }Queue, *LPQueue;
@@ -36,9 +36,10 @@ void
 clearQueue(LPQueue);
 
 
-BOOL
+void
 getFrontOfQueue(const LPQueue , void *data);
-BOOL
+
+void
 getBackOfQueue(const LPQueue, void *data);
 
 #endif

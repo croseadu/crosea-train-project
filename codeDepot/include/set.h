@@ -9,18 +9,20 @@ struct SetImpl;
 
 typedef struct _Set
 {
-	SetImpl *pImpl;
+	struct SetImpl *pImpl;
 
 	unsigned int elementSize;
 	Less less;
+	Printer printer;
 }Set, *LPSet;
 
-typedef void * SetIt;
+typedef void * SetIter;
 
 BOOL
 createSet(LPSet *ppSet,
 	  unsigned int elementSize,
-	  Less less);
+	  Less less,
+	  Printer printer);
 
 
 void

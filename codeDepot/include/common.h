@@ -17,7 +17,7 @@ typedef enum{
 typedef void (*Visitor)(void *);
 typedef void (*Printer)(const void *);
 
-typdeef BOOL (*less)(const void *lhs, const void *rhs);
+typedef BOOL (*Less)(const void *lhs, const void *rhs);
 typedef BOOL (*Pred)(const void *);
 
 

@@ -1,6 +1,9 @@
 #include "queue.h"
 
+#include "utils.h"
 #include "doubleLinkList.h"
+#include "memory.h"
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,15 +24,15 @@ createQueue(LPQueue *ppQueue,
 
 {
 	LPQueue pQueue = NULL;
-	QueueImpl *pImpl = NULL
-	LPSingleLinkList pList = NULL;
+	struct QueueImpl *pImpl = NULL;
+	LPDoubleLinkList pList = NULL;
 
 
 	pQueue = (LPQueue)myAlloc(sizeof(Queue));
-	pImpl = (QueueImpl *)myAlloc(sizeof(QueueImpl));
+	pImpl = (struct QueueImpl *)myAlloc(sizeof(struct QueueImpl));
 	if (NULL == pQueue ||
             NULL == pImpl ||
-	    False == createDoubleLinkList(&pList, elementSize, defaultLess, Printer) ) {
+	    False == createDoubleLinkList(&pList, elementSize, defaultLess, printer) ) {
 		goto Fail;
 	}
 
@@ -81,9 +84,12 @@ void
 deQueue(LPQueue pQueue, void *data)
 {
 	LPDoubleLinkList pList = pQueue->pImpl->pList;
+	LPDoubleLinkListNode pHead;
+
 	assert(isQueueEmpty(pQueue) == False);	
 	assert(isDoubleLinkListEmpty(pList) == False);
 
+	pHead = pList->pHead->pNext;
 	
 	memcpy(data, pHead->data, pQueue->elementSize);
 	
@@ -110,18 +116,5 @@ getBackOfQueue(LPQueue pQueue, void *data)
 {
 	getTailOfDoubleLinkList(pQueue->pImpl->pList, data);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

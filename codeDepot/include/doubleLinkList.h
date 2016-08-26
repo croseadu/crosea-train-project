@@ -1,4 +1,5 @@
 
+
 #ifndef _My_DOUBLE_LINK_LIST
 #define _MY_DOUBLE_LINK_LIST
 
@@ -16,9 +17,9 @@ typedef struct _DoubleLinkListNode
 typedef LPDoubleLinkListNode * DoubleLinkListIter;
 
 
-typdef struct _DoubleLinkList
+typedef struct _DoubleLinkList
 {
-	LPDoubleLinkList pHead;
+	LPDoubleLinkListNode pHead;
 	unsigned int elementSize;
 	Less less;
 	Printer printer;

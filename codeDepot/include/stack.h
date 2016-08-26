@@ -3,7 +3,7 @@
 
 #include "common.h"
 
-typdef struct _Stack
+typedef struct _Stack
 {
 	void *base;
 	

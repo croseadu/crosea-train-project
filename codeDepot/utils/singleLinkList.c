@@ -19,7 +19,7 @@ createSingleLinkList(LPSingleLinkList *ppList,
 
 	pList = (LPSingleLinkList)myAlloc(sizeof(SingleLinkList));
 	if (NULL == pList) {
-		DBG(printf("Out Of Memory in %s %d", __FILE__, __line__));
+		DBG(printf("Out Of Memory in %s %d", __FILE__, __LINE__));
 		return False;
 	}
 	pList->pHead = NULL;
@@ -64,12 +64,12 @@ createSingleLinkListNode(const LPSingleLinkList pList, const void *data)
 
 	pNode = (LPSingleLinkListNode)myAlloc(sizeof(SingleLinkListNode));
 	if (NULL == pNode) {
-		DBG(printf("Out Of Memory in %s %d", __FILE__, __line__));
+		DBG(printf("Out Of Memory in %s %d", __FILE__, __LINE__));
 		return NULL;
 	}
 	pNode->data = myAlloc(pList->elementSize);
 	if (NULL == pNode->data) {
-		DBG(printf("Out Of Memory in %s %d", __FILE__, __line__));
+		DBG(printf("Out Of Memory in %s %d", __FILE__, __LINE__));
 		myFree(pNode);
 		return NULL;
 	}
@@ -90,7 +90,7 @@ insertToHeadOfSingleLinkList(LPSingleLinkList pList, const void *data)
 		return False;	
 
 	pNode->pNext = pList->pHead;
-	pList->phead = pNode;
+	pList->pHead = pNode;
 
 	return True;
 }
@@ -106,7 +106,7 @@ insertToTailOfSingleLinkList(LPSingleLinkList pList, const void *data)
 
 	if (NULL == pList->pHead) {
 		pNode->pNext = NULL;
-		pList-<oGead = pNode;
+		pList->pHead = pNode;
 	} else {
 		pIter = pList->pHead;
 		while (pIter->pNext)
@@ -161,10 +161,10 @@ findInSingleLinkList(LPSingleLinkList pList, const void *ref)
 	while ( *it != NULL ) {
 		if (pList->less((*it)->data, ref) == False &&
 		    pList->less(ref, (*it)->data) == False)
-			return it;
+			break;
 		it = &(*it)->pNext;
 	}
-	return NULL;
+	return it;
 }
 
 SingleLinkListIter
@@ -174,9 +174,9 @@ findIfInSingleLinkList(LPSingleLinkList pList, Pred pred)
 	
 	while (*it != NULL) {
 		if (pred((*it)->data) == True)
-			return it;
+			break;
 	}
-	return NULL;
+	return it;
 }
 
 BOOL
@@ -275,6 +275,7 @@ void
 uniqueSingleLinkList(LPSingleLinkList pList)
 {
 	LPSingleLinkListNode pPrev;
+	LPSingleLinkListNode pDeleteNode;
 
 	if (pList->pHead == NULL)
 		return;

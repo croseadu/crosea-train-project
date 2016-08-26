@@ -1,0 +1,3 @@
+/local/.train/train/codeDepot/build/test/CMakeFiles/testDoubleLinkList.dir
+/local/.train/train/codeDepot/build/test/CMakeFiles/testSingleLinkList.dir
+/local/.train/train/codeDepot/build/utils/CMakeFiles/utils.dir

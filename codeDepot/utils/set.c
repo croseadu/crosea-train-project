@@ -8,21 +8,12 @@
 #include <stdio.h>
 #include <assert.h>
 
-typedef struct _SetImpl
+struct SetImpl
 {
   LPSingleLinkList pList;
-}SetImpl, *LPSetImpl;
+};
 
-typedef struct _Set
-{
-	SetImpl *pImpl;
-
-	unsigned int elementSize;
-	Less less;
-	Printer printer;
-}Set, *LPSet;
-
-typedef void * SetIter;
+typedef struct SetImpl * LPSetImpl;
 
 BOOL
 createSet(LPSet *ppSet,
@@ -34,14 +25,14 @@ createSet(LPSet *ppSet,
 	
 	pSet = (LPSet)myAlloc(sizeof(Set));
 	if (NULL == pSet) {
-		DBG(printf("Out Of Memory in %s %s", __FILE__, __line__));
+		DBG(printf("Out Of Memory in %s %d", __FILE__, __LINE__));
 		return False;
 	}
 
-	pSet->pImpl = (LPSetImpl)myAlloc(sizeof(SetImpl));
+	pSet->pImpl = (LPSetImpl)myAlloc(sizeof(struct SetImpl));
 	if (NULL == pSet->pImpl) {
 		myFree(pSet);
-		DBG(printf("Out Of Memory in %s %s", __FILE__, __line__));
+		DBG(printf("Out Of Memory in %s %d", __FILE__, __LINE__));
 		return False;
 	}
 	
@@ -129,13 +120,13 @@ countInSet(LPSet pSet, const void *key)
 
 
 BOOL
-isSetEmpty(const LPSet)
+isSetEmpty(const LPSet pSet)
 {
 	return isSingleLinkListEmpty(pSet->pImpl->pList);
 }
 
 unsigned
-getSizeOfSet(const LPSet);
+getSizeOfSet(const LPSet pSet)
 {
 	return getSizeOfSingleLinkList(pSet->pImpl->pList);
 }

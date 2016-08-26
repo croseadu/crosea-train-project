@@ -9,10 +9,10 @@ struct MapImpl;
 
 typedef struct _Map
 {
-	MapImpl *pImpl;
+	struct MapImpl *pImpl;
 
 	unsigned int keySize;
-	unsigned int dataSize
+	unsigned int dataSize;
 	Less keyComp;
 }Map, *LPMap;
 
@@ -42,9 +42,9 @@ void
 eraseFromMap(LPMap, MapIter);
 
 void
-getFirstFromMapIter(MapIter, void *key);
+getFirstFromMapIter(LPMap, MapIter, void *key);
 void
-getSecondFromMapIter(MapIter, void *data);
+getSecondFromMapIter(LPMap, MapIter, void *data);
 
 
 MapIter
@@ -58,11 +58,6 @@ isMapEmpty(const LPMap);
 
 unsigned
 getSizeOfKey(const LPMap);
-
-
-
-
-
 
 
 #endif

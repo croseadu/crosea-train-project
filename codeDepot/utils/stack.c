@@ -10,17 +10,6 @@
 #include "memory.h"
 
 
-typdef struct _Stack
-{
-	void *base;
-	
-	unsigned int top;
-
-	unsigned int capacity;
-
-	unsigned int elementSize;
-}Stack, *LPStack;
-
 
 BOOL
 createStack(LPStack *ppStack,
@@ -31,14 +20,14 @@ createStack(LPStack *ppStack,
 
 	pStack = (LPStack)myAlloc(sizeof(Stack));
 	if (NULL == pStack) {
-		DBG(printf("Out Of Memory in %s %d", __FILE__,__line__));
+		DBG(printf("Out Of Memory in %s %d", __FILE__,__LINE__));
 		return False;
 	}
 
 	pStack->base = myAlloc(elementSize * INIT_SIZE);
 	if (NULL == pStack->base) {
 		myFree(pStack);
-		DBG(printf("Out Of Memory in %s %d", __FILE__,__line__));
+		DBG(printf("Out Of Memory in %s %d", __FILE__,__LINE__));
 		return False;
 	}
 
@@ -79,7 +68,7 @@ pushToStack(LPStack pStack, const void *data)
 	if (pStack->top >= pStack->capacity) {
 		void *newBase = myAlloc(pStack->elementSize * (pStack->capacity + INCRE_SIZE));
 		if (NULL == newBase) {
-			DBG(printf("Out Of Memory in %s %d", __FILE__, __line__));
+			DBG(printf("Out Of Memory in %s %d", __FILE__, __LINE__));
 			return False;
 		}
 

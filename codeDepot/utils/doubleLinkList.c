@@ -18,12 +18,12 @@ createDoubleLinkListNode(const LPDoubleLinkList pList, const void *data)
 
 	pNode = (LPDoubleLinkListNode)myAlloc(sizeof(DoubleLinkListNode));
 	if (NULL == pNode) {
-		DBG(printf("Out Of Memory in %s %d", __FILE__, __line__));
+		DBG(printf("Out Of Memory in %s %d", __FILE__, __LINE__));
 		return NULL;
 	}
 	pNode->data = myAlloc(pList->elementSize);
 	if (NULL == pNode->data) {
-		DBG(printf("Out Of Memory in %s %d", __FILE__, __line__));
+		DBG(printf("Out Of Memory in %s %d", __FILE__, __LINE__));
 		myFree(pNode);
 		return NULL;
 	}
@@ -45,17 +45,17 @@ createDoubleLinkList(LPDoubleLinkList *ppList,
 
 	pList = (LPDoubleLinkList)myAlloc(sizeof(DoubleLinkList));
 	if (NULL == pList) {
-		DBG(printf("Out Of Memory in %s %d", __FILE__, __line__));
+		DBG(printf("Out Of Memory in %s %d", __FILE__, __LINE__));
 		return False;
 	}
 
 	pList->pHead = (LPDoubleLinkListNode)myAlloc(sizeof(DoubleLinkListNode));
 	if (NULL == pList->pHead) {
-		DBG(printf("Out Of Memory in %s %d", __FILE__, __line__));
+		DBG(printf("Out Of Memory in %s %d", __FILE__, __LINE__));
 		myFree(pList);
 		return False;
 	}
-	pList->data = NULL;
+	pList->pHead->data = NULL;
 	pList->pHead->pNext = pList->pHead;
 	pList->pHead->pPrev = pList->pHead;
 
@@ -307,6 +307,7 @@ void
 uniqueDoubleLinkList(LPDoubleLinkList pList)
 {
 	LPDoubleLinkListNode pPrev;
+	LPDoubleLinkListNode pDeleteNode;
 
 	if (pList->pHead->pNext == pList->pHead)
 		return;
