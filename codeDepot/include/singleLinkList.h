@@ -64,6 +64,9 @@ void
 uniqueSingleLinkList(LPSingleLinkList);
 
 void
+printSingleLinkList(const LPSingleLinkList pList);
+
+void
 traverseSingleLinkList(LPSingleLinkList, Visitor visitor);
 
 BOOL 

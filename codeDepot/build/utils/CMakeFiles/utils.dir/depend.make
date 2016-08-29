@@ -45,5 +45,7 @@ utils/CMakeFiles/utils.dir/stack.c.o: ../include/memory.h
 utils/CMakeFiles/utils.dir/stack.c.o: ../include/stack.h
 utils/CMakeFiles/utils.dir/stack.c.o: ../utils/stack.c
 
+utils/CMakeFiles/utils.dir/utils.c.o: ../include/common.h
+utils/CMakeFiles/utils.dir/utils.c.o: ../include/utils.h
 utils/CMakeFiles/utils.dir/utils.c.o: ../utils/utils.c
 

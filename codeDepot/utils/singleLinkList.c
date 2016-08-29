@@ -308,3 +308,51 @@ traverseSingleLinkList(LPSingleLinkList pList, Visitor visitor)
 	}
 }
 
+void
+printSingleLinkList(const LPSingleLinkList pList)
+{
+#define MAX_IN_LINE 10
+
+	LPSingleLinkListNode pNode;
+	unsigned int count = 0;
+
+	assert(pList != NULL);
+	pNode = pList->pHead;
+	printf("\n");
+	while (NULL != pNode) {
+		pList->printer(pNode->data);
+		++count;
+		if (count % MAX_IN_LINE == 0) {
+			printf("\n");
+		}
+		pNode = pNode->pNext;
+	}
+	if (count % 5 != 0) {
+		printf("\n");
+	}
+
+#undef MAX_IN_LINE	
+}
+
+void
+reverseSingleLinkList(LPSingleLinkList pList)
+{
+	LPSingleLinkListNode pIter, pNext;
+	
+	assert(pList);
+	pIter = pList->pHead;
+	if (NULL == pIter)
+		return;
+
+	pIter = pIter->pNext;
+	pList->pHead->pNext = NULL;
+	while (pIter != NULL) {
+		pNext = pIter->pNext;
+
+		pIter->pNext = pList->pHead;
+		pList->pHead = pIter;
+
+		pIter = pNext;
+
+	}
+}

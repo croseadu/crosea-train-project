@@ -15,11 +15,11 @@ BOOL defaultLess(const void *lhs, const void *rhs);
 
 
 
+BOOL
+lessInt(const void *lhs, const void *rhs);
 
-
-
-
-
+void
+printInt(const void *data);
 
 
 #endif
