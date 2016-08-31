@@ -6,5 +6,27 @@
 
 #IncludeRegexTransform: 
 
+../include/common.h
+
+../include/doubleLinkList.h
+common.h
+../include/common.h
+
+../include/utils.h
+common.h
+../include/common.h
+
 /local/.train/train/codeDepot/test/testDoubleLinkList.c
+doubleLinkList.h
+/local/.train/train/codeDepot/test/doubleLinkList.h
+utils.h
+/local/.train/train/codeDepot/test/utils.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+assert.h
+-
 

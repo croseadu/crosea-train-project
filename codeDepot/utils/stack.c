@@ -87,7 +87,7 @@ pushToStack(LPStack pStack, const void *data)
 BOOL
 isStackEmpty(const LPStack pStack)
 {
-	return pStack->top > 0 ? True : False;
+	return pStack->top == 0 ? True : False;
 }
 
 void getTopOfStack(const LPStack pStack, void *data)

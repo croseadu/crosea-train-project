@@ -234,9 +234,9 @@ BOOL
 removeIfInDoubleLinkList(LPDoubleLinkList pList, Pred pred)
 {
 	BOOL bRemoved = False;
-	DoubleLinkListIter it = &pList->pHead;
+	DoubleLinkListIter it = &pList->pHead->pNext;
 	LPDoubleLinkListNode pDeleteNode;
-	while (*it != NULL) {
+	while (*it != pList->pHead) {
 		if (pred((*it)->data) == True) {
 			pDeleteNode = *it;
 			pDeleteNode->pNext->pPrev = pDeleteNode->pPrev;
@@ -312,15 +312,14 @@ uniqueDoubleLinkList(LPDoubleLinkList pList)
 	if (pList->pHead->pNext == pList->pHead)
 		return;
 
-	pPrev = pList->pHead;
+	pPrev = pList->pHead->pNext;
 	while (pPrev->pNext != pList->pHead) {
 		if (pList->less(pPrev->data, pPrev->pNext->data) == False &&
 		    pList->less(pPrev->pNext->data, pPrev->data) == False) {
 			pDeleteNode = pPrev->pNext;
 			
 			pDeleteNode->pNext->pPrev = pDeleteNode->pPrev;
-			pDeleteNode->pPrev->pNext = pDeleteNode->pNext
-;
+			pDeleteNode->pPrev->pNext = pDeleteNode->pNext;
 
 			myFree(pDeleteNode->data);
 			myFree(pDeleteNode);		
@@ -341,5 +340,62 @@ traverseDoubleLinkList(LPDoubleLinkList pList, Visitor visitor)
 		visitor(pIter->data);
 		pIter = pIter->pNext;
 	}
+}
+
+void
+printDoubleLinkList(const LPDoubleLinkList pList)
+{
+#define MAX_IN_LINE 5
+	int count = 0;
+	LPDoubleLinkListNode pNode;
+	assert(pList);
+	assert(pList->pHead);
+
+	printf("\n");
+	pNode = pList->pHead->pNext;
+	while (pNode != pList->pHead) {
+		pList->printer(pNode->data);
+		++count;
+		if (count % MAX_IN_LINE == 0) {
+			printf("\n");
+		}
+		pNode = pNode->pNext;
+	}	
+
+	if (count % MAX_IN_LINE != 0) {
+		printf("\n");
+	}
+#undef MAX_IN_LINE
+}
+
+
+void
+reverseDoubleLinkList(LPDoubleLinkList pList)
+{
+	LPDoubleLinkListNode pIter;
+	LPDoubleLinkListNode pNext;
+
+	assert(pList || pList->pHead);
+
+	pIter = pList->pHead->pNext;
+	if (pIter == pList->pHead ||
+	    pIter->pNext == pList->pHead)
+		return;
+
+	pList->pHead->pNext = pList->pHead;
+	pList->pHead->pPrev = pList->pHead;
+	while (pIter != pList->pHead) {
+		pNext = pIter->pNext;
+	
+		pIter->pNext = pList->pHead->pNext;
+		pIter->pPrev = pList->pHead;
+
+		pIter->pNext->pPrev = pIter;
+		pIter->pPrev->pNext = pIter;
+
+		pIter = pNext;		
+
+	}
+
 }
 

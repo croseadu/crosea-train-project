@@ -8,25 +8,17 @@
 
 ../include/common.h
 
-../include/memory.h
-stddef.h
--
-
 ../include/stack.h
 common.h
 ../include/common.h
 
-/local/.train/train/codeDepot/utils/stack.c
+/local/.train/train/codeDepot/basic/decimalToBinary.c
 stack.h
-/local/.train/train/codeDepot/utils/stack.h
+/local/.train/train/codeDepot/basic/stack.h
 stdio.h
 -
 stdlib.h
 -
-string.h
--
 assert.h
 -
-memory.h
-/local/.train/train/codeDepot/utils/memory.h
 

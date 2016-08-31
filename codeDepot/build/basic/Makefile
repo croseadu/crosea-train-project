@@ -66,14 +66,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/codeDepot/build/CMakeFiles /local/.train/train/codeDepot/build/CMakeFiles/progress.marks
-	$(MAKE) -f CMakeFiles/Makefile2 all
+	cd /local/.train/train/codeDepot/build && $(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/codeDepot/build/CMakeFiles /local/.train/train/codeDepot/build/basic/CMakeFiles/progress.marks
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f CMakeFiles/Makefile2 basic/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/codeDepot/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) -f CMakeFiles/Makefile2 clean
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f CMakeFiles/Makefile2 basic/clean
 .PHONY : clean
 
 # The main clean target
@@ -82,70 +82,56 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f CMakeFiles/Makefile2 basic/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f CMakeFiles/Makefile2 basic/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /local/.train/train/codeDepot/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named utils
+# Convenience name for target.
+basic/CMakeFiles/decimalToBinary.dir/rule:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/decimalToBinary.dir/rule
+.PHONY : basic/CMakeFiles/decimalToBinary.dir/rule
 
-# Build rule for target.
-utils: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 utils
-.PHONY : utils
-
-# fast build rule for target.
-utils/fast:
-	$(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/build
-.PHONY : utils/fast
-
-#=============================================================================
-# Target rules for targets named testDoubleLinkList
-
-# Build rule for target.
-testDoubleLinkList: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 testDoubleLinkList
-.PHONY : testDoubleLinkList
-
-# fast build rule for target.
-testDoubleLinkList/fast:
-	$(MAKE) -f test/CMakeFiles/testDoubleLinkList.dir/build.make test/CMakeFiles/testDoubleLinkList.dir/build
-.PHONY : testDoubleLinkList/fast
-
-#=============================================================================
-# Target rules for targets named testSingleLinkList
-
-# Build rule for target.
-testSingleLinkList: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 testSingleLinkList
-.PHONY : testSingleLinkList
-
-# fast build rule for target.
-testSingleLinkList/fast:
-	$(MAKE) -f test/CMakeFiles/testSingleLinkList.dir/build.make test/CMakeFiles/testSingleLinkList.dir/build
-.PHONY : testSingleLinkList/fast
-
-#=============================================================================
-# Target rules for targets named decimalToBinary
-
-# Build rule for target.
-decimalToBinary: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 decimalToBinary
+# Convenience name for target.
+decimalToBinary: basic/CMakeFiles/decimalToBinary.dir/rule
 .PHONY : decimalToBinary
 
 # fast build rule for target.
 decimalToBinary/fast:
-	$(MAKE) -f basic/CMakeFiles/decimalToBinary.dir/build.make basic/CMakeFiles/decimalToBinary.dir/build
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/CMakeFiles/decimalToBinary.dir/build.make basic/CMakeFiles/decimalToBinary.dir/build
 .PHONY : decimalToBinary/fast
+
+decimalToBinary.o: decimalToBinary.c.o
+.PHONY : decimalToBinary.o
+
+# target to build an object file
+decimalToBinary.c.o:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/CMakeFiles/decimalToBinary.dir/build.make basic/CMakeFiles/decimalToBinary.dir/decimalToBinary.c.o
+.PHONY : decimalToBinary.c.o
+
+decimalToBinary.i: decimalToBinary.c.i
+.PHONY : decimalToBinary.i
+
+# target to preprocess a source file
+decimalToBinary.c.i:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/CMakeFiles/decimalToBinary.dir/build.make basic/CMakeFiles/decimalToBinary.dir/decimalToBinary.c.i
+.PHONY : decimalToBinary.c.i
+
+decimalToBinary.s: decimalToBinary.c.s
+.PHONY : decimalToBinary.s
+
+# target to generate assembly for a file
+decimalToBinary.c.s:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/CMakeFiles/decimalToBinary.dir/build.make basic/CMakeFiles/decimalToBinary.dir/decimalToBinary.c.s
+.PHONY : decimalToBinary.c.s
 
 # Help Target
 help:
@@ -153,12 +139,12 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... decimalToBinary"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... utils"
-	@echo "... testDoubleLinkList"
-	@echo "... testSingleLinkList"
-	@echo "... decimalToBinary"
+	@echo "... decimalToBinary.o"
+	@echo "... decimalToBinary.i"
+	@echo "... decimalToBinary.s"
 .PHONY : help
 
 
@@ -170,6 +156,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /local/.train/train/codeDepot/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

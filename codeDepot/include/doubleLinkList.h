@@ -87,7 +87,11 @@ unsigned int
 getSizeOfDoubleLinkList(const LPDoubleLinkList pList);
 
 
+void
+printDoubleLinkList(const LPDoubleLinkList);
 
+void
+reverseDoubleLinkList(LPDoubleLinkList);
 
 
 #endif

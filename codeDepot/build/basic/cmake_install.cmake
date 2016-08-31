@@ -1,4 +1,4 @@
-# Install script for directory: /local/.train/train/codeDepot
+# Install script for directory: /local/.train/train/codeDepot/basic
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -32,21 +32,3 @@ IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
   SET(CMAKE_INSTALL_SO_NO_EXE "1")
 ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
-IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for each subdirectory.
-  INCLUDE("/local/.train/train/codeDepot/build/utils/cmake_install.cmake")
-  INCLUDE("/local/.train/train/codeDepot/build/test/cmake_install.cmake")
-  INCLUDE("/local/.train/train/codeDepot/build/basic/cmake_install.cmake")
-
-ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
-
-IF(CMAKE_INSTALL_COMPONENT)
-  SET(CMAKE_INSTALL_MANIFEST "install_manifest_${CMAKE_INSTALL_COMPONENT}.txt")
-ELSE(CMAKE_INSTALL_COMPONENT)
-  SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
-ENDIF(CMAKE_INSTALL_COMPONENT)
-
-FILE(WRITE "/local/.train/train/codeDepot/build/${CMAKE_INSTALL_MANIFEST}" "")
-FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  FILE(APPEND "/local/.train/train/codeDepot/build/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
-ENDFOREACH(file)
