@@ -1,4 +1,6 @@
 /local/.train/train/codeDepot/build/basic/CMakeFiles/decimalToBinary.dir
 /local/.train/train/codeDepot/build/test/CMakeFiles/testDoubleLinkList.dir
+/local/.train/train/codeDepot/build/test/CMakeFiles/testMap.dir
 /local/.train/train/codeDepot/build/test/CMakeFiles/testSingleLinkList.dir
+/local/.train/train/codeDepot/build/test/CMakeFiles/testVector.dir
 /local/.train/train/codeDepot/build/utils/CMakeFiles/utils.dir

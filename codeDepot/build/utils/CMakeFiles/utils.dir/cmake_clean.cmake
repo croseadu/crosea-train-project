@@ -8,6 +8,7 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/utils.dir/circularQueue.c.o"
   "CMakeFiles/utils.dir/queue.c.o"
   "CMakeFiles/utils.dir/utils.c.o"
+  "CMakeFiles/utils.dir/vector.c.o"
   "../lib/libutils.pdb"
   "../lib/libutils.a"
 )

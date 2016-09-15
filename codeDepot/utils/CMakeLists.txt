@@ -7,5 +7,6 @@ SET(SRC_LIST memory.c
              circularQueue.c
              queue.c
 	     utils.c
+	     vector.c
              )
 ADD_LIBRARY(utils ${SRC_LIST})

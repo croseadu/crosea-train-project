@@ -34,12 +34,11 @@ createSingleLinkList(LPSingleLinkList *ppList,
 }
 
 void
-destroySingleLinkList(LPSingleLinkList *ppList)
+clearSingleLinkList(LPSingleLinkList pList)
 {
-	LPSingleLinkList pList = *ppList;
-	LPSingleLinkListNode pIter, pNext;
-	
-	if (NULL == pList)
+	LPSingleLinkListNode pIter,pNext;
+
+	if (NULL == pList->pHead)
 		return;
 
 	pIter = pList->pHead;
@@ -51,6 +50,20 @@ destroySingleLinkList(LPSingleLinkList *ppList)
 
 		pIter = pNext;	
 	}
+	pList->pHead = NULL;	
+}
+
+void
+destroySingleLinkList(LPSingleLinkList *ppList)
+{
+	LPSingleLinkList pList = *ppList;
+	LPSingleLinkListNode pIter, pNext;
+	
+	if (NULL == pList)
+		return;
+
+	clearSingleLinkList(pList);
+
 	myFree(pList);
 
 	*ppList = NULL;
@@ -355,4 +368,21 @@ reverseSingleLinkList(LPSingleLinkList pList)
 		pIter = pNext;
 
 	}
+}
+BOOL 
+isSingleLinkListEmpty(const LPSingleLinkList pList)
+{
+	return pList->pHead == NULL ? True : False;
+}
+
+unsigned int
+getSizeOfSingleLinkList(const LPSingleLinkList pList)
+{
+	unsigned int size = 0;
+	LPSingleLinkListNode pIter = pList->pHead;
+	while (pIter) {
+		++size;
+		pIter = pIter->pNext;
+	}
+	return size;
 }

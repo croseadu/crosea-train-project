@@ -51,3 +51,8 @@ utils/CMakeFiles/utils.dir/utils.c.o: ../include/common.h
 utils/CMakeFiles/utils.dir/utils.c.o: ../include/utils.h
 utils/CMakeFiles/utils.dir/utils.c.o: ../utils/utils.c
 
+utils/CMakeFiles/utils.dir/vector.c.o: ../include/common.h
+utils/CMakeFiles/utils.dir/vector.c.o: ../include/memory.h
+utils/CMakeFiles/utils.dir/vector.c.o: ../include/vector.h
+utils/CMakeFiles/utils.dir/vector.c.o: ../utils/vector.c
+

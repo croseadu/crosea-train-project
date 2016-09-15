@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/common.h
+
+../include/map.h
+common.h
+../include/common.h
+
+../include/memory.h
+stddef.h
+-
+
+../include/singleLinkList.h
+common.h
+../include/common.h
+
+../include/vector.h
+common.h
+../include/common.h
+
+/local/.train/train/codeDepot/test/testMap.c
+map.h
+/local/.train/train/codeDepot/test/map.h
+singleLinkList.h
+/local/.train/train/codeDepot/test/singleLinkList.h
+vector.h
+/local/.train/train/codeDepot/test/vector.h
+memory.h
+/local/.train/train/codeDepot/test/memory.h
+stdio.h
+-
+string.h
+-
+stdlib.h
+-
+assert.h
+-
+

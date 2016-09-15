@@ -1,0 +1,1 @@
+/usr/bin/gcc   -g    CMakeFiles/testVector.dir/testVector.c.o  -o ../bin/testVector -rdynamic ../lib/libutils.a 

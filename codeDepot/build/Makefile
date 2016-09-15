@@ -122,6 +122,19 @@ testDoubleLinkList/fast:
 .PHONY : testDoubleLinkList/fast
 
 #=============================================================================
+# Target rules for targets named testMap
+
+# Build rule for target.
+testMap: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testMap
+.PHONY : testMap
+
+# fast build rule for target.
+testMap/fast:
+	$(MAKE) -f test/CMakeFiles/testMap.dir/build.make test/CMakeFiles/testMap.dir/build
+.PHONY : testMap/fast
+
+#=============================================================================
 # Target rules for targets named testSingleLinkList
 
 # Build rule for target.
@@ -133,6 +146,19 @@ testSingleLinkList: cmake_check_build_system
 testSingleLinkList/fast:
 	$(MAKE) -f test/CMakeFiles/testSingleLinkList.dir/build.make test/CMakeFiles/testSingleLinkList.dir/build
 .PHONY : testSingleLinkList/fast
+
+#=============================================================================
+# Target rules for targets named testVector
+
+# Build rule for target.
+testVector: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testVector
+.PHONY : testVector
+
+# fast build rule for target.
+testVector/fast:
+	$(MAKE) -f test/CMakeFiles/testVector.dir/build.make test/CMakeFiles/testVector.dir/build
+.PHONY : testVector/fast
 
 #=============================================================================
 # Target rules for targets named decimalToBinary
@@ -157,7 +183,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... utils"
 	@echo "... testDoubleLinkList"
+	@echo "... testMap"
 	@echo "... testSingleLinkList"
+	@echo "... testVector"
 	@echo "... decimalToBinary"
 .PHONY : help
 

@@ -30,6 +30,9 @@ createSingleLinkList(LPSingleLinkList *ppList,
 		     Printer printer);
 
 void
+clearSingleLinkList(LPSingleLinkList);
+
+void
 destroySingleLinkList(LPSingleLinkList *ppList);
 
 

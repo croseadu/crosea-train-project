@@ -1,0 +1,1 @@
+/usr/bin/gcc   -g    CMakeFiles/testMap.dir/testMap.c.o  -o ../bin/testMap -rdynamic ../lib/libutils.a 

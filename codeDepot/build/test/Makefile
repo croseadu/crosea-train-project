@@ -110,6 +110,20 @@ testDoubleLinkList/fast:
 .PHONY : testDoubleLinkList/fast
 
 # Convenience name for target.
+test/CMakeFiles/testMap.dir/rule:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/testMap.dir/rule
+.PHONY : test/CMakeFiles/testMap.dir/rule
+
+# Convenience name for target.
+testMap: test/CMakeFiles/testMap.dir/rule
+.PHONY : testMap
+
+# fast build rule for target.
+testMap/fast:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f test/CMakeFiles/testMap.dir/build.make test/CMakeFiles/testMap.dir/build
+.PHONY : testMap/fast
+
+# Convenience name for target.
 test/CMakeFiles/testSingleLinkList.dir/rule:
 	cd /local/.train/train/codeDepot/build && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/testSingleLinkList.dir/rule
 .PHONY : test/CMakeFiles/testSingleLinkList.dir/rule
@@ -122,6 +136,20 @@ testSingleLinkList: test/CMakeFiles/testSingleLinkList.dir/rule
 testSingleLinkList/fast:
 	cd /local/.train/train/codeDepot/build && $(MAKE) -f test/CMakeFiles/testSingleLinkList.dir/build.make test/CMakeFiles/testSingleLinkList.dir/build
 .PHONY : testSingleLinkList/fast
+
+# Convenience name for target.
+test/CMakeFiles/testVector.dir/rule:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/testVector.dir/rule
+.PHONY : test/CMakeFiles/testVector.dir/rule
+
+# Convenience name for target.
+testVector: test/CMakeFiles/testVector.dir/rule
+.PHONY : testVector
+
+# fast build rule for target.
+testVector/fast:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f test/CMakeFiles/testVector.dir/build.make test/CMakeFiles/testVector.dir/build
+.PHONY : testVector/fast
 
 testDoubleLinkList.o: testDoubleLinkList.c.o
 .PHONY : testDoubleLinkList.o
@@ -147,6 +175,30 @@ testDoubleLinkList.c.s:
 	cd /local/.train/train/codeDepot/build && $(MAKE) -f test/CMakeFiles/testDoubleLinkList.dir/build.make test/CMakeFiles/testDoubleLinkList.dir/testDoubleLinkList.c.s
 .PHONY : testDoubleLinkList.c.s
 
+testMap.o: testMap.c.o
+.PHONY : testMap.o
+
+# target to build an object file
+testMap.c.o:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f test/CMakeFiles/testMap.dir/build.make test/CMakeFiles/testMap.dir/testMap.c.o
+.PHONY : testMap.c.o
+
+testMap.i: testMap.c.i
+.PHONY : testMap.i
+
+# target to preprocess a source file
+testMap.c.i:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f test/CMakeFiles/testMap.dir/build.make test/CMakeFiles/testMap.dir/testMap.c.i
+.PHONY : testMap.c.i
+
+testMap.s: testMap.c.s
+.PHONY : testMap.s
+
+# target to generate assembly for a file
+testMap.c.s:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f test/CMakeFiles/testMap.dir/build.make test/CMakeFiles/testMap.dir/testMap.c.s
+.PHONY : testMap.c.s
+
 testSingleLinkList.o: testSingleLinkList.c.o
 .PHONY : testSingleLinkList.o
 
@@ -171,6 +223,30 @@ testSingleLinkList.c.s:
 	cd /local/.train/train/codeDepot/build && $(MAKE) -f test/CMakeFiles/testSingleLinkList.dir/build.make test/CMakeFiles/testSingleLinkList.dir/testSingleLinkList.c.s
 .PHONY : testSingleLinkList.c.s
 
+testVector.o: testVector.c.o
+.PHONY : testVector.o
+
+# target to build an object file
+testVector.c.o:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f test/CMakeFiles/testVector.dir/build.make test/CMakeFiles/testVector.dir/testVector.c.o
+.PHONY : testVector.c.o
+
+testVector.i: testVector.c.i
+.PHONY : testVector.i
+
+# target to preprocess a source file
+testVector.c.i:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f test/CMakeFiles/testVector.dir/build.make test/CMakeFiles/testVector.dir/testVector.c.i
+.PHONY : testVector.c.i
+
+testVector.s: testVector.c.s
+.PHONY : testVector.s
+
+# target to generate assembly for a file
+testVector.c.s:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f test/CMakeFiles/testVector.dir/build.make test/CMakeFiles/testVector.dir/testVector.c.s
+.PHONY : testVector.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -180,13 +256,21 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... testDoubleLinkList"
+	@echo "... testMap"
 	@echo "... testSingleLinkList"
+	@echo "... testVector"
 	@echo "... testDoubleLinkList.o"
 	@echo "... testDoubleLinkList.i"
 	@echo "... testDoubleLinkList.s"
+	@echo "... testMap.o"
+	@echo "... testMap.i"
+	@echo "... testMap.s"
 	@echo "... testSingleLinkList.o"
 	@echo "... testSingleLinkList.i"
 	@echo "... testSingleLinkList.s"
+	@echo "... testVector.o"
+	@echo "... testVector.i"
+	@echo "... testVector.s"
 .PHONY : help
 
 

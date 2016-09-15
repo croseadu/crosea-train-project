@@ -51,3 +51,8 @@ utils/CMakeFiles/utils.dir/utils.c.o
  ../include/common.h
  ../include/utils.h
  /local/.train/train/codeDepot/utils/utils.c
+utils/CMakeFiles/utils.dir/vector.c.o
+ ../include/common.h
+ ../include/memory.h
+ ../include/vector.h
+ /local/.train/train/codeDepot/utils/vector.c

@@ -59,5 +59,7 @@ isMapEmpty(const LPMap);
 unsigned
 getSizeOfKey(const LPMap);
 
+void
+traverseMap(LPMap, Visitor);
 
 #endif

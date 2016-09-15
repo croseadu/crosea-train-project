@@ -325,6 +325,30 @@ utils.c.s:
 	cd /local/.train/train/codeDepot/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/utils.c.s
 .PHONY : utils.c.s
 
+vector.o: vector.c.o
+.PHONY : vector.o
+
+# target to build an object file
+vector.c.o:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/vector.c.o
+.PHONY : vector.c.o
+
+vector.i: vector.c.i
+.PHONY : vector.i
+
+# target to preprocess a source file
+vector.c.i:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/vector.c.i
+.PHONY : vector.c.i
+
+vector.s: vector.c.s
+.PHONY : vector.s
+
+# target to generate assembly for a file
+vector.c.s:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/vector.c.s
+.PHONY : vector.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -361,6 +385,9 @@ help:
 	@echo "... utils.o"
 	@echo "... utils.i"
 	@echo "... utils.s"
+	@echo "... vector.o"
+	@echo "... vector.i"
+	@echo "... vector.s"
 .PHONY : help
 
 

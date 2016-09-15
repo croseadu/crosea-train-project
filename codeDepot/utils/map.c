@@ -44,6 +44,7 @@ createMap(LPMap *ppMap,
 	pMap->keyComp = keyComp;
 
 
+	*ppMap = pMap;
 	return True;
 Fail:
 	if (pMap)
@@ -94,7 +95,7 @@ insertToMap(LPMap pMap, const void *key, const void *data)
 	
 	
 	SingleLinkListIter it = findInSingleLinkList(pMap->pImpl->pList, key);
-	if (it != NULL)
+	if (*it != NULL)
 		return False;
 
 	elementSize = pMap->keySize + pMap->dataSize;
@@ -138,7 +139,7 @@ eraseFromMap(LPMap pMap, MapIter it)
 {
 	SingleLinkListIter sit = (SingleLinkListIter)it;
 
-	erarseFromSingleLinkList(pMap->pImpl->pList, sit);
+	eraseFromSingleLinkList(pMap->pImpl->pList, sit);
 }
 
 void
@@ -198,4 +199,13 @@ getSizeOfKey(const LPMap pMap)
 
 
 }
+
+void
+traverseMap(LPMap pMap, Visitor visitor)
+{
+	traverseSingleLinkList(pMap->pImpl->pList, visitor);
+}
+
+
+
 

@@ -44,6 +44,8 @@ SET(CMAKE_MAKEFILE_PRODUCTS
 SET(CMAKE_DEPEND_INFO_FILES
   "utils/CMakeFiles/utils.dir/DependInfo.cmake"
   "test/CMakeFiles/testDoubleLinkList.dir/DependInfo.cmake"
+  "test/CMakeFiles/testMap.dir/DependInfo.cmake"
   "test/CMakeFiles/testSingleLinkList.dir/DependInfo.cmake"
+  "test/CMakeFiles/testVector.dir/DependInfo.cmake"
   "basic/CMakeFiles/decimalToBinary.dir/DependInfo.cmake"
   )
