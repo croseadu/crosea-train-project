@@ -20,7 +20,8 @@ lessInt(const void *lhs, const void *rhs);
 
 void
 printInt(const void *data);
-
+void
+skipSpace(char *, int *);
 
 #endif
 

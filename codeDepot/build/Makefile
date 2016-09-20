@@ -161,6 +161,32 @@ testVector/fast:
 .PHONY : testVector/fast
 
 #=============================================================================
+# Target rules for targets named addPoly
+
+# Build rule for target.
+addPoly: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 addPoly
+.PHONY : addPoly
+
+# fast build rule for target.
+addPoly/fast:
+	$(MAKE) -f basic/CMakeFiles/addPoly.dir/build.make basic/CMakeFiles/addPoly.dir/build
+.PHONY : addPoly/fast
+
+#=============================================================================
+# Target rules for targets named calculator
+
+# Build rule for target.
+calculator: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 calculator
+.PHONY : calculator
+
+# fast build rule for target.
+calculator/fast:
+	$(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/build
+.PHONY : calculator/fast
+
+#=============================================================================
 # Target rules for targets named decimalToBinary
 
 # Build rule for target.
@@ -186,6 +212,8 @@ help:
 	@echo "... testMap"
 	@echo "... testSingleLinkList"
 	@echo "... testVector"
+	@echo "... addPoly"
+	@echo "... calculator"
 	@echo "... decimalToBinary"
 .PHONY : help
 

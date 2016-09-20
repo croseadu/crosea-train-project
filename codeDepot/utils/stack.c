@@ -103,4 +103,9 @@ void popFromStack(LPStack pStack)
 	--pStack->top;
 }
 
+unsigned int
+getSizeOfStack(const LPStack pStack)
+{
+	return pStack->top;
+}
 

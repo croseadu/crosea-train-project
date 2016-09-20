@@ -8,9 +8,21 @@
 
 ../include/common.h
 
+../include/doubleLinkList.h
+common.h
+../include/common.h
+
+../include/map.h
+common.h
+../include/common.h
+
 ../include/memory.h
 stddef.h
 -
+
+../include/queue.h
+common.h
+../include/common.h
 
 ../include/singleLinkList.h
 common.h
@@ -19,6 +31,56 @@ common.h
 ../include/utils.h
 common.h
 ../include/common.h
+
+/local/.train/train/codeDepot/utils/doubleLinkList.c
+doubleLinkList.h
+/local/.train/train/codeDepot/utils/doubleLinkList.h
+utils.h
+/local/.train/train/codeDepot/utils/utils.h
+memory.h
+/local/.train/train/codeDepot/utils/memory.h
+stdio.h
+-
+string.h
+-
+assert.h
+-
+
+/local/.train/train/codeDepot/utils/map.c
+map.h
+/local/.train/train/codeDepot/utils/map.h
+singleLinkList.h
+/local/.train/train/codeDepot/utils/singleLinkList.h
+memory.h
+/local/.train/train/codeDepot/utils/memory.h
+utils.h
+/local/.train/train/codeDepot/utils/utils.h
+stdio.h
+-
+stdlib.h
+-
+assert.h
+-
+string.h
+-
+
+/local/.train/train/codeDepot/utils/queue.c
+queue.h
+/local/.train/train/codeDepot/utils/queue.h
+utils.h
+/local/.train/train/codeDepot/utils/utils.h
+doubleLinkList.h
+/local/.train/train/codeDepot/utils/doubleLinkList.h
+memory.h
+/local/.train/train/codeDepot/utils/memory.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+assert.h
+-
 
 /local/.train/train/codeDepot/utils/singleLinkList.c
 singleLinkList.h
@@ -33,4 +95,8 @@ string.h
 -
 assert.h
 -
+
+/local/.train/train/codeDepot/utils/utils.c
+utils.h
+/local/.train/train/codeDepot/utils/utils.h
 

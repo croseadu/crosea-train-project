@@ -1,3 +1,5 @@
+/local/.train/train/codeDepot/build/basic/CMakeFiles/addPoly.dir
+/local/.train/train/codeDepot/build/basic/CMakeFiles/calculator.dir
 /local/.train/train/codeDepot/build/basic/CMakeFiles/decimalToBinary.dir
 /local/.train/train/codeDepot/build/test/CMakeFiles/testDoubleLinkList.dir
 /local/.train/train/codeDepot/build/test/CMakeFiles/testMap.dir

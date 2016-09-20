@@ -36,5 +36,7 @@ isStackEmpty(const LPStack);
 void getTopOfStack(const LPStack, void *data);
 void popFromStack(LPStack);
 
+unsigned int
+getSizeOfStack(const LPStack pStack);
 
 #endif

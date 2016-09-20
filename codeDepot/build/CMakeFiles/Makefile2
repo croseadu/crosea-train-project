@@ -71,7 +71,7 @@ utils/preinstall:
 utils/CMakeFiles/utils.dir/all:
 	$(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/depend
 	$(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  6 7 8 9 10 11 12 13 14 15
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  8 9 10 11 12 13 14 15 16 17
 	@echo "Built target utils"
 .PHONY : utils/CMakeFiles/utils.dir/all
 
@@ -127,7 +127,7 @@ test/preinstall:
 test/CMakeFiles/testDoubleLinkList.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f test/CMakeFiles/testDoubleLinkList.dir/build.make test/CMakeFiles/testDoubleLinkList.dir/depend
 	$(MAKE) -f test/CMakeFiles/testDoubleLinkList.dir/build.make test/CMakeFiles/testDoubleLinkList.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  2
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  4
 	@echo "Built target testDoubleLinkList"
 .PHONY : test/CMakeFiles/testDoubleLinkList.dir/all
 
@@ -162,7 +162,7 @@ clean: test/CMakeFiles/testDoubleLinkList.dir/clean
 test/CMakeFiles/testMap.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f test/CMakeFiles/testMap.dir/build.make test/CMakeFiles/testMap.dir/depend
 	$(MAKE) -f test/CMakeFiles/testMap.dir/build.make test/CMakeFiles/testMap.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  3
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  5
 	@echo "Built target testMap"
 .PHONY : test/CMakeFiles/testMap.dir/all
 
@@ -197,7 +197,7 @@ clean: test/CMakeFiles/testMap.dir/clean
 test/CMakeFiles/testSingleLinkList.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f test/CMakeFiles/testSingleLinkList.dir/build.make test/CMakeFiles/testSingleLinkList.dir/depend
 	$(MAKE) -f test/CMakeFiles/testSingleLinkList.dir/build.make test/CMakeFiles/testSingleLinkList.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  4
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  6
 	@echo "Built target testSingleLinkList"
 .PHONY : test/CMakeFiles/testSingleLinkList.dir/all
 
@@ -232,7 +232,7 @@ clean: test/CMakeFiles/testSingleLinkList.dir/clean
 test/CMakeFiles/testVector.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f test/CMakeFiles/testVector.dir/build.make test/CMakeFiles/testVector.dir/depend
 	$(MAKE) -f test/CMakeFiles/testVector.dir/build.make test/CMakeFiles/testVector.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  5
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  7
 	@echo "Built target testVector"
 .PHONY : test/CMakeFiles/testVector.dir/all
 
@@ -264,10 +264,14 @@ clean: test/CMakeFiles/testVector.dir/clean
 # Directory level rules for directory basic
 
 # Convenience name for "all" pass in the directory.
+basic/all: basic/CMakeFiles/addPoly.dir/all
+basic/all: basic/CMakeFiles/calculator.dir/all
 basic/all: basic/CMakeFiles/decimalToBinary.dir/all
 .PHONY : basic/all
 
 # Convenience name for "clean" pass in the directory.
+basic/clean: basic/CMakeFiles/addPoly.dir/clean
+basic/clean: basic/CMakeFiles/calculator.dir/clean
 basic/clean: basic/CMakeFiles/decimalToBinary.dir/clean
 .PHONY : basic/clean
 
@@ -276,13 +280,83 @@ basic/preinstall:
 .PHONY : basic/preinstall
 
 #=============================================================================
+# Target rules for target basic/CMakeFiles/addPoly.dir
+
+# All Build rule for target.
+basic/CMakeFiles/addPoly.dir/all: utils/CMakeFiles/utils.dir/all
+	$(MAKE) -f basic/CMakeFiles/addPoly.dir/build.make basic/CMakeFiles/addPoly.dir/depend
+	$(MAKE) -f basic/CMakeFiles/addPoly.dir/build.make basic/CMakeFiles/addPoly.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  1
+	@echo "Built target addPoly"
+.PHONY : basic/CMakeFiles/addPoly.dir/all
+
+# Include target in all.
+all: basic/CMakeFiles/addPoly.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+basic/CMakeFiles/addPoly.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/codeDepot/build/CMakeFiles 11
+	$(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/addPoly.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/codeDepot/build/CMakeFiles 0
+.PHONY : basic/CMakeFiles/addPoly.dir/rule
+
+# Convenience name for target.
+addPoly: basic/CMakeFiles/addPoly.dir/rule
+.PHONY : addPoly
+
+# clean rule for target.
+basic/CMakeFiles/addPoly.dir/clean:
+	$(MAKE) -f basic/CMakeFiles/addPoly.dir/build.make basic/CMakeFiles/addPoly.dir/clean
+.PHONY : basic/CMakeFiles/addPoly.dir/clean
+
+# clean rule for target.
+clean: basic/CMakeFiles/addPoly.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target basic/CMakeFiles/calculator.dir
+
+# All Build rule for target.
+basic/CMakeFiles/calculator.dir/all: utils/CMakeFiles/utils.dir/all
+	$(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/depend
+	$(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  2
+	@echo "Built target calculator"
+.PHONY : basic/CMakeFiles/calculator.dir/all
+
+# Include target in all.
+all: basic/CMakeFiles/calculator.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+basic/CMakeFiles/calculator.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/codeDepot/build/CMakeFiles 11
+	$(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/calculator.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/codeDepot/build/CMakeFiles 0
+.PHONY : basic/CMakeFiles/calculator.dir/rule
+
+# Convenience name for target.
+calculator: basic/CMakeFiles/calculator.dir/rule
+.PHONY : calculator
+
+# clean rule for target.
+basic/CMakeFiles/calculator.dir/clean:
+	$(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/clean
+.PHONY : basic/CMakeFiles/calculator.dir/clean
+
+# clean rule for target.
+clean: basic/CMakeFiles/calculator.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target basic/CMakeFiles/decimalToBinary.dir
 
 # All Build rule for target.
 basic/CMakeFiles/decimalToBinary.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f basic/CMakeFiles/decimalToBinary.dir/build.make basic/CMakeFiles/decimalToBinary.dir/depend
 	$(MAKE) -f basic/CMakeFiles/decimalToBinary.dir/build.make basic/CMakeFiles/decimalToBinary.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  1
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  3
 	@echo "Built target decimalToBinary"
 .PHONY : basic/CMakeFiles/decimalToBinary.dir/all
 

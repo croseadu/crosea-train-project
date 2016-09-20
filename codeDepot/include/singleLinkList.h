@@ -40,9 +40,9 @@ BOOL
 insertToHeadOfSingleLinkList(LPSingleLinkList, const void *data);
 BOOL
 insertToTailOfSingleLinkList(LPSingleLinkList, const void *data);
-BOOL
+SingleLinkListIter
 insertAfterInSingleLinkList(LPSingleLinkList, SingleLinkListIter, const void *data);
-BOOL
+SingleLinkListIter
 insertBeforeInSingleLinkList(LPSingleLinkList, SingleLinkListIter, const void *data);
 
 

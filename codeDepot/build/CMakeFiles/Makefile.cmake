@@ -47,5 +47,7 @@ SET(CMAKE_DEPEND_INFO_FILES
   "test/CMakeFiles/testMap.dir/DependInfo.cmake"
   "test/CMakeFiles/testSingleLinkList.dir/DependInfo.cmake"
   "test/CMakeFiles/testVector.dir/DependInfo.cmake"
+  "basic/CMakeFiles/addPoly.dir/DependInfo.cmake"
+  "basic/CMakeFiles/calculator.dir/DependInfo.cmake"
   "basic/CMakeFiles/decimalToBinary.dir/DependInfo.cmake"
   )

@@ -131,7 +131,7 @@ insertToTailOfSingleLinkList(LPSingleLinkList pList, const void *data)
 	return True;
 }
 
-BOOL
+SingleLinkListIter
 insertAfterInSingleLinkList(LPSingleLinkList pList, SingleLinkListIter pos, const void *data)
 {
 	LPSingleLinkListNode pNode;
@@ -145,10 +145,10 @@ insertAfterInSingleLinkList(LPSingleLinkList pList, SingleLinkListIter pos, cons
 	pNode->pNext = (*pos)->pNext;
 	(*pos)->pNext = pNode;
 
-	return True;
+	return &(*pos)->pNext;
 }
 
-BOOL
+SingleLinkListIter
 insertBeforeInSingleLinkList(LPSingleLinkList pList, SingleLinkListIter pos, const void *data)
 {
 	LPSingleLinkListNode pNode;
@@ -162,7 +162,7 @@ insertBeforeInSingleLinkList(LPSingleLinkList pList, SingleLinkListIter pos, con
 	pNode->pNext = (*pos);
 	(*pos) = pNode;
 
-	return True;
+	return pos;
 }
 
 

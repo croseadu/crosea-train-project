@@ -1,6 +1,15 @@
 #include "utils.h"
 
 
+
+void
+skipSpace(char *buf, int *pIdx)
+{
+	while(buf[*pIdx] == ' ')
+		++*pIdx;
+}
+
+
 BOOL
 defaultLess(const void *lhs, const void *rhs)
 {
