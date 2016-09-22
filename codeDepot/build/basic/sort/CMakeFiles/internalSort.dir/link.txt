@@ -1,0 +1,1 @@
+/usr/bin/gcc   -g    CMakeFiles/internalSort.dir/internalSort.c.o  -o ../../bin/internalSort -rdynamic ../../lib/libutils.a 

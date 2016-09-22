@@ -9,6 +9,9 @@ SET(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
   "../CMakeLists.txt"
   "../basic/CMakeLists.txt"
+  "../basic/basic/CMakeLists.txt"
+  "../basic/sort/CMakeLists.txt"
+  "../basic/tree/CMakeLists.txt"
   "CMakeFiles/CMakeCCompiler.cmake"
   "CMakeFiles/CMakeCXXCompiler.cmake"
   "CMakeFiles/CMakeSystem.cmake"
@@ -38,6 +41,9 @@ SET(CMAKE_MAKEFILE_PRODUCTS
   "utils/CMakeFiles/CMakeDirectoryInformation.cmake"
   "test/CMakeFiles/CMakeDirectoryInformation.cmake"
   "basic/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "basic/basic/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "basic/sort/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "basic/tree/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
@@ -47,7 +53,9 @@ SET(CMAKE_DEPEND_INFO_FILES
   "test/CMakeFiles/testMap.dir/DependInfo.cmake"
   "test/CMakeFiles/testSingleLinkList.dir/DependInfo.cmake"
   "test/CMakeFiles/testVector.dir/DependInfo.cmake"
-  "basic/CMakeFiles/addPoly.dir/DependInfo.cmake"
-  "basic/CMakeFiles/calculator.dir/DependInfo.cmake"
-  "basic/CMakeFiles/decimalToBinary.dir/DependInfo.cmake"
+  "basic/basic/CMakeFiles/addPoly.dir/DependInfo.cmake"
+  "basic/basic/CMakeFiles/calculator.dir/DependInfo.cmake"
+  "basic/basic/CMakeFiles/decimalToBinary.dir/DependInfo.cmake"
+  "basic/basic/CMakeFiles/lineEdit.dir/DependInfo.cmake"
+  "basic/sort/CMakeFiles/internalSort.dir/DependInfo.cmake"
   )

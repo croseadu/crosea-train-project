@@ -95,140 +95,14 @@ depend:
 	cd /local/.train/train/codeDepot/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-# Convenience name for target.
-basic/CMakeFiles/addPoly.dir/rule:
-	cd /local/.train/train/codeDepot/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/addPoly.dir/rule
-.PHONY : basic/CMakeFiles/addPoly.dir/rule
-
-# Convenience name for target.
-addPoly: basic/CMakeFiles/addPoly.dir/rule
-.PHONY : addPoly
-
-# fast build rule for target.
-addPoly/fast:
-	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/CMakeFiles/addPoly.dir/build.make basic/CMakeFiles/addPoly.dir/build
-.PHONY : addPoly/fast
-
-# Convenience name for target.
-basic/CMakeFiles/calculator.dir/rule:
-	cd /local/.train/train/codeDepot/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/calculator.dir/rule
-.PHONY : basic/CMakeFiles/calculator.dir/rule
-
-# Convenience name for target.
-calculator: basic/CMakeFiles/calculator.dir/rule
-.PHONY : calculator
-
-# fast build rule for target.
-calculator/fast:
-	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/build
-.PHONY : calculator/fast
-
-# Convenience name for target.
-basic/CMakeFiles/decimalToBinary.dir/rule:
-	cd /local/.train/train/codeDepot/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/decimalToBinary.dir/rule
-.PHONY : basic/CMakeFiles/decimalToBinary.dir/rule
-
-# Convenience name for target.
-decimalToBinary: basic/CMakeFiles/decimalToBinary.dir/rule
-.PHONY : decimalToBinary
-
-# fast build rule for target.
-decimalToBinary/fast:
-	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/CMakeFiles/decimalToBinary.dir/build.make basic/CMakeFiles/decimalToBinary.dir/build
-.PHONY : decimalToBinary/fast
-
-addPoly.o: addPoly.c.o
-.PHONY : addPoly.o
-
-# target to build an object file
-addPoly.c.o:
-	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/CMakeFiles/addPoly.dir/build.make basic/CMakeFiles/addPoly.dir/addPoly.c.o
-.PHONY : addPoly.c.o
-
-addPoly.i: addPoly.c.i
-.PHONY : addPoly.i
-
-# target to preprocess a source file
-addPoly.c.i:
-	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/CMakeFiles/addPoly.dir/build.make basic/CMakeFiles/addPoly.dir/addPoly.c.i
-.PHONY : addPoly.c.i
-
-addPoly.s: addPoly.c.s
-.PHONY : addPoly.s
-
-# target to generate assembly for a file
-addPoly.c.s:
-	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/CMakeFiles/addPoly.dir/build.make basic/CMakeFiles/addPoly.dir/addPoly.c.s
-.PHONY : addPoly.c.s
-
-calculator.o: calculator.c.o
-.PHONY : calculator.o
-
-# target to build an object file
-calculator.c.o:
-	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/calculator.c.o
-.PHONY : calculator.c.o
-
-calculator.i: calculator.c.i
-.PHONY : calculator.i
-
-# target to preprocess a source file
-calculator.c.i:
-	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/calculator.c.i
-.PHONY : calculator.c.i
-
-calculator.s: calculator.c.s
-.PHONY : calculator.s
-
-# target to generate assembly for a file
-calculator.c.s:
-	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/calculator.c.s
-.PHONY : calculator.c.s
-
-decimalToBinary.o: decimalToBinary.c.o
-.PHONY : decimalToBinary.o
-
-# target to build an object file
-decimalToBinary.c.o:
-	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/CMakeFiles/decimalToBinary.dir/build.make basic/CMakeFiles/decimalToBinary.dir/decimalToBinary.c.o
-.PHONY : decimalToBinary.c.o
-
-decimalToBinary.i: decimalToBinary.c.i
-.PHONY : decimalToBinary.i
-
-# target to preprocess a source file
-decimalToBinary.c.i:
-	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/CMakeFiles/decimalToBinary.dir/build.make basic/CMakeFiles/decimalToBinary.dir/decimalToBinary.c.i
-.PHONY : decimalToBinary.c.i
-
-decimalToBinary.s: decimalToBinary.c.s
-.PHONY : decimalToBinary.s
-
-# target to generate assembly for a file
-decimalToBinary.c.s:
-	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/CMakeFiles/decimalToBinary.dir/build.make basic/CMakeFiles/decimalToBinary.dir/decimalToBinary.c.s
-.PHONY : decimalToBinary.c.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... addPoly"
-	@echo "... calculator"
-	@echo "... decimalToBinary"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... addPoly.o"
-	@echo "... addPoly.i"
-	@echo "... addPoly.s"
-	@echo "... calculator.o"
-	@echo "... calculator.i"
-	@echo "... calculator.s"
-	@echo "... decimalToBinary.o"
-	@echo "... decimalToBinary.i"
-	@echo "... decimalToBinary.s"
 .PHONY : help
 
 

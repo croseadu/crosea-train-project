@@ -170,7 +170,7 @@ addPoly: cmake_check_build_system
 
 # fast build rule for target.
 addPoly/fast:
-	$(MAKE) -f basic/CMakeFiles/addPoly.dir/build.make basic/CMakeFiles/addPoly.dir/build
+	$(MAKE) -f basic/basic/CMakeFiles/addPoly.dir/build.make basic/basic/CMakeFiles/addPoly.dir/build
 .PHONY : addPoly/fast
 
 #=============================================================================
@@ -183,7 +183,7 @@ calculator: cmake_check_build_system
 
 # fast build rule for target.
 calculator/fast:
-	$(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/build
+	$(MAKE) -f basic/basic/CMakeFiles/calculator.dir/build.make basic/basic/CMakeFiles/calculator.dir/build
 .PHONY : calculator/fast
 
 #=============================================================================
@@ -196,8 +196,34 @@ decimalToBinary: cmake_check_build_system
 
 # fast build rule for target.
 decimalToBinary/fast:
-	$(MAKE) -f basic/CMakeFiles/decimalToBinary.dir/build.make basic/CMakeFiles/decimalToBinary.dir/build
+	$(MAKE) -f basic/basic/CMakeFiles/decimalToBinary.dir/build.make basic/basic/CMakeFiles/decimalToBinary.dir/build
 .PHONY : decimalToBinary/fast
+
+#=============================================================================
+# Target rules for targets named lineEdit
+
+# Build rule for target.
+lineEdit: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lineEdit
+.PHONY : lineEdit
+
+# fast build rule for target.
+lineEdit/fast:
+	$(MAKE) -f basic/basic/CMakeFiles/lineEdit.dir/build.make basic/basic/CMakeFiles/lineEdit.dir/build
+.PHONY : lineEdit/fast
+
+#=============================================================================
+# Target rules for targets named internalSort
+
+# Build rule for target.
+internalSort: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 internalSort
+.PHONY : internalSort
+
+# fast build rule for target.
+internalSort/fast:
+	$(MAKE) -f basic/sort/CMakeFiles/internalSort.dir/build.make basic/sort/CMakeFiles/internalSort.dir/build
+.PHONY : internalSort/fast
 
 # Help Target
 help:
@@ -215,6 +241,8 @@ help:
 	@echo "... addPoly"
 	@echo "... calculator"
 	@echo "... decimalToBinary"
+	@echo "... lineEdit"
+	@echo "... internalSort"
 .PHONY : help
 
 

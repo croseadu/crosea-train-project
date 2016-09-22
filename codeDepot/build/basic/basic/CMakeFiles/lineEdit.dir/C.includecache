@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/common.h
+
+../include/stack.h
+common.h
+../include/common.h
+
+/local/.train/train/codeDepot/basic/basic/lineEdit.c
+stack.h
+/local/.train/train/codeDepot/basic/basic/stack.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+assert.h
+-
+

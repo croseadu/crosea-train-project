@@ -1,0 +1,1 @@
+/usr/bin/gcc   -g    CMakeFiles/lineEdit.dir/lineEdit.c.o  -o ../../bin/lineEdit -rdynamic ../../lib/libutils.a 

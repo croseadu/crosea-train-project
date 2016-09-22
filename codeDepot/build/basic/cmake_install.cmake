@@ -32,3 +32,11 @@ IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
   SET(CMAKE_INSTALL_SO_NO_EXE "1")
 ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
+IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for each subdirectory.
+  INCLUDE("/local/.train/train/codeDepot/build/basic/basic/cmake_install.cmake")
+  INCLUDE("/local/.train/train/codeDepot/build/basic/sort/cmake_install.cmake")
+  INCLUDE("/local/.train/train/codeDepot/build/basic/tree/cmake_install.cmake")
+
+ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
+

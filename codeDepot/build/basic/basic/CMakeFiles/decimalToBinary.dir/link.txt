@@ -1,0 +1,1 @@
+/usr/bin/gcc   -g    CMakeFiles/decimalToBinary.dir/decimalToBinary.c.o  -o ../../bin/decimalToBinary -rdynamic ../../lib/libutils.a 
