@@ -3,6 +3,8 @@
 /local/.train/train/codeDepot/build/basic/basic/CMakeFiles/decimalToBinary.dir
 /local/.train/train/codeDepot/build/basic/sort/CMakeFiles/internalSort.dir
 /local/.train/train/codeDepot/build/basic/basic/CMakeFiles/lineEdit.dir
+/local/.train/train/codeDepot/build/basic/basic/CMakeFiles/maze.dir
+/local/.train/train/codeDepot/build/basic/basic/CMakeFiles/queens.dir
 /local/.train/train/codeDepot/build/test/CMakeFiles/testDoubleLinkList.dir
 /local/.train/train/codeDepot/build/test/CMakeFiles/testMap.dir
 /local/.train/train/codeDepot/build/test/CMakeFiles/testSingleLinkList.dir

@@ -151,6 +151,34 @@ lineEdit/fast:
 	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/basic/CMakeFiles/lineEdit.dir/build.make basic/basic/CMakeFiles/lineEdit.dir/build
 .PHONY : lineEdit/fast
 
+# Convenience name for target.
+basic/basic/CMakeFiles/maze.dir/rule:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f CMakeFiles/Makefile2 basic/basic/CMakeFiles/maze.dir/rule
+.PHONY : basic/basic/CMakeFiles/maze.dir/rule
+
+# Convenience name for target.
+maze: basic/basic/CMakeFiles/maze.dir/rule
+.PHONY : maze
+
+# fast build rule for target.
+maze/fast:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/basic/CMakeFiles/maze.dir/build.make basic/basic/CMakeFiles/maze.dir/build
+.PHONY : maze/fast
+
+# Convenience name for target.
+basic/basic/CMakeFiles/queens.dir/rule:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f CMakeFiles/Makefile2 basic/basic/CMakeFiles/queens.dir/rule
+.PHONY : basic/basic/CMakeFiles/queens.dir/rule
+
+# Convenience name for target.
+queens: basic/basic/CMakeFiles/queens.dir/rule
+.PHONY : queens
+
+# fast build rule for target.
+queens/fast:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/basic/CMakeFiles/queens.dir/build.make basic/basic/CMakeFiles/queens.dir/build
+.PHONY : queens/fast
+
 addPoly.o: addPoly.c.o
 .PHONY : addPoly.o
 
@@ -247,6 +275,54 @@ lineEdit.c.s:
 	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/basic/CMakeFiles/lineEdit.dir/build.make basic/basic/CMakeFiles/lineEdit.dir/lineEdit.c.s
 .PHONY : lineEdit.c.s
 
+maze.o: maze.c.o
+.PHONY : maze.o
+
+# target to build an object file
+maze.c.o:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/basic/CMakeFiles/maze.dir/build.make basic/basic/CMakeFiles/maze.dir/maze.c.o
+.PHONY : maze.c.o
+
+maze.i: maze.c.i
+.PHONY : maze.i
+
+# target to preprocess a source file
+maze.c.i:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/basic/CMakeFiles/maze.dir/build.make basic/basic/CMakeFiles/maze.dir/maze.c.i
+.PHONY : maze.c.i
+
+maze.s: maze.c.s
+.PHONY : maze.s
+
+# target to generate assembly for a file
+maze.c.s:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/basic/CMakeFiles/maze.dir/build.make basic/basic/CMakeFiles/maze.dir/maze.c.s
+.PHONY : maze.c.s
+
+queens.o: queens.c.o
+.PHONY : queens.o
+
+# target to build an object file
+queens.c.o:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/basic/CMakeFiles/queens.dir/build.make basic/basic/CMakeFiles/queens.dir/queens.c.o
+.PHONY : queens.c.o
+
+queens.i: queens.c.i
+.PHONY : queens.i
+
+# target to preprocess a source file
+queens.c.i:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/basic/CMakeFiles/queens.dir/build.make basic/basic/CMakeFiles/queens.dir/queens.c.i
+.PHONY : queens.c.i
+
+queens.s: queens.c.s
+.PHONY : queens.s
+
+# target to generate assembly for a file
+queens.c.s:
+	cd /local/.train/train/codeDepot/build && $(MAKE) -f basic/basic/CMakeFiles/queens.dir/build.make basic/basic/CMakeFiles/queens.dir/queens.c.s
+.PHONY : queens.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -258,6 +334,8 @@ help:
 	@echo "... decimalToBinary"
 	@echo "... edit_cache"
 	@echo "... lineEdit"
+	@echo "... maze"
+	@echo "... queens"
 	@echo "... rebuild_cache"
 	@echo "... addPoly.o"
 	@echo "... addPoly.i"
@@ -271,6 +349,12 @@ help:
 	@echo "... lineEdit.o"
 	@echo "... lineEdit.i"
 	@echo "... lineEdit.s"
+	@echo "... maze.o"
+	@echo "... maze.i"
+	@echo "... maze.s"
+	@echo "... queens.o"
+	@echo "... queens.i"
+	@echo "... queens.s"
 .PHONY : help
 
 

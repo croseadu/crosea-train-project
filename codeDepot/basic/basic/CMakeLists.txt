@@ -1,6 +1,13 @@
 add_executable(lineEdit lineEdit.c)
 target_link_libraries(lineEdit utils)
 
+add_executable(maze maze.c)
+target_link_libraries(maze utils)
+
+add_executable(queens queens.c)
+target_link_libraries(queens utils)
+
+
 #add_executable(parenthesesMatch parenthesesMatching.c)
 #target_link_libraries(parenthesesMatch utils)
 

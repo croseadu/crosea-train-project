@@ -71,6 +71,30 @@ createDoubleLinkList(LPDoubleLinkList *ppList,
 }
 
 void
+clearDoubleLinkList(LPDoubleLinkList pList)
+{
+
+	LPDoubleLinkListNode pIter, pNext;
+	assert(pList && pList->pHead);
+	if (pList->pHead->pNext == pList->pHead)
+		return;
+
+	pIter = pList->pHead->pNext;
+	while (pList->pHead != pIter) {
+		pNext = pIter->pNext;
+		
+		myFree(pIter->data);
+		myFree(pIter);
+
+		pIter = pNext;	
+	}
+
+	pList->pHead->pNext = pList->pHead;
+	pList->pHead->pPrev = pList->pHead;
+
+}
+
+void
 destroyDoubleLinkList(LPDoubleLinkList *ppList)
 {
 	LPDoubleLinkList pList = *ppList;
@@ -375,7 +399,7 @@ reverseDoubleLinkList(LPDoubleLinkList pList)
 	LPDoubleLinkListNode pIter;
 	LPDoubleLinkListNode pNext;
 
-	assert(pList || pList->pHead);
+	assert(pList && pList->pHead);
 
 	pIter = pList->pHead->pNext;
 	if (pIter == pList->pHead ||
@@ -398,4 +422,72 @@ reverseDoubleLinkList(LPDoubleLinkList pList)
 	}
 
 }
+
+BOOL
+isDoubleLinkListEmpty(const LPDoubleLinkList pList)
+{
+	return (pList->pHead->pNext == pList->pHead) ? True : False;
+}
+
+void 
+getHeadOfDoubleLinkList(LPDoubleLinkList pList, void *data)
+{
+	LPDoubleLinkListNode pNode;
+
+	assert(pList && pList->pHead);
+	assert(pList->pHead->pNext != pList->pHead);
+
+	pNode = pList->pHead->pNext;
+
+	memcpy(data, pNode->data, pList->elementSize);
+			
+}
+
+void
+getTailOfDoubleLinkList(LPDoubleLinkList pList, void *data)
+{
+	LPDoubleLinkListNode pNode;
+
+	assert(pList && pList->pHead);
+	assert(pList->pHead->pNext != pList->pHead);
+
+	pNode = pList->pHead->pPrev;
+
+	memcpy(data, pNode->data, pList->elementSize);
+	
+}
+
+void
+removeHeadFromDoubleLinkList(LPDoubleLinkList pList)
+{
+	LPDoubleLinkListNode pDeleteNode;
+
+	assert(pList && pList->pHead);
+	assert(pList->pHead->pNext != pList->pHead);
+
+	pDeleteNode = pList->pHead->pNext;
+
+	pDeleteNode->pNext->pPrev = pDeleteNode->pPrev;
+	pDeleteNode->pPrev->pNext = pDeleteNode->pNext;
+	myFree(pDeleteNode->data);
+	myFree(pDeleteNode);
+}
+
+void
+removeTailFromDoubleLinkList(LPDoubleLinkList pList)
+{
+	LPDoubleLinkListNode pDeleteNode;
+
+	assert(pList && pList->pHead);
+	assert(pList->pHead->pNext != pList->pHead);
+
+	pDeleteNode = pList->pHead->pPrev;
+
+	pDeleteNode->pNext->pPrev = pDeleteNode->pPrev;
+	pDeleteNode->pPrev->pNext = pDeleteNode->pNext;
+	myFree(pDeleteNode->data);
+	myFree(pDeleteNode);
+
+}
+
 

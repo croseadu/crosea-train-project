@@ -57,5 +57,7 @@ SET(CMAKE_DEPEND_INFO_FILES
   "basic/basic/CMakeFiles/calculator.dir/DependInfo.cmake"
   "basic/basic/CMakeFiles/decimalToBinary.dir/DependInfo.cmake"
   "basic/basic/CMakeFiles/lineEdit.dir/DependInfo.cmake"
+  "basic/basic/CMakeFiles/maze.dir/DependInfo.cmake"
+  "basic/basic/CMakeFiles/queens.dir/DependInfo.cmake"
   "basic/sort/CMakeFiles/internalSort.dir/DependInfo.cmake"
   )

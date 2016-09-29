@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/common.h
+
+../include/memory.h
+stddef.h
+-
+
+../include/utils.h
+common.h
+../include/common.h
+
+/local/.train/train/codeDepot/basic/basic/queens.c
+utils.h
+/local/.train/train/codeDepot/basic/basic/utils.h
+memory.h
+/local/.train/train/codeDepot/basic/basic/memory.h
+common.h
+/local/.train/train/codeDepot/basic/basic/common.h
+stdio.h
+-
+stdlib.h
+-
+assert.h
+-
+

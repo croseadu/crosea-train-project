@@ -49,7 +49,7 @@ Fail:
 	if (pImpl != NULL)
 		myFree(pImpl);
 	if (pList != NULL)
-		destroyDoubleinkList(&pList);
+		destroyDoubleLinkList(&pList);
 	
 	return False;
 }
@@ -61,7 +61,7 @@ destroyQueue(LPQueue *ppQueue)
 	LPQueue pQueue = *ppQueue;
 	assert(pQueue != NULL);
 
-	destroySingleLinkList(&pQueue->pImpl->pList);
+	destroyDoubleLinkList(&pQueue->pImpl->pList);
 	
 	myFree(pQueue->pImpl);
 	myFree(pQueue);
@@ -70,13 +70,13 @@ destroyQueue(LPQueue *ppQueue)
 BOOL
 enQueue(LPQueue pQueue, const void *data)
 {
-	return insertToTailOfSingleLinkList(pQueue->pImpl->pList, data);
+	return insertToTailOfDoubleLinkList(pQueue->pImpl->pList, data);
 }
 
 BOOL
 isQueueEmpty(const LPQueue pQueue)
 {
-	return isSingleLinkListEmpty(pQueue->pImpl->pList);
+	return isDoubleLinkListEmpty(pQueue->pImpl->pList);
 }
 
 

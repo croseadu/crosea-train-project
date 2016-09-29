@@ -71,7 +71,7 @@ utils/preinstall:
 utils/CMakeFiles/utils.dir/all:
 	$(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/depend
 	$(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  10 11 12 13 14 15 16 17 18 19
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  12 13 14 15 16 17 18 19 20 21
 	@echo "Built target utils"
 .PHONY : utils/CMakeFiles/utils.dir/all
 
@@ -127,7 +127,7 @@ test/preinstall:
 test/CMakeFiles/testDoubleLinkList.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f test/CMakeFiles/testDoubleLinkList.dir/build.make test/CMakeFiles/testDoubleLinkList.dir/depend
 	$(MAKE) -f test/CMakeFiles/testDoubleLinkList.dir/build.make test/CMakeFiles/testDoubleLinkList.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  6
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  8
 	@echo "Built target testDoubleLinkList"
 .PHONY : test/CMakeFiles/testDoubleLinkList.dir/all
 
@@ -162,7 +162,7 @@ clean: test/CMakeFiles/testDoubleLinkList.dir/clean
 test/CMakeFiles/testMap.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f test/CMakeFiles/testMap.dir/build.make test/CMakeFiles/testMap.dir/depend
 	$(MAKE) -f test/CMakeFiles/testMap.dir/build.make test/CMakeFiles/testMap.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  7
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  9
 	@echo "Built target testMap"
 .PHONY : test/CMakeFiles/testMap.dir/all
 
@@ -197,7 +197,7 @@ clean: test/CMakeFiles/testMap.dir/clean
 test/CMakeFiles/testSingleLinkList.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f test/CMakeFiles/testSingleLinkList.dir/build.make test/CMakeFiles/testSingleLinkList.dir/depend
 	$(MAKE) -f test/CMakeFiles/testSingleLinkList.dir/build.make test/CMakeFiles/testSingleLinkList.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  8
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  10
 	@echo "Built target testSingleLinkList"
 .PHONY : test/CMakeFiles/testSingleLinkList.dir/all
 
@@ -232,7 +232,7 @@ clean: test/CMakeFiles/testSingleLinkList.dir/clean
 test/CMakeFiles/testVector.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f test/CMakeFiles/testVector.dir/build.make test/CMakeFiles/testVector.dir/depend
 	$(MAKE) -f test/CMakeFiles/testVector.dir/build.make test/CMakeFiles/testVector.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  9
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  11
 	@echo "Built target testVector"
 .PHONY : test/CMakeFiles/testVector.dir/all
 
@@ -289,6 +289,8 @@ basic/basic/all: basic/basic/CMakeFiles/addPoly.dir/all
 basic/basic/all: basic/basic/CMakeFiles/calculator.dir/all
 basic/basic/all: basic/basic/CMakeFiles/decimalToBinary.dir/all
 basic/basic/all: basic/basic/CMakeFiles/lineEdit.dir/all
+basic/basic/all: basic/basic/CMakeFiles/maze.dir/all
+basic/basic/all: basic/basic/CMakeFiles/queens.dir/all
 .PHONY : basic/basic/all
 
 # Convenience name for "clean" pass in the directory.
@@ -296,6 +298,8 @@ basic/basic/clean: basic/basic/CMakeFiles/addPoly.dir/clean
 basic/basic/clean: basic/basic/CMakeFiles/calculator.dir/clean
 basic/basic/clean: basic/basic/CMakeFiles/decimalToBinary.dir/clean
 basic/basic/clean: basic/basic/CMakeFiles/lineEdit.dir/clean
+basic/basic/clean: basic/basic/CMakeFiles/maze.dir/clean
+basic/basic/clean: basic/basic/CMakeFiles/queens.dir/clean
 .PHONY : basic/basic/clean
 
 # Convenience name for "preinstall" pass in the directory.
@@ -440,6 +444,76 @@ basic/basic/CMakeFiles/lineEdit.dir/clean:
 
 # clean rule for target.
 clean: basic/basic/CMakeFiles/lineEdit.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target basic/basic/CMakeFiles/maze.dir
+
+# All Build rule for target.
+basic/basic/CMakeFiles/maze.dir/all: utils/CMakeFiles/utils.dir/all
+	$(MAKE) -f basic/basic/CMakeFiles/maze.dir/build.make basic/basic/CMakeFiles/maze.dir/depend
+	$(MAKE) -f basic/basic/CMakeFiles/maze.dir/build.make basic/basic/CMakeFiles/maze.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  6
+	@echo "Built target maze"
+.PHONY : basic/basic/CMakeFiles/maze.dir/all
+
+# Include target in all.
+all: basic/basic/CMakeFiles/maze.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+basic/basic/CMakeFiles/maze.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/codeDepot/build/CMakeFiles 11
+	$(MAKE) -f CMakeFiles/Makefile2 basic/basic/CMakeFiles/maze.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/codeDepot/build/CMakeFiles 0
+.PHONY : basic/basic/CMakeFiles/maze.dir/rule
+
+# Convenience name for target.
+maze: basic/basic/CMakeFiles/maze.dir/rule
+.PHONY : maze
+
+# clean rule for target.
+basic/basic/CMakeFiles/maze.dir/clean:
+	$(MAKE) -f basic/basic/CMakeFiles/maze.dir/build.make basic/basic/CMakeFiles/maze.dir/clean
+.PHONY : basic/basic/CMakeFiles/maze.dir/clean
+
+# clean rule for target.
+clean: basic/basic/CMakeFiles/maze.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target basic/basic/CMakeFiles/queens.dir
+
+# All Build rule for target.
+basic/basic/CMakeFiles/queens.dir/all: utils/CMakeFiles/utils.dir/all
+	$(MAKE) -f basic/basic/CMakeFiles/queens.dir/build.make basic/basic/CMakeFiles/queens.dir/depend
+	$(MAKE) -f basic/basic/CMakeFiles/queens.dir/build.make basic/basic/CMakeFiles/queens.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /local/.train/train/codeDepot/build/CMakeFiles  7
+	@echo "Built target queens"
+.PHONY : basic/basic/CMakeFiles/queens.dir/all
+
+# Include target in all.
+all: basic/basic/CMakeFiles/queens.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+basic/basic/CMakeFiles/queens.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/codeDepot/build/CMakeFiles 11
+	$(MAKE) -f CMakeFiles/Makefile2 basic/basic/CMakeFiles/queens.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /local/.train/train/codeDepot/build/CMakeFiles 0
+.PHONY : basic/basic/CMakeFiles/queens.dir/rule
+
+# Convenience name for target.
+queens: basic/basic/CMakeFiles/queens.dir/rule
+.PHONY : queens
+
+# clean rule for target.
+basic/basic/CMakeFiles/queens.dir/clean:
+	$(MAKE) -f basic/basic/CMakeFiles/queens.dir/build.make basic/basic/CMakeFiles/queens.dir/clean
+.PHONY : basic/basic/CMakeFiles/queens.dir/clean
+
+# clean rule for target.
+clean: basic/basic/CMakeFiles/queens.dir/clean
 .PHONY : clean
 
 #=============================================================================

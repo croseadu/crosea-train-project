@@ -8,10 +8,6 @@
 
 ../include/common.h
 
-../include/doubleLinkList.h
-common.h
-../include/common.h
-
 ../include/memory.h
 stddef.h
 -
@@ -20,19 +16,23 @@ stddef.h
 common.h
 ../include/common.h
 
+../include/stack.h
+common.h
+../include/common.h
+
 ../include/utils.h
 common.h
 ../include/common.h
 
-/local/.train/train/codeDepot/utils/queue.c
+/local/.train/train/codeDepot/basic/basic/maze.c
+stack.h
+/local/.train/train/codeDepot/basic/basic/stack.h
 queue.h
-/local/.train/train/codeDepot/utils/queue.h
+/local/.train/train/codeDepot/basic/basic/queue.h
 utils.h
-/local/.train/train/codeDepot/utils/utils.h
-doubleLinkList.h
-/local/.train/train/codeDepot/utils/doubleLinkList.h
+/local/.train/train/codeDepot/basic/basic/utils.h
 memory.h
-/local/.train/train/codeDepot/utils/memory.h
+/local/.train/train/codeDepot/basic/basic/memory.h
 stdio.h
 -
 stdlib.h

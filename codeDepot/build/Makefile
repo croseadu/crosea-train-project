@@ -213,6 +213,32 @@ lineEdit/fast:
 .PHONY : lineEdit/fast
 
 #=============================================================================
+# Target rules for targets named maze
+
+# Build rule for target.
+maze: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 maze
+.PHONY : maze
+
+# fast build rule for target.
+maze/fast:
+	$(MAKE) -f basic/basic/CMakeFiles/maze.dir/build.make basic/basic/CMakeFiles/maze.dir/build
+.PHONY : maze/fast
+
+#=============================================================================
+# Target rules for targets named queens
+
+# Build rule for target.
+queens: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 queens
+.PHONY : queens
+
+# fast build rule for target.
+queens/fast:
+	$(MAKE) -f basic/basic/CMakeFiles/queens.dir/build.make basic/basic/CMakeFiles/queens.dir/build
+.PHONY : queens/fast
+
+#=============================================================================
 # Target rules for targets named internalSort
 
 # Build rule for target.
@@ -242,6 +268,8 @@ help:
 	@echo "... calculator"
 	@echo "... decimalToBinary"
 	@echo "... lineEdit"
+	@echo "... maze"
+	@echo "... queens"
 	@echo "... internalSort"
 .PHONY : help
 
