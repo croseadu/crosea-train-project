@@ -1,0 +1,1 @@
+/usr/bin/gcc   -g    CMakeFiles/calculator.dir/expression.o  -o ../bin/calculator -rdynamic ../lib/libutils.a 

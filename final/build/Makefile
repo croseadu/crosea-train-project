@@ -252,6 +252,32 @@ decimalToBinary/fast:
 .PHONY : decimalToBinary/fast
 
 #=============================================================================
+# Target rules for targets named generalizedList
+
+# Build rule for target.
+generalizedList: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 generalizedList
+.PHONY : generalizedList
+
+# fast build rule for target.
+generalizedList/fast:
+	$(MAKE) -f basic/CMakeFiles/generalizedList.dir/build.make basic/CMakeFiles/generalizedList.dir/build
+.PHONY : generalizedList/fast
+
+#=============================================================================
+# Target rules for targets named generalizedList2
+
+# Build rule for target.
+generalizedList2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 generalizedList2
+.PHONY : generalizedList2
+
+# fast build rule for target.
+generalizedList2/fast:
+	$(MAKE) -f basic/CMakeFiles/generalizedList2.dir/build.make basic/CMakeFiles/generalizedList2.dir/build
+.PHONY : generalizedList2/fast
+
+#=============================================================================
 # Target rules for targets named lineEdit
 
 # Build rule for target.
@@ -297,6 +323,8 @@ help:
 	@echo "... shellInsertSort"
 	@echo "... calculator"
 	@echo "... decimalToBinary"
+	@echo "... generalizedList"
+	@echo "... generalizedList2"
 	@echo "... lineEdit"
 	@echo "... parenthesesMatch"
 .PHONY : help

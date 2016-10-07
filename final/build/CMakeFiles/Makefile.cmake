@@ -60,6 +60,8 @@ SET(CMAKE_DEPEND_INFO_FILES
   "sorting/CMakeFiles/shellInsertSort.dir/DependInfo.cmake"
   "basic/CMakeFiles/calculator.dir/DependInfo.cmake"
   "basic/CMakeFiles/decimalToBinary.dir/DependInfo.cmake"
+  "basic/CMakeFiles/generalizedList.dir/DependInfo.cmake"
+  "basic/CMakeFiles/generalizedList2.dir/DependInfo.cmake"
   "basic/CMakeFiles/lineEdit.dir/DependInfo.cmake"
   "basic/CMakeFiles/parenthesesMatch.dir/DependInfo.cmake"
   )

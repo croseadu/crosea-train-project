@@ -3,5 +3,6 @@
 
 basic/CMakeFiles/conversion.dir/conversion.o
  ../include/common.h
+ ../include/myMemory.h
  ../include/stack.h
  /local/.train/train/2016/basic/conversion.c

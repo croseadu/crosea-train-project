@@ -18,9 +18,15 @@ myMemory.h
 
 ../include/myMemory.h
 
-/local/.train/train/2016/util/inOutHelper.c
+../include/stack.h
 common.h
-/local/.train/train/2016/util/common.h
-stdio.h
+../include/common.h
+
+/local/.train/train/2016/util/stack.c
+stack.h
+/local/.train/train/2016/util/stack.h
+assert.h
 -
+myMemory.h
+/local/.train/train/2016/util/myMemory.h
 

@@ -13,6 +13,10 @@ stdlib.h
 -
 string.h
 -
+myMemory.h
+../include/myMemory.h
+
+../include/myMemory.h
 
 ../include/stack.h
 common.h

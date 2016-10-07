@@ -1,6 +1,8 @@
 /local/.train/train/final/build/sorting/CMakeFiles/bubbleSort.dir
 /local/.train/train/final/build/basic/CMakeFiles/calculator.dir
 /local/.train/train/final/build/basic/CMakeFiles/decimalToBinary.dir
+/local/.train/train/final/build/basic/CMakeFiles/generalizedList.dir
+/local/.train/train/final/build/basic/CMakeFiles/generalizedList2.dir
 /local/.train/train/final/build/sorting/CMakeFiles/heapSort.dir
 /local/.train/train/final/build/sorting/CMakeFiles/insertSort.dir
 /local/.train/train/final/build/basic/CMakeFiles/lineEdit.dir

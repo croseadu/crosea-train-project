@@ -1,0 +1,1 @@
+/usr/bin/gcc   -g    CMakeFiles/generalizedList.dir/generalizedList.c.o  -o ../bin/generalizedList -rdynamic ../lib/libutils.a 

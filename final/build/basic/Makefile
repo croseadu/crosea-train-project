@@ -124,6 +124,34 @@ decimalToBinary/fast:
 .PHONY : decimalToBinary/fast
 
 # Convenience name for target.
+basic/CMakeFiles/generalizedList.dir/rule:
+	cd /local/.train/train/final/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/generalizedList.dir/rule
+.PHONY : basic/CMakeFiles/generalizedList.dir/rule
+
+# Convenience name for target.
+generalizedList: basic/CMakeFiles/generalizedList.dir/rule
+.PHONY : generalizedList
+
+# fast build rule for target.
+generalizedList/fast:
+	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/generalizedList.dir/build.make basic/CMakeFiles/generalizedList.dir/build
+.PHONY : generalizedList/fast
+
+# Convenience name for target.
+basic/CMakeFiles/generalizedList2.dir/rule:
+	cd /local/.train/train/final/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/generalizedList2.dir/rule
+.PHONY : basic/CMakeFiles/generalizedList2.dir/rule
+
+# Convenience name for target.
+generalizedList2: basic/CMakeFiles/generalizedList2.dir/rule
+.PHONY : generalizedList2
+
+# fast build rule for target.
+generalizedList2/fast:
+	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/generalizedList2.dir/build.make basic/CMakeFiles/generalizedList2.dir/build
+.PHONY : generalizedList2/fast
+
+# Convenience name for target.
 basic/CMakeFiles/lineEdit.dir/rule:
 	cd /local/.train/train/final/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/lineEdit.dir/rule
 .PHONY : basic/CMakeFiles/lineEdit.dir/rule
@@ -199,6 +227,54 @@ decimalToBinary.c.s:
 	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/decimalToBinary.dir/build.make basic/CMakeFiles/decimalToBinary.dir/decimalToBinary.c.s
 .PHONY : decimalToBinary.c.s
 
+generalizedList.o: generalizedList.c.o
+.PHONY : generalizedList.o
+
+# target to build an object file
+generalizedList.c.o:
+	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/generalizedList.dir/build.make basic/CMakeFiles/generalizedList.dir/generalizedList.c.o
+.PHONY : generalizedList.c.o
+
+generalizedList.i: generalizedList.c.i
+.PHONY : generalizedList.i
+
+# target to preprocess a source file
+generalizedList.c.i:
+	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/generalizedList.dir/build.make basic/CMakeFiles/generalizedList.dir/generalizedList.c.i
+.PHONY : generalizedList.c.i
+
+generalizedList.s: generalizedList.c.s
+.PHONY : generalizedList.s
+
+# target to generate assembly for a file
+generalizedList.c.s:
+	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/generalizedList.dir/build.make basic/CMakeFiles/generalizedList.dir/generalizedList.c.s
+.PHONY : generalizedList.c.s
+
+generalizedList2.o: generalizedList2.c.o
+.PHONY : generalizedList2.o
+
+# target to build an object file
+generalizedList2.c.o:
+	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/generalizedList2.dir/build.make basic/CMakeFiles/generalizedList2.dir/generalizedList2.c.o
+.PHONY : generalizedList2.c.o
+
+generalizedList2.i: generalizedList2.c.i
+.PHONY : generalizedList2.i
+
+# target to preprocess a source file
+generalizedList2.c.i:
+	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/generalizedList2.dir/build.make basic/CMakeFiles/generalizedList2.dir/generalizedList2.c.i
+.PHONY : generalizedList2.c.i
+
+generalizedList2.s: generalizedList2.c.s
+.PHONY : generalizedList2.s
+
+# target to generate assembly for a file
+generalizedList2.c.s:
+	cd /local/.train/train/final/build && $(MAKE) -f basic/CMakeFiles/generalizedList2.dir/build.make basic/CMakeFiles/generalizedList2.dir/generalizedList2.c.s
+.PHONY : generalizedList2.c.s
+
 lineEdit.o: lineEdit.c.o
 .PHONY : lineEdit.o
 
@@ -256,6 +332,8 @@ help:
 	@echo "... calculator"
 	@echo "... decimalToBinary"
 	@echo "... edit_cache"
+	@echo "... generalizedList"
+	@echo "... generalizedList2"
 	@echo "... lineEdit"
 	@echo "... parenthesesMatch"
 	@echo "... rebuild_cache"
@@ -265,6 +343,12 @@ help:
 	@echo "... decimalToBinary.o"
 	@echo "... decimalToBinary.i"
 	@echo "... decimalToBinary.s"
+	@echo "... generalizedList.o"
+	@echo "... generalizedList.i"
+	@echo "... generalizedList.s"
+	@echo "... generalizedList2.o"
+	@echo "... generalizedList2.i"
+	@echo "... generalizedList2.s"
 	@echo "... lineEdit.o"
 	@echo "... lineEdit.i"
 	@echo "... lineEdit.s"

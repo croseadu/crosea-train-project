@@ -96,6 +96,20 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+basic/CMakeFiles/calculator.dir/rule:
+	cd /local/.train/train/2016/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/calculator.dir/rule
+.PHONY : basic/CMakeFiles/calculator.dir/rule
+
+# Convenience name for target.
+calculator: basic/CMakeFiles/calculator.dir/rule
+.PHONY : calculator
+
+# fast build rule for target.
+calculator/fast:
+	cd /local/.train/train/2016/build && $(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/build
+.PHONY : calculator/fast
+
+# Convenience name for target.
 basic/CMakeFiles/conversion.dir/rule:
 	cd /local/.train/train/2016/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/conversion.dir/rule
 .PHONY : basic/CMakeFiles/conversion.dir/rule
@@ -139,6 +153,21 @@ conversion.s:
 .PHONY : conversion.s
 
 # target to build an object file
+expression.o:
+	cd /local/.train/train/2016/build && $(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/expression.o
+.PHONY : expression.o
+
+# target to preprocess a source file
+expression.i:
+	cd /local/.train/train/2016/build && $(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/expression.i
+.PHONY : expression.i
+
+# target to generate assembly for a file
+expression.s:
+	cd /local/.train/train/2016/build && $(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/expression.s
+.PHONY : expression.s
+
+# target to build an object file
 polynomialAdd.o:
 	cd /local/.train/train/2016/build && $(MAKE) -f basic/CMakeFiles/polynomialAdd.dir/build.make basic/CMakeFiles/polynomialAdd.dir/polynomialAdd.o
 .PHONY : polynomialAdd.o
@@ -159,6 +188,7 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... calculator"
 	@echo "... conversion"
 	@echo "... edit_cache"
 	@echo "... polynomialAdd"
@@ -166,6 +196,9 @@ help:
 	@echo "... conversion.o"
 	@echo "... conversion.i"
 	@echo "... conversion.s"
+	@echo "... expression.o"
+	@echo "... expression.i"
+	@echo "... expression.s"
 	@echo "... polynomialAdd.o"
 	@echo "... polynomialAdd.i"
 	@echo "... polynomialAdd.s"

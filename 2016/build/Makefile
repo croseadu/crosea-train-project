@@ -135,6 +135,19 @@ testDoubleLinkList/fast:
 .PHONY : testDoubleLinkList/fast
 
 #=============================================================================
+# Target rules for targets named calculator
+
+# Build rule for target.
+calculator: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 calculator
+.PHONY : calculator
+
+# fast build rule for target.
+calculator/fast:
+	$(MAKE) -f basic/CMakeFiles/calculator.dir/build.make basic/CMakeFiles/calculator.dir/build
+.PHONY : calculator/fast
+
+#=============================================================================
 # Target rules for targets named conversion
 
 # Build rule for target.
@@ -171,6 +184,7 @@ help:
 	@echo "... utils"
 	@echo "... testSingleLinkList"
 	@echo "... testDoubleLinkList"
+	@echo "... calculator"
 	@echo "... conversion"
 	@echo "... polynomialAdd"
 .PHONY : help
