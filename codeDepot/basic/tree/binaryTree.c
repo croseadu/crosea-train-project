@@ -22,13 +22,13 @@ postOrder(LPTree, Visitor visitor);
 
 
 void
-preOrderNoRecursive(LPTree);
+preOrderNoRecursive(LPTree, Visitor);
 void
-inOrderNoRecursiveV1(LPTree);
+inOrderNoRecursiveV1(LPTree, Visitor);
 void
-inOrderNoRecursiveV2(LPTree);
+inOrderNoRecursiveV2(LPTree, Visitor);
 void
-postOrderNoRecursive(LPTree);
+postOrderNoRecursive(LPTree, Visitor);
 
 
 
@@ -119,6 +119,100 @@ postOrder(LPTree pRoot, Visitor visitor)
 	visitor(pRoot->data);
 
 }
+
+
+void
+preOrderNoRecursive(LPTree pRoot, Visitor visitor)
+{
+	LPStack pStack = NULL;
+
+
+	if (False == createStack(&pStack, sizeof(LPTree))) {
+		goto cleanup;
+	}
+
+	if (pRoot)
+		pushToStack(pStack, &pRoot);
+
+	while (isStackEmpty(pStack) == False) {
+		getTopOfStack(pStack, &pCurNode);
+		popFromStack(pStack);
+
+		visitor(pCurNode->data);
+		if (pCurNode->rightChild)
+			pushToStack(pStack, pCurNode->rightChild);
+		if (pCurNode->leftChild)
+			pushToStack(pStack, pCurNode->leftChild);
+	}
+
+
+cleanup:
+	if (pStack)
+		destroyStack(&pStack);
+
+}
+
+void
+inOrderNoRecursiveV1(LPTree pRoot, Visitor visitor)
+{
+
+	LPTree pCur = pRoot;
+	LPStack pStack = NULL;
+
+	if (False == createStack(pStack, sizeof(LPTree))) {
+		goto cleanup;
+	}
+	
+
+	while (pCur || isStackEmpty(pStack) == False) {
+		if (pCur) {
+			do {
+				pushToStack(pStack, &pCur);
+				pCur = pCur->leftChild;
+			} while (pCur);
+		} 
+		getTopOfStack(pStack, &pCur);
+		popFromStack(pStack);
+		
+		
+		visitor(pCur->data);
+		pCur = pCur->rightChild;
+	}
+
+
+cleanup:
+	if (pStack)
+		destroyStack(&pStack);
+
+}
+
+void
+inOrderNoRecursiveV2(LPTree pRoot, Visitor visitor)
+{
+
+	LPTree pCur = pRoot;
+	LPStack pStack = NULL;
+
+	if (False == createStack(pStack, sizeof(LPTree))) {
+		goto cleanup;
+	}
+	
+
+
+
+cleanup:
+	if (pStack)
+		destroyStack(&pStack);
+
+
+
+
+
+}
+
+void
+postOrderNoRecursive(LPTree, Visitor);
+
 
 
 
