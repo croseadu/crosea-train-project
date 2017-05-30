@@ -251,19 +251,110 @@ reverseSingleLinkList(
 	}
 }
 
+static void
+insertSortSingleLinkList(
+	LPSingleLinkList pList)
+{
+	SingleLinkListIter it;
+	LPSingleLinkListNode pNode = pList->pHead;
+	LPSingleLinkListNode pNext;
+
+	if (NULL == pNode)
+		return;
+
+	pNode = pNode->pNext;
+	if (NULL == pNode)
+		return;
+	
+
+	pList->pHead->pNext = NULL;
+	while (pNode != NULL) {
+		it = &pList->pHead;
+		pNext = pNode->pNext;		
+
+		while (*it != NULL && pList->less((*it)->data, pNode->data) == True)
+			it = &(*it)->pNext;
+
+		pNode->pNext = *it;
+		*it = pNode;
+
+		pNode = pNext;
+	}
+	
+		
+
+}
+
 void
 sortSingleLinkList(
-	LPSingleLinkList pList);
+	LPSingleLinkList pList)
+{
+	insertSortSingleLinkList(pList);
+}
 
 void
 uniqueSingleLinkList(
-	LPSingleLinkList pList);
+	LPSingleLinkList pList)
+{
+	
+	SingleLinkListIter it = &pList->pHead;
+
+	if (pList->pHead == NULL || pList->pHead->pNext == NULL)
+		return;
+
+	pIterNode = pList->pHead->pNext;
+	pList->pHead->pNext = NULL;
+	it = &pList->pHead->pNext;
+
+	while (pIterNode != NULL) {
+		pNextNode = pIterNode->pNext;
+		
+		if (pList->less(pIterNode->data, (*it)->data) == False &&
+		    pList->less((*it)->data, pIterNode->data) == False) {
+			*it = pNextNode;		
+	
+			myFree(pIterNode->data);
+			myFree(pIterNode);
+
+		} else {
+			it = &(*it)->pNext; 
+		}
+
+		
+		pIterNode = pNextNode;
+	} 
+}
 
 BOOL
 isSingleLinkListEmpty(
-	LPSingleLinkList pList);
+	LPSingleLinkList pList)
+{
+	return (pList->pHead == NULL) ? True : False;
+}
+
 unsigned int
 getSizeOfSingleLinkList(
-	LPSingleLinkList pList);
+	LPSingleLinkList pList)
+{
+	unsigned int count = 0;
+	LPSingleLinkListNode pIter = pList->pHead;
 
-#endif
+	while (pIter) {
+		++count;
+		pIter = pIter->pNext;
+	}
+
+	return count;
+}
+
+
+
+
+
+
+
+
+
+
+
+
