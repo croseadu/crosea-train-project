@@ -29,12 +29,13 @@ createSingleLinkList(
 	Printer 		printer,
 	Less 			less);
 
+
+void
+clearSingleLinkList(
+	LPSingleLinkList pList);
 void
 destroySingleLinkList(
 	LPSingleLinkList *ppList);
-
-
-
 
 BOOL
 insertToHeadOfSingleLinkList(
@@ -80,6 +81,13 @@ sortSingleLinkList(
 	LPSingleLinkList pList);
 
 
+BOOL
+isSingleLinkListEmpty(
+	const LPSingleLinkList pList);
+
+unsigned int
+getSizeOfSingleLinkList(
+	const LPSingleLinkList pList);
 
 
 #endif

@@ -47,6 +47,13 @@ insertToTailOfDoubleLinkList(
 	const void *data);
 
 
+void
+removeHeadFromDoubleLinkList(
+	LPDoubleLinkList);
+void
+removeTailFromDoubleLinkList(
+	LPDoubleLinkList);
+
 typedef LPDoubleLinkListNode IterOfDoubleLinkList;
 
 
@@ -79,7 +86,15 @@ void
 sortDoubleLinkList(
 	LPDoubleLinkList pList);
 
+void
+getFrontOfDoubleLinkList(
+	LPDoubleLinkList pList,
+	void *data);
 
+void
+getBackOfDoubleLinkList(
+	LPDoubleLinkList pList,
+	void *data);
 
 
 #endif

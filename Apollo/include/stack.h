@@ -42,5 +42,7 @@ void popFromStack(
 	LPStack pStack);
 
 
-
+BOOL
+isStackEmpty(
+	const LPStack pStack);
 #endif

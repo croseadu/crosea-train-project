@@ -7,28 +7,6 @@
 #include  <assert.h>
 
 
-
-
-
-typedef struct _SingleLinkListNode
-{
-	void *data;
-	struct _SingleLinkListNode *pNext;
-}SingleLinkListNode, *LPSingleLinkListNode;
-
-
-typedef struct _SingleLinkList
-{
-	LPSingleLinkList pHead;
-	unsigned int elementSize;
-
-
-	Printer printer;
-	Less less;
-}SingleLinkList, *LPSingleLinkList;
-
-
-
 BOOL 
 createSingleLinkList(
 	LPSingleLinkList 	*ppList,
@@ -53,15 +31,10 @@ createSingleLinkList(
 }
 
 void
-destroySingleLinkList(
-	LPSingleLinkList *ppList)
+clearSingleLinkList(
+	LPSingleLinkList pList)
 {
-	LPSingleLinkList pList;
 	LPsingleLinkListNode pIterNode, pNextNode;
-
-	assert(ppList != NULL);
-	pList = *ppList;
-	assert (NULL == pList);
 
 	pIterNode = pList->pHead;
 	while (pIterNode) {
@@ -74,6 +47,20 @@ destroySingleLinkList(
 		pIterNode = pNextNode;	
 	}	
 
+	pList->pHead = NULL;
+}
+
+void
+destroySingleLinkList(
+	LPSingleLinkList *ppList)
+{
+	LPSingleLinkList pList;
+
+	assert(ppList != NULL);
+	pList = *ppList;
+	assert (NULL == pList);
+
+	clearSingleLinkList(pList);
 
 	myFree(pList);
 	*ppList = NULL;
