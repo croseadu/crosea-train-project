@@ -84,16 +84,19 @@ uniqueVector(
 
 void
 getFrontOfVector(
-	LPVector pVector);
+	LPVector pVector,
+	void *data);
 
 void
 getBackOfVector(
-	LPVector pVector);
+	LPVector pVector,
+	void *data);
 
 void
 getAtInVector(
 	LPVector pVector,
-	unsigned int idx);
+	int idx,
+	void *data);
 
 unsigned int
 getSizeOfVector(
@@ -104,5 +107,14 @@ BOOL
 isVectorEmpty(
 	const LPVector);
 
+void *
+getDataFromVector(
+	LPVector);
+
+void
+dumpVector(
+	const LPVector,
+	const char *,
+	unsigned int);
 
 #endif

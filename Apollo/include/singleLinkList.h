@@ -12,7 +12,7 @@ typedef struct _SingleLinkListNode
 
 typedef struct _SingleLinkList
 {
-	LPSingleLinkList pHead;
+	LPSingleLinkListNode pHead;
 	unsigned int elementSize;
 
 
@@ -48,7 +48,7 @@ insertToTailOfSingleLinkList(
 	const void *data);
 
 
-typedef LPSingleLinkListNode * IterOfSingleLinkList;
+typedef LPSingleLinkListNode * SingleLinkListIter;
 
 
 SingleLinkListIter
@@ -57,7 +57,7 @@ findInSingleLinkList(
 	const void *data);
 
 SingleLinkListIter
-findInSingleLinkList(
+findIfInSingleLinkList(
 	LPSingleLinkList pList,
 	Pred pred);
 
@@ -88,6 +88,13 @@ isSingleLinkListEmpty(
 unsigned int
 getSizeOfSingleLinkList(
 	const LPSingleLinkList pList);
+
+void
+dumpSingleLinkList(
+	const LPSingleLinkList pList,
+	const char *,
+	unsigned int itemPerLine);
+
 
 
 #endif

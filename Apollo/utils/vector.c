@@ -1,21 +1,13 @@
 
 #include "common.h"
+#include "vector.h"
+#include "memory.h"
 
 
-typedef struct _Vector
-{
-	void *data;
+#include <stdio.h>
+#include <string.h>
+#include <assert.h>
 
-	unsigned int elementSize;
-	unsigned int capacity;
-	unsigned int numOfElements;
-
-	Printer printer;
-	Less less;
-}Vector, *LPVector;
-
-
-typedef int IterOfVector;
 
 BOOL
 createVector(
@@ -27,7 +19,7 @@ createVector(
 	LPVector pVector;
 
 
-	pVector = myAlloc(sizeof(Vector));
+	pVector = (LPVector)myAlloc(sizeof(Vector));
 	if (NULL == pVector) {
 		return False;
 	}
@@ -71,7 +63,10 @@ reserveMoreInVector(
 	pVector->data = myReAlloc(pVector->data, (pVector->capacity + INCRE_SIZE ) * pVector->elementSize);
 	if (NULL == pVector->data) {
 		return False;
-	}	
+	}
+
+	pVector->capacity += INCRE_SIZE; 
+
 	return True;
 }
 
@@ -85,7 +80,7 @@ pushBackInVector(
 			return False;
 	}
 
-	memcpy(pVector->data + pVector->numOfElements * pVector->elementSize , data, pVector->elementSize);
+	memcpy((char *)pVector->data + pVector->numOfElements * pVector->elementSize , data, pVector->elementSize);
 }
 
 
@@ -95,9 +90,9 @@ popBackInVector(
 	LPVector pVector,
 	void *data)
 {
-	assert(pVector->numElements != 0);
-	--pVector->numElements;
-	memcpy(data, pVector->data + pVector->numOfElements * pVector->elementSize , pVector->elementSize);
+	assert(pVector->numOfElements != 0);
+	--pVector->numOfElements;
+	memcpy(data, (char *)pVector->data + pVector->numOfElements * pVector->elementSize , pVector->elementSize);
 }
 
 
@@ -108,7 +103,7 @@ insertInVector(
 	const void *data)
 {
 	int curIdx = (int)insertPos;
-	int n = pVector->numElements;
+	int n = pVector->numOfElements;
 
 	assert(curIdx >= 0 && curIdx < n);
 
@@ -122,7 +117,9 @@ insertInVector(
 		--n;
 	}
 
-	memcpy(pVector->data + curIdx * pVector->elementSize, data, pVector->elementSize);
+	memcpy((char *)pVector->data + curIdx * pVector->elementSize, data, pVector->elementSize);
+	++pVector->numOfElements;
+
 	return False;
 }
 
@@ -130,16 +127,17 @@ insertInVector(
 void
 eraseFromVector(
 	LPVector pVector,
-	IterOfVector It)
+	IterOfVector it)
 {
 	int curIdx = (int)it;
 
 	assert(curIdx >= 0 && curIdx < pVector->numOfElements);
 
 	while (curIdx + 1 < pVector->numOfElements) {
-		memcpy(pVector->data + curIdx * pVector->elementSize, pVector->data + (curIdx + 1) * pVector->elementSize);
+		memcpy((char *)pVector->data + curIdx * pVector->elementSize, pVector->data + (curIdx + 1) * pVector->elementSize, pVector->elementSize);
 		++curIdx;	
 	}
+	--pVector->numOfElements;
 }
 
 void
@@ -157,7 +155,7 @@ eraseValFromVector(
 			++curIdx;
 		} else {
 			if (fillIdx != curIdx) {
-				mempcy(pVector->data + fillIdx * pVector->elementSize, pVector->data + curIdx * pVector->elementSize, pVector->elementSize);
+				mempcy((char *)pVector->data + fillIdx * pVector->elementSize,(char *)pVector->data + curIdx * pVector->elementSize, pVector->elementSize);
 			}
 			++fillIdx;
 			++curIdx;
@@ -177,8 +175,8 @@ findInVector(
 	int n = pVector->numOfElements;
 
 	for (;idx < n; ++idx) {
-		if (pVector->less(key, pVector->data + idx * pVector->elementSize) == False &&
-	            pVector->less(pVector->data + idx * pVector->elementSize, key) == False) {
+		if (pVector->less(key, (char *)pVector->data + idx * pVector->elementSize) == False &&
+	            pVector->less((char *)pVector->data + idx * pVector->elementSize, key) == False) {
 			break;
 		}
 	}	
@@ -207,16 +205,16 @@ sortVector(
 
 	for (i = 1; i < n; ++i) {
 		j = i - 1;
-		while (j >= 0 && pVector->less(pVector->data + i * pVector->elementSize, pVector->data + j * pVector->elementSize) == True)
+		while (j >= 0 && pVector->less((char *)pVector->data + i * pVector->elementSize, (char *)pVector->data + j * pVector->elementSize) == True)
 			--j;	
 		if (j != i - 1) {
-			memcpy(key, pVector->data + i * pVector->elementSize, pVector->elementSize);
+			memcpy(key, (char *)pVector->data + i * pVector->elementSize, pVector->elementSize);
 			k = i - 1;	
 			while (k > j) {
-				mempcy(pVector->data + (k + 1) * pVector->elementSize, pVector->data + k * pVector->elementSize, pVector->elementSize);
+				mempcy((char *)pVector->data + (k + 1) * pVector->elementSize, (char *)pVector->data + k * pVector->elementSize, pVector->elementSize);
 				--k;
 			} 
-			memcpy(pVector->data + (k+1) * pVector->elementSize, key, pVector->elementSize);
+			memcpy((char *)pVector->data + (k+1) * pVector->elementSize, key, pVector->elementSize);
 			
 		}
 	}
@@ -229,7 +227,30 @@ void
 uniqueVector(	
 	LPVector pVector)
 {
+	int i = 0;
+	int fillIndex = 0;
 
+	int n = pVector->numOfElements;
+
+	if (n <= 1)
+		return;
+
+	i = 1;
+	fillIndex = 1;
+	for (; i < n; ++i) {
+		if (pVector->less((char *)pVector->data + i * pVector->elementSize , (char *)pVector->data + (i - 1) * pVector->elementSize) == False &&
+		    pVector->less((char *)pVector->data + (i - 1) * pVector->elementSize , (char *)pVector->data + i * pVector->elementSize) == False) {
+			;
+		} else {
+			if (fillIndex != i) {
+				memcpy((char *)pVector + fillIndex * pVector->numOfElements, (char *)pVector->data + i * pVector->numOfElements, pVector->elementSize);
+			}
+			++fillIndex;
+		}
+	
+	}
+
+	pVector->numOfElements = fillIndex;
 }
 
 
@@ -238,8 +259,8 @@ getFrontOfVector(
 	LPVector pVector,
 	void *data)
 {
-	assert(pVector->numElements != 0);
-	memcpy(data, pVector->data, pVector->elementSize);
+	assert(pVector->numOfElements != 0);
+	memcpy(data, (char *)pVector->data, pVector->elementSize);
 }
 
 void
@@ -247,8 +268,8 @@ getBackOfVector(
 	LPVector pVector,
 	void *data)
 {
-	assert(pVector->numElements != 0);
-	memcpy(data, pVector->data + pVector->elementSize * (pVector->numElements - 1), pVector->elementSize);
+	assert(pVector->numOfElements != 0);
+	memcpy(data, (char *)pVector->data + pVector->elementSize * (pVector->numOfElements - 1), pVector->elementSize);
 }
 
 void
@@ -258,14 +279,14 @@ getAtInVector(
 	void *data)
 {
 	assert(idx < pVector->numOfElements && idx >= 0);
-	memcpy(data, pVector->data + pVector->elementSize * idx, pVector->elementSize);
+	memcpy(data,(char *)pVector->data + pVector->elementSize * idx, pVector->elementSize);
 }
 
 unsigned int
 getSizeOfVector(
 	const LPVector pVector)
 {
-	return pVector->numOfElements
+	return pVector->numOfElements;
 }
 
 
@@ -276,5 +297,38 @@ isVectorEmpty(
 	return (pVector->numOfElements == 0) ? True : False;
 
 }
+
+void *
+getDataFromVector(
+	LPVector pVector)
+{
+	return pVector->data;
+
+}
+
+void
+dumpVector(
+	const LPVector pVector,
+	const char *separator,
+	unsigned int itemsPerLine)
+{
+	unsigned int count = 0;
+	unsigned int i;
+	unsigned int n = pVector->numOfElements;
+
+	printf("\n");
+	for (i = 0; i < n; ++i) {
+		pVector->printer((char *)pVector->data + i * pVector->elementSize);
+		++count;
+		if ((count % itemsPerLine) == 0)
+			printf("\n");
+	}
+	
+	if (count % itemsPerLine != 0)
+		printf("\n");
+
+
+}
+
 
 

@@ -1,9 +1,10 @@
-SingleLinkList
-DoubleLinkList
-Stack
+* SingleLinkList (Done)
+* DoubleLinkList (Done)
+* Stack
 Queue
 StringCmp
 Vector
+Sorting
 Hanoi
 calExpression
 SimulateSparseEvent
@@ -24,4 +25,3 @@ CriticalPath
 TopoOrderSort
 externalSort
 File
-Sort

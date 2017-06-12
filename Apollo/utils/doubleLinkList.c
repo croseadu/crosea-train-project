@@ -1,29 +1,11 @@
 #include "doubleLinkList.h"
 
 
-#include "mem.h"
+#include "memory.h"
 
 #include  <stdio.h>
 #include  <assert.h>
-
-
-typedef struct _DoubleLinkListNode
-{
-	void *data;
-	struct _DoubleLinkListNode *pNext;
-	struct _DoubleLinkListNode *pPrev;
-}DoubleLinkListNode, *LPDoubleLinkListNode;
-
-
-typedef struct _DoubleLinkList
-{
-	LPDoubleLinkList pHead;
-	unsigned int elementSize;
-
-
-	Printer printer;
-	Less less;
-}DoubleLinkList, *LPDoubleLinkList;
+#include  <string.h>
 
 BOOL 
 createDoubleLinkList(
@@ -53,19 +35,16 @@ createDoubleLinkList(
 	pList->printer = printer;
 	pList->less = less;
 
+	*ppList = pList;
 	return True;
 }
 
 void
-destroyDoubleLinkList(
-	LPDoubleLinkList *ppList)
+clearDoubleLinkList(
+	LPDoubleLinkList pList)
 {
-	LPDoubleLinkList pList;
-	LPdoubleLinkListNode pIterNode, pNextNode;
+	LPDoubleLinkListNode pIterNode, pNextNode;
 
-	assert(ppList != NULL);
-	pList = *ppList;
-	assert (NULL == pList);
 
 	pIterNode = pList->pHead->pNext;
 	while (pIterNode != pList->pHead) {
@@ -78,14 +57,26 @@ destroyDoubleLinkList(
 		pIterNode = pNextNode;	
 	}	
 
-	myFree(pList->pHead);
 
+}
+
+void
+destroyDoubleLinkList(
+	LPDoubleLinkList *ppList)
+{
+	LPDoubleLinkList pList;
+
+	assert(ppList != NULL);
+	pList = *ppList;
+	assert (NULL != pList);
+
+	myFree(pList->pHead);
 	myFree(pList);
 	*ppList = NULL;
 }
 
 
-static 
+static LPDoubleLinkListNode
 createNewDoubleLinkListNode(
 	const LPDoubleLinkList pList,
 	const void *data)
@@ -166,14 +157,14 @@ findInDoubleLinkList(
 	while ( *it != pList->pHead && 
 	        pList->less((*it)->data, data) == False &&
 		pList->less(data, (*it)->data) == False ) {
-		it = (*it)->pNext;
+		it = &(*it)->pNext;
 	}
 
 	return it;
 }
 
 DoubleLinkListIter
-findInDoubleLinkList(
+findIfInDoubleLinkList(
 	LPDoubleLinkList pList,
 	Pred pred)
 {
@@ -182,7 +173,7 @@ findInDoubleLinkList(
 
 	while ( *it != pList->pHead && 
 		pred((*it)->data) ) {
-		it = (*it)->pNext;
+		it = &(*it)->pNext;
 	}
 
 	return it;
@@ -242,7 +233,7 @@ void
 reverseDoubleLinkList(
 	LPDoubleLinkList pList)
 {
-	LPDoubleListNode pIter, pNext;
+	LPDoubleLinkListNode pIter, pNext;
 	
 	if (pList->pHead == NULL) {
 		return;
@@ -316,6 +307,7 @@ uniqueDoubleLinkList(
 	LPDoubleLinkList pList)
 {
 	DoubleLinkListIter it = &pList->pHead->pNext;
+	LPDoubleLinkListNode pNode = NULL;
 
 	if (*it == pList->pHead)
 		return;
@@ -358,3 +350,32 @@ getSizeOfDoubleLinkList(
 	}	
 }
 
+void
+dumpDoubleLinkList(
+	const LPDoubleLinkList pList,
+	const char *separator,
+	unsigned int itemsPerLine)
+{
+	unsigned int count = 0;
+	LPDoubleLinkListNode pIterNode;
+
+	printf("\n");
+
+
+
+	pIterNode = pList->pHead->pNext;
+	while (pIterNode != pList->pHead) {
+		pList->printer(pIterNode->data);	
+		printf("%s", separator);
+		++count;
+		if (count % itemsPerLine == 0) {
+			printf("\n");
+		}
+		pIterNode = pIterNode->pNext;
+	}
+
+	if (count  % itemsPerLine) {
+		printf("\n");
+	}
+
+}

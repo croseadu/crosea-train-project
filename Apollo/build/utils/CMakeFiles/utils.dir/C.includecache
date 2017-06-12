@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/common.h
+
+../include/memory.h
+stddef.h
+-
+
+../include/vector.h
+common.h
+../include/common.h
+
+/usr2/yuehaid/code/train/Apollo/utils/vector.c
+common.h
+/usr2/yuehaid/code/train/Apollo/utils/common.h
+vector.h
+/usr2/yuehaid/code/train/Apollo/utils/vector.h
+memory.h
+/usr2/yuehaid/code/train/Apollo/utils/memory.h
+stdio.h
+-
+string.h
+-
+assert.h
+-
+

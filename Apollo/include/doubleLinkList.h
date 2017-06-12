@@ -8,13 +8,13 @@ typedef struct _DoubleLinkListNode
 {
 	void *data;
 	struct _DoubleLinkListNode *pNext;
-	struct _DoubleLinkLIstNode *pPrev;
+	struct _DoubleLinkListNode *pPrev;
 }DoubleLinkListNode, *LPDoubleLinkListNode;
 
 
 typedef struct _DoubleLinkList
 {
-	LPDoubleLinkList pHead;
+	LPDoubleLinkListNode pHead;
 	unsigned int elementSize;
 
 
@@ -30,6 +30,11 @@ createDoubleLinkList(
 	unsigned int 		elementSize,
 	Printer 		printer,
 	Less 			less);
+
+
+void
+clearDoubleLinkList(
+	LPDoubleLinkList pList);
 
 void
 destroyDoubleLinkList(
@@ -54,7 +59,7 @@ void
 removeTailFromDoubleLinkList(
 	LPDoubleLinkList);
 
-typedef LPDoubleLinkListNode IterOfDoubleLinkList;
+typedef LPDoubleLinkListNode * DoubleLinkListIter;
 
 
 DoubleLinkListIter
@@ -63,7 +68,7 @@ findInDoubleLinkList(
 	const void *data);
 
 DoubleLinkListIter
-findInDoubleLinkList(
+findIfInDoubleLinkList(
 	LPDoubleLinkList pList,
 	Pred pred);
 
@@ -71,7 +76,7 @@ findInDoubleLinkList(
 void
 removeFromDoubleLinkList(
 	LPDoubleLinkList pList,
-	IterOfDoubleLinkList it);
+	DoubleLinkListIter it);
 
 BOOL
 removeIfInDoubleLinkList(
@@ -95,6 +100,12 @@ void
 getBackOfDoubleLinkList(
 	LPDoubleLinkList pList,
 	void *data);
+
+void 
+dumpDoubleLinkList(
+	const LPDoubleLinkList pList,
+	const char *separator,
+	unsigned int itemsPerLine);
 
 
 #endif

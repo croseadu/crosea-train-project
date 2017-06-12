@@ -1,11 +1,11 @@
 #include "singleLinkList.h"
 
 
-#include "mem.h"
+#include "memory.h"
 
 #include  <stdio.h>
 #include  <assert.h>
-
+#include  <string.h>
 
 BOOL 
 createSingleLinkList(
@@ -27,6 +27,7 @@ createSingleLinkList(
 	pList->printer = printer;
 	pList->less = less;
 
+	*ppList = pList;
 	return True;
 }
 
@@ -34,7 +35,7 @@ void
 clearSingleLinkList(
 	LPSingleLinkList pList)
 {
-	LPsingleLinkListNode pIterNode, pNextNode;
+	LPSingleLinkListNode pIterNode, pNextNode;
 
 	pIterNode = pList->pHead;
 	while (pIterNode) {
@@ -58,7 +59,7 @@ destroySingleLinkList(
 
 	assert(ppList != NULL);
 	pList = *ppList;
-	assert (NULL == pList);
+	assert (pList != NULL);
 
 	clearSingleLinkList(pList);
 
@@ -67,7 +68,7 @@ destroySingleLinkList(
 }
 
 
-static 
+static LPSingleLinkListNode
 createNewSingleLinkListNode(
 	const LPSingleLinkList pList,
 	const void *data)
@@ -147,14 +148,14 @@ findInSingleLinkList(
 	while ( *it != NULL && 
 	        pList->less((*it)->data, data) == False &&
 		pList->less(data, (*it)->data) == False ) {
-		it = (*it)->pNext;
+		it = &(*it)->pNext;
 	}
 
 	return it;
 }
 
 SingleLinkListIter
-findInSingleLinkList(
+findIfInSingleLinkList(
 	LPSingleLinkList pList,
 	Pred pred)
 {
@@ -163,7 +164,7 @@ findInSingleLinkList(
 
 	while ( *it != NULL && 
 		pred((*it)->data) ) {
-		it = (*it)->pNext;
+		it = &(*it)->pNext;
 	}
 
 	return it;
@@ -220,7 +221,7 @@ void
 reverseSingleLinkList(
 	LPSingleLinkList pList)
 {
-	LPSingleListNode pIter, pNext;
+	LPSingleLinkListNode pIter, pNext;
 	
 	if (pList->pHead == NULL) {
 		return;
@@ -283,6 +284,7 @@ void
 uniqueSingleLinkList(
 	LPSingleLinkList pList)
 {
+	LPSingleLinkListNode pIterNode, pNextNode;
 	
 	SingleLinkListIter it = &pList->pHead;
 
@@ -335,7 +337,29 @@ getSizeOfSingleLinkList(
 }
 
 
+void
+dumpSingleLinkList(
+	const LPSingleLinkList pList,
+	const char *separator,
+	unsigned int itemsPerLine)
+{
+	unsigned int count = 0;
+	LPSingleLinkListNode pIterNode = pList->pHead;
+	
+	printf("\n");
+	while (pIterNode) {
+		pList->printer(pIterNode->data);
+		printf("%s", separator);
+		pIterNode = pIterNode->pNext;
+		++count;
+		if (count % itemsPerLine == 0)
+			printf("\n");
+	}
 
+	if (count % itemsPerLine != 0)
+		printf("\n");
+
+}
 
 
 

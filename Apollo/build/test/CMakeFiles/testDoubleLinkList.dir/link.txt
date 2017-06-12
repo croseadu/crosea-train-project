@@ -1,0 +1,1 @@
+/usr/bin/cc   -O0 -g    CMakeFiles/testDoubleLinkList.dir/testDoubleLinkList.c.o  -o ../bin/testDoubleLinkList -rdynamic ../utils/libutils.a 
