@@ -8,6 +8,10 @@
 #include <string.h>
 #include <assert.h>
 
+static BOOL
+reserveMoreInVector(
+	LPVector pVector);
+
 
 BOOL
 createVector(
@@ -34,6 +38,8 @@ createVector(
 	pVector->numOfElements = 0;
 	pVector->elementSize = elementSize;
 
+	pVector->printer = printer;
+	pVector->less = less;
 
 	*ppVector = pVector;
 }
@@ -76,11 +82,12 @@ pushBackInVector(
 	const void *data)
 {
 	if (pVector->numOfElements == pVector->capacity) {
-		if (reserveMoreInvector(pVector) == False)
+		if (reserveMoreInVector(pVector) == False)
 			return False;
 	}
 
 	memcpy((char *)pVector->data + pVector->numOfElements * pVector->elementSize , data, pVector->elementSize);
+	++pVector->numOfElements;
 }
 
 
@@ -99,7 +106,7 @@ popBackInVector(
 BOOL
 insertInVector(
 	LPVector pVector,
-	IterOfVector insertPos,
+	VectorIter insertPos,
 	const void *data)
 {
 	int curIdx = (int)insertPos;
@@ -108,7 +115,7 @@ insertInVector(
 	assert(curIdx >= 0 && curIdx < n);
 
 	if (pVector->numOfElements == pVector->capacity) {
-		if (reserveMoreInvector(pVector) == False)
+		if (reserveMoreInVector(pVector) == False)
 			return False;
 	}
 
@@ -127,7 +134,7 @@ insertInVector(
 void
 eraseFromVector(
 	LPVector pVector,
-	IterOfVector it)
+	VectorIter it)
 {
 	int curIdx = (int)it;
 
@@ -140,22 +147,24 @@ eraseFromVector(
 	--pVector->numOfElements;
 }
 
-void
-eraseValFromVector(
+BOOL
+removeValFromVector(
 	LPVector pVector,
 	const void *key)
 {
 	int fillIdx = 0;
 	int curIdx = 0;
 	int n = pVector->numOfElements;
+	BOOL bFound = False;
 
 	while (curIdx < n) {
 		if (pVector->less(key, pVector->data + curIdx * pVector->elementSize) == False &&
 		    pVector->less(pVector->data + curIdx * pVector->elementSize, key) == False) {
 			++curIdx;
+			bFound = True;
 		} else {
 			if (fillIdx != curIdx) {
-				mempcy((char *)pVector->data + fillIdx * pVector->elementSize,(char *)pVector->data + curIdx * pVector->elementSize, pVector->elementSize);
+				memcpy((char *)pVector->data + fillIdx * pVector->elementSize,(char *)pVector->data + curIdx * pVector->elementSize, pVector->elementSize);
 			}
 			++fillIdx;
 			++curIdx;
@@ -163,9 +172,39 @@ eraseValFromVector(
 	}
 
 	pVector->numOfElements = fillIdx;
+
+	return bFound;
 }
 
-IterOfVector
+BOOL
+removeIfInVector(
+	LPVector pVector,
+	Pred pred)
+{
+	int fillIdx = 0;
+	int curIdx = 0;
+	int n = pVector->numOfElements;
+	BOOL bFound = False;
+
+	while (curIdx < n) {
+		if (pred((char *)pVector->data + curIdx * pVector->elementSize) == True) {
+			++curIdx;
+			bFound = True;
+		} else {
+			if (fillIdx != curIdx) {
+				memcpy((char *)pVector->data + fillIdx * pVector->elementSize,(char *)pVector->data + curIdx * pVector->elementSize, pVector->elementSize);
+			}
+			++fillIdx;
+			++curIdx;
+		}
+	}
+
+	pVector->numOfElements = fillIdx;
+
+	return bFound;
+}
+
+VectorIter
 findInVector(
 	LPVector 	pVector,
 	const void *key)
@@ -182,9 +221,27 @@ findInVector(
 	}	
 
 
-	return idx < n ? (IterOfVector)idx : (IterOfVector)-1;
+	return idx < n ? (VectorIter)idx : (VectorIter)-1;
 }
 
+VectorIter
+findIfInVector(
+	LPVector 	pVector,
+	Pred pred)
+{
+
+	int idx = 0;
+	int n = pVector->numOfElements;
+
+	for (;idx < n; ++idx) {
+		if (pred((char *)pVector->data + idx * pVector->elementSize) == True) {
+			break;
+		}
+	}	
+
+
+	return idx < n ? (VectorIter)idx : (VectorIter)-1;
+}
 void
 sortVector(
 	LPVector pVector)
@@ -211,7 +268,7 @@ sortVector(
 			memcpy(key, (char *)pVector->data + i * pVector->elementSize, pVector->elementSize);
 			k = i - 1;	
 			while (k > j) {
-				mempcy((char *)pVector->data + (k + 1) * pVector->elementSize, (char *)pVector->data + k * pVector->elementSize, pVector->elementSize);
+				memcpy((char *)pVector->data + (k + 1) * pVector->elementSize, (char *)pVector->data + k * pVector->elementSize, pVector->elementSize);
 				--k;
 			} 
 			memcpy((char *)pVector->data + (k+1) * pVector->elementSize, key, pVector->elementSize);

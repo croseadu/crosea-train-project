@@ -18,7 +18,7 @@ typedef struct _Vector
 }Vector, *LPVector;
 
 
-typedef int IterOfVector;
+typedef int VectorIter;
 
 BOOL
 createVector(
@@ -41,36 +41,42 @@ pushBackInVector(
 	LPVector pVector,
 	const void *data);
 
-
-
 void
 popBackInVector(
 	LPVector pVector,
 	void *data);
 
-
 BOOL
 insertInVector(
 	LPVector pVector,
-	IterOfVector insertPos,
+	VectorIter insertPos,
 	const void *data);
-
 
 
 void
 eraseFromVector(
 	LPVector pVector,
-	IterOfVector It);
+	VectorIter It);
 
-void
-eraseValFromVector(
+BOOL
+removeValFromVector(
 	LPVector pVector,
 	const void *key);
 
-IterOfVector
+BOOL
+removeIfInVector(
+	LPVector pVector,
+	Pred pred);
+
+VectorIter
 findInVector(
 	LPVector pVector,
 	const void *key);
+
+VectorIter
+findIfInVector(
+	LPVector pVector,
+	Pred pred);
 
 void
 sortVector(

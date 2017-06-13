@@ -58,11 +58,13 @@ CMAKE_BINARY_DIR = /usr2/yuehaid/code/train/Apollo/build
 # Convenience name for "all" pass in the directory.
 test/all: test/CMakeFiles/testDoubleLinkList.dir/all
 test/all: test/CMakeFiles/testSingleLinkList.dir/all
+test/all: test/CMakeFiles/testVector.dir/all
 .PHONY : test/all
 
 # Convenience name for "clean" pass in the directory.
 test/clean: test/CMakeFiles/testDoubleLinkList.dir/clean
 test/clean: test/CMakeFiles/testSingleLinkList.dir/clean
+test/clean: test/CMakeFiles/testVector.dir/clean
 .PHONY : test/clean
 
 # Convenience name for "preinstall" pass in the directory.
@@ -140,6 +142,41 @@ clean: test/CMakeFiles/testSingleLinkList.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target test/CMakeFiles/testVector.dir
+
+# All Build rule for target.
+test/CMakeFiles/testVector.dir/all: utils/CMakeFiles/utils.dir/all
+	$(MAKE) -f test/CMakeFiles/testVector.dir/build.make test/CMakeFiles/testVector.dir/depend
+	$(MAKE) -f test/CMakeFiles/testVector.dir/build.make test/CMakeFiles/testVector.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  3
+	@echo "Built target testVector"
+.PHONY : test/CMakeFiles/testVector.dir/all
+
+# Include target in all.
+all: test/CMakeFiles/testVector.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+test/CMakeFiles/testVector.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 6
+	$(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/testVector.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 0
+.PHONY : test/CMakeFiles/testVector.dir/rule
+
+# Convenience name for target.
+testVector: test/CMakeFiles/testVector.dir/rule
+.PHONY : testVector
+
+# clean rule for target.
+test/CMakeFiles/testVector.dir/clean:
+	$(MAKE) -f test/CMakeFiles/testVector.dir/build.make test/CMakeFiles/testVector.dir/clean
+.PHONY : test/CMakeFiles/testVector.dir/clean
+
+# clean rule for target.
+clean: test/CMakeFiles/testVector.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Directory level rules for directory utils
 
 # Convenience name for "all" pass in the directory.
@@ -161,7 +198,7 @@ utils/preinstall:
 utils/CMakeFiles/utils.dir/all:
 	$(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/depend
 	$(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  3 4 5 6 7
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  4 5 6 7 8
 	@echo "Built target utils"
 .PHONY : utils/CMakeFiles/utils.dir/all
 

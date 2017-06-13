@@ -125,6 +125,19 @@ testSingleLinkList/fast:
 .PHONY : testSingleLinkList/fast
 
 #=============================================================================
+# Target rules for targets named testVector
+
+# Build rule for target.
+testVector: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testVector
+.PHONY : testVector
+
+# fast build rule for target.
+testVector/fast:
+	$(MAKE) -f test/CMakeFiles/testVector.dir/build.make test/CMakeFiles/testVector.dir/build
+.PHONY : testVector/fast
+
+#=============================================================================
 # Target rules for targets named utils
 
 # Build rule for target.
@@ -147,6 +160,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... testDoubleLinkList"
 	@echo "... testSingleLinkList"
+	@echo "... testVector"
 	@echo "... utils"
 .PHONY : help
 

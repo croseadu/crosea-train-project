@@ -126,6 +126,20 @@ testSingleLinkList/fast:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f test/CMakeFiles/testSingleLinkList.dir/build.make test/CMakeFiles/testSingleLinkList.dir/build
 .PHONY : testSingleLinkList/fast
 
+# Convenience name for target.
+test/CMakeFiles/testVector.dir/rule:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/testVector.dir/rule
+.PHONY : test/CMakeFiles/testVector.dir/rule
+
+# Convenience name for target.
+testVector: test/CMakeFiles/testVector.dir/rule
+.PHONY : testVector
+
+# fast build rule for target.
+testVector/fast:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f test/CMakeFiles/testVector.dir/build.make test/CMakeFiles/testVector.dir/build
+.PHONY : testVector/fast
+
 testDoubleLinkList.o: testDoubleLinkList.c.o
 .PHONY : testDoubleLinkList.o
 
@@ -174,6 +188,30 @@ testSingleLinkList.c.s:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f test/CMakeFiles/testSingleLinkList.dir/build.make test/CMakeFiles/testSingleLinkList.dir/testSingleLinkList.c.s
 .PHONY : testSingleLinkList.c.s
 
+testVector.o: testVector.c.o
+.PHONY : testVector.o
+
+# target to build an object file
+testVector.c.o:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f test/CMakeFiles/testVector.dir/build.make test/CMakeFiles/testVector.dir/testVector.c.o
+.PHONY : testVector.c.o
+
+testVector.i: testVector.c.i
+.PHONY : testVector.i
+
+# target to preprocess a source file
+testVector.c.i:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f test/CMakeFiles/testVector.dir/build.make test/CMakeFiles/testVector.dir/testVector.c.i
+.PHONY : testVector.c.i
+
+testVector.s: testVector.c.s
+.PHONY : testVector.s
+
+# target to generate assembly for a file
+testVector.c.s:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f test/CMakeFiles/testVector.dir/build.make test/CMakeFiles/testVector.dir/testVector.c.s
+.PHONY : testVector.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -184,12 +222,16 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... testDoubleLinkList"
 	@echo "... testSingleLinkList"
+	@echo "... testVector"
 	@echo "... testDoubleLinkList.o"
 	@echo "... testDoubleLinkList.i"
 	@echo "... testDoubleLinkList.s"
 	@echo "... testSingleLinkList.o"
 	@echo "... testSingleLinkList.i"
 	@echo "... testSingleLinkList.s"
+	@echo "... testVector.o"
+	@echo "... testVector.i"
+	@echo "... testVector.s"
 .PHONY : help
 
 

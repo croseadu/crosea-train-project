@@ -45,5 +45,6 @@ SET(CMAKE_MAKEFILE_PRODUCTS
 SET(CMAKE_DEPEND_INFO_FILES
   "test/CMakeFiles/testDoubleLinkList.dir/DependInfo.cmake"
   "test/CMakeFiles/testSingleLinkList.dir/DependInfo.cmake"
+  "test/CMakeFiles/testVector.dir/DependInfo.cmake"
   "utils/CMakeFiles/utils.dir/DependInfo.cmake"
   )

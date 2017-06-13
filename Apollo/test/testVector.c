@@ -53,10 +53,6 @@ int main()
 	printf("\nVector:");
 	dumpVector(pVector," ", 5);
 
-	reverseVector(pVector);
-	printf("\nVector after reverse");
-	dumpVector(pVector, " ", 5);
-	
 
 	sortVector(pVector);
 	printf ("\nVector after sorting");
@@ -68,16 +64,20 @@ int main()
 
 	temp = 5;
 	it = findInVector(pVector, &temp);
-	removeFromVector(pVector, it);
-	printf ("\nVector after remove 5");
+	eraseFromVector(pVector, it);
+	printf ("\nVector after remove one 5");
 	dumpVector(pVector, " ", 5);
 
 
 	it = findIfInVector(pVector, mod4);
-	removeFromVector(pVector, it);
+	eraseFromVector(pVector, it);
 	printf ("\nVector after remove one mod4");
 	dumpVector(pVector, " ", 5);
 
+	temp = 1;
+	removeValFromVector(pVector, &temp);
+	printf ("\nVector after remove all 1");
+	dumpVector(pVector, " ", 5);
 
 
 lexit:

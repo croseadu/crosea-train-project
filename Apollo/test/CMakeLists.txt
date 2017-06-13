@@ -1,3 +1,5 @@
+add_executable(testVector testVector.c)
+target_link_libraries(testVector utils)
 
 add_executable(testSingleLinkList testSingleLinkList.c)
 target_link_libraries(testSingleLinkList utils)
