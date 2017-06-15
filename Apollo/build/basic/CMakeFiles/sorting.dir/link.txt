@@ -1,0 +1,1 @@
+/usr/bin/cc   -O0 -g    CMakeFiles/sorting.dir/sorting.c.o  -o ../bin/sorting -rdynamic ../utils/libutils.a 

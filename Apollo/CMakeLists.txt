@@ -11,4 +11,4 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 
 add_subdirectory(test)
 add_subdirectory(utils)
-#add_subdirectory(basic)
+add_subdirectory(basic)

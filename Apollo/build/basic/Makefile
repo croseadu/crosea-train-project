@@ -69,14 +69,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles /usr2/yuehaid/code/train/Apollo/build/CMakeFiles/progress.marks
-	$(MAKE) -f CMakeFiles/Makefile2 all
+	cd /usr2/yuehaid/code/train/Apollo/build && $(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles /usr2/yuehaid/code/train/Apollo/build/basic/CMakeFiles/progress.marks
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 basic/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) -f CMakeFiles/Makefile2 clean
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 basic/clean
 .PHONY : clean
 
 # The main clean target
@@ -85,83 +85,56 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 basic/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 basic/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /usr2/yuehaid/code/train/Apollo/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named testDoubleLinkList
+# Convenience name for target.
+basic/CMakeFiles/sorting.dir/rule:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/sorting.dir/rule
+.PHONY : basic/CMakeFiles/sorting.dir/rule
 
-# Build rule for target.
-testDoubleLinkList: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 testDoubleLinkList
-.PHONY : testDoubleLinkList
-
-# fast build rule for target.
-testDoubleLinkList/fast:
-	$(MAKE) -f test/CMakeFiles/testDoubleLinkList.dir/build.make test/CMakeFiles/testDoubleLinkList.dir/build
-.PHONY : testDoubleLinkList/fast
-
-#=============================================================================
-# Target rules for targets named testSingleLinkList
-
-# Build rule for target.
-testSingleLinkList: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 testSingleLinkList
-.PHONY : testSingleLinkList
-
-# fast build rule for target.
-testSingleLinkList/fast:
-	$(MAKE) -f test/CMakeFiles/testSingleLinkList.dir/build.make test/CMakeFiles/testSingleLinkList.dir/build
-.PHONY : testSingleLinkList/fast
-
-#=============================================================================
-# Target rules for targets named testVector
-
-# Build rule for target.
-testVector: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 testVector
-.PHONY : testVector
-
-# fast build rule for target.
-testVector/fast:
-	$(MAKE) -f test/CMakeFiles/testVector.dir/build.make test/CMakeFiles/testVector.dir/build
-.PHONY : testVector/fast
-
-#=============================================================================
-# Target rules for targets named utils
-
-# Build rule for target.
-utils: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 utils
-.PHONY : utils
-
-# fast build rule for target.
-utils/fast:
-	$(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/build
-.PHONY : utils/fast
-
-#=============================================================================
-# Target rules for targets named sorting
-
-# Build rule for target.
-sorting: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 sorting
+# Convenience name for target.
+sorting: basic/CMakeFiles/sorting.dir/rule
 .PHONY : sorting
 
 # fast build rule for target.
 sorting/fast:
-	$(MAKE) -f basic/CMakeFiles/sorting.dir/build.make basic/CMakeFiles/sorting.dir/build
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/sorting.dir/build.make basic/CMakeFiles/sorting.dir/build
 .PHONY : sorting/fast
+
+sorting.o: sorting.c.o
+.PHONY : sorting.o
+
+# target to build an object file
+sorting.c.o:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/sorting.dir/build.make basic/CMakeFiles/sorting.dir/sorting.c.o
+.PHONY : sorting.c.o
+
+sorting.i: sorting.c.i
+.PHONY : sorting.i
+
+# target to preprocess a source file
+sorting.c.i:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/sorting.dir/build.make basic/CMakeFiles/sorting.dir/sorting.c.i
+.PHONY : sorting.c.i
+
+sorting.s: sorting.c.s
+.PHONY : sorting.s
+
+# target to generate assembly for a file
+sorting.c.s:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/sorting.dir/build.make basic/CMakeFiles/sorting.dir/sorting.c.s
+.PHONY : sorting.c.s
 
 # Help Target
 help:
@@ -171,11 +144,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... testDoubleLinkList"
-	@echo "... testSingleLinkList"
-	@echo "... testVector"
-	@echo "... utils"
 	@echo "... sorting"
+	@echo "... sorting.o"
+	@echo "... sorting.i"
+	@echo "... sorting.s"
 .PHONY : help
 
 
@@ -187,6 +159,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /usr2/yuehaid/code/train/Apollo/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
