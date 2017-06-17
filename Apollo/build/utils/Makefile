@@ -184,6 +184,30 @@ singleLinkList.c.s:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/singleLinkList.c.s
 .PHONY : singleLinkList.c.s
 
+stack.o: stack.c.o
+.PHONY : stack.o
+
+# target to build an object file
+stack.c.o:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/stack.c.o
+.PHONY : stack.c.o
+
+stack.i: stack.c.i
+.PHONY : stack.i
+
+# target to preprocess a source file
+stack.c.i:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/stack.c.i
+.PHONY : stack.c.i
+
+stack.s: stack.c.s
+.PHONY : stack.s
+
+# target to generate assembly for a file
+stack.c.s:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/stack.c.s
+.PHONY : stack.c.s
+
 utils.o: utils.c.o
 .PHONY : utils.o
 
@@ -250,6 +274,9 @@ help:
 	@echo "... singleLinkList.o"
 	@echo "... singleLinkList.i"
 	@echo "... singleLinkList.s"
+	@echo "... stack.o"
+	@echo "... stack.i"
+	@echo "... stack.s"
 	@echo "... utils.o"
 	@echo "... utils.i"
 	@echo "... utils.s"

@@ -9,6 +9,7 @@ typedef struct _Stack
 	void *base;
 	unsigned int top;
 
+	unsigned int elementSize;
 
 	unsigned int capacity;
 	Printer printer;
@@ -18,7 +19,7 @@ typedef struct _Stack
 
 BOOL
 createStack(
-	LPStack pStack,
+	LPStack  *ppStack,
 	unsigned int elementSize,
 	Printer printer);
 

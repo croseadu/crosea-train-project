@@ -2,6 +2,7 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/utils.dir/singleLinkList.c.o"
   "CMakeFiles/utils.dir/doubleLinkList.c.o"
   "CMakeFiles/utils.dir/vector.c.o"
+  "CMakeFiles/utils.dir/stack.c.o"
   "CMakeFiles/utils.dir/utils.c.o"
   "CMakeFiles/utils.dir/memory.c.o"
   "libutils.pdb"

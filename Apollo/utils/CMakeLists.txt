@@ -2,6 +2,7 @@ set(SOURCES
   singleLinkList.c
   doubleLinkList.c
   vector.c
+  stack.c
   utils.c
   memory.c
   )

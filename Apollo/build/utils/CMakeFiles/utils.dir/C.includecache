@@ -12,21 +12,21 @@
 stddef.h
 -
 
-../include/vector.h
+../include/stack.h
 common.h
 ../include/common.h
 
-/usr2/yuehaid/code/train/Apollo/utils/vector.c
+/usr2/yuehaid/code/train/Apollo/utils/stack.c
+stack.h
+/usr2/yuehaid/code/train/Apollo/utils/stack.h
 common.h
 /usr2/yuehaid/code/train/Apollo/utils/common.h
-vector.h
-/usr2/yuehaid/code/train/Apollo/utils/vector.h
 memory.h
 /usr2/yuehaid/code/train/Apollo/utils/memory.h
 stdio.h
 -
-string.h
--
 assert.h
+-
+string.h
 -
 

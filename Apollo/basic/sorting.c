@@ -1,5 +1,5 @@
 #include "vector.h"
-
+#include "memory.h"
 
 #include "utils.h"
 
@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-
+#include <string.h>
 
 void insertSorting(int *array, int n);
 void selectionSorting(int *array, int n);
@@ -61,7 +61,8 @@ int main()
 	//selectionSorting(array, n);
 	//quickSorting(array, n);
 	//heapSorting(array, n);
-	shellSorting(array, n);
+	//shellSorting(array, n);
+	mergeSorting(array, n);
 	dumpVector(pVector, " ", 5);
 
 lexit:
@@ -238,8 +239,67 @@ void heapSorting(int *array, int n)
 
 }
 
+void merge(int *dst, int *src, int start, int end)
+{
+	int m;
+	int i, j;
+	int idx = start;
+	
+
+	m = (start + end) / 2;
+
+	i = start;
+	j = m + 1;
+
+	while (i <= m && j <= end) {
+		if (src[i] <= src[j]) {
+			dst[idx++] = src[i++];
+			
+		} else {
+			dst[idx++] = src[j++];
+		}
+	}
+	while (i <= m) {
+		dst[idx++] = src[i++];
+	}
+	while (j <= end) {
+		dst[idx++] = src[j++];
+	}
+
+}
+
+void mergeSort(int *array, int *temp, int start, int end)
+{
+
+
+	int m = (start + end)/2;
+	if (start >= end)
+		return;
+
+	mergeSort(array, temp, start, m);
+	mergeSort(array, temp,m+1, end);
+
+	merge(temp, array, start, end);
+	memcpy(array + start, temp + start,  (end - start + 1) * sizeof(int));
+}
+
+
+void mergeSorting(int *array, int n)
+{
+	int * temp;
+
+	temp = myAlloc(n * sizeof(int));
+	if (NULL == temp) {
+		return;
+	}
+	mergeSort(array, temp, 0, n-1);
+	myFree(temp);
+}
+
+
 void radixSorting(int *array, int n)
 {
+
 }
 
 

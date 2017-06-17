@@ -118,9 +118,32 @@ utils/CMakeFiles/utils.dir/vector.c.o.provides: utils/CMakeFiles/utils.dir/vecto
 
 utils/CMakeFiles/utils.dir/vector.c.o.provides.build: utils/CMakeFiles/utils.dir/vector.c.o
 
+utils/CMakeFiles/utils.dir/stack.c.o: utils/CMakeFiles/utils.dir/flags.make
+utils/CMakeFiles/utils.dir/stack.c.o: ../utils/stack.c
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object utils/CMakeFiles/utils.dir/stack.c.o"
+	cd /usr2/yuehaid/code/train/Apollo/build/utils && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/utils.dir/stack.c.o   -c /usr2/yuehaid/code/train/Apollo/utils/stack.c
+
+utils/CMakeFiles/utils.dir/stack.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/utils.dir/stack.c.i"
+	cd /usr2/yuehaid/code/train/Apollo/build/utils && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /usr2/yuehaid/code/train/Apollo/utils/stack.c > CMakeFiles/utils.dir/stack.c.i
+
+utils/CMakeFiles/utils.dir/stack.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/utils.dir/stack.c.s"
+	cd /usr2/yuehaid/code/train/Apollo/build/utils && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /usr2/yuehaid/code/train/Apollo/utils/stack.c -o CMakeFiles/utils.dir/stack.c.s
+
+utils/CMakeFiles/utils.dir/stack.c.o.requires:
+.PHONY : utils/CMakeFiles/utils.dir/stack.c.o.requires
+
+utils/CMakeFiles/utils.dir/stack.c.o.provides: utils/CMakeFiles/utils.dir/stack.c.o.requires
+	$(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/stack.c.o.provides.build
+.PHONY : utils/CMakeFiles/utils.dir/stack.c.o.provides
+
+utils/CMakeFiles/utils.dir/stack.c.o.provides.build: utils/CMakeFiles/utils.dir/stack.c.o
+
 utils/CMakeFiles/utils.dir/utils.c.o: utils/CMakeFiles/utils.dir/flags.make
 utils/CMakeFiles/utils.dir/utils.c.o: ../utils/utils.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object utils/CMakeFiles/utils.dir/utils.c.o"
 	cd /usr2/yuehaid/code/train/Apollo/build/utils && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/utils.dir/utils.c.o   -c /usr2/yuehaid/code/train/Apollo/utils/utils.c
 
@@ -143,7 +166,7 @@ utils/CMakeFiles/utils.dir/utils.c.o.provides.build: utils/CMakeFiles/utils.dir/
 
 utils/CMakeFiles/utils.dir/memory.c.o: utils/CMakeFiles/utils.dir/flags.make
 utils/CMakeFiles/utils.dir/memory.c.o: ../utils/memory.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object utils/CMakeFiles/utils.dir/memory.c.o"
 	cd /usr2/yuehaid/code/train/Apollo/build/utils && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/utils.dir/memory.c.o   -c /usr2/yuehaid/code/train/Apollo/utils/memory.c
 
@@ -169,6 +192,7 @@ utils_OBJECTS = \
 "CMakeFiles/utils.dir/singleLinkList.c.o" \
 "CMakeFiles/utils.dir/doubleLinkList.c.o" \
 "CMakeFiles/utils.dir/vector.c.o" \
+"CMakeFiles/utils.dir/stack.c.o" \
 "CMakeFiles/utils.dir/utils.c.o" \
 "CMakeFiles/utils.dir/memory.c.o"
 
@@ -178,6 +202,7 @@ utils_EXTERNAL_OBJECTS =
 utils/libutils.a: utils/CMakeFiles/utils.dir/singleLinkList.c.o
 utils/libutils.a: utils/CMakeFiles/utils.dir/doubleLinkList.c.o
 utils/libutils.a: utils/CMakeFiles/utils.dir/vector.c.o
+utils/libutils.a: utils/CMakeFiles/utils.dir/stack.c.o
 utils/libutils.a: utils/CMakeFiles/utils.dir/utils.c.o
 utils/libutils.a: utils/CMakeFiles/utils.dir/memory.c.o
 utils/libutils.a: utils/CMakeFiles/utils.dir/build.make
@@ -193,6 +218,7 @@ utils/CMakeFiles/utils.dir/build: utils/libutils.a
 utils/CMakeFiles/utils.dir/requires: utils/CMakeFiles/utils.dir/singleLinkList.c.o.requires
 utils/CMakeFiles/utils.dir/requires: utils/CMakeFiles/utils.dir/doubleLinkList.c.o.requires
 utils/CMakeFiles/utils.dir/requires: utils/CMakeFiles/utils.dir/vector.c.o.requires
+utils/CMakeFiles/utils.dir/requires: utils/CMakeFiles/utils.dir/stack.c.o.requires
 utils/CMakeFiles/utils.dir/requires: utils/CMakeFiles/utils.dir/utils.c.o.requires
 utils/CMakeFiles/utils.dir/requires: utils/CMakeFiles/utils.dir/memory.c.o.requires
 .PHONY : utils/CMakeFiles/utils.dir/requires

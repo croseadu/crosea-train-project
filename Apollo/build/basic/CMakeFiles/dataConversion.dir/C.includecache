@@ -8,31 +8,21 @@
 
 ../include/common.h
 
-../include/memory.h
-stddef.h
--
+../include/stack.h
+common.h
+../include/common.h
 
 ../include/utils.h
 common.h
 ../include/common.h
 
-../include/vector.h
-common.h
-../include/common.h
-
-/usr2/yuehaid/code/train/Apollo/basic/sorting.c
-vector.h
-/usr2/yuehaid/code/train/Apollo/basic/vector.h
-memory.h
-/usr2/yuehaid/code/train/Apollo/basic/memory.h
+/usr2/yuehaid/code/train/Apollo/basic/dataConversion.c
+stack.h
+/usr2/yuehaid/code/train/Apollo/basic/stack.h
 utils.h
 /usr2/yuehaid/code/train/Apollo/basic/utils.h
 stdio.h
 -
-stdlib.h
--
 assert.h
--
-string.h
 -
 

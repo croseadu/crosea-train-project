@@ -1,23 +1,10 @@
-
+#include "stack.h"
 
 #include "common.h"
 #include "memory.h"
 #include <stdio.h>
 #include <assert.h>
-
-
-
-typedef struct _Stack
-{
-	void *base;
-	unsigned int top;
-
-
-	unsigned int capacity;
-	Printer printer;
-}Stack, *LPStack;
-
-
+#include <string.h>
 
 BOOL
 createStack(
@@ -83,7 +70,7 @@ pushToStack(
 			return False;
 	}
 
-	memcpy(pStack->base + pStack->top * pStack->elementSize, data, pStack->elementSize);
+	memcpy((char *)pStack->base + pStack->top * pStack->elementSize, data, pStack->elementSize);
 
 	++pStack->top;
 	return True;
@@ -95,8 +82,7 @@ getTopFromStack(
 	void *data)
 {
 	assert(isStackEmpty(pStack) == False);
-	--pStack->top;
-	memcpy(data, pStack->base + pStack->top * pStack->elementSize, pStack->elementSize);
+	memcpy(data, (char *)pStack->base + (pStack->top - 1)* pStack->elementSize, pStack->elementSize);
 }
 
 void popFromStack(

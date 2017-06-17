@@ -151,6 +151,19 @@ utils/fast:
 .PHONY : utils/fast
 
 #=============================================================================
+# Target rules for targets named dataConversion
+
+# Build rule for target.
+dataConversion: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 dataConversion
+.PHONY : dataConversion
+
+# fast build rule for target.
+dataConversion/fast:
+	$(MAKE) -f basic/CMakeFiles/dataConversion.dir/build.make basic/CMakeFiles/dataConversion.dir/build
+.PHONY : dataConversion/fast
+
+#=============================================================================
 # Target rules for targets named sorting
 
 # Build rule for target.
@@ -175,6 +188,7 @@ help:
 	@echo "... testSingleLinkList"
 	@echo "... testVector"
 	@echo "... utils"
+	@echo "... dataConversion"
 	@echo "... sorting"
 .PHONY : help
 

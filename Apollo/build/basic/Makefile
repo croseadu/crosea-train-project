@@ -99,6 +99,20 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+basic/CMakeFiles/dataConversion.dir/rule:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/dataConversion.dir/rule
+.PHONY : basic/CMakeFiles/dataConversion.dir/rule
+
+# Convenience name for target.
+dataConversion: basic/CMakeFiles/dataConversion.dir/rule
+.PHONY : dataConversion
+
+# fast build rule for target.
+dataConversion/fast:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/dataConversion.dir/build.make basic/CMakeFiles/dataConversion.dir/build
+.PHONY : dataConversion/fast
+
+# Convenience name for target.
 basic/CMakeFiles/sorting.dir/rule:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/sorting.dir/rule
 .PHONY : basic/CMakeFiles/sorting.dir/rule
@@ -111,6 +125,30 @@ sorting: basic/CMakeFiles/sorting.dir/rule
 sorting/fast:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/sorting.dir/build.make basic/CMakeFiles/sorting.dir/build
 .PHONY : sorting/fast
+
+dataConversion.o: dataConversion.c.o
+.PHONY : dataConversion.o
+
+# target to build an object file
+dataConversion.c.o:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/dataConversion.dir/build.make basic/CMakeFiles/dataConversion.dir/dataConversion.c.o
+.PHONY : dataConversion.c.o
+
+dataConversion.i: dataConversion.c.i
+.PHONY : dataConversion.i
+
+# target to preprocess a source file
+dataConversion.c.i:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/dataConversion.dir/build.make basic/CMakeFiles/dataConversion.dir/dataConversion.c.i
+.PHONY : dataConversion.c.i
+
+dataConversion.s: dataConversion.c.s
+.PHONY : dataConversion.s
+
+# target to generate assembly for a file
+dataConversion.c.s:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/dataConversion.dir/build.make basic/CMakeFiles/dataConversion.dir/dataConversion.c.s
+.PHONY : dataConversion.c.s
 
 sorting.o: sorting.c.o
 .PHONY : sorting.o
@@ -142,9 +180,13 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... dataConversion"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... sorting"
+	@echo "... dataConversion.o"
+	@echo "... dataConversion.i"
+	@echo "... dataConversion.s"
 	@echo "... sorting.o"
 	@echo "... sorting.i"
 	@echo "... sorting.s"

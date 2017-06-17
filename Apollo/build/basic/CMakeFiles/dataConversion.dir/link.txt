@@ -1,0 +1,1 @@
+/usr/bin/cc   -O0 -g    CMakeFiles/dataConversion.dir/dataConversion.c.o  -o ../bin/dataConversion -rdynamic ../utils/libutils.a 
