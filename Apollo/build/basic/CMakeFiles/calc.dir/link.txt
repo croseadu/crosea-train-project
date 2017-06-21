@@ -1,0 +1,1 @@
+/usr/bin/cc   -O0 -g    CMakeFiles/calc.dir/calExpression.c.o  -o ../bin/calc -rdynamic ../utils/libutils.a 

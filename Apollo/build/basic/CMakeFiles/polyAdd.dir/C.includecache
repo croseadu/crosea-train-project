@@ -8,22 +8,20 @@
 
 ../include/common.h
 
-../include/memory.h
-stddef.h
--
-
 ../include/singleLinkList.h
 common.h
 ../include/common.h
 
-/usr2/yuehaid/code/train/Apollo/utils/singleLinkList.c
+/usr2/yuehaid/code/train/Apollo/basic/polyAdd.c
 singleLinkList.h
-/usr2/yuehaid/code/train/Apollo/utils/singleLinkList.h
-memory.h
-/usr2/yuehaid/code/train/Apollo/utils/memory.h
+/usr2/yuehaid/code/train/Apollo/basic/singleLinkList.h
+common.h
+/usr2/yuehaid/code/train/Apollo/basic/common.h
 stdio.h
 -
 assert.h
+-
+stdlib.h
 -
 string.h
 -

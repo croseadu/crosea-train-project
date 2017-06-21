@@ -1,0 +1,1 @@
+/usr/bin/cc   -O0 -g    CMakeFiles/polyAdd.dir/polyAdd.c.o  -o ../bin/polyAdd -rdynamic ../utils/libutils.a 

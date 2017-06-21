@@ -151,6 +151,19 @@ utils/fast:
 .PHONY : utils/fast
 
 #=============================================================================
+# Target rules for targets named calc
+
+# Build rule for target.
+calc: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 calc
+.PHONY : calc
+
+# fast build rule for target.
+calc/fast:
+	$(MAKE) -f basic/CMakeFiles/calc.dir/build.make basic/CMakeFiles/calc.dir/build
+.PHONY : calc/fast
+
+#=============================================================================
 # Target rules for targets named dataConversion
 
 # Build rule for target.
@@ -162,6 +175,19 @@ dataConversion: cmake_check_build_system
 dataConversion/fast:
 	$(MAKE) -f basic/CMakeFiles/dataConversion.dir/build.make basic/CMakeFiles/dataConversion.dir/build
 .PHONY : dataConversion/fast
+
+#=============================================================================
+# Target rules for targets named polyAdd
+
+# Build rule for target.
+polyAdd: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 polyAdd
+.PHONY : polyAdd
+
+# fast build rule for target.
+polyAdd/fast:
+	$(MAKE) -f basic/CMakeFiles/polyAdd.dir/build.make basic/CMakeFiles/polyAdd.dir/build
+.PHONY : polyAdd/fast
 
 #=============================================================================
 # Target rules for targets named sorting
@@ -188,7 +214,9 @@ help:
 	@echo "... testSingleLinkList"
 	@echo "... testVector"
 	@echo "... utils"
+	@echo "... calc"
 	@echo "... dataConversion"
+	@echo "... polyAdd"
 	@echo "... sorting"
 .PHONY : help
 

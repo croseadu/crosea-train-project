@@ -49,6 +49,8 @@ SET(CMAKE_DEPEND_INFO_FILES
   "test/CMakeFiles/testSingleLinkList.dir/DependInfo.cmake"
   "test/CMakeFiles/testVector.dir/DependInfo.cmake"
   "utils/CMakeFiles/utils.dir/DependInfo.cmake"
+  "basic/CMakeFiles/calc.dir/DependInfo.cmake"
   "basic/CMakeFiles/dataConversion.dir/DependInfo.cmake"
+  "basic/CMakeFiles/polyAdd.dir/DependInfo.cmake"
   "basic/CMakeFiles/sorting.dir/DependInfo.cmake"
   )

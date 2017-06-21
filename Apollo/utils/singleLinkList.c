@@ -348,8 +348,8 @@ dumpSingleLinkList(
 	
 	printf("\n");
 	while (pIterNode) {
+		printf("%s", count != 0 ? separator : "");
 		pList->printer(pIterNode->data);
-		printf("%s", separator);
 		pIterNode = pIterNode->pNext;
 		++count;
 		if (count % itemsPerLine == 0)

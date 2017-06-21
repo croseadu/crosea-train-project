@@ -1,4 +1,6 @@
+/usr2/yuehaid/code/train/Apollo/build/basic/CMakeFiles/calc.dir
 /usr2/yuehaid/code/train/Apollo/build/basic/CMakeFiles/dataConversion.dir
+/usr2/yuehaid/code/train/Apollo/build/basic/CMakeFiles/polyAdd.dir
 /usr2/yuehaid/code/train/Apollo/build/basic/CMakeFiles/sorting.dir
 /usr2/yuehaid/code/train/Apollo/build/test/CMakeFiles/testDoubleLinkList.dir
 /usr2/yuehaid/code/train/Apollo/build/test/CMakeFiles/testSingleLinkList.dir

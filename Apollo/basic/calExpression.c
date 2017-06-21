@@ -1,17 +1,17 @@
 #include "stack.h"
 
 #include "common.h"
-
+#include "utils.h"
 
 
 #include <stdio.h>
 #include <assert.h>
-
+#include <string.h>
 
 
 typedef enum _Operator
 {
-	ADD,
+	ADD = 0,
 	SUB,
 	MUL,
 	DIV,
@@ -19,6 +19,40 @@ typedef enum _Operator
 	RIGHT_P,
 	LAST_OP,
 }Operator;
+
+
+void
+operatorPrinter(const void *data)
+{
+	Operator op = *(const Operator *)data;
+	
+	printf(" %c ", "+-*/()"[op]);
+
+}
+
+BOOL
+executeOneOpFromStack(
+	LPStack pOperatorStack,
+	LPStack pOperandStack);
+
+int
+doCalculation(Operator op, int left, int right)
+{
+	switch(op) {
+		case ADD: return left + right;
+		case SUB: return left - right;
+		case MUL: return left * right;
+		case DIV: return left / right;
+	
+		default:
+			assert(0 && "Invalid Op");
+			break;
+
+
+	}
+
+	return 0;
+}
 
 
 BOOL
@@ -33,7 +67,7 @@ executeOneOpFromStack(
 
 	assert(isStackEmpty(pOperatorStack) == False);
 
-	getTopFromStack(pOperatorStack, opcode);
+	getTopFromStack(pOperatorStack, &opcode);
 	popFromStack(pOperatorStack);
 			
 	if (getSizeOfStack(pOperandStack) < 2)
@@ -45,7 +79,7 @@ executeOneOpFromStack(
 	getTopFromStack(pOperandStack, &leftOperand);
 	popFromStack(pOperandStack);
 
-	doCalculation(opcode, leftOperand, rightOperand);
+	result = doCalculation(opcode, leftOperand, rightOperand);
 	pushToStack(pOperandStack, &result);	
 		
 	return True;
@@ -75,25 +109,41 @@ typedef enum _Priority
 */
 const Priority lookup[LAST_OP][LAST_OP] = 
 {
-	
+	{BIG_P, BIG_P, LESS_P, LESS_P, LESS_P, BIG_P},
+	{BIG_P, BIG_P, LESS_P, LESS_P, LESS_P, BIG_P},
+	{BIG_P, BIG_P, BIG_P, BIG_P, LESS_P, BIG_P},
+	{BIG_P, BIG_P, BIG_P, BIG_P, LESS_P, BIG_P},
+	{LESS_P, LESS_P, LESS_P, LESS_P, LESS_P, EQ_P},
+	{INVALID_P, INVALID_P, INVALID_P, INVALID_P,INVALID_P,INVALID_P}
+};
 
-
-
-}
-
-
-
-Priority
-compareOpcode(Operator opOnStack, Operator curOp)
+Operator
+getOpcode(const char c)
 {
+	switch(c) {
+		case '+': return ADD;
+		case '-': return SUB;
+		case '*': return MUL;
+		case '/': return DIV;
+		case '(': return LEFT_P;
+		case ')': return RIGHT_P;
+		default:
+			break;
+	}
+	printf("Parse OP %c", c);
+	assert(0 && "Not a valid op");
+	return LAST_OP;
 }
-
 
 int main()
 {
 	LPStack pOperatorStack = NULL;
 	LPStack pOperandStack = NULL;
 	char expression[4096] = {'\0'};
+	int i,j, n;
+	int temp;
+	Operator opInStack, curOp;
+	Priority priority;
 
 
 	if (False == createStack(&pOperatorStack,
@@ -106,7 +156,7 @@ int main()
 	if (False == createStack(&pOperandStack,
 				 sizeof(int),
 				 intPrinter)) {
-		goto lexit:
+		goto lexit;
 	}
 
 
@@ -116,14 +166,25 @@ int main()
 	}	
 
 
-	fscanf(fp,"%s", expression);
-	
+	fgets(expression, 4095, fp);
 	n = strlen(expression);
 	if (n == 0) {
 		printf("Invalid Expression\n");
 		goto lexit;
 	}
-	
+	j = 0;
+	for (i = 0; i < n; ++i) {
+		if (expression[i] == ' ' || expression[i] == '\n')
+			continue;
+		if (i != j) {
+			expression[j] = expression[i];
+		}
+		++j;
+	}
+
+	n = j;
+	expression[n] = '\0';
+	i = 0;
 	while (i < n || isStackEmpty(pOperatorStack) == False) {
 		if (i == n) {
 			if (executeOneOpFromStack(pOperatorStack, pOperandStack) == False)
@@ -139,20 +200,24 @@ int main()
 				}
 			
 				pushToStack(pOperandStack, &temp);
-				
+			} else if (isStackEmpty(pOperatorStack) == True){
+					curOp = getOpcode(expression[i]);
+					++i;
+					pushToStack(pOperatorStack, &curOp);
 			} else {
-				Operator opInStack, curOp;
+				curOp = getOpcode(expression[i]);
 				getTopFromStack(pOperatorStack, &opInStack);
 				
-				Priority priority = compareOpcode(opInStack, curOp);
+				priority = lookup[opInStack][curOp];
 				if (priority == EQ_P) {
 					++i;
 					popFromStack(pOperatorStack);
-				} else if (priority == Less_P) {
+				} else if (priority == LESS_P) {
 					++i;
 					pushToStack(pOperatorStack, &curOp);
 				} else if (priority == BIG_P){
-					executeOneOpFromStack(pOperatorStack, pOperandStack);
+					if ( False == executeOneOpFromStack(pOperatorStack, pOperandStack))
+						break;
 				} else {
 					break;
 				}	 
@@ -176,7 +241,7 @@ lexit:
 		destroyStack(&pOperatorStack);
 	}
 	if (pOperandStack != NULL) {
-		destroyStack(&pOprandStack);
+		destroyStack(&pOperandStack);
 	}
 
 

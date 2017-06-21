@@ -46,4 +46,8 @@ void popFromStack(
 BOOL
 isStackEmpty(
 	const LPStack pStack);
+
+unsigned int
+getSizeOfStack(
+	const LPStack pStack);
 #endif

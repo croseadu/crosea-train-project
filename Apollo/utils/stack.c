@@ -99,4 +99,9 @@ isStackEmpty(
 {
 	return pStack->top == 0 ? True : False;
 }
-
+unsigned int
+getSizeOfStack(
+	const LPStack pStack)
+{
+	return pStack->top;
+}

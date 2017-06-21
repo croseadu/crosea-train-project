@@ -99,6 +99,20 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+basic/CMakeFiles/calc.dir/rule:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/calc.dir/rule
+.PHONY : basic/CMakeFiles/calc.dir/rule
+
+# Convenience name for target.
+calc: basic/CMakeFiles/calc.dir/rule
+.PHONY : calc
+
+# fast build rule for target.
+calc/fast:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/calc.dir/build.make basic/CMakeFiles/calc.dir/build
+.PHONY : calc/fast
+
+# Convenience name for target.
 basic/CMakeFiles/dataConversion.dir/rule:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/dataConversion.dir/rule
 .PHONY : basic/CMakeFiles/dataConversion.dir/rule
@@ -113,6 +127,20 @@ dataConversion/fast:
 .PHONY : dataConversion/fast
 
 # Convenience name for target.
+basic/CMakeFiles/polyAdd.dir/rule:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/polyAdd.dir/rule
+.PHONY : basic/CMakeFiles/polyAdd.dir/rule
+
+# Convenience name for target.
+polyAdd: basic/CMakeFiles/polyAdd.dir/rule
+.PHONY : polyAdd
+
+# fast build rule for target.
+polyAdd/fast:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/polyAdd.dir/build.make basic/CMakeFiles/polyAdd.dir/build
+.PHONY : polyAdd/fast
+
+# Convenience name for target.
 basic/CMakeFiles/sorting.dir/rule:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/sorting.dir/rule
 .PHONY : basic/CMakeFiles/sorting.dir/rule
@@ -125,6 +153,30 @@ sorting: basic/CMakeFiles/sorting.dir/rule
 sorting/fast:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/sorting.dir/build.make basic/CMakeFiles/sorting.dir/build
 .PHONY : sorting/fast
+
+calExpression.o: calExpression.c.o
+.PHONY : calExpression.o
+
+# target to build an object file
+calExpression.c.o:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/calc.dir/build.make basic/CMakeFiles/calc.dir/calExpression.c.o
+.PHONY : calExpression.c.o
+
+calExpression.i: calExpression.c.i
+.PHONY : calExpression.i
+
+# target to preprocess a source file
+calExpression.c.i:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/calc.dir/build.make basic/CMakeFiles/calc.dir/calExpression.c.i
+.PHONY : calExpression.c.i
+
+calExpression.s: calExpression.c.s
+.PHONY : calExpression.s
+
+# target to generate assembly for a file
+calExpression.c.s:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/calc.dir/build.make basic/CMakeFiles/calc.dir/calExpression.c.s
+.PHONY : calExpression.c.s
 
 dataConversion.o: dataConversion.c.o
 .PHONY : dataConversion.o
@@ -149,6 +201,30 @@ dataConversion.s: dataConversion.c.s
 dataConversion.c.s:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/dataConversion.dir/build.make basic/CMakeFiles/dataConversion.dir/dataConversion.c.s
 .PHONY : dataConversion.c.s
+
+polyAdd.o: polyAdd.c.o
+.PHONY : polyAdd.o
+
+# target to build an object file
+polyAdd.c.o:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/polyAdd.dir/build.make basic/CMakeFiles/polyAdd.dir/polyAdd.c.o
+.PHONY : polyAdd.c.o
+
+polyAdd.i: polyAdd.c.i
+.PHONY : polyAdd.i
+
+# target to preprocess a source file
+polyAdd.c.i:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/polyAdd.dir/build.make basic/CMakeFiles/polyAdd.dir/polyAdd.c.i
+.PHONY : polyAdd.c.i
+
+polyAdd.s: polyAdd.c.s
+.PHONY : polyAdd.s
+
+# target to generate assembly for a file
+polyAdd.c.s:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/polyAdd.dir/build.make basic/CMakeFiles/polyAdd.dir/polyAdd.c.s
+.PHONY : polyAdd.c.s
 
 sorting.o: sorting.c.o
 .PHONY : sorting.o
@@ -180,13 +256,21 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... calc"
 	@echo "... dataConversion"
 	@echo "... edit_cache"
+	@echo "... polyAdd"
 	@echo "... rebuild_cache"
 	@echo "... sorting"
+	@echo "... calExpression.o"
+	@echo "... calExpression.i"
+	@echo "... calExpression.s"
 	@echo "... dataConversion.o"
 	@echo "... dataConversion.i"
 	@echo "... dataConversion.s"
+	@echo "... polyAdd.o"
+	@echo "... polyAdd.i"
+	@echo "... polyAdd.s"
 	@echo "... sorting.o"
 	@echo "... sorting.i"
 	@echo "... sorting.s"
