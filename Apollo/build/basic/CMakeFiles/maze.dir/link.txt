@@ -1,0 +1,1 @@
+/usr/bin/cc   -O0 -g    CMakeFiles/maze.dir/maze.c.o  -o ../bin/maze -rdynamic ../utils/libutils.a 

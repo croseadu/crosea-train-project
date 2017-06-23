@@ -8,23 +8,35 @@
 
 ../include/common.h
 
+../include/doubleLinkList.h
+common.h
+../include/common.h
+
 ../include/memory.h
 stddef.h
 -
 
-../include/singleLinkList.h
+../include/queue.h
+common.h
+../include/common.h
+doubleLinkList.h
+../include/doubleLinkList.h
+
+../include/utils.h
 common.h
 ../include/common.h
 
-/usr2/yuehaid/code/train/Apollo/utils/singleLinkList.c
-singleLinkList.h
-/usr2/yuehaid/code/train/Apollo/utils/singleLinkList.h
+/usr2/yuehaid/code/train/Apollo/utils/queue.c
+common.h
+/usr2/yuehaid/code/train/Apollo/utils/common.h
+utils.h
+/usr2/yuehaid/code/train/Apollo/utils/utils.h
+queue.h
+/usr2/yuehaid/code/train/Apollo/utils/queue.h
 memory.h
 /usr2/yuehaid/code/train/Apollo/utils/memory.h
 stdio.h
 -
 assert.h
--
-string.h
 -
 

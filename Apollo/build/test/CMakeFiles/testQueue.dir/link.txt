@@ -1,0 +1,1 @@
+/usr/bin/cc   -O0 -g    CMakeFiles/testQueue.dir/testQueue.c.o  -o ../bin/testQueue -rdynamic ../utils/libutils.a 

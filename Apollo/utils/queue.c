@@ -2,8 +2,10 @@
 
 
 #include "common.h"
-
+#include "utils.h"
 #include "queue.h"
+
+#include "memory.h"
 
 #include <stdio.h>
 #include <assert.h>
@@ -45,7 +47,7 @@ destroyQueue(
 
 	assert(pQueue != NULL);
 
-	destroySingleLinkList(&pQueue->pList);
+	destroyDoubleLinkList(&pQueue->pList);
 	myFree(pQueue);
 
 	*ppQueue = NULL;

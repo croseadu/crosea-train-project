@@ -10,4 +10,7 @@ target_link_libraries(calc utils)
 add_executable(polyAdd polyAdd.c)
 target_link_libraries(polyAdd utils)
 
+add_executable(maze maze.c)
+target_link_libraries(maze utils)
+
 

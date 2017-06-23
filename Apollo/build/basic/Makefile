@@ -127,6 +127,20 @@ dataConversion/fast:
 .PHONY : dataConversion/fast
 
 # Convenience name for target.
+basic/CMakeFiles/maze.dir/rule:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/maze.dir/rule
+.PHONY : basic/CMakeFiles/maze.dir/rule
+
+# Convenience name for target.
+maze: basic/CMakeFiles/maze.dir/rule
+.PHONY : maze
+
+# fast build rule for target.
+maze/fast:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/maze.dir/build.make basic/CMakeFiles/maze.dir/build
+.PHONY : maze/fast
+
+# Convenience name for target.
 basic/CMakeFiles/polyAdd.dir/rule:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/polyAdd.dir/rule
 .PHONY : basic/CMakeFiles/polyAdd.dir/rule
@@ -202,6 +216,30 @@ dataConversion.c.s:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/dataConversion.dir/build.make basic/CMakeFiles/dataConversion.dir/dataConversion.c.s
 .PHONY : dataConversion.c.s
 
+maze.o: maze.c.o
+.PHONY : maze.o
+
+# target to build an object file
+maze.c.o:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/maze.dir/build.make basic/CMakeFiles/maze.dir/maze.c.o
+.PHONY : maze.c.o
+
+maze.i: maze.c.i
+.PHONY : maze.i
+
+# target to preprocess a source file
+maze.c.i:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/maze.dir/build.make basic/CMakeFiles/maze.dir/maze.c.i
+.PHONY : maze.c.i
+
+maze.s: maze.c.s
+.PHONY : maze.s
+
+# target to generate assembly for a file
+maze.c.s:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/maze.dir/build.make basic/CMakeFiles/maze.dir/maze.c.s
+.PHONY : maze.c.s
+
 polyAdd.o: polyAdd.c.o
 .PHONY : polyAdd.o
 
@@ -259,6 +297,7 @@ help:
 	@echo "... calc"
 	@echo "... dataConversion"
 	@echo "... edit_cache"
+	@echo "... maze"
 	@echo "... polyAdd"
 	@echo "... rebuild_cache"
 	@echo "... sorting"
@@ -268,6 +307,9 @@ help:
 	@echo "... dataConversion.o"
 	@echo "... dataConversion.i"
 	@echo "... dataConversion.s"
+	@echo "... maze.o"
+	@echo "... maze.i"
+	@echo "... maze.s"
 	@echo "... polyAdd.o"
 	@echo "... polyAdd.i"
 	@echo "... polyAdd.s"

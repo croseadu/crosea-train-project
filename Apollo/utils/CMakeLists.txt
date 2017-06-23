@@ -3,6 +3,7 @@ set(SOURCES
   doubleLinkList.c
   vector.c
   stack.c
+  queue.c
   utils.c
   memory.c
   )

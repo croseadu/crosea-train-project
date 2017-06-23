@@ -67,23 +67,28 @@ getPoly(
 	int *pI)
 {
 	float coeff = 0.0;
+	int exp = 0;
 	int i = *pI;
 	if (buf[i] == '\0' || buf[i] == '\n')
 		return False;
-
+	printf("\n%s\n", buf+i);
 	assert(buf[i] == '(');
+	++i;
 	sscanf(buf+i, "%f", &coeff);
-	while(buf[i] == '-' || isdigit(buf[i]))
+	while(buf[i] == '-' || isdigit(buf[i]) || buf[i] == '.' || buf[i] == 'f')
 		++i;
 	assert(buf[i] == ',');
 	++i;
-	sscanf(buf+i, "%f", &coeff);
+	sscanf(buf+i, "%d", &exp);
 	while(buf[i] == '-' || isdigit(buf[i]))
 		++i;
 	assert(buf[i] == ')');
 	++i;
 
 	*pI = i;
+	pPoly->coefficient = coeff;
+	pPoly->exponent = exp;
+
 	return True;	
 }
 
@@ -95,31 +100,32 @@ addPoly(
 	LPSingleLinkList pResultList)
 
 {
-	LPSingleLinkListNode pLeftNode, pRightNode;
-	LPSingleLinkListNode *ppLeft = &pLeftList->pHead;
-	LPSingleLinkListNode *ppRight = &pRightList->pHead;
+	LPSingleLinkListNode pLeftNode, pRightNode, pDeleteNode;
 
 	LPSingleLinkListNode *ppPos = &pResultList->pHead;
 
+
 	LPPolyItem pLeftPoly, pRightPoly;
+
 	float newCoeff;
 
-	while (*ppLeft && *ppRight) {
-		pLeftNode = *ppLeft;
-		pRightNode = *ppRight;
+	pLeftNode = pLeftList->pHead;
+	pRightNode = pRightList->pHead;
+	pLeftList->pHead = NULL;
+	pRightList->pHead = NULL;
+
+	while (pLeftNode && pRightNode) {
 		
 		if (pLeftList->less(pLeftNode->data, pRightNode->data) == True) {
 			*ppPos = pLeftNode;
 			ppPos = &pLeftNode->pNext;
 
-			*ppLeft = NULL;
-			ppLeft = &pLeftNode->pNext;
+			pLeftNode = pLeftNode->pNext;
 		} else if (pRightList->less(pRightNode->data, pLeftNode->data) == True) {
 			*ppPos = pRightNode;
 			ppPos = &pRightNode->pNext;
 
-			*ppRight = NULL;
-			ppRight = &pRightNode->pNext;
+			pRightNode = pRightNode->pNext;
 
 		} else {
 			pLeftPoly = (LPPolyItem)pLeftNode->data;
@@ -130,30 +136,27 @@ addPoly(
 				pLeftPoly->coefficient = newCoeff;
 				*ppPos = pLeftNode;
 				ppPos = &pLeftNode->pNext;
+				pLeftNode = pLeftNode->pNext;
 
-				*ppLeft = NULL;
-				*ppRight = NULL;
-				ppLeft = &pLeftNode->pNext;
-				ppRight = &pRightNode->pNext;
-
-				myFree(pRightNode->data);
-				myFree(pRightNode);
+				pDeleteNode = pRightNode;
+				pRightNode = pRightNode->pNext;
+				myFree(pDeleteNode->data);
+				myFree(pDeleteNode);
 			} else {
-				*ppLeft = NULL;
-				*ppRight = NULL;
-				ppLeft = &pLeftNode->pNext;
-				ppRight = &pRightNode->pNext;
-				myFree(pLeftNode->data);
-				myFree(pLeftNode);
-				myFree(pRightNode->data);
-				myFree(pRightNode);
+				pDeleteNode = pLeftNode;
+				pLeftNode = pLeftNode->pNext;			
+				myFree(pDeleteNode->data);
+				myFree(pDeleteNode);
+
+				pDeleteNode = pRightNode;
+				pRightNode = pRightNode->pNext;
+				myFree(pDeleteNode->data);
+				myFree(pDeleteNode);
 			}		
 		}
 	}
 	
-	*ppPos = *ppLeft != NULL ? *ppLeft : *ppRight;
-	*ppLeft = NULL;
-	*ppRight = NULL;
+	*ppPos = pLeftNode != NULL ? pLeftNode : pRightNode;
 }
 
 int main()
@@ -230,7 +233,7 @@ int main()
 	dumpSingleLinkList(pRightList, " + ", 100);
 
 	addPoly(pLeftList, pRightList, pResultList);
-	printf("\nAfter Merget\n");
+	printf("\nAfter Merge:\n");
 	assert(isSingleLinkListEmpty(pLeftList) == True);
 	assert(isSingleLinkListEmpty(pRightList) == True);	
 	dumpSingleLinkList(pResultList, " + ", 100);

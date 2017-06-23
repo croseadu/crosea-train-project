@@ -9,6 +9,13 @@ utils/CMakeFiles/utils.dir/doubleLinkList.c.o: ../utils/doubleLinkList.c
 utils/CMakeFiles/utils.dir/memory.c.o: ../include/memory.h
 utils/CMakeFiles/utils.dir/memory.c.o: ../utils/memory.c
 
+utils/CMakeFiles/utils.dir/queue.c.o: ../include/common.h
+utils/CMakeFiles/utils.dir/queue.c.o: ../include/doubleLinkList.h
+utils/CMakeFiles/utils.dir/queue.c.o: ../include/memory.h
+utils/CMakeFiles/utils.dir/queue.c.o: ../include/queue.h
+utils/CMakeFiles/utils.dir/queue.c.o: ../include/utils.h
+utils/CMakeFiles/utils.dir/queue.c.o: ../utils/queue.c
+
 utils/CMakeFiles/utils.dir/singleLinkList.c.o: ../include/common.h
 utils/CMakeFiles/utils.dir/singleLinkList.c.o: ../include/memory.h
 utils/CMakeFiles/utils.dir/singleLinkList.c.o: ../include/singleLinkList.h

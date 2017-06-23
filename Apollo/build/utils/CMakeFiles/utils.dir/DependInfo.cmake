@@ -6,6 +6,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
 SET(CMAKE_DEPENDS_CHECK_C
   "/usr2/yuehaid/code/train/Apollo/utils/doubleLinkList.c" "/usr2/yuehaid/code/train/Apollo/build/utils/CMakeFiles/utils.dir/doubleLinkList.c.o"
   "/usr2/yuehaid/code/train/Apollo/utils/memory.c" "/usr2/yuehaid/code/train/Apollo/build/utils/CMakeFiles/utils.dir/memory.c.o"
+  "/usr2/yuehaid/code/train/Apollo/utils/queue.c" "/usr2/yuehaid/code/train/Apollo/build/utils/CMakeFiles/utils.dir/queue.c.o"
   "/usr2/yuehaid/code/train/Apollo/utils/singleLinkList.c" "/usr2/yuehaid/code/train/Apollo/build/utils/CMakeFiles/utils.dir/singleLinkList.c.o"
   "/usr2/yuehaid/code/train/Apollo/utils/stack.c" "/usr2/yuehaid/code/train/Apollo/build/utils/CMakeFiles/utils.dir/stack.c.o"
   "/usr2/yuehaid/code/train/Apollo/utils/utils.c" "/usr2/yuehaid/code/train/Apollo/build/utils/CMakeFiles/utils.dir/utils.c.o"

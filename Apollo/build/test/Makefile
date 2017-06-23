@@ -113,6 +113,20 @@ testDoubleLinkList/fast:
 .PHONY : testDoubleLinkList/fast
 
 # Convenience name for target.
+test/CMakeFiles/testQueue.dir/rule:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/testQueue.dir/rule
+.PHONY : test/CMakeFiles/testQueue.dir/rule
+
+# Convenience name for target.
+testQueue: test/CMakeFiles/testQueue.dir/rule
+.PHONY : testQueue
+
+# fast build rule for target.
+testQueue/fast:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f test/CMakeFiles/testQueue.dir/build.make test/CMakeFiles/testQueue.dir/build
+.PHONY : testQueue/fast
+
+# Convenience name for target.
 test/CMakeFiles/testSingleLinkList.dir/rule:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/testSingleLinkList.dir/rule
 .PHONY : test/CMakeFiles/testSingleLinkList.dir/rule
@@ -163,6 +177,30 @@ testDoubleLinkList.s: testDoubleLinkList.c.s
 testDoubleLinkList.c.s:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f test/CMakeFiles/testDoubleLinkList.dir/build.make test/CMakeFiles/testDoubleLinkList.dir/testDoubleLinkList.c.s
 .PHONY : testDoubleLinkList.c.s
+
+testQueue.o: testQueue.c.o
+.PHONY : testQueue.o
+
+# target to build an object file
+testQueue.c.o:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f test/CMakeFiles/testQueue.dir/build.make test/CMakeFiles/testQueue.dir/testQueue.c.o
+.PHONY : testQueue.c.o
+
+testQueue.i: testQueue.c.i
+.PHONY : testQueue.i
+
+# target to preprocess a source file
+testQueue.c.i:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f test/CMakeFiles/testQueue.dir/build.make test/CMakeFiles/testQueue.dir/testQueue.c.i
+.PHONY : testQueue.c.i
+
+testQueue.s: testQueue.c.s
+.PHONY : testQueue.s
+
+# target to generate assembly for a file
+testQueue.c.s:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f test/CMakeFiles/testQueue.dir/build.make test/CMakeFiles/testQueue.dir/testQueue.c.s
+.PHONY : testQueue.c.s
 
 testSingleLinkList.o: testSingleLinkList.c.o
 .PHONY : testSingleLinkList.o
@@ -221,11 +259,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... testDoubleLinkList"
+	@echo "... testQueue"
 	@echo "... testSingleLinkList"
 	@echo "... testVector"
 	@echo "... testDoubleLinkList.o"
 	@echo "... testDoubleLinkList.i"
 	@echo "... testDoubleLinkList.s"
+	@echo "... testQueue.o"
+	@echo "... testQueue.i"
+	@echo "... testQueue.s"
 	@echo "... testSingleLinkList.o"
 	@echo "... testSingleLinkList.i"
 	@echo "... testSingleLinkList.s"

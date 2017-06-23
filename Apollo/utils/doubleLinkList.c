@@ -379,3 +379,43 @@ dumpDoubleLinkList(
 	}
 
 }
+void
+getFrontOfDoubleLinkList(
+	LPDoubleLinkList pList,
+	void *data)
+{
+	LPDoubleLinkListNode pNode = pList->pHead->pNext;
+
+	assert(pNode != pList->pHead);
+
+	memcpy(data, pNode->data, pList->elementSize);
+}
+
+void
+getBackOfDoubleLinkList(
+	LPDoubleLinkList pList,
+	void *data)
+{
+
+	LPDoubleLinkListNode pNode = pList->pHead->pPrev;
+
+	assert(pNode != pList->pHead);
+
+	memcpy(data, pNode->data, pList->elementSize);
+}
+
+void
+removeHeadFromDoubleLinkList(
+	LPDoubleLinkList pList)
+{
+	DoubleLinkListIter it;
+
+	assert(pList->pHead->pNext != pList->pHead);
+	it = &pList->pHead->pNext;
+
+	removeFromDoubleLinkList(pList, it);
+}
+
+
+
+

@@ -112,6 +112,19 @@ testDoubleLinkList/fast:
 .PHONY : testDoubleLinkList/fast
 
 #=============================================================================
+# Target rules for targets named testQueue
+
+# Build rule for target.
+testQueue: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testQueue
+.PHONY : testQueue
+
+# fast build rule for target.
+testQueue/fast:
+	$(MAKE) -f test/CMakeFiles/testQueue.dir/build.make test/CMakeFiles/testQueue.dir/build
+.PHONY : testQueue/fast
+
+#=============================================================================
 # Target rules for targets named testSingleLinkList
 
 # Build rule for target.
@@ -177,6 +190,19 @@ dataConversion/fast:
 .PHONY : dataConversion/fast
 
 #=============================================================================
+# Target rules for targets named maze
+
+# Build rule for target.
+maze: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 maze
+.PHONY : maze
+
+# fast build rule for target.
+maze/fast:
+	$(MAKE) -f basic/CMakeFiles/maze.dir/build.make basic/CMakeFiles/maze.dir/build
+.PHONY : maze/fast
+
+#=============================================================================
 # Target rules for targets named polyAdd
 
 # Build rule for target.
@@ -211,11 +237,13 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... testDoubleLinkList"
+	@echo "... testQueue"
 	@echo "... testSingleLinkList"
 	@echo "... testVector"
 	@echo "... utils"
 	@echo "... calc"
 	@echo "... dataConversion"
+	@echo "... maze"
 	@echo "... polyAdd"
 	@echo "... sorting"
 .PHONY : help

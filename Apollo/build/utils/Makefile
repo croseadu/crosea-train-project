@@ -160,6 +160,30 @@ memory.c.s:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/memory.c.s
 .PHONY : memory.c.s
 
+queue.o: queue.c.o
+.PHONY : queue.o
+
+# target to build an object file
+queue.c.o:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/queue.c.o
+.PHONY : queue.c.o
+
+queue.i: queue.c.i
+.PHONY : queue.i
+
+# target to preprocess a source file
+queue.c.i:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/queue.c.i
+.PHONY : queue.c.i
+
+queue.s: queue.c.s
+.PHONY : queue.s
+
+# target to generate assembly for a file
+queue.c.s:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/queue.c.s
+.PHONY : queue.c.s
+
 singleLinkList.o: singleLinkList.c.o
 .PHONY : singleLinkList.o
 
@@ -271,6 +295,9 @@ help:
 	@echo "... memory.o"
 	@echo "... memory.i"
 	@echo "... memory.s"
+	@echo "... queue.o"
+	@echo "... queue.i"
+	@echo "... queue.s"
 	@echo "... singleLinkList.o"
 	@echo "... singleLinkList.i"
 	@echo "... singleLinkList.s"
