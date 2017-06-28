@@ -12,11 +12,11 @@
 
 #define N 10
 
-unsigned int maze[N][N] = 
+int maze[N][N] = 
 {
 {1,1,1,1,1,1,1,1,1,1},
 {0,0,0,1,0,0,0,1,0,1},
-{1,0,0,1,0,0,0,1,0,1},
+{1,0,0,1,0,0,0,0,0,1},
 {1,0,0,0,0,1,1,0,0,1},
 {1,0,1,1,1,0,0,0,0,1},
 {1,0,0,0,1,0,0,0,0,1},
@@ -26,7 +26,7 @@ unsigned int maze[N][N] =
 {1,1,1,1,1,1,1,1,1,1}
 };
 
-unsigned int trace[N][N];
+int trace[N][N];
 
 #define ENTRY_X 1
 #define ENTRY_Y 0
@@ -48,8 +48,8 @@ typedef enum _DIR
 
 typedef struct _Pos
 {
-	unsigned int x;
-	unsigned int y;
+	int x;
+	int y;
 	DIR dir;
 }Pos, *LPPos;
 
@@ -101,20 +101,20 @@ getNext(Pos pos)
 
 	switch(pos.dir) {
 		case NORTH: 
-			newPos.x = pos.x;
-			newPos.y = pos.y - 1;
+			newPos.x = pos.x - 1;
+			newPos.y = pos.y;
 			break;
 		case SOUTH:
-			newPos.x = pos.x;
-			newPos.y = pos.y + 1;
-			break;
-		case EAST:
 			newPos.x = pos.x + 1;
 			newPos.y = pos.y;
 			break;
+		case EAST:
+			newPos.x = pos.x;
+			newPos.y = pos.y + 1;
+			break;
 		case WEST:
-			newPos.x = pos.x - 1;
-			newPos.y = pos.y;
+			newPos.x = pos.x ;
+			newPos.y = pos.y - 1;
 			break;
 
 		default:
@@ -124,6 +124,41 @@ getNext(Pos pos)
 
 	return newPos;
 }
+
+
+Pos
+getPrevious(Pos pos)
+{
+	Pos newPos;
+
+	newPos.dir = START_DIR;
+
+	switch(pos.dir) {
+		case NORTH: 
+			newPos.x = pos.x + 1;
+			newPos.y = pos.y;
+			break;
+		case SOUTH:
+			newPos.x = pos.x - 1;
+			newPos.y = pos.y;
+			break;
+		case EAST:
+			newPos.x = pos.x;
+			newPos.y = pos.y - 1;
+			break;
+		case WEST:
+			newPos.x = pos.x;
+			newPos.y = pos.y + 1;
+			break;
+
+		default:
+			assert(0);
+			break;
+	}
+
+	return newPos;
+}
+
 
 BOOL
 isObstacle(Pos pos)
@@ -152,7 +187,7 @@ isInPath(Pos pos)
 	return trace[newPos.x][newPos.y] ? True : False;
 }
 
-int main()
+void findAll()
 {
 	
 
@@ -189,6 +224,151 @@ int main()
 	}
 
 
+}
 
+
+void findShortest()
+{
+	LPQueue pQueue = NULL;
+
+	Pos pos,newPos;
+	Pos pathInfo[N][N] = {0};
+
+	if (False == createQueue(&pQueue,
+				 sizeof(Pos),
+				 defaultPrinter)) {
+		return;
+	}
+
+	memset(trace, 0, sizeof(trace));
+
+
+	pos.x = ENTRY_X;
+	pos.y = ENTRY_Y;
+	pos.dir = START_DIR;
+
+	enQueue(pQueue, &pos);
+	trace[pos.x][pos.y] = 1;
+	pathInfo[pos.x][pos.y] = pos;	
+
+	while (isQueueEmpty(pQueue) == False) {
+		deQueue(pQueue, &pos);
+		if (IS_EXIT(pos.x, pos.y)) {
+			break;
+		}
+		for (pos.dir = NORTH; pos.dir < LAST_DIR; ++pos.dir) {
+			if (isObstacle(pos) == True)
+				continue;
+			newPos = getNext(pos);
+			if (trace[newPos.x][newPos.y])
+				continue;
+
+			trace[newPos.x][newPos.y] = 1;
+			newPos.dir = pos.dir;
+			pathInfo[newPos.x][newPos.y] = newPos;
+			enQueue(pQueue, &newPos);
+		}
+
+	}
+
+	printf("done searching\n");
+	if (IS_EXIT(pos.x, pos.y)) {
+		memset(trace, 0, sizeof(trace));
+		while ( !IS_ENTRY(pos.x, pos.y)) {
+			pos = pathInfo[pos.x][pos.y];
+			pos = getPrevious(pos);
+			trace[pos.x][pos.y] = 1;
+		}		
+		print();
+
+	} else {
+		printf("Failed to find a path!\n");
+	}
+
+	
+	if (pQueue != NULL)
+		destroyQueue(&pQueue);
+}
+
+BOOL
+isValid(int x, int y)
+{
+	if (x < 0 || y < 0)
+		return False;
+	if (x >= N || y >= N)
+		return False;
+
+	return True;
+}
+
+void findOne()
+{
+	LPStack pStack = NULL;
+	Pos curPos;
+	Pos topPos;
+
+	if (False == createStack(&pStack,
+				 sizeof(Pos),
+				 defaultPrinter)) {
+		goto lexit;
+	}
+
+	curPos.x = ENTRY_X;
+	curPos.y = ENTRY_Y;
+	curPos.dir = NORTH;
+
+	memset(trace, 0, sizeof(trace));
+	while (1) {
+		if (IS_EXIT(curPos.x, curPos.y))
+			break;
+		if ( isValid(curPos.x, curPos.y) == True && trace[curPos.x][curPos.y] == 0 && maze[curPos.x][curPos.y] == 0) {
+			pushToStack(pStack, &curPos);
+			trace[curPos.x][curPos.y] = 1;
+			curPos = getNext(curPos);
+			curPos.dir = NORTH;
+			
+		} else {
+			if (isStackEmpty(pStack) == True)
+				break;
+			getTopFromStack(pStack, &curPos);
+			popFromStack(pStack);
+			trace[curPos.x][curPos.y] = 0;
+			while (curPos.dir == WEST && isStackEmpty(pStack) == False) {
+				getTopFromStack(pStack, &curPos);
+				popFromStack(pStack);
+				trace[curPos.x][curPos.y] = 0;
+				
+			}
+			
+			if (curPos.dir == WEST)
+				break;
+			++curPos.dir;
+			pushToStack(pStack, &curPos);
+			trace[curPos.x][curPos.y] = 1;
+
+			curPos = getNext(curPos);
+			curPos.dir = NORTH;
+		}
+	}
+	
+
+	if (IS_EXIT(curPos.x, curPos.y)) {
+		print();
+	}
+
+lexit:
+	if (pStack != NULL) {
+		destroyStack(&pStack);
+	}
+
+}
+
+
+int main()
+{
+	findAll();
+	findShortest();
+	findOne();
 	return 0;
 }
+
