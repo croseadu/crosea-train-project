@@ -136,6 +136,19 @@ insertToTailOfSingleLinkList(
 }
 
 
+void
+insertBeforeInSingleLinkList(
+	LPSingleLinkList pList,
+	SingleLinkListIter it,
+	const void *data)
+{
+	LPSingleLinkListNode pNode;
+
+	pNode = createNewSingleLinkListNode(pList, data);
+	assert (pNode != NULL); 
+	pNode->pNext = *it;
+	*it = pNode;
+}
 
 SingleLinkListIter
 findInSingleLinkList(
@@ -146,8 +159,8 @@ findInSingleLinkList(
 	it = &pList->pHead;
 
 	while ( *it != NULL && 
-	        pList->less((*it)->data, data) == False &&
-		pList->less(data, (*it)->data) == False ) {
+	        !(pList->less((*it)->data, data) == False &&
+		  pList->less(data, (*it)->data) == False) ) {
 		it = &(*it)->pNext;
 	}
 

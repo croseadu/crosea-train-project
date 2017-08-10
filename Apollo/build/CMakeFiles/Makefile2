@@ -80,7 +80,7 @@ test/preinstall:
 test/CMakeFiles/testDoubleLinkList.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f test/CMakeFiles/testDoubleLinkList.dir/build.make test/CMakeFiles/testDoubleLinkList.dir/depend
 	$(MAKE) -f test/CMakeFiles/testDoubleLinkList.dir/build.make test/CMakeFiles/testDoubleLinkList.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  6
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  11
 	@echo "Built target testDoubleLinkList"
 .PHONY : test/CMakeFiles/testDoubleLinkList.dir/all
 
@@ -90,7 +90,7 @@ all: test/CMakeFiles/testDoubleLinkList.dir/all
 
 # Build rule for subdir invocation for target.
 test/CMakeFiles/testDoubleLinkList.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/testDoubleLinkList.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 0
 .PHONY : test/CMakeFiles/testDoubleLinkList.dir/rule
@@ -115,7 +115,7 @@ clean: test/CMakeFiles/testDoubleLinkList.dir/clean
 test/CMakeFiles/testQueue.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f test/CMakeFiles/testQueue.dir/build.make test/CMakeFiles/testQueue.dir/depend
 	$(MAKE) -f test/CMakeFiles/testQueue.dir/build.make test/CMakeFiles/testQueue.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  7
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  12
 	@echo "Built target testQueue"
 .PHONY : test/CMakeFiles/testQueue.dir/all
 
@@ -125,7 +125,7 @@ all: test/CMakeFiles/testQueue.dir/all
 
 # Build rule for subdir invocation for target.
 test/CMakeFiles/testQueue.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/testQueue.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 0
 .PHONY : test/CMakeFiles/testQueue.dir/rule
@@ -150,7 +150,7 @@ clean: test/CMakeFiles/testQueue.dir/clean
 test/CMakeFiles/testSingleLinkList.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f test/CMakeFiles/testSingleLinkList.dir/build.make test/CMakeFiles/testSingleLinkList.dir/depend
 	$(MAKE) -f test/CMakeFiles/testSingleLinkList.dir/build.make test/CMakeFiles/testSingleLinkList.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  8
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  13
 	@echo "Built target testSingleLinkList"
 .PHONY : test/CMakeFiles/testSingleLinkList.dir/all
 
@@ -160,7 +160,7 @@ all: test/CMakeFiles/testSingleLinkList.dir/all
 
 # Build rule for subdir invocation for target.
 test/CMakeFiles/testSingleLinkList.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/testSingleLinkList.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 0
 .PHONY : test/CMakeFiles/testSingleLinkList.dir/rule
@@ -185,7 +185,7 @@ clean: test/CMakeFiles/testSingleLinkList.dir/clean
 test/CMakeFiles/testVector.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f test/CMakeFiles/testVector.dir/build.make test/CMakeFiles/testVector.dir/depend
 	$(MAKE) -f test/CMakeFiles/testVector.dir/build.make test/CMakeFiles/testVector.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  9
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  14
 	@echo "Built target testVector"
 .PHONY : test/CMakeFiles/testVector.dir/all
 
@@ -195,7 +195,7 @@ all: test/CMakeFiles/testVector.dir/all
 
 # Build rule for subdir invocation for target.
 test/CMakeFiles/testVector.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/testVector.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 0
 .PHONY : test/CMakeFiles/testVector.dir/rule
@@ -235,7 +235,7 @@ utils/preinstall:
 utils/CMakeFiles/utils.dir/all:
 	$(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/depend
 	$(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  10 11 12 13 14 15 16
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  15 16 17 18 19 20 21 22
 	@echo "Built target utils"
 .PHONY : utils/CMakeFiles/utils.dir/all
 
@@ -245,7 +245,7 @@ all: utils/CMakeFiles/utils.dir/all
 
 # Build rule for subdir invocation for target.
 utils/CMakeFiles/utils.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 8
 	$(MAKE) -f CMakeFiles/Makefile2 utils/CMakeFiles/utils.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 0
 .PHONY : utils/CMakeFiles/utils.dir/rule
@@ -267,18 +267,28 @@ clean: utils/CMakeFiles/utils.dir/clean
 # Directory level rules for directory basic
 
 # Convenience name for "all" pass in the directory.
+basic/all: basic/CMakeFiles/binaryTree.dir/all
 basic/all: basic/CMakeFiles/calc.dir/all
 basic/all: basic/CMakeFiles/dataConversion.dir/all
+basic/all: basic/CMakeFiles/directedGraph.dir/all
+basic/all: basic/CMakeFiles/glist1.dir/all
+basic/all: basic/CMakeFiles/glist2.dir/all
 basic/all: basic/CMakeFiles/maze.dir/all
 basic/all: basic/CMakeFiles/polyAdd.dir/all
+basic/all: basic/CMakeFiles/queen.dir/all
 basic/all: basic/CMakeFiles/sorting.dir/all
 .PHONY : basic/all
 
 # Convenience name for "clean" pass in the directory.
+basic/clean: basic/CMakeFiles/binaryTree.dir/clean
 basic/clean: basic/CMakeFiles/calc.dir/clean
 basic/clean: basic/CMakeFiles/dataConversion.dir/clean
+basic/clean: basic/CMakeFiles/directedGraph.dir/clean
+basic/clean: basic/CMakeFiles/glist1.dir/clean
+basic/clean: basic/CMakeFiles/glist2.dir/clean
 basic/clean: basic/CMakeFiles/maze.dir/clean
 basic/clean: basic/CMakeFiles/polyAdd.dir/clean
+basic/clean: basic/CMakeFiles/queen.dir/clean
 basic/clean: basic/CMakeFiles/sorting.dir/clean
 .PHONY : basic/clean
 
@@ -287,13 +297,48 @@ basic/preinstall:
 .PHONY : basic/preinstall
 
 #=============================================================================
+# Target rules for target basic/CMakeFiles/binaryTree.dir
+
+# All Build rule for target.
+basic/CMakeFiles/binaryTree.dir/all: utils/CMakeFiles/utils.dir/all
+	$(MAKE) -f basic/CMakeFiles/binaryTree.dir/build.make basic/CMakeFiles/binaryTree.dir/depend
+	$(MAKE) -f basic/CMakeFiles/binaryTree.dir/build.make basic/CMakeFiles/binaryTree.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  1
+	@echo "Built target binaryTree"
+.PHONY : basic/CMakeFiles/binaryTree.dir/all
+
+# Include target in all.
+all: basic/CMakeFiles/binaryTree.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+basic/CMakeFiles/binaryTree.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 9
+	$(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/binaryTree.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 0
+.PHONY : basic/CMakeFiles/binaryTree.dir/rule
+
+# Convenience name for target.
+binaryTree: basic/CMakeFiles/binaryTree.dir/rule
+.PHONY : binaryTree
+
+# clean rule for target.
+basic/CMakeFiles/binaryTree.dir/clean:
+	$(MAKE) -f basic/CMakeFiles/binaryTree.dir/build.make basic/CMakeFiles/binaryTree.dir/clean
+.PHONY : basic/CMakeFiles/binaryTree.dir/clean
+
+# clean rule for target.
+clean: basic/CMakeFiles/binaryTree.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target basic/CMakeFiles/calc.dir
 
 # All Build rule for target.
 basic/CMakeFiles/calc.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f basic/CMakeFiles/calc.dir/build.make basic/CMakeFiles/calc.dir/depend
 	$(MAKE) -f basic/CMakeFiles/calc.dir/build.make basic/CMakeFiles/calc.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  1
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  2
 	@echo "Built target calc"
 .PHONY : basic/CMakeFiles/calc.dir/all
 
@@ -303,7 +348,7 @@ all: basic/CMakeFiles/calc.dir/all
 
 # Build rule for subdir invocation for target.
 basic/CMakeFiles/calc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/calc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 0
 .PHONY : basic/CMakeFiles/calc.dir/rule
@@ -328,7 +373,7 @@ clean: basic/CMakeFiles/calc.dir/clean
 basic/CMakeFiles/dataConversion.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f basic/CMakeFiles/dataConversion.dir/build.make basic/CMakeFiles/dataConversion.dir/depend
 	$(MAKE) -f basic/CMakeFiles/dataConversion.dir/build.make basic/CMakeFiles/dataConversion.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  2
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  3
 	@echo "Built target dataConversion"
 .PHONY : basic/CMakeFiles/dataConversion.dir/all
 
@@ -338,7 +383,7 @@ all: basic/CMakeFiles/dataConversion.dir/all
 
 # Build rule for subdir invocation for target.
 basic/CMakeFiles/dataConversion.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/dataConversion.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 0
 .PHONY : basic/CMakeFiles/dataConversion.dir/rule
@@ -357,13 +402,118 @@ clean: basic/CMakeFiles/dataConversion.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target basic/CMakeFiles/directedGraph.dir
+
+# All Build rule for target.
+basic/CMakeFiles/directedGraph.dir/all: utils/CMakeFiles/utils.dir/all
+	$(MAKE) -f basic/CMakeFiles/directedGraph.dir/build.make basic/CMakeFiles/directedGraph.dir/depend
+	$(MAKE) -f basic/CMakeFiles/directedGraph.dir/build.make basic/CMakeFiles/directedGraph.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  4
+	@echo "Built target directedGraph"
+.PHONY : basic/CMakeFiles/directedGraph.dir/all
+
+# Include target in all.
+all: basic/CMakeFiles/directedGraph.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+basic/CMakeFiles/directedGraph.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 9
+	$(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/directedGraph.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 0
+.PHONY : basic/CMakeFiles/directedGraph.dir/rule
+
+# Convenience name for target.
+directedGraph: basic/CMakeFiles/directedGraph.dir/rule
+.PHONY : directedGraph
+
+# clean rule for target.
+basic/CMakeFiles/directedGraph.dir/clean:
+	$(MAKE) -f basic/CMakeFiles/directedGraph.dir/build.make basic/CMakeFiles/directedGraph.dir/clean
+.PHONY : basic/CMakeFiles/directedGraph.dir/clean
+
+# clean rule for target.
+clean: basic/CMakeFiles/directedGraph.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target basic/CMakeFiles/glist1.dir
+
+# All Build rule for target.
+basic/CMakeFiles/glist1.dir/all: utils/CMakeFiles/utils.dir/all
+	$(MAKE) -f basic/CMakeFiles/glist1.dir/build.make basic/CMakeFiles/glist1.dir/depend
+	$(MAKE) -f basic/CMakeFiles/glist1.dir/build.make basic/CMakeFiles/glist1.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  5
+	@echo "Built target glist1"
+.PHONY : basic/CMakeFiles/glist1.dir/all
+
+# Include target in all.
+all: basic/CMakeFiles/glist1.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+basic/CMakeFiles/glist1.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 9
+	$(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/glist1.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 0
+.PHONY : basic/CMakeFiles/glist1.dir/rule
+
+# Convenience name for target.
+glist1: basic/CMakeFiles/glist1.dir/rule
+.PHONY : glist1
+
+# clean rule for target.
+basic/CMakeFiles/glist1.dir/clean:
+	$(MAKE) -f basic/CMakeFiles/glist1.dir/build.make basic/CMakeFiles/glist1.dir/clean
+.PHONY : basic/CMakeFiles/glist1.dir/clean
+
+# clean rule for target.
+clean: basic/CMakeFiles/glist1.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target basic/CMakeFiles/glist2.dir
+
+# All Build rule for target.
+basic/CMakeFiles/glist2.dir/all: utils/CMakeFiles/utils.dir/all
+	$(MAKE) -f basic/CMakeFiles/glist2.dir/build.make basic/CMakeFiles/glist2.dir/depend
+	$(MAKE) -f basic/CMakeFiles/glist2.dir/build.make basic/CMakeFiles/glist2.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  6
+	@echo "Built target glist2"
+.PHONY : basic/CMakeFiles/glist2.dir/all
+
+# Include target in all.
+all: basic/CMakeFiles/glist2.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+basic/CMakeFiles/glist2.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 9
+	$(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/glist2.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 0
+.PHONY : basic/CMakeFiles/glist2.dir/rule
+
+# Convenience name for target.
+glist2: basic/CMakeFiles/glist2.dir/rule
+.PHONY : glist2
+
+# clean rule for target.
+basic/CMakeFiles/glist2.dir/clean:
+	$(MAKE) -f basic/CMakeFiles/glist2.dir/build.make basic/CMakeFiles/glist2.dir/clean
+.PHONY : basic/CMakeFiles/glist2.dir/clean
+
+# clean rule for target.
+clean: basic/CMakeFiles/glist2.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target basic/CMakeFiles/maze.dir
 
 # All Build rule for target.
 basic/CMakeFiles/maze.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f basic/CMakeFiles/maze.dir/build.make basic/CMakeFiles/maze.dir/depend
 	$(MAKE) -f basic/CMakeFiles/maze.dir/build.make basic/CMakeFiles/maze.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  3
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  7
 	@echo "Built target maze"
 .PHONY : basic/CMakeFiles/maze.dir/all
 
@@ -373,7 +523,7 @@ all: basic/CMakeFiles/maze.dir/all
 
 # Build rule for subdir invocation for target.
 basic/CMakeFiles/maze.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/maze.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 0
 .PHONY : basic/CMakeFiles/maze.dir/rule
@@ -398,7 +548,7 @@ clean: basic/CMakeFiles/maze.dir/clean
 basic/CMakeFiles/polyAdd.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f basic/CMakeFiles/polyAdd.dir/build.make basic/CMakeFiles/polyAdd.dir/depend
 	$(MAKE) -f basic/CMakeFiles/polyAdd.dir/build.make basic/CMakeFiles/polyAdd.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  4
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  8
 	@echo "Built target polyAdd"
 .PHONY : basic/CMakeFiles/polyAdd.dir/all
 
@@ -408,7 +558,7 @@ all: basic/CMakeFiles/polyAdd.dir/all
 
 # Build rule for subdir invocation for target.
 basic/CMakeFiles/polyAdd.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/polyAdd.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 0
 .PHONY : basic/CMakeFiles/polyAdd.dir/rule
@@ -427,13 +577,48 @@ clean: basic/CMakeFiles/polyAdd.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target basic/CMakeFiles/queen.dir
+
+# All Build rule for target.
+basic/CMakeFiles/queen.dir/all: utils/CMakeFiles/utils.dir/all
+	$(MAKE) -f basic/CMakeFiles/queen.dir/build.make basic/CMakeFiles/queen.dir/depend
+	$(MAKE) -f basic/CMakeFiles/queen.dir/build.make basic/CMakeFiles/queen.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  9
+	@echo "Built target queen"
+.PHONY : basic/CMakeFiles/queen.dir/all
+
+# Include target in all.
+all: basic/CMakeFiles/queen.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+basic/CMakeFiles/queen.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 9
+	$(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/queen.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 0
+.PHONY : basic/CMakeFiles/queen.dir/rule
+
+# Convenience name for target.
+queen: basic/CMakeFiles/queen.dir/rule
+.PHONY : queen
+
+# clean rule for target.
+basic/CMakeFiles/queen.dir/clean:
+	$(MAKE) -f basic/CMakeFiles/queen.dir/build.make basic/CMakeFiles/queen.dir/clean
+.PHONY : basic/CMakeFiles/queen.dir/clean
+
+# clean rule for target.
+clean: basic/CMakeFiles/queen.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target basic/CMakeFiles/sorting.dir
 
 # All Build rule for target.
 basic/CMakeFiles/sorting.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f basic/CMakeFiles/sorting.dir/build.make basic/CMakeFiles/sorting.dir/depend
 	$(MAKE) -f basic/CMakeFiles/sorting.dir/build.make basic/CMakeFiles/sorting.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  5
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles  10
 	@echo "Built target sorting"
 .PHONY : basic/CMakeFiles/sorting.dir/all
 
@@ -443,7 +628,7 @@ all: basic/CMakeFiles/sorting.dir/all
 
 # Build rule for subdir invocation for target.
 basic/CMakeFiles/sorting.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/sorting.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /usr2/yuehaid/code/train/Apollo/build/CMakeFiles 0
 .PHONY : basic/CMakeFiles/sorting.dir/rule

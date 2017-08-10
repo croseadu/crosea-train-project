@@ -99,6 +99,20 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+basic/CMakeFiles/binaryTree.dir/rule:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/binaryTree.dir/rule
+.PHONY : basic/CMakeFiles/binaryTree.dir/rule
+
+# Convenience name for target.
+binaryTree: basic/CMakeFiles/binaryTree.dir/rule
+.PHONY : binaryTree
+
+# fast build rule for target.
+binaryTree/fast:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/binaryTree.dir/build.make basic/CMakeFiles/binaryTree.dir/build
+.PHONY : binaryTree/fast
+
+# Convenience name for target.
 basic/CMakeFiles/calc.dir/rule:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/calc.dir/rule
 .PHONY : basic/CMakeFiles/calc.dir/rule
@@ -125,6 +139,48 @@ dataConversion: basic/CMakeFiles/dataConversion.dir/rule
 dataConversion/fast:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/dataConversion.dir/build.make basic/CMakeFiles/dataConversion.dir/build
 .PHONY : dataConversion/fast
+
+# Convenience name for target.
+basic/CMakeFiles/directedGraph.dir/rule:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/directedGraph.dir/rule
+.PHONY : basic/CMakeFiles/directedGraph.dir/rule
+
+# Convenience name for target.
+directedGraph: basic/CMakeFiles/directedGraph.dir/rule
+.PHONY : directedGraph
+
+# fast build rule for target.
+directedGraph/fast:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/directedGraph.dir/build.make basic/CMakeFiles/directedGraph.dir/build
+.PHONY : directedGraph/fast
+
+# Convenience name for target.
+basic/CMakeFiles/glist1.dir/rule:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/glist1.dir/rule
+.PHONY : basic/CMakeFiles/glist1.dir/rule
+
+# Convenience name for target.
+glist1: basic/CMakeFiles/glist1.dir/rule
+.PHONY : glist1
+
+# fast build rule for target.
+glist1/fast:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/glist1.dir/build.make basic/CMakeFiles/glist1.dir/build
+.PHONY : glist1/fast
+
+# Convenience name for target.
+basic/CMakeFiles/glist2.dir/rule:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/glist2.dir/rule
+.PHONY : basic/CMakeFiles/glist2.dir/rule
+
+# Convenience name for target.
+glist2: basic/CMakeFiles/glist2.dir/rule
+.PHONY : glist2
+
+# fast build rule for target.
+glist2/fast:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/glist2.dir/build.make basic/CMakeFiles/glist2.dir/build
+.PHONY : glist2/fast
 
 # Convenience name for target.
 basic/CMakeFiles/maze.dir/rule:
@@ -155,6 +211,20 @@ polyAdd/fast:
 .PHONY : polyAdd/fast
 
 # Convenience name for target.
+basic/CMakeFiles/queen.dir/rule:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/queen.dir/rule
+.PHONY : basic/CMakeFiles/queen.dir/rule
+
+# Convenience name for target.
+queen: basic/CMakeFiles/queen.dir/rule
+.PHONY : queen
+
+# fast build rule for target.
+queen/fast:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/queen.dir/build.make basic/CMakeFiles/queen.dir/build
+.PHONY : queen/fast
+
+# Convenience name for target.
 basic/CMakeFiles/sorting.dir/rule:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f CMakeFiles/Makefile2 basic/CMakeFiles/sorting.dir/rule
 .PHONY : basic/CMakeFiles/sorting.dir/rule
@@ -167,6 +237,78 @@ sorting: basic/CMakeFiles/sorting.dir/rule
 sorting/fast:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/sorting.dir/build.make basic/CMakeFiles/sorting.dir/build
 .PHONY : sorting/fast
+
+GList1.o: GList1.c.o
+.PHONY : GList1.o
+
+# target to build an object file
+GList1.c.o:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/glist1.dir/build.make basic/CMakeFiles/glist1.dir/GList1.c.o
+.PHONY : GList1.c.o
+
+GList1.i: GList1.c.i
+.PHONY : GList1.i
+
+# target to preprocess a source file
+GList1.c.i:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/glist1.dir/build.make basic/CMakeFiles/glist1.dir/GList1.c.i
+.PHONY : GList1.c.i
+
+GList1.s: GList1.c.s
+.PHONY : GList1.s
+
+# target to generate assembly for a file
+GList1.c.s:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/glist1.dir/build.make basic/CMakeFiles/glist1.dir/GList1.c.s
+.PHONY : GList1.c.s
+
+GList2.o: GList2.c.o
+.PHONY : GList2.o
+
+# target to build an object file
+GList2.c.o:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/glist2.dir/build.make basic/CMakeFiles/glist2.dir/GList2.c.o
+.PHONY : GList2.c.o
+
+GList2.i: GList2.c.i
+.PHONY : GList2.i
+
+# target to preprocess a source file
+GList2.c.i:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/glist2.dir/build.make basic/CMakeFiles/glist2.dir/GList2.c.i
+.PHONY : GList2.c.i
+
+GList2.s: GList2.c.s
+.PHONY : GList2.s
+
+# target to generate assembly for a file
+GList2.c.s:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/glist2.dir/build.make basic/CMakeFiles/glist2.dir/GList2.c.s
+.PHONY : GList2.c.s
+
+binaryTree.o: binaryTree.c.o
+.PHONY : binaryTree.o
+
+# target to build an object file
+binaryTree.c.o:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/binaryTree.dir/build.make basic/CMakeFiles/binaryTree.dir/binaryTree.c.o
+.PHONY : binaryTree.c.o
+
+binaryTree.i: binaryTree.c.i
+.PHONY : binaryTree.i
+
+# target to preprocess a source file
+binaryTree.c.i:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/binaryTree.dir/build.make basic/CMakeFiles/binaryTree.dir/binaryTree.c.i
+.PHONY : binaryTree.c.i
+
+binaryTree.s: binaryTree.c.s
+.PHONY : binaryTree.s
+
+# target to generate assembly for a file
+binaryTree.c.s:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/binaryTree.dir/build.make basic/CMakeFiles/binaryTree.dir/binaryTree.c.s
+.PHONY : binaryTree.c.s
 
 calExpression.o: calExpression.c.o
 .PHONY : calExpression.o
@@ -216,6 +358,30 @@ dataConversion.c.s:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/dataConversion.dir/build.make basic/CMakeFiles/dataConversion.dir/dataConversion.c.s
 .PHONY : dataConversion.c.s
 
+directedGraph.o: directedGraph.c.o
+.PHONY : directedGraph.o
+
+# target to build an object file
+directedGraph.c.o:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/directedGraph.dir/build.make basic/CMakeFiles/directedGraph.dir/directedGraph.c.o
+.PHONY : directedGraph.c.o
+
+directedGraph.i: directedGraph.c.i
+.PHONY : directedGraph.i
+
+# target to preprocess a source file
+directedGraph.c.i:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/directedGraph.dir/build.make basic/CMakeFiles/directedGraph.dir/directedGraph.c.i
+.PHONY : directedGraph.c.i
+
+directedGraph.s: directedGraph.c.s
+.PHONY : directedGraph.s
+
+# target to generate assembly for a file
+directedGraph.c.s:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/directedGraph.dir/build.make basic/CMakeFiles/directedGraph.dir/directedGraph.c.s
+.PHONY : directedGraph.c.s
+
 maze.o: maze.c.o
 .PHONY : maze.o
 
@@ -264,6 +430,30 @@ polyAdd.c.s:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/polyAdd.dir/build.make basic/CMakeFiles/polyAdd.dir/polyAdd.c.s
 .PHONY : polyAdd.c.s
 
+queen.o: queen.c.o
+.PHONY : queen.o
+
+# target to build an object file
+queen.c.o:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/queen.dir/build.make basic/CMakeFiles/queen.dir/queen.c.o
+.PHONY : queen.c.o
+
+queen.i: queen.c.i
+.PHONY : queen.i
+
+# target to preprocess a source file
+queen.c.i:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/queen.dir/build.make basic/CMakeFiles/queen.dir/queen.c.i
+.PHONY : queen.c.i
+
+queen.s: queen.c.s
+.PHONY : queen.s
+
+# target to generate assembly for a file
+queen.c.s:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f basic/CMakeFiles/queen.dir/build.make basic/CMakeFiles/queen.dir/queen.c.s
+.PHONY : queen.c.s
+
 sorting.o: sorting.c.o
 .PHONY : sorting.o
 
@@ -294,25 +484,45 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... binaryTree"
 	@echo "... calc"
 	@echo "... dataConversion"
+	@echo "... directedGraph"
 	@echo "... edit_cache"
+	@echo "... glist1"
+	@echo "... glist2"
 	@echo "... maze"
 	@echo "... polyAdd"
+	@echo "... queen"
 	@echo "... rebuild_cache"
 	@echo "... sorting"
+	@echo "... GList1.o"
+	@echo "... GList1.i"
+	@echo "... GList1.s"
+	@echo "... GList2.o"
+	@echo "... GList2.i"
+	@echo "... GList2.s"
+	@echo "... binaryTree.o"
+	@echo "... binaryTree.i"
+	@echo "... binaryTree.s"
 	@echo "... calExpression.o"
 	@echo "... calExpression.i"
 	@echo "... calExpression.s"
 	@echo "... dataConversion.o"
 	@echo "... dataConversion.i"
 	@echo "... dataConversion.s"
+	@echo "... directedGraph.o"
+	@echo "... directedGraph.i"
+	@echo "... directedGraph.s"
 	@echo "... maze.o"
 	@echo "... maze.i"
 	@echo "... maze.s"
 	@echo "... polyAdd.o"
 	@echo "... polyAdd.i"
 	@echo "... polyAdd.s"
+	@echo "... queen.o"
+	@echo "... queen.i"
+	@echo "... queen.s"
 	@echo "... sorting.o"
 	@echo "... sorting.i"
 	@echo "... sorting.s"

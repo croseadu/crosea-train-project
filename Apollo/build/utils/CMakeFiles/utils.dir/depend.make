@@ -16,6 +16,12 @@ utils/CMakeFiles/utils.dir/queue.c.o: ../include/queue.h
 utils/CMakeFiles/utils.dir/queue.c.o: ../include/utils.h
 utils/CMakeFiles/utils.dir/queue.c.o: ../utils/queue.c
 
+utils/CMakeFiles/utils.dir/set.c.o: ../include/common.h
+utils/CMakeFiles/utils.dir/set.c.o: ../include/memory.h
+utils/CMakeFiles/utils.dir/set.c.o: ../include/set.h
+utils/CMakeFiles/utils.dir/set.c.o: ../include/singleLinkList.h
+utils/CMakeFiles/utils.dir/set.c.o: ../utils/set.c
+
 utils/CMakeFiles/utils.dir/singleLinkList.c.o: ../include/common.h
 utils/CMakeFiles/utils.dir/singleLinkList.c.o: ../include/memory.h
 utils/CMakeFiles/utils.dir/singleLinkList.c.o: ../include/singleLinkList.h

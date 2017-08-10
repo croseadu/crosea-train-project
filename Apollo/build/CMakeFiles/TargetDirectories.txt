@@ -1,7 +1,12 @@
+/usr2/yuehaid/code/train/Apollo/build/basic/CMakeFiles/binaryTree.dir
 /usr2/yuehaid/code/train/Apollo/build/basic/CMakeFiles/calc.dir
 /usr2/yuehaid/code/train/Apollo/build/basic/CMakeFiles/dataConversion.dir
+/usr2/yuehaid/code/train/Apollo/build/basic/CMakeFiles/directedGraph.dir
+/usr2/yuehaid/code/train/Apollo/build/basic/CMakeFiles/glist1.dir
+/usr2/yuehaid/code/train/Apollo/build/basic/CMakeFiles/glist2.dir
 /usr2/yuehaid/code/train/Apollo/build/basic/CMakeFiles/maze.dir
 /usr2/yuehaid/code/train/Apollo/build/basic/CMakeFiles/polyAdd.dir
+/usr2/yuehaid/code/train/Apollo/build/basic/CMakeFiles/queen.dir
 /usr2/yuehaid/code/train/Apollo/build/basic/CMakeFiles/sorting.dir
 /usr2/yuehaid/code/train/Apollo/build/test/CMakeFiles/testDoubleLinkList.dir
 /usr2/yuehaid/code/train/Apollo/build/test/CMakeFiles/testQueue.dir

@@ -1,0 +1,1 @@
+/usr/bin/cc   -O0 -g    CMakeFiles/binaryTree.dir/binaryTree.c.o  -o ../bin/binaryTree -rdynamic ../utils/libutils.a 

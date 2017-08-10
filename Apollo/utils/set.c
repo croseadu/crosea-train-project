@@ -3,12 +3,11 @@
 #include "common.h"
 #include "set.h"
 
-typedef struct _Set
-{
-	LPSingleLinkList pList;
-}Set, *LPSet;
+#include "memory.h"
 
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
 
 BOOL
 createSet(
@@ -26,8 +25,8 @@ createSet(
 
 	if (False == createSingleLinkList(&pSet->pList,
 					  elementSize,
-					  less,
-					  printer)) {
+					  printer,
+				          less)) {
 		myFree(pSet);
 		return False;
 	}
@@ -88,7 +87,8 @@ insertToSet(
 	if (*it != NULL && pSet->pList->less(key, (*it)->data) == False)
 		return False;
 
-	return insertBeforeInSingleLinkList(pSet->pList, it, key);
+	insertBeforeInSingleLinkList(pSet->pList, it, key);
+	return True;
 }
 
 void
@@ -96,15 +96,19 @@ eraseFromSet(
 	LPSet pSet,
 	SetIter it)
 {
-	eraseFromSingleLinkList(pSet->pList, (SingleLinkListIter)it);
+	removeFromSingleLinkList(pSet->pList, (SingleLinkListIter)it);
 }
 
 BOOL
 eraseKeyFromSet(
-	LPSet pSEt,
+	LPSet pSet,
 	const void *key)
 {
-	eraseKeyFromSingleLinkList(pSet->pList, key);
+	SingleLinkListIter it;
+	it = findInSingleLinkList(pSet->pList, key);
+	if (*it == NULL)
+		return False;
+	removeFromSingleLinkList(pSet->pList, it );
 }
 
 

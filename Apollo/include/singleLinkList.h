@@ -50,6 +50,12 @@ insertToTailOfSingleLinkList(
 
 typedef LPSingleLinkListNode * SingleLinkListIter;
 
+void
+insertBeforeInSingleLinkList(
+	LPSingleLinkList pList,
+	SingleLinkListIter it,
+	const void *data);
+
 
 SingleLinkListIter
 findInSingleLinkList(

@@ -6,6 +6,7 @@ set(SOURCES
   queue.c
   utils.c
   memory.c
+  set.c
   )
 
 add_library(utils ${SOURCES})

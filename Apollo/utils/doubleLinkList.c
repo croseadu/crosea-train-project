@@ -155,8 +155,8 @@ findInDoubleLinkList(
 	it = &pList->pHead->pNext;
 
 	while ( *it != pList->pHead && 
-	        pList->less((*it)->data, data) == False &&
-		pList->less(data, (*it)->data) == False ) {
+	        !(pList->less((*it)->data, data) == False &&
+		  pList->less(data, (*it)->data) == False) ) {
 		it = &(*it)->pNext;
 	}
 

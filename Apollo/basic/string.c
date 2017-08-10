@@ -1,0 +1,2 @@
+// KMP
+// regular sub str

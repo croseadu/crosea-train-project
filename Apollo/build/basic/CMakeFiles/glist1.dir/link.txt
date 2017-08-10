@@ -1,0 +1,1 @@
+/usr/bin/cc   -O0 -g    CMakeFiles/glist1.dir/GList1.c.o  -o ../bin/glist1 -rdynamic ../utils/libutils.a 

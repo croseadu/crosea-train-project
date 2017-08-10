@@ -1,0 +1,1 @@
+/usr/bin/cc   -O0 -g    CMakeFiles/directedGraph.dir/directedGraph.c.o  -o ../bin/directedGraph -rdynamic ../utils/libutils.a 

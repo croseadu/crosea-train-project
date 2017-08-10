@@ -6,6 +6,7 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/utils.dir/queue.c.o"
   "CMakeFiles/utils.dir/utils.c.o"
   "CMakeFiles/utils.dir/memory.c.o"
+  "CMakeFiles/utils.dir/set.c.o"
   "libutils.pdb"
   "libutils.a"
 )

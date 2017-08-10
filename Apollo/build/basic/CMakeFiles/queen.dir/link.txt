@@ -1,0 +1,1 @@
+/usr/bin/cc   -O0 -g    CMakeFiles/queen.dir/queen.c.o  -o ../bin/queen -rdynamic ../utils/libutils.a 

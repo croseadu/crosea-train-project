@@ -78,3 +78,23 @@ isQueueEmpty(
 	return pQueue->pList->pHead->pNext == pQueue->pList->pHead ? True : False;
 }
 
+void
+getFrontofQueue(
+	const LPQueue pQueue,
+	void *data)
+{
+	assert(isQueueEmpty(pQueue) == False);
+	getFrontOfDoubleLinkList(pQueue->pList, data);
+
+}
+
+void
+getBackOfQueue(
+	const LPQueue pQueue,
+	void *data)
+{
+	assert(isQueueEmpty(pQueue) == False);
+	getBackOfDoubleLinkList(pQueue->pList, data);
+}
+
+

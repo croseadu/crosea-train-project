@@ -210,6 +210,29 @@ utils/CMakeFiles/utils.dir/memory.c.o.provides: utils/CMakeFiles/utils.dir/memor
 
 utils/CMakeFiles/utils.dir/memory.c.o.provides.build: utils/CMakeFiles/utils.dir/memory.c.o
 
+utils/CMakeFiles/utils.dir/set.c.o: utils/CMakeFiles/utils.dir/flags.make
+utils/CMakeFiles/utils.dir/set.c.o: ../utils/set.c
+	$(CMAKE_COMMAND) -E cmake_progress_report /usr2/yuehaid/code/train/Apollo/build/CMakeFiles $(CMAKE_PROGRESS_8)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object utils/CMakeFiles/utils.dir/set.c.o"
+	cd /usr2/yuehaid/code/train/Apollo/build/utils && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/utils.dir/set.c.o   -c /usr2/yuehaid/code/train/Apollo/utils/set.c
+
+utils/CMakeFiles/utils.dir/set.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/utils.dir/set.c.i"
+	cd /usr2/yuehaid/code/train/Apollo/build/utils && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /usr2/yuehaid/code/train/Apollo/utils/set.c > CMakeFiles/utils.dir/set.c.i
+
+utils/CMakeFiles/utils.dir/set.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/utils.dir/set.c.s"
+	cd /usr2/yuehaid/code/train/Apollo/build/utils && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /usr2/yuehaid/code/train/Apollo/utils/set.c -o CMakeFiles/utils.dir/set.c.s
+
+utils/CMakeFiles/utils.dir/set.c.o.requires:
+.PHONY : utils/CMakeFiles/utils.dir/set.c.o.requires
+
+utils/CMakeFiles/utils.dir/set.c.o.provides: utils/CMakeFiles/utils.dir/set.c.o.requires
+	$(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/set.c.o.provides.build
+.PHONY : utils/CMakeFiles/utils.dir/set.c.o.provides
+
+utils/CMakeFiles/utils.dir/set.c.o.provides.build: utils/CMakeFiles/utils.dir/set.c.o
+
 # Object files for target utils
 utils_OBJECTS = \
 "CMakeFiles/utils.dir/singleLinkList.c.o" \
@@ -218,7 +241,8 @@ utils_OBJECTS = \
 "CMakeFiles/utils.dir/stack.c.o" \
 "CMakeFiles/utils.dir/queue.c.o" \
 "CMakeFiles/utils.dir/utils.c.o" \
-"CMakeFiles/utils.dir/memory.c.o"
+"CMakeFiles/utils.dir/memory.c.o" \
+"CMakeFiles/utils.dir/set.c.o"
 
 # External object files for target utils
 utils_EXTERNAL_OBJECTS =
@@ -230,6 +254,7 @@ utils/libutils.a: utils/CMakeFiles/utils.dir/stack.c.o
 utils/libutils.a: utils/CMakeFiles/utils.dir/queue.c.o
 utils/libutils.a: utils/CMakeFiles/utils.dir/utils.c.o
 utils/libutils.a: utils/CMakeFiles/utils.dir/memory.c.o
+utils/libutils.a: utils/CMakeFiles/utils.dir/set.c.o
 utils/libutils.a: utils/CMakeFiles/utils.dir/build.make
 utils/libutils.a: utils/CMakeFiles/utils.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking C static library libutils.a"
@@ -247,6 +272,7 @@ utils/CMakeFiles/utils.dir/requires: utils/CMakeFiles/utils.dir/stack.c.o.requir
 utils/CMakeFiles/utils.dir/requires: utils/CMakeFiles/utils.dir/queue.c.o.requires
 utils/CMakeFiles/utils.dir/requires: utils/CMakeFiles/utils.dir/utils.c.o.requires
 utils/CMakeFiles/utils.dir/requires: utils/CMakeFiles/utils.dir/memory.c.o.requires
+utils/CMakeFiles/utils.dir/requires: utils/CMakeFiles/utils.dir/set.c.o.requires
 .PHONY : utils/CMakeFiles/utils.dir/requires
 
 utils/CMakeFiles/utils.dir/clean:

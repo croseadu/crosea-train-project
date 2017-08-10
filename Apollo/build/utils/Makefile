@@ -184,6 +184,30 @@ queue.c.s:
 	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/queue.c.s
 .PHONY : queue.c.s
 
+set.o: set.c.o
+.PHONY : set.o
+
+# target to build an object file
+set.c.o:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/set.c.o
+.PHONY : set.c.o
+
+set.i: set.c.i
+.PHONY : set.i
+
+# target to preprocess a source file
+set.c.i:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/set.c.i
+.PHONY : set.c.i
+
+set.s: set.c.s
+.PHONY : set.s
+
+# target to generate assembly for a file
+set.c.s:
+	cd /usr2/yuehaid/code/train/Apollo/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/set.c.s
+.PHONY : set.c.s
+
 singleLinkList.o: singleLinkList.c.o
 .PHONY : singleLinkList.o
 
@@ -298,6 +322,9 @@ help:
 	@echo "... queue.o"
 	@echo "... queue.i"
 	@echo "... queue.s"
+	@echo "... set.o"
+	@echo "... set.i"
+	@echo "... set.s"
 	@echo "... singleLinkList.o"
 	@echo "... singleLinkList.i"
 	@echo "... singleLinkList.s"

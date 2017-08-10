@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/common.h
+
+../include/memory.h
+stddef.h
+-
+
+../include/singleLinkList.h
+common.h
+../include/common.h
+
+/usr2/yuehaid/code/train/Apollo/basic/GList1.c
+singleLinkList.h
+/usr2/yuehaid/code/train/Apollo/basic/singleLinkList.h
+memory.h
+/usr2/yuehaid/code/train/Apollo/basic/memory.h
+stdio.h
+-
+stdlib.h
+-
+assert.h
+-
+

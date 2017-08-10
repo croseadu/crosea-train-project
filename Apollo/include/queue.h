@@ -37,7 +37,13 @@ isQueueEmpty(
 	const LPQueue pQueue);
 
 
-
-
+void
+getfrontofqueue(
+	const LPQueue pQueue,
+	void *data);
+void
+getbackofqueue(
+	const LPQueue pQueue,
+	void *data);
 
 #endif

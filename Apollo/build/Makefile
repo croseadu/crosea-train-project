@@ -164,6 +164,19 @@ utils/fast:
 .PHONY : utils/fast
 
 #=============================================================================
+# Target rules for targets named binaryTree
+
+# Build rule for target.
+binaryTree: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 binaryTree
+.PHONY : binaryTree
+
+# fast build rule for target.
+binaryTree/fast:
+	$(MAKE) -f basic/CMakeFiles/binaryTree.dir/build.make basic/CMakeFiles/binaryTree.dir/build
+.PHONY : binaryTree/fast
+
+#=============================================================================
 # Target rules for targets named calc
 
 # Build rule for target.
@@ -188,6 +201,45 @@ dataConversion: cmake_check_build_system
 dataConversion/fast:
 	$(MAKE) -f basic/CMakeFiles/dataConversion.dir/build.make basic/CMakeFiles/dataConversion.dir/build
 .PHONY : dataConversion/fast
+
+#=============================================================================
+# Target rules for targets named directedGraph
+
+# Build rule for target.
+directedGraph: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 directedGraph
+.PHONY : directedGraph
+
+# fast build rule for target.
+directedGraph/fast:
+	$(MAKE) -f basic/CMakeFiles/directedGraph.dir/build.make basic/CMakeFiles/directedGraph.dir/build
+.PHONY : directedGraph/fast
+
+#=============================================================================
+# Target rules for targets named glist1
+
+# Build rule for target.
+glist1: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 glist1
+.PHONY : glist1
+
+# fast build rule for target.
+glist1/fast:
+	$(MAKE) -f basic/CMakeFiles/glist1.dir/build.make basic/CMakeFiles/glist1.dir/build
+.PHONY : glist1/fast
+
+#=============================================================================
+# Target rules for targets named glist2
+
+# Build rule for target.
+glist2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 glist2
+.PHONY : glist2
+
+# fast build rule for target.
+glist2/fast:
+	$(MAKE) -f basic/CMakeFiles/glist2.dir/build.make basic/CMakeFiles/glist2.dir/build
+.PHONY : glist2/fast
 
 #=============================================================================
 # Target rules for targets named maze
@@ -216,6 +268,19 @@ polyAdd/fast:
 .PHONY : polyAdd/fast
 
 #=============================================================================
+# Target rules for targets named queen
+
+# Build rule for target.
+queen: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 queen
+.PHONY : queen
+
+# fast build rule for target.
+queen/fast:
+	$(MAKE) -f basic/CMakeFiles/queen.dir/build.make basic/CMakeFiles/queen.dir/build
+.PHONY : queen/fast
+
+#=============================================================================
 # Target rules for targets named sorting
 
 # Build rule for target.
@@ -241,10 +306,15 @@ help:
 	@echo "... testSingleLinkList"
 	@echo "... testVector"
 	@echo "... utils"
+	@echo "... binaryTree"
 	@echo "... calc"
 	@echo "... dataConversion"
+	@echo "... directedGraph"
+	@echo "... glist1"
+	@echo "... glist2"
 	@echo "... maze"
 	@echo "... polyAdd"
+	@echo "... queen"
 	@echo "... sorting"
 .PHONY : help
 

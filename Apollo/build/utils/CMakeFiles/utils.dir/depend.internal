@@ -16,6 +16,12 @@ utils/CMakeFiles/utils.dir/queue.c.o
  ../include/queue.h
  ../include/utils.h
  /usr2/yuehaid/code/train/Apollo/utils/queue.c
+utils/CMakeFiles/utils.dir/set.c.o
+ ../include/common.h
+ ../include/memory.h
+ ../include/set.h
+ ../include/singleLinkList.h
+ /usr2/yuehaid/code/train/Apollo/utils/set.c
 utils/CMakeFiles/utils.dir/singleLinkList.c.o
  ../include/common.h
  ../include/memory.h

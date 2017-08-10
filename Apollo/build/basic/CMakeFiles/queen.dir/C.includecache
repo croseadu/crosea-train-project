@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/common.h
+
+/usr2/yuehaid/code/train/Apollo/basic/queen.c
+common.h
+/usr2/yuehaid/code/train/Apollo/basic/common.h
+stdio.h
+-
+stdlib.h
+-
+assert.h
+-
+

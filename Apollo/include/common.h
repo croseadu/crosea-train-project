@@ -19,7 +19,7 @@ typedef void (*Printer)(const void *);
 typedef BOOL (*Less)(const void *, const void *);
 typedef BOOL (*Pred)(const void *);
 
-
+typedef void (*Visitor)(void *);
 
 
 
